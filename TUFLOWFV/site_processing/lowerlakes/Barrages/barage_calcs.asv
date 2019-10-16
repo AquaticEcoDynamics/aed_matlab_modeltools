@@ -1,0 +1,86 @@
+clear all; close all;
+
+flow = tfv_readBCfile('Lock1_All.csv');
+
+flow.ML = flow.FLOW * 86400/1000;
+
+dvec = datevec(flow.Date);
+
+years = unique(dvec(:,1));
+
+inc = 1;
+
+for i = 1:length(years)
+    for j = 1:12
+        
+        mdate(inc,1) = datenum(years(i),j,1);
+        
+        sss = find(dvec(:,1) == years(i) & dvec(:,2) == j);
+        
+        monthly(inc,1) = sum(flow.ML(sss)) / 1000;
+        
+        inc = inc + 1;
+        
+    end
+end
+
+load barrages_daily.mat;
+
+
+bdate = barrages_daily.Total.Date;
+bflow = barrages_daily.Total.Flow * (86400/1000);
+
+dvec = datevec(bdate);
+
+u_years = unique(dvec(:,1));
+
+inc = 1;
+for i = 1:length(u_years)
+    for j = 1:12
+        
+        ddate(inc,1) = datenum(u_years(i),j,1);
+        sss = find(dvec(:,1) == u_years(i) & ...
+            dvec(:,2) == j);
+        
+        if ~isempty(sss)
+            total(inc,1) = sum(bflow(sss)) / 1000;
+        else
+            total(inc,1) = 0;
+        end
+        inc = inc + 1;
+        
+    end
+end
+
+
+[snum,sstr] = xlsread('Barrage.csv','A2:C100');
+
+moddate = datenum(snum(:,2),snum(:,1
+
+
+
+
+
+
+
+
+figure('position',[44         558        1743         420]);
+plot(mdate,monthly);hold on;
+plot(ddate,total);
+
+ylabel('Flow (GL / Month)');
+
+xlim([datenum(2013,01,01) datenum(2013,12,01)]);
+
+set(gca,'xtick',datenum(2013,01:01:12,01),'xticklabel',datestr(datenum(2013,01:01:12,01),'mm-yyyy'));
+
+
+grid on;
+
+
+
+
+
+
+
+saveas(gcf,'Lock1 Flow.png');

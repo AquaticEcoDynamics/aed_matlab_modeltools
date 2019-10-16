@@ -60,12 +60,9 @@ modflow = snum(:,3);
 
 
 target = tfv_readBCfile('Target.csv');
+evap = tfv_readBCfile('NetEvap_1.0.csv');
 
-vol = (827542923*0.1) * 1000;
-vol = vol * 1e-9;
 
-evap = (827542923* (5/100)) * 1000;
-evap = evap * 1e-9;
 
 figure('position',[44         558        1743         420]);
 plot(mdate,monthly);hold on;
@@ -76,8 +73,11 @@ ylabel('Flow (GL / Month)');
 
 yyaxis right
 
-plot(target.Date,target.target_value);
+plot(target.Date,target.target_value);hold on;
 
+plot([datenum(2013,08,01) datenum(2013,08,01)],[0 1],'--k');
+plot([datenum(2013,12,01) datenum(2013,12,01)],[0 1],'--k');
+ylim([0.5 0.9]);
 
 xlim([datenum(2013,01,01) datenum(2013,12,01)]);
 
@@ -87,15 +87,31 @@ set(gca,'xtick',datenum(2013,01:01:12,01),'xticklabel',datestr(datenum(2013,01:0
 grid on;
 
 
-sss = find(mdate >= datenum(2013,07,1) & mdate < datenum(2013,12,01));
-ttt = find(ddate >= datenum(2013,07,1) & ddate < datenum(2013,12,01));
-www = find(moddate >= datenum(2013,07,1) & moddate < datenum(2013,12,01));
+sss = find(evap.Date >= datenum(2013,08,01) & evap.Date <= datenum(2013,12,01));
+
+mean_evap = mean(evap.NetEvap_mmd(sss));
+
+alex_area =   649000000;
+albert_area = 168000000;
+
+total_area = alex_area + albert_area;
+
+
+evap = (total_area * (mean_evap/1000)) * 1000;
+evap = evap * 1e-9;
+
+
+
+
+sss = find(mdate >= datenum(2013,08,1) & mdate < datenum(2013,12,01));
+ttt = find(ddate >= datenum(2013,08,1) & ddate < datenum(2013,12,01));
+www = find(moddate >= datenum(2013,08,1) & moddate < datenum(2013,12,01));
 
 total_flow = sum(monthly(sss));
 calc_barrage = sum(total(ttt));
 model_barrage = sum(modflow(www));
 
-datearray = datenum(2013,07,01:01:153);
+datearray = datenum(2013,08,01:01:122);
 
 total_evap = evap * length(datearray);
 

@@ -29,9 +29,9 @@ varname = {...
 };
 
 
-def.cAxis(1).value = [5 35];    %'TEMP',...
-def.cAxis(2).value = [0 20];    %'WQ_OXY_OXY',...
-def.cAxis(3).value = [0 5];    %'SAL',...
+def.cAxis(1).value = [0 5];    %'SAL',...
+def.cAxis(2).value = [5 35];    %'TEMP',...
+def.cAxis(3).value = [0 20];    %'WQ_OXY_OXY',...
 def.cAxis(4).value = [-1 2];	%'H',...
 def.cAxis(5).value = [0 0.6];   %'WQ_NIT_AMM',...
 def.cAxis(6).value = [0 1];     %'WQ_NIT_NIT',...
@@ -47,7 +47,7 @@ def.cAxis(15).value = [0 5]; 	%'WQ_DIAG_TOT_TN',...
 def.cAxis(16).value = [0 1.5]; 	%'WQ_DIAG_TOT_TP',...
 def.cAxis(17).value = [0 150]; 	%'WQ_DIAG_TOT_TURBIDITY',...
 
-polygon_file = 'GIS/CLLMM/Final_Sites.shp';
+polygon_file = 'GIS/CLLMM/CEWH_Reporting.shp';
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
@@ -75,13 +75,13 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\2013_2019_test_sim_old_bin\Regions\';
+outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\2013_2019_AED_Narrung_Reporting_Sites\Regions\';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'K:\v001_CEW_2013_2019_v1\Output\lower_lakes.nc';
+ ncfile(1).name = 'K:\v001_CEW_2013_2019_v1\Output\lower_lakes_old_Wind.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
  ncfile(1).legend = 'v11';
@@ -161,7 +161,7 @@ outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\
 % def.datearray = datenum(yr,11:05:41,01);
 
 yr = 2013;
-def.datearray = datenum(yr,01:06:24,01);
+def.datearray = datenum(yr,01:06:36,01);
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';

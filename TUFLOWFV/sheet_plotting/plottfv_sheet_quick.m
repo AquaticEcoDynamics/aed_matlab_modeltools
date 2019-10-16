@@ -4,16 +4,16 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'K:\v001_CEW_2013_2019_v1\Output\lower_lakes.nc';
+ncfile = 'K:\v001_CEW_2013_2019_v1\Output\Bak\lower_lakes_old_Wind.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\v001_CEW_2013_2019_v1_SALINITY\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\v001_CEW_2013_2019_v1_H_Old\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'SAL';
+varname = 'H';
 
-cax = [0 30];
+cax = [0.5 1];
 
-title = 'Salinity';
+title = 'Height';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen
@@ -128,7 +128,11 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
 
         
         patFig = patch('faces',faces,'vertices',vert,'FaceVertexCData',cdata);shading flat
-        set(gca,'box','on');
+        set(gca,'box','on');hold on
+        
+        
+        plot(332260.0,6076740.0,'*k');
+        
         
         set(findobj(gca,'type','surface'),...
             'FaceLighting','phong',...
@@ -171,8 +175,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
         
         
-          xlim([284433.90945021           343784.22840022]);
-          ylim([6045319.47938355          6083236.44160811]);
+          xlim([288922.610385964          361288.350158344]);
+          ylim([6046893.24459074          6093125.33011016]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

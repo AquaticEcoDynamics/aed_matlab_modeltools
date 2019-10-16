@@ -1,11 +1,11 @@
 
-fid = fopen('001_RM_Wetlands_LL_Coorong_MZ.2dm','rt');
-fid2 = fopen('001_RM_Wetlands_LL_Coorong_MZ_Narrung.2dm','wt');
+fid = fopen('001_RM_Wetlands_LL_Coorong_MZ_Narrung.2dm','rt');
+fid2 = fopen('001_RM_Wetlands_LL_Coorong_MZ_Narrung_Mouth.2dm','wt');
 
 fline = fgetl(fid);
 fprintf(fid2,'%s\n',fline);
 
-shp = shaperead('gis/nurrung.shp');
+shp = shaperead('gis/mouth.shp');
 
 while ~feof(fid)
     fline = fgetl(fid);
@@ -26,13 +26,13 @@ while ~feof(fid)
                 
                 ZZ = ZZ - (shp(j).Depth/1);
                 
-                if ZZ > 1
-                    ZZ = ZZ - (shp(j).Depth/1);
-                end
-                
-                if ZZ > 0.3
-                    ZZ = ZZ - (shp(j).Depth/1);
-                end
+%                 if ZZ > 1
+%                     ZZ = ZZ - (shp(j).Depth/1);
+%                 end
+%                 
+%                 if ZZ > 0.3
+%                     ZZ = ZZ - (shp(j).Depth/1);
+%                 end
                 
             end
         end

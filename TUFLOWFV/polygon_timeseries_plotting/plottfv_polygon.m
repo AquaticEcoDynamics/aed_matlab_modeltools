@@ -117,7 +117,21 @@ for var = 1:length(varname)
 
                 raw(mod).data.OXYPC = tra.TRACE_1 ./ oxy.WQ_AED_OXYGEN_OXY;
                 clear tra oxy
+            case 'WindSpeed'
+                oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                
+                raw(mod).data.WindSpeed = sqrt(power(oxy.W10_x,2) + power(oxy.W10_y,2));
+                clear  oxy
+                
+            case 'WindDirection'
+                
+                oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
 
+                raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);
+                
+                clear  oxy
+                
+                
             case 'WQ_DIAG_PHY_TCHLA'
                 
                 if sum(strcmpi(allvars,'WQ_DIAG_PHY_TCHLA')) == 0
@@ -238,11 +252,11 @@ for var = 1:length(varname)
 
 
             case 'TURB'
-                SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_SS1'});
+                SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});
                 POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});
                 GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
 
-                raw(mod).data.TURB = (SS1.WQ_TRC_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
+                raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
 
                 clear TP FRP
 

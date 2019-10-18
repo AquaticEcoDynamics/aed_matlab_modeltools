@@ -30,7 +30,7 @@ while ~EOF
         
         for ii = 1:length(headers);
             
-            if strcmpi(headers{ii},'ISOTime')
+            if strcmpi(headers{ii},'ISOTime') | strcmpi(headers{ii},'time') | strcmpi(headers{ii},'Date')
                 data.Date(inc,1) = datenum(dataline{ii},...
                                         'dd/mm/yyyy HH:MM');
             else

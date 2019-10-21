@@ -1,0 +1,35 @@
+clear all; close all;
+
+matdir = 'J:\Matfiles_All\run_2004_2007\';
+
+vars = {'TEMP';'SAL';'WQ_OXY_OXY';'WQ_NIT_AMM';};
+
+outputdates = [datenum(2005,01,01,12,000,00),...
+    datenum(2005,02,01,12,000,00),...
+    datenum(2005,07,01,12,000,00),...
+    datenum(2005,08,01,12,000,00)];
+
+for i = 1:length(vars)
+    load([matdir,vars{i},'.mat']);
+    
+    for j = 1:length(outputdates)
+        [~,ind] = min(abs(savedata.Time - outputdates(j)));
+        
+        if abs(savedata.Time(ind) - outputdates(j)) < 1
+            
+            outdata.(vars{i}).Top(:,j) = savedata.(vars{i}).Top(:,ind);
+            outdata.(vars{i}).Bot(:,j) = savedata.(vars{i}).Top(:,ind);
+            
+        else
+            stop
+    
+    
+        end
+    end
+
+    clear savedata;
+end
+
+
+
+    

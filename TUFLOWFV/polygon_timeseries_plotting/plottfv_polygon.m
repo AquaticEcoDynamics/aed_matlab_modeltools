@@ -363,11 +363,12 @@ for var = 1:length(varname)
 
                                             if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                                 agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
+                                                
                                             else
                                                 agency = 'WIR';
                                             end
 
-                                            site_string = [site_string,' ',sitenames{sss(j)},'(',fdata.(sitenames{sss(j)}).(varname{var}).Agency,'),'];
+                                            site_string = [site_string,' ',sitenames{sss(j)},'(',agency,'),'];
 
                                             %                     if strcmpi(agency,'DEWNR')
 

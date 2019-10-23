@@ -81,7 +81,7 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\2013_2019_Reporting_v4\Regions\';
+outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\2013_2019_Reporting_v5\Regions\';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
@@ -93,17 +93,17 @@ outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\
  ncfile(1).legend = 'Obs';
  ncfile(1).translate = 1;
 %  
- ncfile(2).name = 'K:\Lowerlakes-CEW-Results\lower_lakes_noCEW.nc';
- ncfile(2).symbol = {'-';'--'};
- ncfile(2).colour = {'r','r'}; % Surface and Bottom
- ncfile(2).legend = 'No CEW';
- ncfile(2).translate = 1;
+%  ncfile(2).name = 'K:\Lowerlakes-CEW-Results\lower_lakes_ncep.nc';
+%  ncfile(2).symbol = {'-';'--'};
+%  ncfile(2).colour = {'r','r'}; % Surface and Bottom
+%  ncfile(2).legend = 'No CEW';
+%  ncfile(2).translate = 1;
  
- ncfile(3).name = 'K:\Lowerlakes-CEW-Results\lower_lakes_noEWater.nc';
- ncfile(3).symbol = {'-';'--'};
- ncfile(3).colour = {'b','b'}; % Surface and Bottom
- ncfile(3).legend = 'no eWater';
- ncfile(3).translate = 1;
+%  ncfile(3).name = 'K:\Lowerlakes-CEW-Results\lower_lakes_noEWater.nc';
+%  ncfile(3).symbol = {'-';'--'};
+%  ncfile(3).colour = {'b','b'}; % Surface and Bottom
+%  ncfile(3).legend = 'no eWater';
+%  ncfile(3).translate = 1;
 %  
 %  ncfile(3).name = 'K:\Peel_Scenarios\run_scenario_0a.nc';
 %  ncfile(3).symbol = {'-';'--'};

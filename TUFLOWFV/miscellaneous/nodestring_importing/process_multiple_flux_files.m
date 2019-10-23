@@ -12,17 +12,17 @@ main(1).fileout = 'K:\Lowerlakes-CEW-Results\Flux_File.csv';
 
 main(1).matout = 'K:\Lowerlakes-CEW-Results\Flux.mat';
 
-main(2).filename = 'K:\Lowerlakes-CEW-Results\lower_lakes_noCEW_FLUX.csv';
+main(2).filename = 'K:\Lowerlakes-CEW-Results\lower_lakes_ncep_FLUX.csv';
 
-main(2).fileout = 'K:\Lowerlakes-CEW-Results\Flux_File_noCEW.csv';
+main(2).fileout = 'K:\Lowerlakes-CEW-Results\Flux_File_ncep.csv';
 
-main(2).matout = 'K:\Lowerlakes-CEW-Results\Flux_noCEW.mat';
-
-main(3).filename = 'K:\Lowerlakes-CEW-Results\lower_lakes_noEWater_FLUX.csv';
-
-main(3).fileout = 'K:\Lowerlakes-CEW-Results\Flux_File_noEWater.csv';
-
-main(3).matout = 'K:\Lowerlakes-CEW-Results\Flux_noEWater.mat';
+main(2).matout = 'K:\Lowerlakes-CEW-Results\Flux_ncep.mat';
+% 
+% main(3).filename = 'K:\Lowerlakes-CEW-Results\lower_lakes_noEWater_FLUX.csv';
+% 
+% main(3).fileout = 'K:\Lowerlakes-CEW-Results\Flux_File_noEWater.csv';
+% 
+% main(3).matout = 'K:\Lowerlakes-CEW-Results\Flux_noEWater.mat';
 
 % %__________________________________________________________________________
 %main(2).filename = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_noCEW_newAED2\Output\lower_lakes_FLUX.csv';

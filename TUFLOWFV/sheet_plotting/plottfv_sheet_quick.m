@@ -4,22 +4,22 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'K:\v001_CEW_2013_2019_v1\Output\Bak\lower_lakes_old_Wind.nc';
+ncfile = 'Z:\PEEL\2016_Local\run_2016_2018.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\v001_CEW_2013_2019_v1_H_Old\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Peel\4_Simulations\PeelHarveyCatchmentModelResults\Nectar\Peel_v11\2016 Crash\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'H';
+varname = 'WQ_PHY_CRYPT';
 
-cax = [0.5 1];
+cax = [0 250];
 
-title = 'Height';
+title = 'CRYPT';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen
 save_images = 0;
 
-plot_interval = 4;
+plot_interval = 1;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -72,11 +72,11 @@ faces(faces(:,4)== 0,4) = faces(faces(:,4)== 0,1);
 
 first_plot = 1;
 
-%[~,indBB] = min(abs(timesteps - datenum(2016,03,01)));
+[~,indBB] = min(abs(timesteps - datenum(2016,11,01)));
 
 
 
-for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
+for i = indBB:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions
@@ -131,7 +131,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         set(gca,'box','on');hold on
         
         
-        plot(332260.0,6076740.0,'*k');
+        %plot(332260.0,6076740.0,'*k');
         
         
         set(findobj(gca,'type','surface'),...
@@ -175,8 +175,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
         
         
-          xlim([288922.610385964          361288.350158344]);
-          ylim([6046893.24459074          6093125.33011016]);
+          xlim([387966.19196582          393472.220545519]);
+          ylim([6392278.87159036          6395796.49173727]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

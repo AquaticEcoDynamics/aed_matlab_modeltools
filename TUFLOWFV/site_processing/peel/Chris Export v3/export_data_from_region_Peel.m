@@ -3,13 +3,13 @@ clear all; close all;
 addpath(genpath('Functions'));
 
 %dirlist = dir(['../Historical/','*.nc']);
-dirlist = dir(['J:\Reruns\NCFiles2/','*.nc']);
+dirlist = dir(['Z:\PEEL/','*.nc']);
 for bdb = 1:length(dirlist)
     
     %ncfile = ['../Historical/',dirlist(bdb).name];
-    ncfile = ['J:\Reruns\NCFiles2/',dirlist(bdb).name];
+    ncfile = ['Z:\PEEL/',dirlist(bdb).name];
     %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';
-    outdir = ['../Matfiles_Chris_v4/',regexprep(dirlist(bdb).name,'.nc',''),'/'];
+    outdir = ['Y:\/Matfiles_Chris_v4/',regexprep(dirlist(bdb).name,'.nc',''),'/'];
     %     if exist(outdir,'dir')
     %
     %     else

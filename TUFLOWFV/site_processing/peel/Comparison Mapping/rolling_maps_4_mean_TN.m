@@ -68,10 +68,15 @@ for i = 1:10 %the number of monthgroups
         sss = find(dvec(:,2) == therange(1) | dvec(:,2) == therange(2) | dvec(:,2) == therange(3) );
         
         thedata = data(j).savedata.(thevar).Top(:,sss);
-        thedata(thedata > 2000) = NaN;
         
         
-        TN = mean(~isnan(thedata),2);
+        ss = find(thedata > 5000);
+        
+        if ~isempty(ss)
+             TN = mean((thedata(:,1:end-1)),2);
+        else
+            TN = mean((thedata),2);
+        end
         %TN(TN > 100) = NaN;
         TN = TN * 14/1000;
         

@@ -2,15 +2,17 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-ncfile = 'Z:\PEEL\2016_Local\run_2016_2018.nc';
+ncfile = 'Z:\PEEL\2016_Local\run_2016_nov_2.nc';
 
 
-fid = fopen('IC_Peel_20161101.csv','wt');
+fid = fopen('run_2017_isotope.csv','wt');
 
 dat = tfv_readnetcdf(ncfile,'time',1);
 timesteps = dat.Time;
 
-[~,t_ind] = min(abs(timesteps - datenum(2016,11,01,00,00,00)));
+
+
+[~,t_ind] = min(abs(timesteps - datenum(2017,01,01,00,00,00)));
 
 
 rawGeo = tfv_readnetcdf(ncfile,'timestep',t_ind);

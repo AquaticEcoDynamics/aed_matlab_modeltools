@@ -4,19 +4,19 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'Z:\PEEL\2016_Local\run_2016_2018.nc';
+ncfile = 'J:\Historical\run_1980_1983.nc';
 
 outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Peel\4_Simulations\PeelHarveyCatchmentModelResults\Nectar\Peel_v11\2016 Crash\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_PHY_CRYPT';
+varname = 'WQ_DIAG_MAC_MAC';
 
 cax = [0 250];
 
 title = 'CRYPT';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 1; % 1 to save movie, 0 to just display on screen
+create_movie = 0; % 1 to save movie, 0 to just display on screen
 save_images = 0;
 
 plot_interval = 1;
@@ -27,7 +27,7 @@ plot_interval = 1;
 clip_depth = 0.05;% In m
 %clip_depth = 999;% In m
 
-isTop = 1;
+isTop = 0;
 
 %____________
 
@@ -76,7 +76,7 @@ first_plot = 1;
 
 
 
-for i = indBB:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
+for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions
@@ -145,7 +145,7 @@ for i = indBB:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         x_lim = get(gca,'xlim');
         y_lim = get(gca,'ylim');
         
-        caxis(cax);
+%         caxis(cax);
         
         cb = colorbar;
         
@@ -173,16 +173,17 @@ for i = indBB:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
             'color','k');
         
         first_plot = 0;
+  
         
-        
-          xlim([387966.19196582          393472.220545519]);
-          ylim([6392278.87159036          6395796.49173727]);
+%           xlim([387966.19196582          393472.220545519]);
+%           ylim([6392278.87159036          6395796.49173727]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);
         set(gcf, 'PaperPositionMode', 'manual');
     set(gcf, 'PaperUnits', 'centimeters');
     set(gcf,'paperposition',[0.635                      6.35                     20.32                     15.24])
+    
     else
         
         set(patFig,'Cdata',cdata);
@@ -190,7 +191,7 @@ for i = indBB:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         
         set(txtDate,'String',datestr(timesteps(i),'dd mmm yyyy HH:MM'));
         
-        caxis(cax);
+        %caxis(cax);
 
     end
     

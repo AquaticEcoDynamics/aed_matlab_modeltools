@@ -1,0 +1,13 @@
+clear all; close all;
+
+    
+dirlist = dir(['BC_Files/','*.csv']);
+
+for i = 1:length(dirlist)
+    disp(dirlist(i).name);
+    data.(['bc_',regexprep(dirlist(i).name,'.csv','')]) = tfv_readBCfile(['BC_Files/',dirlist(i).name]);
+    
+end
+
+SAVE DATA.MAT DATA 
+    

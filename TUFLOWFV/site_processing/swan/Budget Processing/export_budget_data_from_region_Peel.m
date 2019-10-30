@@ -15,7 +15,7 @@ disp(ncfile);
 
 v_all = tfv_infonetcdf(ncfile);
 %vars = v_all(23:end);
-vars = v_all(20:21);
+vars = v_all([20 21 23:end]);
 %outdir = 'I:\Peel\Matfiles/Peel_WQ_Model_v5_2016_2017_3D_Murray/';
 
 %load Export_Locations.mat;

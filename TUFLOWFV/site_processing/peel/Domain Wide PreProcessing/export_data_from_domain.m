@@ -2,8 +2,8 @@
 
 addpath(genpath('Functions'));
 
-ncdir = 'T:\PEEL\NEWER/';
-savedir = 'T:\Processed/';
+ncdir = 'H:\Peel_Scenarios\Scenarios/';
+savedir = 'H:\Peel_Scenarios\Processed/';
 
 dirlist = dir([ncdir,'*.nc']);
 

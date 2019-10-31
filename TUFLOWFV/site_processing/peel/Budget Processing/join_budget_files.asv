@@ -1,0 +1,28 @@
+clear all; close all;
+
+basedir = 'Y:\Peel Final Report\Budget_v11\run_2016_2018\';
+joindir = 'Y:\Peel Final Report\Budget_v11\run_2016_nov_2\';
+findir = 'Y:\Peel Final Report\Budget_v11\run_2016_joined\';
+
+sitelist = dir(basedir);
+
+for i = 3:length(sitelist)
+    vars = dir([basedir,sitelist(i).name,'/','*mat']);
+    for j = 1:length(vars)
+        bs = load([basedir,sitelist(i).name,'/',vars(j).name]);
+        jd = load([joindir,sitelist(i).name,'/',vars(j).name]);
+        
+        vname = regexprep(vars(j).name,'.mat','');
+        
+        savedata.X = bs.savedata.X;
+        savedata.Y = bs.savedata.Y;
+        savedata.Time = [bs.savedata.Time;jd.savedata.Time];
+        savedata.(vname).Top = [bs.save
+            
+            
+        
+    end
+    
+end
+
+

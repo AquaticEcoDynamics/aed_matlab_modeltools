@@ -62,7 +62,7 @@ vars = {...
 
 
 
-for bdb = 1:length(dirlist)
+for bdb = (length(dirlist)-2):length(dirlist)
     
     ncfile = [ncdir,dirlist(bdb).name];
     %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';

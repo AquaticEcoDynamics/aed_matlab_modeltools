@@ -4,17 +4,17 @@ addpath(genpath('tuflowfv'));
 
 %__________________________________________________________________________
 
-dirlist = dir(['Fluxes 2/']);
+dirlist = dir(['Flux_IN/']);
 
 int = 1;
 for i = 3:length(dirlist)
     %__________________________________________________________________________
     
-    main(int).filename = ['Fluxes 2\',dirlist(i).name];
+    main(int).filename = ['Flux_IN\',dirlist(i).name];
     
-    main(int).fileout = ['Flux_Proc_2\',dirlist(i).name];
+    main(int).fileout = ['Flux_OUT\',dirlist(i).name];
     
-    main(int).matout = ['Flux_Proc_2\',regexprep(dirlist(i).name,'.csv','.mat')];
+    main(int).matout = ['Flux_OUT\',regexprep(dirlist(i).name,'.csv','.mat')];
     
     int = int + 1;
 end

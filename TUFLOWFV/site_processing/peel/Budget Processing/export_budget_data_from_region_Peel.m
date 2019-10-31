@@ -4,9 +4,10 @@ addpath(genpath('Functions'));
 
 
 
-ncfile = 'H:\Peel_Scenarios\Scenarios\run_scenario_3a.nc';
+
+ncfile = 'T:\PEEL\NEWER\run_2016_nov_2.nc';
 %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';
-outdir = 'H:\Peel_Scenarios\Scenarios\Budget_v11\run_scenario_3a\';
+outdir = 'Y:\Peel Final Report\Budget_v11\run_2016_nov_2\';
 if exist(outdir,'dir')
     mkdir(outdir);
 end

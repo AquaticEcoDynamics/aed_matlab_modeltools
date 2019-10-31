@@ -2,18 +2,19 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-ncfile = 'T:\PEEL\NEWER\run_1981_1983.nc';
+ncfile = 'T:\PEEL\NEWER\run_1996_1998.nc';
 
 
-fid = fopen('run_1981_1981015.csv','wt');
+fid = fopen('run_1996_1998_restart.csv','wt');
 
 dat = tfv_readnetcdf(ncfile,'time',1);
 timesteps = dat.Time;
 
 
 
-[~,t_ind] = min(abs(timesteps - datenum(2013,10,15,00,00,00)));
+[~,t_ind] = min(abs(timesteps - datenum(1982,11,10,00,00,00)));
 
+disp(datestr(timesteps(t_ind)));
 
 rawGeo = tfv_readnetcdf(ncfile,'timestep',t_ind);
 

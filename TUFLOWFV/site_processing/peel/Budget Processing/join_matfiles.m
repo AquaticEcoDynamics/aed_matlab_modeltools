@@ -1,11 +1,11 @@
 
 clear all; close all;
 
-dirlist = dir(['Flux_proc/','*.mat']);
+dirlist = dir(['Flux_OUT/','*.mat']);
 
 flux_all = [];
 
-load(['Flux_proc/',dirlist(1).name]);
+load(['Flux_OUT/',dirlist(1).name]);
 
 sites = fieldnames(flux);
 vars = fieldnames(flux.(sites{1}));
@@ -14,7 +14,7 @@ flux_all = flux;
 
 for ii = 2:length(dirlist)
     clear flux;
-    load(['Flux_proc/',dirlist(ii).name]);
+    load(['Flux_OUT/',dirlist(ii).name]);
     
     for i = 1:length(sites)
         for j = 1:length(vars)

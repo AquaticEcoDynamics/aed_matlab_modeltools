@@ -33,6 +33,8 @@ for i = 3:length(sitelist)
         
         save([findir,sitelist(i).name,'/',vars(j).name],'savedata','-mat','-v7.3');
         
+        clear savedata;
+        
     end
     
 end

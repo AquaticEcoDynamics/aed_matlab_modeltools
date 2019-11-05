@@ -1,6 +1,6 @@
 clear all; close all;
 
-maindir = 'Spreadsheets/New_Template/';
+maindir = 'Spreadsheets v11/New_Template_v6/';
 
 filelist = dir([maindir,'*.csv']);
 

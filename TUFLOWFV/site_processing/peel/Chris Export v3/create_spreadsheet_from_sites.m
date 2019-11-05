@@ -5,13 +5,13 @@ clear all; close all;
 load Export_Locations.mat;
 
 
-modlist = dir('J:\Matfiles_Chris_v4/');
+modlist = dir('Y:\Peel Final Report/Fish Index/');
 
 for ccc = 3:length(modlist)
     
     %maindir = 'Matfiles/Peel_WQ_Model_v5_2016_2017_3D_Murray/';
-    maindir = ['J:\Matfiles_Chris_v4/',modlist(ccc).name,'/'];
-    outdir = 'Spreadsheets/New_Template/';
+    maindir = ['Y:\Peel Final Report/Fish Index/',modlist(ccc).name,'/'];
+    outdir = 'Spreadsheets v11/New_Template_v6/';
     
     
     disp(maindir);
@@ -28,7 +28,7 @@ for ccc = 3:length(modlist)
     
     fid = fopen([outdir,modlist(ccc).name,'.csv'],'wt');
     
-    headers_str = ['Site Code,Site,AED Site,Year,mm,dd,area,num_cells,num_outputs,',...
+    headers_str = ['Site Code,Polygon ID,Site ID,AED Site,Type,Region,Year,mm,dd,ID,area,num_cells,num_outputs,',...
         'age_surface,age_bottom,salinity_surface,salinity_ bottom,',...
         'temp_surface,temp_bottom,oxygen_surface,oxygen_bottom,nh4_surface,nh4_bottom,',...
         'CHLA,sal_strat,sal_strat_area,'...
@@ -41,7 +41,7 @@ for ccc = 3:length(modlist)
     
     
     
-    
+    line_chx = 0;
     
     
     
@@ -114,17 +114,30 @@ for ccc = 3:length(modlist)
         Vy = savedata;
         
         
-        
+%             if strcmpi(shp(i).Name,'Val44') == 1
+%                     stop
+%                 end
         
         
         
         for k = 1:length(shp(i).Dates)
             
-            fprintf(fid,'%s,%s,%s,%s,%s,%s,',shp(i).Codes{k},shp(i).Name,shp(i).AED_Name,datestr(shp(i).Dates(k),'yyyy'),...
+            line_chx = line_chx + 1;
+            
+            fprintf(fid,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,',shp(i).Codes{k},shp(i).Name,shp(i).Chris_Code{k},...
+                shp(i).AED_Name,shp(i).Type{k},shp(i).Region,...
+                datestr(shp(i).Dates(k),'yyyy'),...
                 datestr(shp(i).Dates(k),'mm'),...
-                datestr(shp(i).Dates(k),'dd'));
+                datestr(shp(i).Dates(k),'dd'),...
+                shp(i).Chris_ID(k));
             
             
+%             
+%             for i = 1:length(shp)
+%                 if strcmpi(shp(i).Name,'Val44') == 1
+%                     stop
+%                 end
+%             end
             
             if ~isempty(depth.D)
                 hour_array = find(depth.Time > (shp(i).Dates(k)-numhours) & depth.Time <= shp(i).Dates(k));
@@ -133,7 +146,7 @@ for ccc = 3:length(modlist)
                 
                 thedepth = find(depth.D(:,hour_array) <= shp(i).Depth);
                 
-                fprintf(fid,'%4.4f,%4.4f,,',sum(area.cell_A),length(area.cell_A));;
+                fprintf(fid,'%4.4f,%4.4f,,',sum(area.cell_A),length(area.cell_A));
                 
                 
                 if ~isempty(hour_array)
@@ -143,7 +156,11 @@ for ccc = 3:length(modlist)
                         d_chx =  find(depth.D(:,hour_array(l)) <= shp(i).Depth);
                         
                         if isempty(d_chx)
+                            
                             d_chx =  find(depth.D(:,hour_array(l)) <= 10);
+                            if isempty(d_chx)
+                                stop
+                            end
                         end
                         
                         [~,age_ind] = min(abs(age.Time - depth.Time(hour_array(l))));
@@ -298,9 +315,9 @@ for ccc = 3:length(modlist)
                     clear amm_top amm_bot sal_top sal_bot temp_top temp_bot oxy_top oxy_bot age_top age_bot;
                 end
                 
-                fprintf(fid,'\n');
+                % fprintf(fid,',Depth Issues');
             end
-            
+            fprintf(fid,'\n');
             
             
             

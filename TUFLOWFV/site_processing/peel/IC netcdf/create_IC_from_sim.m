@@ -2,17 +2,17 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-ncfile = 'T:\PEEL\NEWER\run_1997_1998_restart.nc';
+ncfile = 'T:\PEEL\NEWER\run_2009_2010_rerun_Mickey.nc';
 
 
-fid = fopen('run_1997_1998_restart_restart.csv','wt');
+fid = fopen('run_2009_2010_rerun.csv','wt');
 
 dat = tfv_readnetcdf(ncfile,'time',1);
 timesteps = dat.Time;
 
 
 
-[~,t_ind] = min(abs(timesteps - datenum(1997,11,15,00,00,00)));
+[~,t_ind] = min(abs(timesteps - datenum(2009,11,10,00,00,00)));
 
 disp(datestr(timesteps(t_ind)));
 

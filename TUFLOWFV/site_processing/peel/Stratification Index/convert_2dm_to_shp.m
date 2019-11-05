@@ -10,6 +10,10 @@ function convert_2dm_to_shp(filename,outfile,varargin)
 % Keep the field names for the additional data short... ~ 6 letters
 
 %outfile = regexprep(filename,'.2dm','.shp');
+cut = shaperead('GIS/Cut.shp');
+ocean = shaperead('GIS/Ocean.shp');
+
+
 
 [XX,YY,ZZ,nodeID,faces,X,Y,Z,ID,MAT] = tfv_get_node_from_2dm(filename);
 
@@ -20,12 +24,60 @@ for i = 1:length(Z)
     S(i).Mat_Zone = MAT(i);
     S(i).Geometry = 'Polygon';
     
-    if length(varargin) > 1
-        for j = 1:2:length(varargin)
-            S(i).(varargin{j}) = varargin{j+1}(i);
-        end
+    switch outfile
+        case 'year1978.shp'
+            if inpolygon(X(i),Y(i),cut.X,cut.Y) | inpolygon(X(i),Y(i),ocean.X,ocean.Y)
+                
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = -10;
+                end
+            else
+                
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = varargin{j+1}(i);
+                end
+            end
+            
+        case 'year1990.shp'
+            if inpolygon(X(i),Y(i),cut.X,cut.Y) | inpolygon(X(i),Y(i),ocean.X,ocean.Y)
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = -10;
+                end
+            else
+                
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = varargin{j+1}(i);
+                end
+            end
+            
+        case 'year1998Open.shp'
+            if inpolygon(X(i),Y(i),ocean.X,ocean.Y)
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = -10;
+                end
+            else
+                
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = varargin{j+1}(i);
+                end
+            end
+            
+        case 'year2016Open.shp'
+            if inpolygon(X(i),Y(i),ocean.X,ocean.Y)
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = -10;
+                end
+            else
+                
+                for j = 1:2:length(varargin)
+                    S(i).(varargin{j}) = varargin{j+1}(i);
+                end
+            end
+        otherwise
+            for j = 1:2:length(varargin)
+                S(i).(varargin{j}) = varargin{j+1}(i);
+            end
     end
-    
     
 end
 
@@ -101,7 +153,7 @@ while strcmpi(str{1},'ND') == 1
     XX(inc,1) = str2double(str{3});
     YY(inc,1) = str2double(str{4});
     ZZ(inc,1) = str2double(str{5});
-
+    
     inc = inc + 1;
     fline = fgetl(fid);
     str = strsplit(fline);

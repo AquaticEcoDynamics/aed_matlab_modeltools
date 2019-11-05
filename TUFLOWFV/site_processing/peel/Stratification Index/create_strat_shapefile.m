@@ -2,7 +2,7 @@ clear all; close all;
 
 load salt_stra_months.mat;
 
-years = {'year1970';'year1990';'year1998Open';'year2016Open'};
+years = {'year1978';'year1990';'year1998Open';'year2016Open'};
 
 for i = 1:length(years)
     outfile = [years{i},'.shp'];
@@ -18,6 +18,7 @@ for i = 1:length(years)
     Winter(end) = 0;
     
     Winter(Winter > 10) = 10;
+    Summer(Summer > 2) = 2;
     Summer(Summer < 0) = 0;
     Winter(Winter < 0) = 0;
     

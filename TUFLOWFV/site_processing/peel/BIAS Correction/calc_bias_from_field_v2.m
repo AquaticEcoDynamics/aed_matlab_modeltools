@@ -83,7 +83,12 @@ for v = 1:length(bias_vars)
         for l = 1:length(shp(j).Dates)
             fprintf(fid,'%s,%s,%s,%s,',shp(j).Codes{l},shp(j).Name,shp(j).AED_Name,datestr(shp(j).Dates(l)));
             
-            
+            mod_data_top = -999;
+            mod_data_bot = -999;
+            mean_ftop = -999;
+            mean_fbot = -999;
+            bias_t = -999;
+            bias_b = -999;
             
             if ~isempty(t_bot)
                 
@@ -101,53 +106,40 @@ for v = 1:length(bias_vars)
                     
                     sss = find(f_date_top >= (thedate(mInd) - 2) & ...
                         f_date_top <= (thedate(mInd) + 2));
-                    bias = [];
                     if ~isempty(sss)
-                        bias = mod_data_top - mean(f_top(sss));
-                        fprintf(fid,'%4.4f,',bias);
-                    else
-                        fprintf(fid,'0,');
+                        bias_t = mean(f_top(sss))- mod_data_top;
+                        mean_ftop = mean(f_top(sss));
                     end
                     
                     ttt = find(f_date_bot >= (thedate(mInd) - 2) & ...
                         f_date_bot <= (thedate(mInd) + 2));
-                    bias = [];
                     if ~isempty(ttt)
-                        bias = mod_data_bot - mean(t_bot(ttt));
-                        fprintf(fid,'%4.4f,',bias);
-                    else
-                        fprintf(fid,'0,');
+                        bias_b = mean(t_bot(ttt)) - mod_data_bot;
+                        mean_fbot =  mean(t_bot(ttt));
+                        
                     end
                     
                     
-                    if ~isempty(ttt)
-                        fprintf(fid,'%4.4f,%4.4f,%4.4f,%4.4f,',mod_data_top, mean(f_top(sss)),mod_data_bot, mean(t_bot(ttt)));
-                    else
-                        fprintf(fid,'0,0,0,0,');
-                    end
                     
                 end
                 
-                fprintf(fid,'\n');
                 
                 
                 
-            else
-                fprintf(fid,'0,0,0,0\n');
+                
             end
+            fprintf(fid,'%4.4f,%4.4f,%4.4f,%4.4f,%4.4f,%4.4f\n',bias_t,bias_b,mod_data_top,mean_ftop,mod_data_bot, mean_fbot);
+            
+            
         end
         
         
         
+        
     end
-    
     fclose(fid);
     
-    
-    
-    
-    
-%%
+    %%
     
     
     

@@ -2,7 +2,7 @@ clear all; close all;
 
 load salt_stra_months.mat;
 
-years = {'year1978';'year1990';'year1998Open';'year2016Open'};
+years = {'year1970';'year1990';'year1998Open';'year2016Open'};
 
 for i = 1:length(years)
     outfile = [years{i},'.shp'];
@@ -28,7 +28,7 @@ for i = 1:length(years)
     
     
     convert_2dm_to_shp('peel_v12_10m_dem_05m_clip_smooth_NS.2dm',outfile,'Summer',Summer,'Winter',Winter);
-    
+    stop
 end
 
 fSummer(1:length(Summer),1) = 0;

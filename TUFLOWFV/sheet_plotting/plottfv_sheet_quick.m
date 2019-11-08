@@ -4,16 +4,16 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'J:\Historical\run_1980_1983.nc';
+ncfile = 'T:\PEEL\NEWER\run_1981_1983.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Peel\4_Simulations\PeelHarveyCatchmentModelResults\Nectar\Peel_v11\2016 Crash\';
+outdir = 'run_1981_1983 Crash\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_DIAG_MAC_MAC';
+varname = 'WQ_PHY_GRN';
 
-cax = [0 250];
+cax = [0 40];
 
-title = 'CRYPT';
+title = 'GRN';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 0; % 1 to save movie, 0 to just display on screen

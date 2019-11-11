@@ -75,29 +75,29 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\2013_2019_AED_Narrung_Reporting_Sites\Regions\';
+outputdirectory = 'H:\Lowerlakes-CEW-Results\Regions\';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'K:\v001_CEW_2013_2019_v1\Output\lower_lakes_old_Wind.nc';
+ ncfile(1).name = 'H:\Lowerlakes-CEW-Results\Obs\lower_lakes.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(1).legend = 'v11';
+ ncfile(1).legend = 'Obs';
  ncfile(1).translate = 1;
 %  
-%  ncfile(2).name = 'J:\Historical\run_2016_BASE.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(2).legend = 'Restart';
-%  ncfile(2).translate = 1;
+ ncfile(2).name = 'H:\Lowerlakes-CEW-Results\NoCEW\lower_lakes_noCEW.nc';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = 'No CEW';
+ ncfile(2).translate = 1;
  
-%  ncfile(2).name = 'K:\Peel_Scenarios\run_2016_2017.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {'r','k'}; % Surface and Bottom
-%  ncfile(2).legend = 'v11';
-%  ncfile(2).translate = 1;
+ ncfile(3).name = 'H:\Lowerlakes-CEW-Results\NoEWater\lower_lakes_noEWater.nc';
+ ncfile(3).symbol = {'-';'--'};
+ ncfile(3).colour = {'r','k'}; % Surface and Bottom
+ ncfile(3).legend = 'No EWater';
+ ncfile(3).translate = 1;
 %  
 %  ncfile(3).name = 'K:\Peel_Scenarios\run_scenario_0a.nc';
 %  ncfile(3).symbol = {'-';'--'};
@@ -161,7 +161,7 @@ outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\
 % def.datearray = datenum(yr,11:05:41,01);
 
 yr = 2013;
-def.datearray = datenum(yr,01:06:36,01);
+def.datearray = datenum(yr:01:2019,04,01);
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';

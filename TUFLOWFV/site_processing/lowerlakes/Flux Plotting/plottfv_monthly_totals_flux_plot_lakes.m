@@ -1,18 +1,19 @@
 clear all; close all;
 
 
-mod(1).mat = 'K:\Lowerlakes-CEW-Results\Flux.mat';
+mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\\Flux.mat';
 mod(1).name = 'With all Water';
 mod(1).color = 'b';
 
-mod(2).mat = 'K:\Lowerlakes-CEW-Results\Flux_ncep.mat';
-mod(2).name = 'NCEP';
+mod(2).mat = 'H:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
+mod(2).name = 'No CEW';
 mod(2).color = 'r';
 % % % 
-% mod(3).mat = 'K:\Lowerlakes-CEW-Results\Flux_noEWater.mat';
-% mod(3).name = 'No eWater';
-% mod(3).color = 'g';
-% % 
+mod(3).mat = 'H:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
+mod(3).name = 'No eWater';
+mod(3).color = 'g';
+%
+
 
 xarray = datenum(2013:01:2019,07,01);
 
@@ -28,7 +29,7 @@ for i = 1:length(mod)
 end
 
 
-outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Lowerlakes\Project Results\CEWH 2019\Monthly Totals v5\';
+outputdirectory = 'H:\Lowerlakes-CEW-Results\Monthly Totals v5\';
 
 timeperiod = 2*60*60;
 

@@ -1,21 +1,21 @@
 clear all; close all;
 
 
-mod(1).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_v6_newAED2\Output\Flux.mat';
+mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\\Flux.mat';
 mod(1).name = 'With all Water';
 mod(1).color = 'b';
 
-mod(2).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_noCEW_newAED2\Output\Flux.mat';
+mod(2).mat = 'H:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
 mod(2).name = 'No CEW';
 mod(2).color = 'r';
 % % % 
-mod(3).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_noALL_newAED2\Output\Flux.mat';
+mod(3).mat = 'H:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
 mod(3).name = 'No eWater';
 mod(3).color = 'g';
 %
 
 
-xarray = datenum(2017,07:03:20,01);
+xarray = datenum(2013:01:2019,07,01);
 
 
 
@@ -31,7 +31,7 @@ for i = 1:length(mod)
 end
 
 
-outputdirectory = 'F:\Cloudstor\CEWH_2018_Results\Reporting\v006_CEW_2015_2018_v6_newAED2/\Cumulative Totals\';
+outputdirectory = 'H:\Lowerlakes-CEW-Results\Cumulative Totals\';
 
 timeperiod = 2*60*60;
 
@@ -208,31 +208,31 @@ for i = 1:length(sites)
                 leg(jjj) = {mod(jjj).name};
             end
             
-            ylim([cax_min(sss) cax_max(sss)]);
-            
-            if strcmpi(sites{i},'Murray') == 1
-                switch vars{j}
-                    
-                    case 'Salt'
-                        ylim([-7000000 1000000]);
-                    case 'PHS_frp'
-                        ylim([-0.5 20]);
-                    case 'NIT_amm'
-                        ylim([-20 5]);
-                    case 'SIL_rsi'
-                        ylim([-50 30000]);
-                    case 'PHY_grn'
-                        ylim([-10 50]);
-                    case 'Flow'
-                        ylim([-200 2000]);
-                    case 'ON'
-                        ylim([-400 2000]);
-                    case 'OP'
-                        ylim([-10 200]);
-                    otherwise
-                        ylim([cax_min(sss) cax_max(sss)]);
-                end
-            end
+%             ylim([cax_min(sss) cax_max(sss)]);
+%             
+%             if strcmpi(sites{i},'Murray') == 1
+%                 switch vars{j}
+%                     
+%                     case 'Salt'
+%                         ylim([-7000000 1000000]);
+%                     case 'PHS_frp'
+%                         ylim([-0.5 20]);
+%                     case 'NIT_amm'
+%                         ylim([-20 5]);
+%                     case 'SIL_rsi'
+%                         ylim([-50 30000]);
+%                     case 'PHY_grn'
+%                         ylim([-10 50]);
+%                     case 'Flow'
+%                         ylim([-200 2000]);
+%                     case 'ON'
+%                         ylim([-400 2000]);
+%                     case 'OP'
+%                         ylim([-10 200]);
+%                     otherwise
+%                         ylim([cax_min(sss) cax_max(sss)]);
+%                 end
+%             end
             
             xlim([(xarray(1) - 20) (xarray(end) + 20)]);
             %set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
@@ -313,27 +313,27 @@ for j = 1:length(vars)
             leg(jjj) = {mod(jjj).name};
         end
    
-                        switch vars{j}
-                    
-                    case 'Salt'
-                        ylim([0 1e6]);
-                    case 'PHS_frp'
-                        ylim([0 25]);
-                    case 'NIT_amm'
-                        ylim([0 15]);
-                    case 'SIL_rsi'
-                        ylim([0 30000]);
-                    case 'PHY_grn'
-                        ylim([0 75]);
-                    case 'Flow'
-                        ylim([0 3000]);
-                    case 'ON'
-                        ylim([0 3000]);
-                    case 'OP'
-                        ylim([0 500]);
-                    otherwise
-                        ylim([cax_min(sss) cax_max(sss)]);
-                end
+%                         switch vars{j}
+%                     
+%                     case 'Salt'
+%                         ylim([0 1e6]);
+%                     case 'PHS_frp'
+%                         ylim([0 25]);
+%                     case 'NIT_amm'
+%                         ylim([0 15]);
+%                     case 'SIL_rsi'
+%                         ylim([0 30000]);
+%                     case 'PHY_grn'
+%                         ylim([0 75]);
+%                     case 'Flow'
+%                         ylim([0 3000]);
+%                     case 'ON'
+%                         ylim([0 3000]);
+%                     case 'OP'
+%                         ylim([0 500]);
+%                     otherwise
+%                         ylim([cax_min(sss) cax_max(sss)]);
+%                 end
         
         
         

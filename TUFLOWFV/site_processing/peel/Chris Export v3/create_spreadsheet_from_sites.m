@@ -5,13 +5,13 @@ clear all; close all;
 load Export_Locations.mat;
 
 
-modlist = dir('Y:\Peel Final Report/Fish Index/');
+modlist = dir('Y:\Peel Final Report/Fish Index v12/');
 
 for ccc = 3:length(modlist)
     
     %maindir = 'Matfiles/Peel_WQ_Model_v5_2016_2017_3D_Murray/';
-    maindir = ['Y:\Peel Final Report/Fish Index/',modlist(ccc).name,'/'];
-    outdir = 'Spreadsheets v11/New_Template_v6/';
+    maindir = ['Y:\Peel Final Report/Fish Index v12/',modlist(ccc).name,'/'];
+    outdir = 'Spreadsheets v13/New_Template_v6/';
     
     
     disp(maindir);

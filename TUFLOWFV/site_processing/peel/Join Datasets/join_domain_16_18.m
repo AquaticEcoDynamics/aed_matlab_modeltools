@@ -1,8 +1,8 @@
 clear all; close all;
 
-basedir = 'Y:\Peel Final Report\Processed v11\run_2016_2018_local\';
-joindir = 'Y:\Peel Final Report\Processed v11\run_2016_nov_2\';
-findir = 'Y:\Peel Final Report\Processed_v11_joined\run_2016_2018_joined\';
+basedir = 'T:\PEEL\Processed v12\run_2016_2018_local\';
+joindir = 'T:\PEEL\Processed v12\run_2016_nov_2\';
+findir = 'Y:\Peel Final Report\Processed_v12_joined\run_2016_2018_joined\';
 
 
 vars = dir([joindir,'*mat']);
@@ -46,7 +46,7 @@ for j = 1:length(vars)
         mkdir([findir]);
     end
     
-    save([findir,vars(j).name,'.mat'],'savedata','-mat','-v7.3');
+    save([findir,vars(j).name],'savedata','-mat','-v7.3');
     
     clear savedata;
 end

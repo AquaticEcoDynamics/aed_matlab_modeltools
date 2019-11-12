@@ -1,8 +1,8 @@
 clear all; close all;
 
-basedir = 'Y:\Peel Final Report\Processed v11\run_1981_1983\';
-joindir = 'Y:\Peel Final Report\Processed v11\run_1981_1983_restart\';
-findir = 'Y:\Peel Final Report\Processed_v11_joined\run_1981_1983_joined\';
+basedir = 'T:\PEEL\Processed v12\run_1981_1983\';
+joindir = 'T:\PEEL\Processed v12\run_1981_1983_restart\';
+findir = 'Y:\Peel Final Report\Processed_v12_joined\run_1981_1983_joined\';
 
 
 vars = dir([basedir,'*mat']);

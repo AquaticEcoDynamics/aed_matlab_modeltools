@@ -1,6 +1,6 @@
 clear all; close all;
 
-findir = 'Y:\Peel Final Report\Processed_v11_joined\';
+findir = 'Y:\Peel Final Report\Processed_v12_joined\';
 
 dirlist = dir(findir);
 

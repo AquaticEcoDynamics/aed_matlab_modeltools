@@ -23,23 +23,23 @@ for j = 1:length(vars)
     savedata.Y = bs.savedata.Y;
     savedata.Area = [bs.savedata.Area];
     
-    sss = find(bs.savedata.Time < jd.savedata.Time(1));
-    ttt = find(jd.savedata.Time < jd2.savedata.Time(1));
-    savedata.Time = [bs.savedata.Time(sss);jd.savedata.Time(ttt);jd2.savedata.Time];
+    sss = find(bs.savedata.Time < jd.savedata.Time(3));
+    ttt = find(jd.savedata.Time < jd2.savedata.Time(3));
+    savedata.Time = [bs.savedata.Time(sss);jd.savedata.Time(ttt);jd2.savedata.Time(3:end)];
     
     
     
     
     switch vname
         case 'D'
-            savedata.(vname) = [bs.savedata.(vname)(:,sss) jd.savedata.(vname)(:,ttt) jd2.savedata.(vname)];
+            savedata.(vname) = [bs.savedata.(vname)(:,sss) jd.savedata.(vname)(3:end,ttt) jd2.savedata.(vname)(:,3:end)];
         case 'H'
-            savedata.(vname) = [bs.savedata.(vname)(:,sss) jd.savedata.(vname)(:,ttt) jd2.savedata.(vname)];
+            savedata.(vname) = [bs.savedata.(vname)(:,sss) jd.savedata.(vname)(3:end,ttt) jd2.savedata.(vname)(:,3:end)];
         case 'cell_A'
             savedata.(vname) = bs.savedata.(vname);
         otherwise    
-            savedata.(vname).Top = [bs.savedata.(vname).Top(:,sss) jd.savedata.(vname).Top(:,ttt) jd2.savedata.(vname).Top];
-            savedata.(vname).Bot = [bs.savedata.(vname).Bot(:,sss) jd.savedata.(vname).Bot(:,ttt) jd2.savedata.(vname).Bot];
+            savedata.(vname).Top = [bs.savedata.(vname).Top(:,sss) jd.savedata.(vname).Top(3:end,ttt) jd2.savedata.(vname).Top(:,3:end)];
+            savedata.(vname).Bot = [bs.savedata.(vname).Bot(:,sss) jd.savedata.(vname).Bot(3:end,ttt) jd2.savedata.(vname).Bot(:,3:end)];
     end
     
     clear bs jd jd2;

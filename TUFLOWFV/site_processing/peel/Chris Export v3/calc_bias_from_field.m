@@ -4,7 +4,7 @@ aed = shaperead('E:\Github 2018\AED_Scripts\Matlab\TFV\Polygon Region Plotting\G
 
 load Export_Locations.mat;
 
-dirlist = dir('Y:\Peel Final Report\Processed v11/');
+dirlist = dir('Y:\Peel Final Report\Processed_v12_joined/');
 
 
 bias_vars = {'SAL';'TEMP';'WQ_NIT_AMM';'WQ_DIAG_TOT_TCHLA'};
@@ -17,7 +17,7 @@ for v = 1:length(bias_vars)
     for i = 3:length(dirlist)
         disp(dirlist(i).name);
         
-        load(['Y:\Peel Final Report\Processed v11/',dirlist(i).name,'/',bias_vars{v},'.mat']);
+        load(['Y:\Peel Final Report\Processed_v12_joined/',dirlist(i).name,'/',bias_vars{v},'.mat']);
         thedate = [thedate;savedata.Time];
         theTop = [theTop savedata.(bias_vars{v}).Top];
         theBot = [theBot savedata.(bias_vars{v}).Bot];

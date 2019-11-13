@@ -3,8 +3,8 @@ clear all; close all;
 addpath(genpath('Functions'));
 
 %dirlist = dir(['../Historical/','*.nc']);
-dirlist = dir(['Y:\Peel Final Report\Processed v11/']);
-outdir_base = 'Y:\Peel Final Report/Fish Index/';
+dirlist = dir(['Y:\Peel Final Report\Processed_v12_joined/']);
+outdir_base = 'Y:\Peel Final Report/Fish Index v12/';
 for bdb = 3:length(dirlist)
     
 
@@ -16,7 +16,7 @@ for bdb = 3:length(dirlist)
     load Export_Locations.mat;
     %shp = S;
     
-    data = load(['Y:\Peel Final Report\Processed v11/',dirlist(bdb).name,'/','cell_A.mat']);
+    data = load(['Y:\Peel Final Report\Processed_v12_joined/',dirlist(bdb).name,'/','cell_A.mat']);
     
     Time = data.savedata.Time;
     
@@ -90,7 +90,7 @@ for bdb = 3:length(dirlist)
         
         
         %mod = tfv_readnetcdf(ncfile,'names',vars(i));clear functions;
-        data = load(['Y:\Peel Final Report\Processed v11/',dirlist(bdb).name,'/',vars{i},'.mat']);
+        data = load(['Y:\Peel Final Report\Processed_v12_joined/',dirlist(bdb).name,'/',vars{i},'.mat']);
         for j = 1:length(shp)
             savedata = [];
             

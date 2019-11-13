@@ -2,7 +2,7 @@ clear all; close all;
 
 addpath(genpath('tuflowfv'));
 
-the_directory = 'J:\Matfiles_Main\';
+the_directory = 'Y:\Peel Final Report\Processed_v12_joined\';
 
 % the_var = {'WQ_DIAG_TOT_TN',...
 %     'WQ_DIAG_TOT_TP',...
@@ -50,7 +50,7 @@ nn = (num_lims+1)/2;
 
 for bdb = 1:length(the_var)
     
-    the_outdir = ['Images_3/',the_var{bdb},'/'];
+    the_outdir = ['Images_4/',the_var{bdb},'/'];
     
     if ~exist(the_outdir,'dir')
         mkdir(the_outdir);
@@ -129,4 +129,4 @@ for bdb = 1:length(the_var)
     
 end
 
-create_html_for_directory('Images_3/')
+create_html_for_directory('Images_4/')

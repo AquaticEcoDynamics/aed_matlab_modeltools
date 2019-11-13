@@ -1,7 +1,7 @@
 clear all; close all;
 
 
-mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\\Flux.mat';
+mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\Flux.mat';
 mod(1).name = 'With all Water';
 mod(1).color = 'b';
 
@@ -246,13 +246,13 @@ for i = 1:length(sites)
             %title([regexprep(vars{j},'_','-')],'FontSize',7);
             
             if strcmpi(sites{i},'Murray') == 1 & strcmpi(vars{j},'Salt') == 1
-                legend(leg,'location','NE','fontsize',4,'FontName','Arial');
+                legend(leg,'location','NW','fontsize',4,'FontName','Arial');
                 
             else
                 if strcmpi(sites{i},'Wellington') == 1 & strcmpi(vars{j},'PHS_frp') == 1
-                    legend(leg,'location','NE','fontsize',4,'FontName','Arial');
+                    legend(leg,'location','NW','fontsize',4,'FontName','Arial');
                 else
-                    legend(leg,'location','NE','fontsize',4,'FontName','Arial');
+                    legend(leg,'location','NW','fontsize',4,'FontName','Arial');
                 end
             end
             savedir = [outputdirectory,vars{j},'/'];
@@ -347,7 +347,7 @@ for j = 1:length(vars)
         %title([regexprep(vars{j},'_','-')],'FontSize',7);
         
         
-        legend(leg,'location','NE','fontsize',4,'FontName','Arial');
+        legend(leg,'location','NW','fontsize',4,'FontName','Arial');
         
         savedir = [outputdirectory,vars{j},'/'];
         

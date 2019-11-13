@@ -4,7 +4,6 @@ function [xdata1,ydata1] = tfv_averaging(xdata,ydata,def)
 if isfield(def,'dailyave')
     
     if def.dailyave == 1
-        xdata
         mVec = datevec(xdata);
         
         inc = 1;

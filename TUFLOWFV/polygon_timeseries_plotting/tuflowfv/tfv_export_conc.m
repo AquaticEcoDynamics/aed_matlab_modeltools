@@ -1,6 +1,6 @@
 function tfv_export_conc(filename,plotdate,plotdata,mod)
 
-mod
+
 
 fid = fopen(filename,'wt');
 

@@ -1,15 +1,15 @@
 clear all; close all;
 
 
-mod(1).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_v6_newAED2\Output\Flux.mat';
+mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\Flux.mat';
 mod(1).name = 'With all Water';
 mod(1).color = 'b';
 
-mod(2).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_noCEW_newAED2\Output\Flux.mat';
+mod(2).mat = 'H:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
 mod(2).name = 'No CEW';
 mod(2).color = 'r';
 % % % 
-mod(3).mat = 'Z:\Busch\Studysites\Lowerlakes\CEWH_2018\v006_CEW_2015_2018_noALL_newAED2\Output\Flux.mat';
+mod(3).mat = 'H:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
 mod(3).name = 'No eWater';
 mod(3).color = 'g';
 %
@@ -32,15 +32,15 @@ xarray = datenum(2017,07:03:20,01);
 
 for i = 1:length(mod)
     load(mod(i).mat);
-        if i == 1
-        flux = cleanse_obs_data(flux,xarray);
-    end
+%         if i == 1
+%         flux = cleanse_obs_data(flux,xarray);
+%     end
     data(i).flux = flux;
     clear flux;
 end
 
 
-outputdirectory = 'F:\Cloudstor\CEWH_2018_Results\Reporting\v006_CEW_2015_2018_v6_newAED2/\Flux Dailys Totals\';
+outputdirectory = 'H:\Lowerlakes-CEW-Results\Flux Dailys Totals\';
 
 timeperiod = 2*60*60;
 

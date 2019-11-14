@@ -2,7 +2,7 @@ clear all; close all;
 
 addpath(genpath('tuflowfv'));
 
-the_directory = 'Y:\Peel Final Report\Processed_v12_joined\';
+the_directory = 'Y:\Peel Final Report/Regional v12/';
 
 % the_var = {'WQ_DIAG_TOT_TN',...
 %     'WQ_DIAG_TOT_TP',...

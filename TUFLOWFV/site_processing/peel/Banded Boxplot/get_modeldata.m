@@ -74,8 +74,8 @@ for i = 1:length(sitelist)
             
             %tt = find(all_data.(sitelist{i}).Field.VEC(:,1) == u_years(iii));
             
-            tt = find(all_data.(siteslist{i}).Field.Date >= datenum(u_years(iii),04,01) & ...
-                all_data.(siteslist{i}).Field.Date < datenum(u_years(iii)+1,04,01));
+            tt = find(all_data.(sitelist{i}).Field.Date >= datenum(u_years(iii),04,01) & ...
+                all_data.(sitelist{i}).Field.Date < datenum(u_years(iii)+1,04,01));
             
             xd = all_data.(sitelist{i}).Field.Data(tt);
             

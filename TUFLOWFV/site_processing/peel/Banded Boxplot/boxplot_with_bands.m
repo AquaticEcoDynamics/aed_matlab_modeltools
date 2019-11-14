@@ -24,14 +24,30 @@ the_var = {'WQ_NIT_NIT',...
     'WQ_DIAG_PHY_TCHLA',...
     'SAL'};
 
-x(1).lim = [0 100];
-x(2).lim = [0 100];
-x(3).lim = [0 10];
-x(4).lim = [0 300];
-x(5).lim = [0 10];
-x(6).lim = [0 400];
+labels = {...
+    'NO_3 (mg/L)',...
+    'NH_4 (mg/L)',...
+    'PO_4 (mg/L)',...
+    'TN (mg/L)',...
+    'TP (mg/L)',...
+    'Oxygen (mg/L)',...
+    'TCHLA (ug/L)',...
+    'Salinity (psu)',...
+    };
+
+x(1).lim = [0 2.5];
+x(2).lim = [0 2.5];
+x(3).lim = [0 0.5];
+x(4).lim = [0 5];
+x(5).lim = [0 0.5];
+x(6).lim = [0 12];
 x(7).lim = [0 100];
 x(8).lim = [0 60];
+
+conv =[14/1000 14/1000 31/1000 14/1000 31/1000 32/1000 1 1];
+
+
+
 
 load('F:\Cloudstor\Data_Peel\DATA\Join All Datasources\peel.mat');
 %shp = shaperead('E:\Github 2018\AED_Scripts\Matlab\TFV\Polygon Region Plotting\GIS\Peel_Zones_2.shp');
@@ -50,7 +66,7 @@ nn = (num_lims+1)/2;
 
 for bdb = 1:length(the_var)
     
-    the_outdir = ['Images_4/',the_var{bdb},'/'];
+    the_outdir = ['Y:\Peel Final Report\Banded Boxplot/',the_var{bdb},'/'];
     
     if ~exist(the_outdir,'dir')
         mkdir(the_outdir);
@@ -58,7 +74,7 @@ for bdb = 1:length(the_var)
     
     
     
-    all_data = get_modeldata(the_directory,the_var{bdb},shp,peel);
+    all_data = get_modeldata(the_directory,the_var{bdb},shp,peel,conv(bdb));
     
     sitelist = fieldnames(all_data);
     
@@ -114,6 +130,8 @@ for bdb = 1:length(the_var)
         
         title(regexprep(sitelist{i},'_',' '));
         
+        ylabel(labels{bdb});
+        
         xlim([1975 2020]);
         
         ylim(x(bdb).lim);
@@ -129,4 +147,4 @@ for bdb = 1:length(the_var)
     
 end
 
-create_html_for_directory('Images_4/')
+create_html_for_directory('Y:\Peel Final Report\Banded Boxplot/')

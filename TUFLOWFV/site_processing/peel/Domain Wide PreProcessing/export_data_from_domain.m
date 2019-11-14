@@ -2,8 +2,8 @@
 
 addpath(genpath('Functions'));
 
-ncdir = 'T:\Scenarios/';
-savedir = 'T:\Scenarios\Processed v12/';
+ncdir = 'T:\PEEL\NEWER/';
+savedir = 'T:\PEEL\Processed v12/';
 
 dirlist = dir([ncdir,'*.nc']);
 
@@ -61,8 +61,10 @@ vars = {...
     };
 
 
+%stop;
 
-for bdb = 1:length(dirlist)
+
+for bdb = length(dirlist)
     
     ncfile = [ncdir,dirlist(bdb).name];
     %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';

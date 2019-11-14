@@ -1,13 +1,13 @@
 clear all; close all;
 
-basedir = 'T:\PEEL\Processed v12\run_2016_2018_local\';
-joindir = 'T:\PEEL\Processed v12\run_2016_nov_2\';
-joindir2 = 'T:\PEEL\Processed v12\run_2017_2018_restart\';
+basedir = 'Y:\Peel Final Report\Scenarios\Holding\run_scenario_0a_part1\';
+joindir = 'Y:\Peel Final Report\Scenarios\Holding\run_scenario_0a_rerun\';
+joindir2 = 'Y:\Peel Final Report\Scenarios\Holding\run_scenario_0a_rerun_restart\';
 
-findir = 'Y:\Peel Final Report\Processed_v12_joined\run_2016_2018_joined\';
+findir = 'Y:\Peel Final Report\Scenarios\Processed v12\run_scenario_0a\';
 
 
-vars = dir([joindir,'*mat']);
+vars = dir([basedir,'*mat']);
 for j = 1:length(vars)
     
     disp([vars(j).name]);

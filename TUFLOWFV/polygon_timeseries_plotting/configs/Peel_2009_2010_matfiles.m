@@ -62,13 +62,13 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'Y:\Peel Final Report\Timeseries\2005_2006/';
+outputdirectory = 'Y:\Peel Final Report\Timeseries\2009_2010/';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_2005_2007\';
+ ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_2009_2010\';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
  ncfile(1).legend = '3D';
@@ -82,7 +82,7 @@ outputdirectory = 'Y:\Peel Final Report\Timeseries\2005_2006/';
  
  
 %  
-yr = 2005;
+yr = 2009;
 def.datearray = datenum(yr,04:03:17,01);
 
 

@@ -8,23 +8,19 @@ fielddata = 'peel';
 
 
 
-%  varname = {...
-%  'TEMP',...
-%  'WQ_OXY_OXY',...
-%  'SAL',...
-%  'WQ_OGM_DOC',...
-%  'WQ_OGM_DON',...
-%  'WQ_DIAG_TOT_TN',...
-%  'WQ_DIAG_TOT_TP',...
-%  'WQ_DIAG_PHY_TCHLA',....
-%  'WQ_DIAG_TOT_TURBIDITY',...
-%  'WQ_DIAG_MAG_TMALG',...
-%  'WQ_NIT_AMM',...
-%  };
  varname = {...
- 'WQ_DIAG_PHY_TCHLA',...
+ 'TEMP',...
+ 'WQ_OXY_OXY',...
+ 'SAL',...
+ 'WQ_OGM_DOC',...
+ 'WQ_OGM_DON',...
+ 'WQ_DIAG_TOT_TN',...
+ 'WQ_DIAG_TOT_TP',...
+ 'WQ_DIAG_PHY_TCHLA',....
+ 'WQ_DIAG_TOT_TURBIDITY',...
+ 'WQ_DIAG_MAG_TMALG',...
+  'WQ_NIT_AMM',...
  };
-
 % 
 def.cAxis(1).value = [5 35];    %'TEMP',...
 def.cAxis(2).value = [0 20];    %'WQ_OXY_OXY',...
@@ -54,10 +50,9 @@ plotdepth = {'surface';'bottom'};%'bottom'}; % Cell with either one or both
 istitled = 1;
 isylabel = 0;
 islegend = 0;
-isYlim = 0;
+isYlim = 1;
 isRange = 1;
 Range_ALL = 1;
-
 filetype = 'eps';
 def.expected = 1; % plot expected WL
 
@@ -67,40 +62,28 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = '1980_1983/Regions_prefab/';
+outputdirectory = 'Y:\Peel Final Report\Timeseries\1981_1982/';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'Y:\Peel Final Report\Processed v11\run_1981_1983\';
+ ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_1981_1983_joined\';
  ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
  ncfile(1).legend = '3D';
  ncfile(1).translate = 1;
  
- ncfile(2).name = 'Y:\Peel Final Report\Processed v11\run_1981_1983_restart\';
- ncfile(2).symbol = {'-';'--'};
- ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(2).legend = '3D';
- ncfile(2).translate = 1;
- 
-  ncfile(3).name = 'Y:\Peel Final Report\Processed v11\run_1982_1983\';
- ncfile(3).symbol = {'-';'--'};
- ncfile(3).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(3).legend = '3D';
- ncfile(3).translate = 1;
- 
-   ncfile(4).name = 'Y:\Peel Final Report\Processed v11\run_1982_1983_restart\';
- ncfile(4).symbol = {'-';'--'};
- ncfile(4).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(4).legend = '3D';
- ncfile(4).translate = 1;
+ %ncfile(2).name = 'Y:\Peel Final Report\Processed v11\run_1980_1981\';
+ %ncfile(2).symbol = {'-';'--'};
+ %ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
+ %ncfile(2).legend = '3D';
+ %ncfile(2).translate = 1;
  
  
 %  
 yr = 1981;
-def.datearray = datenum(yr,04:06:31,01);
+def.datearray = datenum(yr,04:03:17,01);
 
 
 %def.datearray = datenum(yr,01:1:4,01);

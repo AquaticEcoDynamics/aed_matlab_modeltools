@@ -68,7 +68,7 @@ outputdirectory = 'Y:\Peel Final Report\Timeseries\1980_1981/';
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'Y:\Peel Final Report\Processed v11\run_1979_1981_MH\';
+ ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_1980_1981\';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
  ncfile(1).legend = '3D';
@@ -82,8 +82,8 @@ outputdirectory = 'Y:\Peel Final Report\Timeseries\1980_1981/';
  
  
 %  
-yr = 1979;
-def.datearray = datenum(yr,04:06:30,01);
+yr = 1980;
+def.datearray = datenum(yr,04:03:17,01);
 
 
 %def.datearray = datenum(yr,01:1:4,01);

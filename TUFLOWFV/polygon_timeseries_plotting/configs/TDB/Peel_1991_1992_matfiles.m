@@ -62,28 +62,28 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'Y:\Peel Final Report\Timeseries\2005_2006/';
+outputdirectory = 'F:\OneDrive - The University of Western Australia\Peel\Nectar\Peel_v11/Historical Final\1990_1992/Regions_prefab/';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_2005_2007\';
+ ncfile(1).name = 'Y:\Peel Final Report\Processed v11\run_1991_1993\';
  ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
+ ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
  ncfile(1).legend = '3D';
  ncfile(1).translate = 1;
  
- %ncfile(2).name = 'Y:\Peel Final Report\Processed v11\run_1980_1981\';
- %ncfile(2).symbol = {'-';'--'};
- %ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
- %ncfile(2).legend = '3D';
- %ncfile(2).translate = 1;
+ ncfile(2).name = 'Y:\Peel Final Report\Processed v11\run_1992_1993\';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = '3D';
+ ncfile(2).translate = 1;
  
  
 %  
-yr = 2005;
-def.datearray = datenum(yr,04:03:17,01);
+yr = 1991;
+def.datearray = datenum(yr,04:06:30,01);
 
 
 %def.datearray = datenum(yr,01:1:4,01);

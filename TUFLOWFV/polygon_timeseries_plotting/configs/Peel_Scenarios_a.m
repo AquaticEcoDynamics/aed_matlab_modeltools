@@ -42,17 +42,17 @@ plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
 
 % Add field data to figure
-plotvalidation = true; % true or false
+plotvalidation = false; % true or false
 
-plotdepth = {'surface';'bottom'};%'bottom'}; % Cell with either one or both
+plotdepth = {'surface'};%'bottom'}; % Cell with either one or both
 %plotdepth = {'surface'};%,'bottom'}; % Cell with either one or both
 
 istitled = 1;
 isylabel = 0;
-islegend = 0;
+islegend = 1;
 isYlim = 1;
 isRange = 1;
-Range_ALL = 1;
+Range_ALL = 0;
 filetype = 'eps';
 def.expected = 1; % plot expected WL
 isRange_Bottom =  1;
@@ -63,27 +63,38 @@ isRange_Bottom =  1;
 % Models___________________________________________________________________
 
 
-outputdirectory = 'Y:\Peel Final Report\Timeseries\2006_2007/';
+outputdirectory = 'Y:\Peel Final Report\Scenarios\Timeseries\Scenario_A/';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
- ncfile(1).name = 'Y:\Peel Final Report\Processed_v12_joined\run_2006_2007\';
+ ncfile(1).name = 'Y:\Peel Final Report\Scenarios\Processed v12\run_scenario_0a\';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
- ncfile(1).legend = '3D';
+ ncfile(1).legend = '0a';
  ncfile(1).translate = 1;
  
- %ncfile(2).name = 'Y:\Peel Final Report\Processed v11\run_1980_1981\';
- %ncfile(2).symbol = {'-';'--'};
- %ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
- %ncfile(2).legend = '3D';
- %ncfile(2).translate = 1;
+ ncfile(2).name = 'Y:\Peel Final Report\Scenarios\Processed v12\run_scenario_1a\';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {'g',[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
+ ncfile(2).legend = '1a';
+ ncfile(2).translate = 1;
  
+ ncfile(3).name = 'Y:\Peel Final Report\Scenarios\Processed v12\run_scenario_2a\';
+ ncfile(3).symbol = {'-';'--'};
+ ncfile(3).colour = {'b',[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
+ ncfile(3).legend = '2a';
+ ncfile(3).translate = 1;
+ 
+ ncfile(4).name = 'Y:\Peel Final Report\Scenarios\Processed v12\run_scenario_3a\';
+ ncfile(4).symbol = {'-';'--'};
+ ncfile(4).colour = {'r',[0.0509803921568627         0.215686274509804         0.968627450980392]};  % Surface and Bottom
+ ncfile(4).legend = '3a';
+ ncfile(4).translate = 1;
  
 %  
-yr = 2006;
+yr = 2016;
 def.datearray = datenum(yr,04:03:17,01);
 
 

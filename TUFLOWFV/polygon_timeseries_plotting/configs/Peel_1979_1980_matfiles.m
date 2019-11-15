@@ -53,6 +53,7 @@ islegend = 0;
 isYlim = 1;
 isRange = 1;
 Range_ALL = 1;
+isRange_Bottom =  1;
 filetype = 'eps';
 def.expected = 1; % plot expected WL
 

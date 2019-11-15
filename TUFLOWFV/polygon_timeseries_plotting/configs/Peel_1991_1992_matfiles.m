@@ -55,6 +55,7 @@ isRange = 1;
 Range_ALL = 1;
 filetype = 'eps';
 def.expected = 1; % plot expected WL
+isRange_Bottom =  1;
 
 
 % ____________________________________________________________Configuration

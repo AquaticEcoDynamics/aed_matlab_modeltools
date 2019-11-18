@@ -1,18 +1,22 @@
 clear all; close all;
 
 
-mod(1).mat = 'H:\Lowerlakes-CEW-Results\Obs\Flux.mat';
+mod(1).mat = 'K:\Lowerlakes-CEW-Results\Obs\Flux.mat';
 mod(1).name = 'With all Water';
 mod(1).color = 'b';
 
-mod(2).mat = 'H:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
+mod(2).mat = 'K:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
 mod(2).name = 'No CEW';
 mod(2).color = 'r';
 % % %
-mod(3).mat = 'H:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
+mod(3).mat = 'K:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
 mod(3).name = 'No eWater';
 mod(3).color = 'g';
 %
+
+
+the_search = datenum(2014:01:2019,07,01);
+the_back = datenum(2013:01:2018,07,01);
 
 
 xarray = datenum(2013:01:2019,07,01);
@@ -21,15 +25,15 @@ xarray = datenum(2013:01:2019,07,01);
 
 for i = 1:length(mod)
     load(mod(i).mat);
-%         if i == 1
-%         flux = cleanse_obs_data(flux,xarray);
-%     end
+    %         if i == 1
+    %         flux = cleanse_obs_data(flux,xarray);
+    %     end
     data(i).flux = flux;
     clear flux;
 end
 
 
-outputdirectory = 'H:\Lowerlakes-CEW-Results\Monthly Totals v5\';
+outputdirectory = 'K:\Lowerlakes-CEW-Results\Yearly Totals v5\';
 
 timeperiod = 2*60*60;
 
@@ -61,7 +65,7 @@ for i = 1:length(sites)
     
     % TN
     
-   vars(end+1) = {'TN'};
+    vars(end+1) = {'TN'};
     
     for jjj = 1:length(data)
         
@@ -85,8 +89,8 @@ for i = 1:length(sites)
     vars(end+1) = {'TSS'};
     for jjj = 1:length(data)
         data(jjj).flux.(sites{i}).TSS = (data(jjj).flux.(sites{i}).TRC_ss1 .* (1/(1000*1000))) ...
-           %+ (data(jjj).flux.(sites{i}).TRC_ss2 .* (1/(1000*1000)))...
-            + (data(jjj).flux.(sites{i}).OGM_poc .* (12/(1000*1000*1000)))...
+            %+ (data(jjj).flux.(sites{i}).TRC_ss2 .* (1/(1000*1000)))...
+        + (data(jjj).flux.(sites{i}).OGM_poc .* (12/(1000*1000*1000)))...
             + (data(jjj).flux.(sites{i}).PHY_grn .*(12/(1000*1000*1000)) .* 1);
     end
     % Turbidity
@@ -95,7 +99,7 @@ for i = 1:length(sites)
     for jjj = 1:length(data)
         data(jjj).flux.(sites{i}).Turbidity = ((data(jjj).flux.(sites{i}).TRC_ss1 .* (1/(1000*1000))) .* 0.71) ...
             %+ ((data(jjj).flux.(sites{i}).TRC_ss2 .* (1/(1000*1000))) .* 0.71) ...
-            + ((data(jjj).flux.(sites{i}).OGM_poc .* (12/(1000*1000*1000))) .* 0.1) ...
+        + ((data(jjj).flux.(sites{i}).OGM_poc .* (12/(1000*1000*1000))) .* 0.1) ...
             + (data(jjj).flux.(sites{i}).PHY_grn .* (12/(1000*1000*1000)) .* 0.1);
     end
     % TCHLOR
@@ -108,24 +112,24 @@ for i = 1:length(sites)
     % ON
     
     vars(end+1) = {'ON'};
-        for jjj = 1:length(data)
-%             data(jjj).flux.(sites{i}).ON = data(jjj).flux.(sites{i}).TN - (data(jjj).flux.(sites{i}).NIT_nit .* (14/(1000*1000*1000)))...
-%                 - (data(jjj).flux.(sites{i}).NIT_amm .* (14/(1000*1000*1000)));
-            
-            
-            data(jjj).flux.(sites{i}).ON = (data(jjj).flux.(sites{i}).OGM_don .* (14/(1000*1000*1000)))...
-                + (data(jjj).flux.(sites{i}).OGM_pon .* (14/(1000*1000*1000)));
-            
-        end
+    for jjj = 1:length(data)
+        %             data(jjj).flux.(sites{i}).ON = data(jjj).flux.(sites{i}).TN - (data(jjj).flux.(sites{i}).NIT_nit .* (14/(1000*1000*1000)))...
+        %                 - (data(jjj).flux.(sites{i}).NIT_amm .* (14/(1000*1000*1000)));
         
-        % OP
         
-        vars(end+1) = {'OP'};
-        for jjj = 1:length(data)
-            %data(jjj).flux.(sites{i}).OP = data(jjj).flux.(sites{i}).TP - (data(jjj).flux.(sites{i}).PHS_frp .* (31/(1000*1000*1000)));
-            
-            data(jjj).flux.(sites{i}).OP = (data(jjj).flux.(sites{i}).OGM_dop .* (31/(1000*1000*1000))) + (data(jjj).flux.(sites{i}).OGM_pop .* (31/(1000*1000*1000)));
-        end
+        data(jjj).flux.(sites{i}).ON = (data(jjj).flux.(sites{i}).OGM_don .* (14/(1000*1000*1000)))...
+            + (data(jjj).flux.(sites{i}).OGM_pon .* (14/(1000*1000*1000)));
+        
+    end
+    
+    % OP
+    
+    vars(end+1) = {'OP'};
+    for jjj = 1:length(data)
+        %data(jjj).flux.(sites{i}).OP = data(jjj).flux.(sites{i}).TP - (data(jjj).flux.(sites{i}).PHS_frp .* (31/(1000*1000*1000)));
+        
+        data(jjj).flux.(sites{i}).OP = (data(jjj).flux.(sites{i}).OGM_dop .* (31/(1000*1000*1000))) + (data(jjj).flux.(sites{i}).OGM_pop .* (31/(1000*1000*1000)));
+    end
     
     
     
@@ -149,45 +153,45 @@ for i = 1:length(sites)
                 u_years = unique(all_years);
                 
                 inc = 1;
-                for jj = 1:length(u_years)
-                    for ii = 1:length(u_months)
+                for jj = 1:length(the_search)
+                    %for ii = 1:length(u_months)
+                    
+                    ss = find(xdata >= the_back(jj) & xdata <= the_search(jj));
+                    %ss = find(all_months == u_months(ii) & all_years == u_years(jj));
+                    
+                    if ~isempty(ss)
                         
+                        plotdate(inc,jjj) = the_search(jj);%datenum(the_search(jj),07,01);
                         
-                        ss = find(all_months == u_months(ii) & all_years == u_years(jj));
-                        
-                        if ~isempty(ss)
-                            
-                            plotdate(inc,jjj) = datenum(u_years(jj),u_months(ii),01);
-                            
-                            if fluxplot == 1
-                                % Include negitives in Calc
-                                tt = find(isnan(ydata(ss)) == 0);
-                            else
-                                % Exclude Negitives in Calc
-                                tt = find(ydata(ss) > 0);
-                            end
-                            
-                            
-                            if inc == 1 % Cumulative Monthly Total
-                                
-                                plotdata(1,jjj) = sum(ydata(ss(tt)) .* timeperiod);
-                                
-                                
-                            else
-                                
-                                plotdata(inc,jjj) = sum(ydata(ss(tt)) .* timeperiod);
-                                
-                            end
-                            
-                            clear xmonth ymonth;
-                            
-                            inc = inc + 1;
-                            
+                        if fluxplot == 1
+                            % Include negitives in Calc
+                            tt = find(isnan(ydata(ss)) == 0);
+                        else
+                            % Exclude Negitives in Calc
+                            tt = find(ydata(ss) > 0);
                         end
                         
                         
+                        if inc == 1 % Cumulative Monthly Total
+                            
+                            plotdata(1,jjj) = sum(ydata(ss(tt)) .* timeperiod);
+                            
+                            
+                        else
+                            
+                            plotdata(inc,jjj) = sum(ydata(ss(tt)) .* timeperiod);
+                            
+                        end
+                        
+                        clear xmonth ymonth;
+                        
+                        inc = inc + 1;
+                        
                     end
+                    
+                    
                 end
+                %end
                 
             end
             
@@ -203,7 +207,7 @@ for i = 1:length(sites)
                 set(nBar(jjj),'FaceColor',mod(jjj).color,'EdgeColor',mod(jjj).color);
                 leg(jjj) = {mod(jjj).name};
             end
-           % ylim([cax_min(sss) cax_max(sss)]);
+            % ylim([cax_min(sss) cax_max(sss)]);
             xlim([(xarray(1) - 20) (xarray(end) + 20)]);
             set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
             ylabel(['Cumulative ',labels{sss},' Load ',' (',units{sss},')'],'FontSize',7,'FontName','Arial');
@@ -270,9 +274,9 @@ for j = 1:length(vars)
             set(nBar(jjj),'FaceColor',mod(jjj).color,'EdgeColor',mod(jjj).color);
             leg(jjj) = {mod(jjj).name};
         end
-       % ylim([cax_min(sss) cax_max(sss)]);
-            xlim([(xarray(1) - 20) (xarray(end) + 20)]);
-            set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
+        % ylim([cax_min(sss) cax_max(sss)]);
+        xlim([(xarray(1) - 20) (xarray(end) + 20)]);
+        set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
         ylabel(['Cumulative ',labels{sss},' Load ',' (',units{sss},')'],'FontSize',7,'FontName','Arial');
         
         %title([regexprep(vars{j},'_','-')],'FontSize',7);

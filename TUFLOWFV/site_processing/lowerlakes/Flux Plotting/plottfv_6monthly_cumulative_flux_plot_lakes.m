@@ -8,7 +8,7 @@ mod(1).color = 'b';
 mod(2).mat = 'H:\Lowerlakes-CEW-Results\NoCEW\Flux.mat';
 mod(2).name = 'No CEW';
 mod(2).color = 'r';
-% % % 
+% % %
 mod(3).mat = 'H:\Lowerlakes-CEW-Results\NoEWater\Flux.mat';
 mod(3).name = 'No eWater';
 mod(3).color = 'g';
@@ -116,8 +116,8 @@ for i = 1:length(sites)
         
         vars(end+1) = {'ON'};
         for jjj = 1:length(data)
-%             data(jjj).flux.(sites{i}).ON = data(jjj).flux.(sites{i}).TN - (data(jjj).flux.(sites{i}).NIT_nit .* (14/(1000*1000*1000)))...
-%                 - (data(jjj).flux.(sites{i}).NIT_amm .* (14/(1000*1000*1000)));
+            %             data(jjj).flux.(sites{i}).ON = data(jjj).flux.(sites{i}).TN - (data(jjj).flux.(sites{i}).NIT_nit .* (14/(1000*1000*1000)))...
+            %                 - (data(jjj).flux.(sites{i}).NIT_amm .* (14/(1000*1000*1000)));
             
             
             data(jjj).flux.(sites{i}).ON = (data(jjj).flux.(sites{i}).OGM_don .* (14/(1000*1000*1000)))...
@@ -165,7 +165,7 @@ for i = 1:length(sites)
                         themonths = find(all_months(theyears) >= period(ii).m(1) & ...
                             all_months(theyears) <= period(ii).m(2));
                         
-                        %ss = find(all_months >= period(ii).m(1) & all_years == u_years(jj) 
+                        %ss = find(all_months >= period(ii).m(1) & all_years == u_years(jj)
                         
                         if ~isempty(themonths)
                             
@@ -216,31 +216,34 @@ for i = 1:length(sites)
                 leg(jjj) = {mod(jjj).name};
             end
             
-%             ylim([cax_min(sss) cax_max(sss)]);
-%             
-%             if strcmpi(sites{i},'Murray') == 1
-%                 switch vars{j}
-%                     
-%                     case 'Salt'
-%                         ylim([-7000000 1000000]);
-%                     case 'PHS_frp'
-%                         ylim([-0.5 20]);
-%                     case 'NIT_amm'
-%                         ylim([-20 5]);
-%                     case 'SIL_rsi'
-%                         ylim([-50 30000]);
-%                     case 'PHY_grn'
-%                         ylim([-10 50]);
-%                     case 'Flow'
-%                         ylim([-200 2000]);
-%                     case 'ON'
-%                         ylim([-400 2000]);
-%                     case 'OP'
-%                         ylim([-10 200]);
-%                     otherwise
-%                         ylim([cax_min(sss) cax_max(sss)]);
-%                 end
-%             end
+            %             ylim([cax_min(sss) cax_max(sss)]);
+            %
+            %             if strcmpi(sites{i},'Murray') == 1
+            switch vars{j}
+                case 'SIL_rsi'
+                    ylim([0 15e4]);
+                case 'PHS_frp'
+                    ylim([0 300]);
+                case 'Salt'
+                    if strcmpi(sites{i},'Murray') == 0
+                        ylim([0 3.5e6]);
+                    end
+                case 'NIT_amm'
+                    if strcmpi(sites{i},'Murray') == 0
+                        ylim([0 70]);
+                    end
+                case 'PHY_grn'
+                    ylim([0 500]);
+                case 'Flow'
+                    ylim([0 18000]);
+                case 'ON'
+                    ylim([0 2.5e4]);
+                case 'OP'
+                    ylim([0 2000]);
+                otherwise
+                    %ylim([cax_min(sss) cax_max(sss)]);
+            end
+            %             end
             
             xlim([(xarray(1) - 200) (xarray(end) + 200)]);
             %set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
@@ -320,36 +323,35 @@ for j = 1:length(vars)
             set(nBar(jjj),'FaceColor',mod(jjj).color,'EdgeColor',mod(jjj).color);
             leg(jjj) = {mod(jjj).name};
         end
-   
-%                         switch vars{j}
-%                     
-%                     case 'Salt'
-%                         ylim([0 1e6]);
-%                     case 'PHS_frp'
-%                         ylim([0 25]);
-%                     case 'NIT_amm'
-%                         ylim([0 15]);
-%                     case 'SIL_rsi'
-%                         ylim([0 30000]);
-%                     case 'PHY_grn'
-%                         ylim([0 75]);
-%                     case 'Flow'
-%                         ylim([0 3000]);
-%                     case 'ON'
-%                         ylim([0 3000]);
-%                     case 'OP'
-%                         ylim([0 500]);
-%                     otherwise
-%                         ylim([cax_min(sss) cax_max(sss)]);
-%                 end
+        
+        switch vars{j}
+            case 'NIT_amm'
+                if strcmpi(sites{i},'Murray') == 0
+                    ylim([0 70]);
+                end
+            case 'SIL_rsi'
+                ylim([0 15e4]);
+            case 'PHS_frp'
+                ylim([0 300]);
+            case 'PHY_grn'
+                ylim([0 500]);
+            case 'Flow'
+                ylim([0 18000]);
+            case 'ON'
+                ylim([0 2.5e4]);
+            case 'OP'
+                ylim([0 2000]);
+            otherwise
+                %ylim([cax_min(sss) cax_max(sss)]);
+        end
         
         
         
         
-            xlim([(xarray(1) - 200) (xarray(end) + 200)]);
-            %set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
-                set(gca,'XTick',xarray,'XTickLabel',[],'FontSize',7,'FontName','Arial');
-
+        xlim([(xarray(1) - 200) (xarray(end) + 200)]);
+        %set(gca,'XTick',xarray,'XTickLabel',datestr(xarray,'mm-yyyy'),'FontSize',7,'FontName','Arial');
+        set(gca,'XTick',xarray,'XTickLabel',[],'FontSize',7,'FontName','Arial');
+        
         ylabel(['Cumulative ',labels{sss},' Load ',' (',units{sss},')'],'FontSize',7,'FontName','Arial');
         
         %title([regexprep(vars{j},'_','-')],'FontSize',7);

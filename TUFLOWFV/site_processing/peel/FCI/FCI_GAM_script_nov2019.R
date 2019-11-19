@@ -9,7 +9,7 @@ library(mgcv) # packge for model fitting
 # (1.0) Load required data for model building --------------------------------------------
 
 #FCI scores and enviro data (1979-2018, all regions and water depths)
-dat <- read.csv('FCI_scores_and_enviros.csv')
+dat <- read.csv("FCI_scores_and_enviros.csv")
 head(dat)
 
 # note - the list of enviro variables has been trimmed down through various data explorations

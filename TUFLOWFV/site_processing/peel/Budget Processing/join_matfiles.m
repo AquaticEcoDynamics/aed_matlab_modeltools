@@ -1,11 +1,11 @@
 
 clear all; close all;
 
-dirlist = dir(['T:\Flux_v12/','*.mat']);
+dirlist = dir(['T:\Scenarios\Fluxes_v12\Join/','*.mat']);
 
 flux_all = [];
 
-load(['T:\Flux_v12/',dirlist(1).name]);
+load(['T:\Scenarios\Fluxes_v12\Join/',dirlist(1).name]);
 
 sites = fieldnames(flux);
 vars = fieldnames(flux.(sites{1}));
@@ -14,7 +14,7 @@ flux_all = flux;
 
 for ii = 2:length(dirlist)
     clear flux;
-    load(['T:\Flux_v12/',dirlist(ii).name]);
+    load(['T:\Scenarios\Fluxes_v12\Join/',dirlist(ii).name]);
     
     for i = 1:length(sites)
         for j = 1:length(vars)

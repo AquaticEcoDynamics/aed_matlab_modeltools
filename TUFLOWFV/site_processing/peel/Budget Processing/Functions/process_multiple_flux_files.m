@@ -4,17 +4,17 @@ addpath(genpath('tuflowfv'));
 
 %__________________________________________________________________________
 
-dirlist = dir(['T:\Fluxes/']);
+dirlist = dir(['T:\Scenarios\Fluxes/']);
 
 int = 1;
 for i = 3:length(dirlist)
     %__________________________________________________________________________
     
-    main(int).filename = ['T:\Fluxes\',dirlist(i).name];
+    main(int).filename = ['T:\Scenarios\Fluxes\',dirlist(i).name];
     
-    main(int).fileout = ['T:\Flux_v12\',dirlist(i).name];
+    main(int).fileout = ['T:\Scenarios\Fluxes_v12\',dirlist(i).name];
     
-    main(int).matout = ['T:\Flux_v12\',regexprep(dirlist(i).name,'.csv','.mat')];
+    main(int).matout = ['T:\Scenarios\Fluxes_v12\',regexprep(dirlist(i).name,'.csv','.mat')];
     
     int = int + 1;
 end

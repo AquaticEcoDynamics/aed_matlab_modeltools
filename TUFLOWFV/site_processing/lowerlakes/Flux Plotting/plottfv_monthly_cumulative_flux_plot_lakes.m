@@ -246,7 +246,7 @@ for i = 1:length(sites)
             %title([regexprep(vars{j},'_','-')],'FontSize',7);
             
             if strcmpi(sites{i},'Murray') == 1 & strcmpi(vars{j},'Salt') == 1
-                legend(leg,'location','NW','fontsize',4,'FontName','Arial');
+                legend(leg,'location','SW','fontsize',4,'FontName','Arial');
                 
             else
                 if strcmpi(sites{i},'Wellington') == 1 & strcmpi(vars{j},'PHS_frp') == 1

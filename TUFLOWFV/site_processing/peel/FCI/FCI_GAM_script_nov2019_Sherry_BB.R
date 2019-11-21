@@ -13,6 +13,8 @@ library(mgcv) # packge for model fitting
 dat <- read.csv("FCI_scores_and_enviros.csv")
 head(dat)
 
+
+
 # note - the list of enviro variables has been trimmed down through various data explorations
 # to omit highly correlated variables and those with little signal.
 
@@ -78,8 +80,8 @@ summary(m3) #model summary
 # for example, for m1 (OS, rivers  model)  - age_bottom, salinity_.bottom, oxygen_bottom and Period
 # must be specified (with column names spelt exactly as they are in the model).
 
+setwd("D:/Github/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/Scenarios/run_scenario_3b") #the folder of all your files to be looped
 
-setwd("E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/2016") #the folder of all your files to be looped
 
 # to loop through all files in a folder
 
@@ -156,7 +158,7 @@ for (k in 1:length(listcsv)) {
   
   write.csv(
     file = paste0(
-      "E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/output/",
+      "D:/Github/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/Scenario_Output/run_scenario_3b/",
       filename
     ),
     a[, c("grid.cell", "pred_FCI", "FCI.se", "grade")]

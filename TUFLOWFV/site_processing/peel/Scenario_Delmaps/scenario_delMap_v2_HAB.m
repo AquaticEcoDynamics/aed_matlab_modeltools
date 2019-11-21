@@ -1,14 +1,14 @@
 clear all; close all;
 
 
-load('H:\Scenario DelMaps\scendata_phyHab.mat');
+load('Y:\Peel Final Report\Scenarios\index\scendata_phyHab.mat');
 %basedir = 'Y:\Peel Final Report\Scenarios\Processed v12\';
-outdir = 'H:\Scenario DelMaps\';
+outdir = 'Y:\Peel Final Report\Scenarios\DelMaps\';
 %scenlist = dir(basedir);
 
 shp = shaperead('Peel_Boundary.shp');
 
-var = 'hab2';
+var = 'hab';
 
 conv = 1;%32/1000;
 
@@ -18,6 +18,10 @@ base = 'scen_0a';
 
 % del_caxis = [-2 2];
 % del_clip = [-0.5 0.5];
+themonths(1).val = [10 3];
+themonths(1).year = [2016 2017];
+themonths(1).lab = 'Winter';
+
 
 base_caxis = [0 0.5];
 
@@ -60,9 +64,7 @@ pos(8).b = [0.80 0.1 0.2 0.2];
 
 
 
-themonths(1).val = [6 8];
-themonths(1).year = [2016 2016];
-themonths(1).lab = 'Winter';
+
 
 theorder = {...
     'scen_0a',...
@@ -74,6 +76,9 @@ theorder = {...
     'scen_2b',...    
     'scen_3b',...
     };
+
+datetext = [num2str(themonths(1).year(1)),'-',num2str(themonths(1).val(1)),'_',num2str(themonths(1).year(2)),'-',num2str(themonths(1).val(2))];
+
 
 [XX,YY,ZZ,nodeID,faces,cellX,cellY,Z,ID,MAT,cellArea] = tfv_get_node_from_2dm('Peelv4_Sed_Oxy_Coolup_hole_UM_50m_polygon_min05m.2dm');
 
@@ -198,9 +203,9 @@ for i = 1:length(theorder)
 end
 
 if ~do_crit
-    saveas(gcf,[outdir,var,'_',depth,'_raw.png']);close;
+    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_raw.png']);close;
 else
-    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_raw.png']);close;
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_raw.png']);close;
 end
 
 %%
@@ -303,10 +308,10 @@ for i = 1:length(theorder)
 end
 
 if ~do_crit
-    saveas(gcf,[outdir,var,'_',depth,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
     
 else
-    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
 end
 
 

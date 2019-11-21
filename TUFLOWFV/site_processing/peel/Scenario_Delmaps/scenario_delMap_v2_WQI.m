@@ -1,9 +1,9 @@
 clear all; close all;
 
 
-load('H:\Scenario DelMaps\scendata_modwqi.mat');
+load('Y:\Peel Final Report\Scenarios\index\scendata_modwqi.mat');
 %basedir = 'Y:\Peel Final Report\Scenarios\Processed v12\';
-outdir = 'H:\Scenario DelMaps\';
+outdir = 'Y:\Peel Final Report\Scenarios\DelMaps\';
 %scenlist = dir(basedir);
 
 shp = shaperead('Peel_Boundary.shp');
@@ -12,17 +12,17 @@ var = 'data';
 
 conv = 1;%32/1000;
 
-base = 'scen_0a';
+base = 'scen_0b';
 
 % base_caxis = [2 10];
 
 % del_caxis = [-2 2];
 % del_clip = [-0.5 0.5];
 
-base_caxis = [0 0.5];
+base_caxis = [0 1];
 
-del_caxis = [-0.1 0.1];
-del_clip = [-0.01 0.01];
+del_caxis = [-0.5 0.5];
+del_clip = [-0.1 0.1];
 
 do_crit = 0; %Only for oxygen;
 
@@ -74,6 +74,7 @@ theorder = {...
     'scen_2b',...    
     'scen_3b',...
     };
+datetext = [num2str(themonths(1).year(1)),'-',num2str(themonths(1).val(1)),'_',num2str(themonths(1).year(2)),'-',num2str(themonths(1).val(2))];
 
 [XX,YY,ZZ,nodeID,faces,cellX,cellY,Z,ID,MAT,cellArea] = tfv_get_node_from_2dm('Peelv4_Sed_Oxy_Coolup_hole_UM_50m_polygon_min05m.2dm');
 
@@ -198,9 +199,9 @@ for i = 1:length(theorder)
 end
 
 if ~do_crit
-    saveas(gcf,[outdir,var,'_',depth,'_raw.png']);close;
+    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_raw.png']);close;
 else
-    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_raw.png']);close;
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_raw.png']);close;
 end
 
 %%
@@ -303,10 +304,10 @@ for i = 1:length(theorder)
 end
 
 if ~do_crit
-    saveas(gcf,[outdir,'modwqi','_',depth,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,'modwqi','_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
     
 else
-    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
 end
 
 

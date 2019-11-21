@@ -1,4 +1,5 @@
 
+
 ## Relating Peel-Harvey FCI scores to water quality variables
 # D.Yeoh, Nov 2019
 
@@ -13,42 +14,58 @@ dat <- read.csv("FCI_scores_and_enviros.csv")
 head(dat)
 
 # note - the list of enviro variables has been trimmed down through various data explorations
-# to omit highly correlated variables and those with little signal. 
+# to omit highly correlated variables and those with little signal.
 
 # (2.0) FIT MODELS ----------------------------------------------------------------------
 
 # the best fit model for each water depth and region has been chosen through building models with
-# all possible combinations of the available environmnetal variables and ranking the models by 
-# lowest AICc value. Where several models had similar AICc scores (delta AICc < 2), preference was given 
+# all possible combinations of the available environmnetal variables and ranking the models by
+# lowest AICc value. Where several models had similar AICc scores (delta AICc < 2), preference was given
 # to the simpler (less variables) model.
 
 # (2.1)  offshore waters - model for rivers
 
-OS.R.dat <- dat%>%filter(region2 == "river" & depth == "OS") #subset relevant rows
+OS.R.dat <-
+  dat %>% filter(region2 == "river" &
+                   depth == "OS") #subset relevant rows
 #fit GAM model (mgcv package)
-m1 <- gam(FCI ~  s(age_bottom) + s(salinity_.bottom) + s(oxygen_bottom)  + Period, 
-          data = OS.R.dat, 
-          method = "REML", family = "gaussian")
+m1 <-
+  gam(
+    FCI ~  s(age_bottom) + s(salinity_.bottom) + s(oxygen_bottom)  + Period,
+    data = OS.R.dat,
+    method = "REML",
+    family = "gaussian"
+  )
 summary(m1) #model summary
 
 
 # (2.2)  nearshore waters - model for rivers
 
-NS.R.dat <- dat%>%filter(region2 == "river" & depth == "NS") #subset relevant rows
+NS.R.dat <-
+  dat %>% filter(region2 == "river" &
+                   depth == "NS") #subset relevant rows
 #fit GAM model (mgcv package)
-m2 <- gam(FCI ~   s(salinity_.bottom) + s(hypoxia_area) + Period, 
-          data = NS.R.dat, 
-          method = "REML", family = "gaussian")
+m2 <- gam(
+  FCI ~   s(salinity_.bottom) + s(hypoxia_area) + Period,
+  data = NS.R.dat,
+  method = "REML",
+  family = "gaussian"
+)
 summary(m2) #model summary
 
 
 # (2.3)  nearshore waters - model for basins
 
-NS.B.dat <- dat%>%filter(region2 == "basin" & depth == "NS") #subset relevant rows
+NS.B.dat <-
+  dat %>% filter(region2 == "basin" &
+                   depth == "NS") #subset relevant rows
 #fit GAM model (mgcv package)
-m3 <- gam(FCI ~  s(salinity_.bottom) + s(hypoxia_area) + Period, 
-          data = NS.B.dat, 
-          method = "REML", family = "gaussian")
+m3 <- gam(
+  FCI ~  s(salinity_.bottom) + s(hypoxia_area) + Period,
+  data = NS.B.dat,
+  method = "REML",
+  family = "gaussian"
+)
 summary(m3) #model summary
 
 
@@ -58,7 +75,7 @@ summary(m3) #model summary
 
 ## each GAM model can be used to predict FCI scores for a given set of env variables
 # the prediction requires values of each model term to be specified.
-# for example, for m1 (OS, rivers  model)  - age_bottom, salinity_.bottom, oxygen_bottom and Period 
+# for example, for m1 (OS, rivers  model)  - age_bottom, salinity_.bottom, oxygen_bottom and Period
 # must be specified (with column names spelt exactly as they are in the model).
 
 
@@ -67,35 +84,81 @@ setwd("E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/20
 # to loop through all files in a folder
 
 
-listcsv <- dir(pattern = "*.csv") # creates the list of all the csv files in the directory
+listcsv <-
+  dir(pattern = "*.csv") # creates the list of all the csv files in the directory
 
-for (k in 1:length(listcsv)){
+for (k in 1:length(listcsv)) {
+  # Super hacky BB code
+  
+  temp1 <- strsplit(listcsv[k], "_")
+  temp2 <- temp1[[1]]
+  temp3 <- temp2[2]
+  
+  temp4 <- strsplit(temp3, "[.]")
+  temp5 <- temp4[[1]]
+  theModel <- temp5[1]
+  
+  
   
   ndat <- list() # creates a list
   a <- list() # a list for results
   
- ndat <- read.csv(listcsv[k])
-
-filename <- paste0(listcsv[k])
-
-grid.cell <- ndat$Cell
-age_bottom <- ndat$Age
-# cONVERT TO MG/l FROM MMOL/M3
-oxygen_bottom <- ndat$Oxy * (32/1000)
-salinity_.bottom <- ndat$Sal
-Period <- ndat$Period
-a <- data.frame(grid.cell,age_bottom,oxygen_bottom,salinity_.bottom,Period,stringsAsFactors=FALSE)
-
-#predict scores (and SE) for dataframe using gam m1
-a$pred_FCI <- predict(m1, newdata=a, se.fit = TRUE)$fit
-a$FCI.se <- predict(m1, newdata=a, se.fit = TRUE)$se.fit  
-
-#optional - add FCI grades to estimates
-a <- a%>% mutate(grade = ifelse(pred_FCI < 10.4, "E", "D"),
-                 grade = ifelse(pred_FCI >= 41, "C", grade),
-                 grade = ifelse(pred_FCI >=54, "B", grade),
-                 grade = ifelse(pred_FCI >= 71, "A", grade))
-
-write.csv(file=paste0("E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/output/",filename),a[,c("grid.cell","pred_FCI","FCI.se","grade")])
+  ndat <- read.csv(listcsv[k])
+  
+  filename <- paste0(listcsv[k])
+  
+  grid.cell <- ndat$Cell
+  age_bottom <- ndat$Age
+  # cONVERT TO MG/l FROM MMOL/M3
+  oxygen_bottom <- ndat$Oxy
+  salinity_.bottom <- ndat$Sal
+  hypoxia_area <- ndat$Hypoxia
+  Period <- ndat$Period
+  a <-
+    data.frame(grid.cell,
+               age_bottom,
+               oxygen_bottom,
+               salinity_.bottom,
+               hypoxia_area,
+               Period,
+               stringsAsFactors = FALSE)
+  
+  
+  if (theModel == "M1") {
+    print("Running with M1")
+    #predict scores (and SE) for dataframe using gam m1
+    a$pred_FCI <- predict(m1, newdata = a, se.fit = TRUE)$fit
+    a$FCI.se <- predict(m1, newdata = a, se.fit = TRUE)$se.fit
+  }
+  
+  if (theModel == "M2") {
+    print("Running with M2")
+    #predict scores (and SE) for dataframe using gam m1
+    a$pred_FCI <- predict(m2, newdata = a, se.fit = TRUE)$fit
+    a$FCI.se <- predict(m2, newdata = a, se.fit = TRUE)$se.fit
+  }
+  
+  if (theModel == "M3") {
+    print("Running with M3")
+    #predict scores (and SE) for dataframe using gam m1
+    a$pred_FCI <- predict(m3, newdata = a, se.fit = TRUE)$fit
+    a$FCI.se <- predict(m3, newdata = a, se.fit = TRUE)$se.fit
+  }
+  
+  
+  #optional - add FCI grades to estimates
+  a <- a %>% mutate(
+    grade = ifelse(pred_FCI < 10.4, "E", "D"),
+    grade = ifelse(pred_FCI >= 41, "C", grade),
+    grade = ifelse(pred_FCI >= 54, "B", grade),
+    grade = ifelse(pred_FCI >= 71, "A", grade)
+  )
+  
+  write.csv(
+    file = paste0(
+      "E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/output/",
+      filename
+    ),
+    a[, c("grid.cell", "pred_FCI", "FCI.se", "grade")]
+  )
 }
-

@@ -2,7 +2,7 @@ clear all; close all;
 
 %scenario_dir = 'Y:\Peel Final Report\Scenarios\Processed v12\';
 
-load('Y:\Peel Final Report\Scenarios\Scenarios_Spreadsheets\scendata_crabHSI.mat');
+load('Y:\Peel Final Report\Scenarios\index\scendata_crabHSI2.mat');
 
 outdir = 'Scenarios_Spreadsheets\';
 

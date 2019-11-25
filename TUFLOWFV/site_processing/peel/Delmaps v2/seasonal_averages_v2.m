@@ -1,14 +1,16 @@
-clear all; close all;
+function seasonal_averages_v2(var,base_caxis,conv)
 
 basedir = 'Y:\Peel Final Report\Processed_v12_joined\';
-outdir = 'Y:\Peel Final Report\DelMaps\';
+outdir = 'Y:\Peel Final Report\Seasonal_Averages\';
 scenlist = dir(basedir);
 
 shp = shaperead('Peel_Boundary.shp');
+pre = shaperead('Per_Cut.shp');
 
-var = 'WQ_DIAG_TOT_TN';
+cut = shaperead('GIS\Cut.shp');
+%var = 'WQ_DIAG_TOT_TN';
 
-conv = 14/1000;
+%conv = 14/1000;
 
 base1 = 'run_2016_2018_joined';
 base2 = 'run_1979_1981';
@@ -17,12 +19,12 @@ base2 = 'run_1979_1981';
 % del_caxis = [-2 2];
 % del_clip = [-0.5 0.5];
 
-base_caxis = [0 2];
+%base_caxis = [0 2];
 
 del_caxis = [-0.5 0.5];
 del_clip = [-0.05 0.05];
 
-do_crit = 1; %Only for oxygen;
+do_crit = 0; %Only for oxygen;
 
 % base_caxis = [0 0.5];
 % 
@@ -30,9 +32,22 @@ do_crit = 1; %Only for oxygen;
 % del_clip = [-0.01 0.01];
 depth = 'Bot';
 
-% themonths(1).val = [6 8];
-% themonths(1).year = [2016 2016];
-% themonths(1).lab = 'Winter';
+themonths(1).val = [9 11];
+themonths(1).year = [1979 1979];
+themonths(2).val = [9 11];
+themonths(2).year = [1981 1981];
+themonths(3).val = [9 11];
+themonths(3).year = [1982 1982];
+themonths(4).val = [9 11];
+themonths(4).year = [1991 1991];
+themonths(5).val = [9 11];
+themonths(5).year = [1996 1996];
+themonths(6).val = [9 11];
+themonths(6).year = [2005 2005];
+themonths(7).val = [9 11];
+themonths(7).year = [2013 2013];
+themonths(8).val = [9 11];
+themonths(8).year = [2017 2017];
 
 pos(1).a = [0.00 0.55 0.25 0.4];
 pos(2).a = [0.25 0.55 0.25 0.4];
@@ -83,27 +98,14 @@ thenames = {...
     };
 
 
-themonths(1).val = [6 8];
-themonths(1).year = [1979 1979];
-themonths(2).val = [6 8];
-themonths(2).year = [1981 1981];
-themonths(3).val = [6 8];
-themonths(3).year = [1982 1982];
-themonths(4).val = [6 8];
-themonths(4).year = [1991 1991];
-themonths(5).val = [6 8];
-themonths(5).year = [1996 1996];
-themonths(6).val = [6 8];
-themonths(6).year = [2005 2005];
-themonths(7).val = [6 8];
-themonths(7).year = [2013 2013];
-themonths(8).val = [6 8];
-themonths(8).year = [2017 2017];
+
 
 datetext = [num2str(themonths(1).year(1)),'-',num2str(themonths(1).val(1)),'_',num2str(themonths(1).year(2)),'-',num2str(themonths(1).val(2))];
 
 
 [XX,YY,ZZ,nodeID,faces,cellX,cellY,Z,ID,MAT,cellArea] = tfv_get_node_from_2dm('Peelv4_Sed_Oxy_Coolup_hole_UM_50m_polygon_min05m.2dm');
+
+inpol = inpolygon(cellX,cellY,cut.X,cut.Y);
 
 
 for i = 3:length(scenlist)
@@ -140,6 +142,12 @@ for i = 1:length(theorder)
         delmap.raw.(theorder{i}) = mean(outdata.(theorder{i}).savedata.(var).(depth)(:,sss),2) * conv;
         
     end
+    
+    if themonths(i).year(1) < 1995
+        delmap.raw.(theorder{i})(inpol) = NaN;
+    end
+    
+    
     %delmap.raw.(theorder{i})
     %subplot(2,4,i)
     axes('position',pos(i).a)
@@ -152,8 +160,11 @@ for i = 1:length(theorder)
     
     patFig = patch('faces',faces','vertices',[XX YY],'FaceVertexCData',delmap.raw.(theorder{i}));shading flat
     set(gca,'box','on');hold on
-    
-    mapshow(shp,'facecolor','none','edgecolor','k')
+    if themonths(i).year(1) > 1995
+        mapshow(shp,'facecolor','none','edgecolor','k');
+    else
+        mapshow(pre,'facecolor','none','edgecolor','k');
+    end
     
     set(findobj(gca,'type','surface'),...
         'FaceLighting','phong',...

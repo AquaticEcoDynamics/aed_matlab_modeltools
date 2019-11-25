@@ -16,7 +16,7 @@ if ~exist(outdir,'dir')
     mkdir(outdir);
 end
 
-datearray = datenum(2016,04,01:07:365,12,00,00);
+datearray = datenum(2016,04,01:07:400,12,00,00);
 
 period = '2016-18';
 

@@ -1,13 +1,13 @@
 clear all; close all;
 
-dirlist = dir('Scenario_Output/');
+dirlist = dir('Model_Output/');
 
 fci =  [];
 
 for i = 3:length(dirlist)
     scen = dirlist(i).name;
     
-    thefiles = dir(['Scenario_Output/',scen,'/','*.csv']);
+    thefiles = dir(['Model_Output/',scen,'/','*.csv']);
     the_alls = [];
     for j = 1:length(thefiles)
         
@@ -29,7 +29,7 @@ for i = 3:length(dirlist)
         
         disp([scen,' << ',the_times{k}]);
         
-        filename = ['Scenario_Output/',scen,'/',the_times{k},'_M1.csv'];
+        filename = ['Model_Output/',scen,'/',the_times{k},'_M1.csv'];
         
         [snum,sstr] = xlsread(filename,'B2:E30000');
         
@@ -38,7 +38,7 @@ for i = 3:length(dirlist)
         fci_se = [fci_se;snum(:,3)];
         grade = [grade;sstr(:,end)];
         
-        filename = ['Scenario_Output/',scen,'/',the_times{k},'_M2.csv'];
+        filename = ['Model_Output/',scen,'/',the_times{k},'_M2.csv'];
         
         [snum,sstr] = xlsread(filename,'B2:E30000');
         
@@ -47,7 +47,7 @@ for i = 3:length(dirlist)
         fci_se = [fci_se;snum(:,3)];
         grade = [grade;sstr(:,end)];
         
-        filename = ['Scenario_Output/',scen,'/',the_times{k},'_M3.csv'];
+        filename = ['Model_Output/',scen,'/',the_times{k},'_M3.csv'];
         
         [snum,sstr] = xlsread(filename,'B2:E30000');
         
@@ -82,5 +82,5 @@ for i = 3:length(dirlist)
         
 end
         
-save fci.mat fci -mat -v7.3
+save('Y:\Peel Final Report\FCI\fci_2016.mat','fci','-mat','-v7.3');
     

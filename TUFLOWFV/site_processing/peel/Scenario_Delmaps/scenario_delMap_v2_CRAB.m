@@ -1,25 +1,26 @@
 clear all; close all;
 
 
-load('Y:\Peel Final Report\Scenarios\index\scendata_crabHSI.mat');
+load('Y:\Peel Final Report\Scenarios\index\scendata_crabHSI2.mat');
 %basedir = 'Y:\Peel Final Report\Scenarios\Processed v12\';
 outdir = 'Y:\Peel Final Report\Scenarios\DelMaps\';
 %scenlist = dir(basedir);
 
 shp = shaperead('Peel_Boundary.shp');
 
-var = 'CI';
+var = 'CI2';
 
 conv = 1;%32/1000;
 
-base = 'scen_0b';
+base1 = 'scen_0a';
+base2 = 'scen_0b';
 
 % base_caxis = [2 10];
 
 % del_caxis = [-2 2];
 % del_clip = [-0.5 0.5];
-themonths(1).val = [11 3];
-themonths(1).year = [2016 2017];
+themonths(1).val = [1 3];
+themonths(1).year = [2017 2017];
 themonths(1).lab = 'Winter';
 
 
@@ -216,7 +217,7 @@ colormap(newmap);
 for i = 1:length(theorder)
     
     
-    theDel = delmap.raw.(theorder{i}) - delmap.raw.(base);
+    theDel = delmap.raw.(theorder{i}) - delmap.raw.(base1);
     
     
     %subplot(2,4,i)
@@ -305,10 +306,115 @@ for i = 1:length(theorder)
 end
 
 if ~do_crit
-    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_delMap_minus_',base1,'.png']);close;
     
 else
-    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_delMap_minus_',base,'.png']);close;
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_delMap_minus_',base1,'.png']);close;
+end
+
+
+
+
+figure('position',[750.333333333333                        99          1573.33333333333          1094.66666666667]);
+
+newmap = blank_col(del_caxis,del_clip);
+colormap(newmap);
+for i = 1:length(theorder)
+    
+    
+    theDel = delmap.raw.(theorder{i}) - delmap.raw.(base2);
+    
+    
+    %subplot(2,4,i)
+    axes('position',pos(i).a)
+    
+    tx = regexprep(theorder{i},'_',' ');
+    tx = regexprep(tx,'scen','');
+    
+    text(0.9,0.95,tx,'units','normalized','fontsize',14,'fontweight','bold');
+    
+    sss = find(theDel >= del_clip(1) & ...
+        theDel <= del_clip(2));
+    theDel(sss) = NaN;
+    
+    patFig = patch('faces',faces','vertices',[XX YY],'FaceVertexCData',theDel);shading flat
+    set(gca,'box','on');hold on
+    
+    mapshow(shp,'facecolor','none','edgecolor','k')
+    
+    set(findobj(gca,'type','surface'),...
+        'FaceLighting','phong',...
+        'AmbientStrength',.3,'DiffuseStrength',.8,...
+        'SpecularStrength',.9,'SpecularExponent',25,...
+        'BackFaceLighting','unlit');
+    
+    axis equal
+    
+%     map = flipud(parula);
+%     
+%     colormap(patFig,map);
+    
+    xlim([370110.057100533          416668.669836211]);
+    ylim([6359765.17857549          6412339.57259274]);
+    
+    caxis(del_caxis);
+    
+    %colorbar
+    
+    axis off;
+    
+    plot_box;
+    plot_box2;
+    
+    %____________
+    
+    axes('position',pos(i).b,'color',[0.7 0.7 0.7])
+    text(0.6,0.95,'Murray River','units','normalized','fontsize',10,'fontweight','bold');
+    
+    sss = find(theDel >= del_clip(1) & ...
+        theDel <= del_clip(2));
+    theDel(sss) = NaN;
+    
+    patFig = patch('faces',faces','vertices',[XX YY],'FaceVertexCData',theDel);shading flat
+    set(gca,'box','on');hold on
+    
+    mapshow(shp,'facecolor','none','edgecolor','k')
+    
+    set(findobj(gca,'type','surface'),...
+        'FaceLighting','phong',...
+        'AmbientStrength',.3,'DiffuseStrength',.8,...
+        'SpecularStrength',.9,'SpecularExponent',25,...
+        'BackFaceLighting','unlit');
+    
+    axis equal
+    
+%     map = flipud(parula);
+%     
+%     colormap(patFig,map);
+    
+    xlim([386576.219342587          395241.577797865]);
+    ylim([6388502.80301868          6395691.43997054]);
+    
+    caxis(del_caxis);
+    
+    %colorbar
+    
+    axis off;
+    
+    plot_box2;
+    
+    if i == 8
+        cb = colorbar('location','southoutside');
+        set(cb,'position',[0.35 0.05 0.3 0.01]);
+        
+    end
+end
+
+if ~do_crit
+    saveas(gcf,[outdir,var,'_',depth,'_',datetext,'_delMap_minus_',base2,'.png']);close;
+    
+else
+    saveas(gcf,[outdir,'Oxy_Crit','_',depth,'_',datetext,'_delMap_minus_',base2,'.png']);close;
 end
 
 

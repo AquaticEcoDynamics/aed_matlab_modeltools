@@ -1,6 +1,6 @@
 clear all; close all;
 
-load('Y:\Peel Final Report\FCI\out.mat');
+load('Y:\Peel Final Report\FCI\fci_2016.mat');
 
 outdir = 'Y:\Peel Final Report\FCI\';
 
@@ -10,11 +10,11 @@ var = 'pred_fci';
 
 conv = 1;%1/86400;%32/1000;
 
-base_caxis = [20 80];
+base_caxis = [1 6];
 
-thedates = datenum(2016,05:01:12,01,12,00,00);
+thedates = datenum(2016,08:01:15,01,12,00,00);
 
-
+site = 'run_2016';
 
 pos(1).a = [0.00 0.55 0.25 0.4];
 pos(2).a = [0.25 0.55 0.25 0.4];
@@ -44,11 +44,19 @@ pos(8).b = [0.80 0.1 0.2 0.2];
 [XX,YY,ZZ,nodeID,faces,cellX,cellY,Z,ID,MAT,cellArea] = tfv_get_node_from_2dm('Peelv4_Sed_Oxy_Coolup_hole_UM_50m_polygon_min05m.2dm');
 
 
-for k = 1:length(out)
-    mtime(k) = out(k).time;
-end
+% for k = 1:length(out)
+%     mtime(k) = out(k).time;
+% end
 
 %%
+
+cmap = zeros(5, 3);
+cmap =   [[0, 153, 0]/255; ...   % Blue for 1
+          [102,255, 102]/255; ...       % Black for 2
+          [255,255, 51]/255; ...       % Green for 3
+          [255, 128, 0]/255; ... % Gray for 4
+          [255,0, 0]/255; ...   % Brown for 5
+    ];
 
 figure('position',[750.333333333333                        99          1573.33333333333          1094.66666666667]);
 
@@ -56,10 +64,10 @@ figure('position',[750.333333333333                        99          1573.3333
 
 for i = 1:length(thedates)
     
-    [~,the_ind] = min(abs(mtime - thedates(i)));
+    [~,the_ind] = min(abs(fci.(site).mtime - thedates(i)));
     
     
-    delmap = out(the_ind).(var);
+    delmap = fci.(site).(var)(:,the_ind);
     
     
     %delmap.raw.(theorder{i})

@@ -80,7 +80,7 @@ summary(m3) #model summary
 # for example, for m1 (OS, rivers  model)  - age_bottom, salinity_.bottom, oxygen_bottom and Period
 # must be specified (with column names spelt exactly as they are in the model).
 
-setwd("D:/Github/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/Scenarios/run_scenario_3b") #the folder of all your files to be looped
+setwd("E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/2016") #the folder of all your files to be looped
 
 
 # to loop through all files in a folder
@@ -158,7 +158,7 @@ for (k in 1:length(listcsv)) {
   
   write.csv(
     file = paste0(
-      "D:/Github/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/Scenario_Output/run_scenario_3b/",
+      "E:/Github 2018/aed_matlab_modeltools/TUFLOWFV/site_processing/peel/FCI/Model_Output/run_2016/",
       filename
     ),
     a[, c("grid.cell", "pred_FCI", "FCI.se", "grade")]

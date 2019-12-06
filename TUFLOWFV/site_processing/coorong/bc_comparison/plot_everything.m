@@ -1,17 +1,21 @@
 clear all; close all;
 
     
-dirlist = dir(['BC2/','*.csv']);
+dirlist = dir(['BC3/','*.csv']);
 
 for i = 1:length(dirlist)
     disp(dirlist(i).name);
-    data.(['bc_',regexprep(dirlist(i).name,'.csv','')]) = tfv_readBCfile(['BC2/',dirlist(i).name]);
+    data.(['bc_',regexprep(dirlist(i).name,'.csv','')]) = tfv_readBCfile(['BC3/',dirlist(i).name]);
     
 end
 
-save data.mat data -mat -v7.3;
+data.bc_Salt_Creek_Existing_1889_2016.FLOW = data.bc_Salt_Creek_Existing_1889_2016.FLOW * 1.143;
+
+
+
+%save data.mat data -mat -v7.3;
     
-mkdir('Images_All_2/BC/');
+mkdir('Images_All_5/BC/');
 
 sites = fieldnames(data);
 
@@ -19,7 +23,7 @@ vars = fieldnames(data.(sites{1}));
 %vars(end+1) = {'wl'};
 
 %datearray = datenum(2007,01:6:85,01);
-datearray = datenum(2014,01:06:37,01);
+datearray = datenum(2014:01:2017,01,01);
 
 for i = 1:length(vars)
     figure
@@ -59,11 +63,11 @@ for i = 1:length(vars)
         set(gcf,'paperposition',[0 0 xSize ySize])
         
         %print(gcf,['Images_All/Guaged/',vars{i},'.eps'],'-depsc2','-painters');
-        print(gcf,['Images_All_2/BC/',vars{i},'.png'],'-dpng','-zbuffer');
+        print(gcf,['Images_All_5/BC/',vars{i},'.png'],'-dpng','-zbuffer');
         
         close all;
         
     end
 end
 
-convert_html;
+convert_html('Images_All_5/');

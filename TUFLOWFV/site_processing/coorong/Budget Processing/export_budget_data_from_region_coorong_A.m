@@ -11,7 +11,7 @@ for bdb = [1 6]%length(flist) %1:
     ncfile = ['R:\Coorong-Local\Netcdf\',flist(bdb).name];
     %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';
     %outdir = 'Y:\Coorong Report\Budget\ORH_Base_20140101_20170101_rst\';
-    outdir = ['Y:\Coorong Report\Budget_Final\',regexprep(flist(bdb).name,'.nc',''),'\'];
+    outdir = ['Y:\Coorong Report\Budget_Final_Salt\',regexprep(flist(bdb).name,'.nc',''),'\'];
     if exist(outdir,'dir')
         mkdir(outdir);
     end
@@ -61,7 +61,7 @@ for bdb = [1 6]%length(flist) %1:
     %outdir = 'I:\Peel\Matfiles/Peel_WQ_Model_v5_2016_2017_3D_Murray/';
     
     %load Export_Locations.mat;
-    shp = shaperead('GIS/Coorong_Regions.shp');
+    shp = shaperead('GIS/Salt.shp');
     %shp = shp_A(4);
     
     data = tfv_readnetcdf(ncfile,'names',{'idx2';'idx3';'cell_X';'cell_Y';'cell_A';'D';'NL';'layerface_Z';'cell_Zb'});clear functions;

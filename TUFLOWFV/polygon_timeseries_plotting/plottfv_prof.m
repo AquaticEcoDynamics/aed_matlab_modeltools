@@ -323,7 +323,7 @@ for var = 1:length(varname)
                 
                 data1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OXY_OXY'});
                 
-                raw(mod).data.WQ_OXY_OXY = data1.WQ_OXY_OXY * 32 /1000;
+                raw(mod).data.WQ_OXY_OXY = data1.WQ_OXY_OXY * 1;%32 /1000;
                 
                 clear data1
                 

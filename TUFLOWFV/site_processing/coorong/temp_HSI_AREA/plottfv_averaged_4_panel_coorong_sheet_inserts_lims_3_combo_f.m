@@ -1,4 +1,4 @@
-function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(ncfile,outdir,scenario,year)
+function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(ncfile,outdir,scenario,year,windowLength,averageLength)
 % clear all; close all;
 % 
 % addpath(genpath('tuflowfv'));
@@ -12,8 +12,8 @@ yr = year;
 loopy_doop =1;
 
 %__________________________________________________________________________
-windowLength  = 120.0;
-averageLength = 42.0;
+% windowLength  = 120.0;
+% averageLength = 42.0;
 
 var(1).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FSAL_3';
 var(1).cax = [0 1];

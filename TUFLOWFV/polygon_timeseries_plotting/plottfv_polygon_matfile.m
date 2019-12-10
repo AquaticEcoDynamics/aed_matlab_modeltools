@@ -28,6 +28,10 @@ if ~exist('add_triangle','var')
     add_triangle = 0;
 end
 
+if ~exist('add_coorong','var')
+    add_coorong = 0;
+end
+
 isConv = 0;
 
 %allvars = tfv_infonetcdf(ncfile(1).name);
@@ -623,6 +627,39 @@ for var = 1:length(varname)
                 'markerfacecolor',[0.7 0.7 0.7],'markeredgecolor','k','markersize',3);%'color',[0.7 0.7 0.7]);
         end
 
+        
+        if add_coorong
+            yrange = def.cAxis(var).value(2) - def.cAxis(var).value(1);
+            y10 = yrange* 0.1;
+            y20 = y10*2;
+            y30 = y10 * 3;
+            
+            % Add life stage information
+            [yyyy,~,~] = datevec(def.datearray);
+            
+            years = unique(yyyy);
+            for st = 1:length(years)
+                
+                pt = plot([datenum(years(st),01,01) datenum(years(st),01,01)],[def.cAxis(var).value(1) def.cAxis(var).value(end)],'--k');
+                set(pt,'HandleVisibility','off');
+                pt = plot([datenum(years(st),09,01) datenum(years(st),09,01)],[def.cAxis(var).value(1) def.cAxis(var).value(end)],'--k');
+                set(pt,'HandleVisibility','off');
+                
+                st1 = plot([datenum(years(st),04,01) (datenum(years(st),04,01)+120)],...
+                    [(def.cAxis(var).value(2)-y10) (def.cAxis(var).value(2)-y10)],'k');
+                set(st1,'HandleVisibility','off');
+                
+                st1 = plot([datenum(years(st),06,01) (datenum(years(st),06,01)+120)],...
+                    [(def.cAxis(var).value(2)-y20) (def.cAxis(var).value(2)-y20)],'k');
+                set(st1,'HandleVisibility','off');
+                
+                st1 = plot([datenum(years(st),08,01) (datenum(years(st),08,01)+150)],...
+                    [(def.cAxis(var).value(2)-y30) (def.cAxis(var).value(2)-y30)],'k');
+                set(st1,'HandleVisibility','off');
+                
+            end
+
+        end
 %         if strcmpi({loadname},'TEMP')
 %             plot([datenum(2015,01,01) datenum(2019,01,01)],[17 17],'--k');
 %             plot([datenum(2015,01,01) datenum(2019,01,01)],[25 25],'--k');

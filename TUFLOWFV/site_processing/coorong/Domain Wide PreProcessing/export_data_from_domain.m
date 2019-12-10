@@ -2,8 +2,8 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-ncdir = 'R:\Coorong-Output\';
-savedir = 'R:\Coorong-Processed/';
+ncdir = 'R:\Coorong-Local\Netcdf\';
+savedir = 'Y:\Coorong Report\Process_Final/';
 
 dirlist = dir([ncdir,'*.nc']);
 
@@ -110,7 +110,7 @@ vars = {...
 %stop;
 
 
-for bdb = 1:length(dirlist)
+for bdb = length(dirlist)
     
     ncfile = [ncdir,dirlist(bdb).name];
     %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';
@@ -119,10 +119,10 @@ for bdb = 1:length(dirlist)
     %
     %     else
     
-    the_vars = tfv_infonetcdf(ncfile);
-    v_all = tfv_infonetcdf(ncfile);
-    %vars = v_all(23:end);
-    vars = v_all([20 21 23:end]);
+%     the_vars = tfv_infonetcdf(ncfile);
+%     v_all = tfv_infonetcdf(ncfile);
+%     %vars = v_all(23:end);
+%     vars = v_all([20 21 23:end]);
     disp(ncfile);
     
     if ~exist(outdir,'dir')

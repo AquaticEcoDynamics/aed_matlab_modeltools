@@ -28,10 +28,6 @@ if ~exist('add_triangle','var')
     add_triangle = 0;
 end
 
-if ~exist('add_coorong','var')
-    add_coorong = 0;
-end
-
 isConv = 0;
 
 allvars = tfv_infonetcdf(ncfile(1).name);
@@ -614,8 +610,13 @@ for var = 1:length(varname)
                 'HandleVisibility','off',...
                 'markerfacecolor',[0.7 0.7 0.7],'markeredgecolor','k','markersize',3);%'color',[0.7 0.7 0.7]);
         end
-        
-        if add_coorong
+
+%         if strcmpi({loadname},'TEMP')
+%             plot([datenum(2015,01,01) datenum(2019,01,01)],[17 17],'--k');
+%             plot([datenum(2015,01,01) datenum(2019,01,01)],[25 25],'--k');
+%         end
+
+        if
         yrange = def.cAxis(var).value(2) - def.cAxis(var).value(1);
             y10 = yrange* 0.1;
             y20 = y10*2;
@@ -646,12 +647,9 @@ for var = 1:length(varname)
                 
             end
 
-        end
 
-%         if strcmpi({loadname},'TEMP')
-%             plot([datenum(2015,01,01) datenum(2019,01,01)],[17 17],'--k');
-%             plot([datenum(2015,01,01) datenum(2019,01,01)],[25 25],'--k');
-%         end
+
+            
 
         xlim([def.datearray(1) def.datearray(end)]);
         if isYlim

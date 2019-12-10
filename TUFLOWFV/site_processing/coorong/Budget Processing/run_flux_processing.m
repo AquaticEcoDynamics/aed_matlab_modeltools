@@ -3,6 +3,6 @@ addpath(genpath('Functions'));
 
 process_multiple_flux_files;
 
-join_matfiles;
+%join_matfiles;
 
 %process_multiple_flux_files_1; %For sims with an extra nodestring.

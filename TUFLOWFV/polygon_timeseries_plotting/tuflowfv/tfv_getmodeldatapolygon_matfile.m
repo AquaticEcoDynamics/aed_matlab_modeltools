@@ -16,13 +16,18 @@ for iii = 1:length(sss)
     
     
     if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0
+        if isfield(rawData.savedata.(varname{1}),'Top')
         
         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.savedata.(varname{1}).Top(pt_id,:),varname{1});
+        else
+         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.savedata.(varname{1}).Bot(pt_id,:),varname{1}); 
+        end
         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.savedata.(varname{1}).Bot(pt_id,:),varname{1});
         %data.profile = rawData.(varname{1})(Cell_3D_IDs,:);
         
     else
         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.savedata.(varname{1})(pt_id,:),varname{1});
+        
         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.savedata.(varname{1})(pt_id,:),varname{1});
         
     end

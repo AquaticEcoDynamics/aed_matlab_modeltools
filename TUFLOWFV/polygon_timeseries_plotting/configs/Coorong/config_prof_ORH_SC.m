@@ -22,8 +22,8 @@ varname = {...
 
 def.cAxis(1).value = [0 100];
 def.cAxis(2).value = [0 5]; 	%'WQ_DIAG_TOT_TN',...
-def.cAxis(3).value = [0 1.5]; 	%'WQ_DIAG_TOT_TP',...
-def.cAxis(4).value = [0 150]; 	%'WQ_DIAG_TOT_TURBIDITY',...
+def.cAxis(3).value = [0 1]; 	%'WQ_DIAG_TOT_TP',...
+def.cAxis(4).value = [0 25]; 	%'WQ_DIAG_TOT_TURBIDITY',...
 
 
 
@@ -75,7 +75,12 @@ int = 1;
  ncfile(int).legend = 'SC40 NUTx2.0';
  ncfile(int).translate = 1;
 int = int + 1;
-
+ncfile(int).name = 'Z:\Matt\CLLMMRW\012_Weir_6_SC70_noWeir\Output\SC40_NUT_2.coorong.nc';
+ ncfile(int).symbol = {'-';'--'};
+ ncfile(int).colour = {'m','m'}; % Surface and Bottom
+ ncfile(int).legend = 'SC70';
+ ncfile(int).translate = 1;
+int = int + 1;
  
 % ncfile(2).name = 'R:\Coorong\010_Ruppia_2015_2016_9_SC40_2Nut\Output\coorong.nc';
 % ncfile(2).symbol = {'-';'--'};

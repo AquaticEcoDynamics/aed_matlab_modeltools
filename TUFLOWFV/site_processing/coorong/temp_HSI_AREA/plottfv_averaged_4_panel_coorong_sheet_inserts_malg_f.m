@@ -84,7 +84,8 @@ tt = tfv_readnetcdf(ncfile,'names',{'cell_A'});
 
 Area = tt.cell_A;
 
-
+bottom_cells(1:length(dat.idx3)-1) = dat.idx3(2:end) - 1;
+bottom_cells(length(dat.idx3)) = length(dat.idx3);
 %__________________________________________________________________________
 
 for i = 1:length(var)
@@ -107,7 +108,7 @@ faces(faces(:,4)== 0,4) = faces(faces(:,4)== 0,1);
 sss = find(timesteps >= var(i).daterange(1) & timesteps < var(i).daterange(2));
 
 
-ave_data = mean(data.(var(i).name)(:,sss),2);
+ave_data = mean(data.(var(i).name)(bottom_cells,sss),2);
 
 max_data(:,i) = ave_data;
 

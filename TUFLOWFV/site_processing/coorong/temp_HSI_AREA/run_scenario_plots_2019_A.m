@@ -1,11 +1,12 @@
 addpath(genpath('tuflowfv'));
 
 scenarios = {...
+    'ORH_Base_Dep_False_20140101_20170101',...
     'ORH_Base_FSED0_20140101_20170101',...
-     'ORH_Base_Dep_False_20140101_20170101',...
-%     'SC40_Base_20140101_20170101',...
-%     'SC40_NUT_1.5_20140101_20170101',...
-%     'ORH_Base_WAVE_20140101_20140401',...
+    'ORH_Base_FSED2_20140101_20170101',...
+    'ORH_SLR_02_20140101_20170101',...
+    'SC40_Base_20140101_20170101',...
+'SC40_NUT_1.5_20140101_20170101',...
 };
 
 
@@ -35,7 +36,7 @@ scenarios = {...
 
 min_size = 30000000000;
 
-year_array = [2014 2014 2014 2014 2014];% 2014 2014 2014 2015 2015 2015 2015];%,2015,2015];
+year_array = [2015 2015 2015 2015 2015 2015];% 2014 2014 2014];% 2014 2014 2014 2015 2015 2015 2015];%,2015,2015];
 
 
 
@@ -54,35 +55,35 @@ for i = 1:length(scenarios)
         if f.bytes > min_size
             
             
-            outdir_malg_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\malg\'];
-            plottfv_averaged_4_panel_coorong_sheet_inserts_malg_f(filename,outdir_malg_f,year_array(i));
+            outdir_malg_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\malg\'];
+                    plottfv_averaged_4_panel_coorong_sheet_inserts_malg_f(filename,outdir_malg_f,year_array(i));
             
             
             % Plots to the sheets directory
-            outdir_lim1_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\1_adult_new\'];
-            outdir_lim2_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\2_flower_new\'];
-            outdir_lim3_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\3_seed_new\'];
-            outdir_lim4_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\4_turion_new\'];
-            outdir_lim5_f = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\5_sprout_new\'];
+            outdir_lim1_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\1_adult_new\'];
+            outdir_lim2_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\2_flower_new\'];
+            outdir_lim3_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\3_seed_new\'];
+            outdir_lim4_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\4_turion_new\'];
+            outdir_lim5_f = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\5_sprout_new\'];
             
             
-            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_1_combo_f(filename,outdir_lim1_f,scenarios{i},year_array(i));
-            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_2_combo_f(filename,outdir_lim2_f,scenarios{i},year_array(i));
-            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(filename,outdir_lim3_f,scenarios{i},year_array(i));
-            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_4_combo_f(filename,outdir_lim4_f,scenarios{i},year_array(i));
-            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_5_combo_f(filename,outdir_lim5_f,scenarios{i},year_array(i));
+            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_1_combo_fa(filename,outdir_lim1_f,scenarios{i},year_array(i));
+            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_2_combo_fa(filename,outdir_lim2_f,scenarios{i},year_array(i));
+            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_fa(filename,outdir_lim3_f,scenarios{i},year_array(i));
+            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_4_combo_fa(filename,outdir_lim4_f,scenarios{i},year_array(i));
+            plottfv_averaged_4_panel_coorong_sheet_inserts_lims_5_combo_fa(filename,outdir_lim5_f,scenarios{i},year_array(i));
             
             
             % The stand alone plot
             
-            hsi1= load(['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\1_adult_new\HSI_adult.mat']);
-            hsi2= load(['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\2_flower_new\HSI_flower.mat']);
-            hsi3= load(['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\3_seed_new\HSI_seed.mat']);
-            hsi4= load(['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\4_turion_new\HSI_turion.mat']);
-            hsi5= load(['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\5_sprout_new\HSI_sprout.mat']);
+            hsi1= load(['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\1_adult_new\HSI_adult.mat']);
+            hsi2= load(['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\2_flower_new\HSI_flower.mat']);
+            hsi3= load(['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\3_seed_new\HSI_seed.mat']);
+            hsi4= load(['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\4_turion_new\HSI_turion.mat']);
+            hsi5= load(['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\5_sprout_new\HSI_sprout.mat']);
             
             
-            outdir = ['R:\Coorong_Area\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\'];
+            outdir = ['Y:\Coorong Report\Ruppia_Life_Stages\',scenarios{i},'\Sheets\',num2str(year_array(i)),'\'];
 	
             %___________________________________________________________
 %MH BUM        

@@ -122,6 +122,9 @@ switch varname
     case 'WQ_DIAG_TOT_TURBIDITY'
         ydata = ydata * 1;
         units = 'NTU';
+        case 'WQ_TRC_AGE'
+        ydata = ydata * 1/86400;
+        units = 'Days';
         
         %     case 'SAL'
         %         %PPT to uS/cm

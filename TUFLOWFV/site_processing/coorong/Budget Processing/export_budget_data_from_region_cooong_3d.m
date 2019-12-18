@@ -5,9 +5,9 @@ addpath(genpath('Functions'));
 
 
 
-ncfile = 'R:\Coorong-Local\Netcdf\ORH_Base_3D_20140101_20170101_10000.nc';
+ncfile = 'R:\Coorong-Local\Netcdf\ORH_Base_3D_20140101_20170101.nc';
 %ncfile = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v5_2016_2017_3D_Murray\Output\sim_2016_2017_Open.nc';
-outdir = 'Y:\Coorong Report\Budget_Final\ORH_Base_3D_20140101_20170101_10000\';
+outdir = 'Y:\Coorong Report\Budget_Final\ORH_Base_3D_20140101_20170101\';
 if exist(outdir,'dir')
     mkdir(outdir);
 end

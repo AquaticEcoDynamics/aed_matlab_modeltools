@@ -652,14 +652,14 @@ for var = 1:length(varname)
             finalname = [savedir,final_sitename];
             if exist('filetype','var')
                 if strcmpi(filetype,'png');
-                    %print(gcf,'-depsc2',finalname,'-painters');
+                    print(gcf,'-depsc2',finalname,'-painters');
                     print(gcf,'-dpng',regexprep(finalname,'.eps','.png'),'-opengl');
                 else
-                    %print(gcf,'-depsc2',finalname,'-painters');
+                    print(gcf,'-depsc2',finalname,'-painters');
                     print(gcf,'-dpng',regexprep(finalname,'.eps','.png'),'-opengl');
                 end
             else
-                %print(gcf,'-depsc2',finalname,'-painters');
+                print(gcf,'-depsc2',finalname,'-painters');
                 print(gcf,'-dpng',regexprep(finalname,'.eps','.png'),'-opengl');
             end
             close all force

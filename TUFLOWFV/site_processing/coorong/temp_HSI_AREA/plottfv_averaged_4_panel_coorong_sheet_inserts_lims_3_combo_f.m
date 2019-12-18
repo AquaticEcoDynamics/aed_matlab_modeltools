@@ -1,4 +1,4 @@
-function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(ncfile,outdir,scenario,year,windowLength,averageLength)
+function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(ncfile,outdir,scenario,year)
 % clear all; close all;
 % 
 % addpath(genpath('tuflowfv'));

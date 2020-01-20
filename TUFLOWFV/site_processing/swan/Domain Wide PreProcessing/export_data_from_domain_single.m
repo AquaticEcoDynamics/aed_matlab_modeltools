@@ -1,4 +1,4 @@
-%clear all; close all;
+clear all; close all;
 
 addpath(genpath('Functions'));
 
@@ -7,12 +7,9 @@ addpath(genpath('Functions'));
 % 
 % dirlist = dir([ncdir,'*.nc']);
 
-ncfile = 'Z:\Busch\Studysites\Swan\Simulations\010_Full_Domain_2008_2011_AED2_Macrophytes\Output\swan.nc';
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Salt HSI Calc\Matfiles\2008/';
+ncfile = 'R:\Swan\Sim9\Output\swan_fd_sim9.nc';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Salt HSI Calc\Matfiles\2050/';
 vars = {...
-    'cell_A',...
-    'H',...
-    'D',...
     'SAL',...
     };
 

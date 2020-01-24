@@ -6,7 +6,7 @@ load Tidaldata.mat;
 ISOTime = datearray;
 
 
-filename = 's6160262_Inflow_Depth.csv';
+filename = 'NAR_Inflow_Depth.csv';
 outdir = 'BCs/Tide/';
 
 

@@ -13,7 +13,7 @@ for k = 1:length(dirlist)
     
     data = tfv_readBCfile([basedir,dirlist(k).name]);
     
-    datearray = [min(data.ISOTIME):(max(data.ISOTIME) - min(data.ISOTIME))/5:max(data.ISOTIME)];
+    datearray = [min(data.Date):(max(data.Date) - min(data.Date))/5:max(data.Date)];
     
     
     vars = fieldnames(data);
@@ -27,7 +27,7 @@ for k = 1:length(dirlist)
                 
 %                 if isfield(data.(sites{j}),vars{i})
                     
-                    xdata = data.ISOTIME;
+                    xdata = data.Date;
                     ydata = data.(vars{i});
                     
                     plot(xdata,ydata,'displayname',name);hold on

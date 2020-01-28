@@ -1,4 +1,4 @@
-function create_interpolated_BC_for_inflow_s6160262_v1(swan,headers,datearray,shift_AHD)
+function create_interpolated_BC_for_inflow_NAR_v1(swan,headers,datearray,shift_AHD)
 
 load Tidaldata.mat;
 

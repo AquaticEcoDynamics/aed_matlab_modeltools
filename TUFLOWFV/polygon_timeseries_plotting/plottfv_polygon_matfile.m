@@ -806,7 +806,7 @@ for var = 1:length(varname)
             saveas(gcf,regexprep(finalname_p,'.eps','.png'));
         end
 
-        %tfv_export_conc(regexprep(finalname,'.eps','.csv'),plotdate,plotdata,ncfile);
+        tfv_export_conc(regexprep(finalname_p,'.eps','.csv'),plotdate,plotdata,ncfile);
 
         close all force
 

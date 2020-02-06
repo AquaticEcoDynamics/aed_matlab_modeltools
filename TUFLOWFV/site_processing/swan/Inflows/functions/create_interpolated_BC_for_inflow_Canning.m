@@ -56,13 +56,13 @@ figure;plot(wl);title('wl');
 clear t_date t_data;
 
 %__________________________________________________________________________
-varname = 'SAL';
+varname = 'SAL';%Changed from s6162994
 
-t_depth = swan.s6162994.(varname).Depth;
+t_depth = swan.s6161838.(varname).Depth;
 tt = find(t_depth > -0.3);
 
-[t_date,ind] = unique(swan.s6162994.(varname).Date(tt));
-t_data = swan.s6162994.(varname).Data(tt(ind));
+[t_date,ind] = unique(swan.s6161838.(varname).Date(tt));
+t_data = swan.s6161838.(varname).Data(tt(ind));
 
 ss = find(~isnan(t_data) == 1);
 
@@ -74,13 +74,13 @@ clear t_date t_data;
 
 %__________________________________________________________________________
 
-varname = 'TEMP';
+varname = 'TEMP';%Changed from s6162994
 
-t_depth = swan.s6162994.(varname).Depth;
+t_depth = swan.s6161838.(varname).Depth;
 tt = find(t_depth > -0.3);
 
-[t_date,ind] = unique(swan.s6162994.(varname).Date(tt));
-t_data = swan.s6162994.(varname).Data(tt(ind));
+[t_date,ind] = unique(swan.s6161838.(varname).Date(tt));
+t_data = swan.s6161838.(varname).Data(tt(ind));
 
 ss = find(~isnan(t_data) == 1);
 
@@ -94,11 +94,11 @@ clear t_date t_data;
 
 varname = 'WQ_OXY_OXY';
 
-t_depth = swan.s6162994.(varname).Depth;
+t_depth = swan.s6161838.(varname).Depth; %Changed from s6162994
 tt = find(t_depth > -0.3);
 
-[t_date,ind] = unique(swan.s6162994.(varname).Date(tt));
-t_data = swan.s6162994.(varname).Data(tt(ind));
+[t_date,ind] = unique(swan.s6161838.(varname).Date(tt));
+t_data = swan.s6161838.(varname).Data(tt(ind));
 
 ss = find(~isnan(t_data) == 1);
 

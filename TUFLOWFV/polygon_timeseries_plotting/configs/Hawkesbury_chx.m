@@ -3,39 +3,35 @@
 addpath(genpath('tuflowfv'));
 
 
-fielddata = 'erie_stn';
+fielddata = 'hawkesbury';
 
 
 
 
 varname = {...
-    'WQ_NIT_NIT',...
+    'WQ_NCS_SS1',...
+    'WQ_OXY_OXY',...
+    'WQ_SIL_RSI',...
     'WQ_NIT_AMM',...
+    'WQ_NIT_NIT',...
     'WQ_PHS_FRP',...
- %   'TEMP',...
-% 'WQ_TRC_SS1',...
-% 'WQ_TRC_AGE',...
-% 'WQ_OXY_OXY',...
-% 'WQ_SIL_RSI',...
-% 'WQ_NIT_AMM',...
-% 'WQ_NIT_NIT',...
-% 'WQ_PHS_FRP',...
-% 'WQ_PHS_FRP_ADS',...
-% 'WQ_OGM_DOC',...
-% 'WQ_OGM_POC',...
-% 'WQ_OGM_DON',...
-% 'WQ_OGM_PON',...
-% 'WQ_OGM_DOP',...
-% 'WQ_OGM_POP',...
-% 'WQ_PHY_DINOF',...
-% 'WQ_PHY_CYANO',...
-% 'WQ_PHY_NODUL',...
-% 'WQ_PHY_CHLOR',...
-% 'WQ_PHY_CRYPT',...
+    'WQ_PHS_FRP_ADS',...
+    'WQ_OGM_DOC',...
+    'WQ_OGM_POC',...
+    'WQ_OGM_DON',...
+    'WQ_OGM_PON',...
+    'WQ_OGM_DOP',...
+    'WQ_OGM_POP',...
+    'WQ_PHY_GRN',...
+    'WQ_PHY_BGA',...
+    'WQ_PHY_FDIAT',...
+    'WQ_PHY_MDIAT',...
+    'WQ_TRC_AGE',...
 };
 
 
-% def.cAxis(1).value = [5 35];    %'TEMP',...
+ def.cAxis(1).value = [5 35];    %'SS1',...
+ def.cAxis(2).value = [5 35];    %'OXY',...
 % def.cAxis(2).value = [0 20];    %'WQ_OXY_OXY',...
 %def.cAxis(1).value = [0 50];    %'SAL',...
 % def.cAxis(4).value = [-1 2];	%'H',...
@@ -73,7 +69,7 @@ varname = {...
 % def.cAxis(35).value = [0 1.5]; 	%'WQ_DIAG_TOT_TP',...
 
 
-polygon_file = 'GIS/Erie/erie_sites_1.shp';
+polygon_file = 'GIS/HN/HN_Monitoring.shp';
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
@@ -90,7 +86,7 @@ islegend = 0;
 isYlim = 0;
 isRange = 1;
 isRange_Bottom = 1;
-Range_ALL = 1;
+Range_ALL = 0;
 
 filetype = 'eps';
 def.expected = 1; % plot expected WL
@@ -101,71 +97,27 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'I:\tfv_007_AED_BIV\Plots\Regions_1\';
+outputdirectory = 'I:\Hawkesbury\Plots\Regions_2\';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'I:\tfv_007_AED_BIV\Output\erie_AED.nc';
+ ncfile(1).name = 'I:\Hawkesbury\HN_2006_new\HNupgrade_Calibration_2006_WQ.nc';
+ ncfile(1).tfv = 'I:\Hawkesbury\HN_2006_new\HNupgrade_Calibration_2006_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(1).legend = 'v11';
+ ncfile(1).legend = 'New';
  ncfile(1).translate = 1;
 %  
-%  ncfile(2).name = 'J:\Historical\run_2016_BASE.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(2).legend = 'Restart';
-%  ncfile(2).translate = 1;
- 
-%  ncfile(2).name = 'K:\Peel_Scenarios\run_2016_2017.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {'r','k'}; % Surface and Bottom
-%  ncfile(2).legend = 'v11';
-%  ncfile(2).translate = 1;
-%  
-%  ncfile(3).name = 'K:\Peel_Scenarios\run_scenario_0a.nc';
-%  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {'b','k'}; % Surface and Bottom
-%  ncfile(3).legend = '0a';
-%  ncfile(3).translate = 1; 
-%  
-%  ncfile(4).name = 'K:\Peel_Scenarios\run_scenario_0b.nc';
-%  ncfile(4).symbol = {'-';'--'};
-%  ncfile(4).colour = {'g','k'}; % Surface and Bottom
-%  ncfile(4).legend = '0a';
-%  ncfile(4).translate = 1; 
-%  ncfile(1).name = 'K:\Peel_Scenarios\run_scenario_0a.nc';
-%  ncfile(1).symbol = {'-';'--'};
-%  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(1).legend = '07';
-%  ncfile(1).translate = 1;
- 
- 
-% %  
-%  ncfile(3).name = 'J:\Reruns\NCfiles\Base3\run_2017.nc';
-%  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(3).legend = '07';
-%  ncfile(3).translate = 1;
+%  ncfile(2).name = 'I:\Hawkesbury\HN_2006_new\HNupgrade_Calibration_2006_WQ.nc';
+%  ncfile(2).tfv = 'I:\Hawkesbury\HN_2006_new\HNupgrade_Calibration_2006_HYDRO.nc';
 % 
-%   ncfile(4).name = 'J:\Reruns\2018\run_2018.nc';
-%  ncfile(4).symbol = {'-';'--'};
-%  ncfile(4).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(4).legend = '07';
-%  ncfile(4).translate = 1;
-
-%  ncfile(1).name = 'D:\Studysites\Lowerlakes\034_obs_AED2_LCFlow_IC2_NIT\Output\lower_lakes.nc';
-%  ncfile(1).symbol = {'-';'--'};
-%  ncfile(1).colour = {'b','b'}; % Surface and Bottom
-%  ncfile(1).legend = 'v34';
-%  ncfile(1).translate = 1;
-%  
-%  ncfile(2).name = 'D:\Studysites\Lowerlakes\035_obs_LL_Only_TFV_AED2_Inf\Output\lower_lakes.nc';
 %  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {'r','r'}; % Surface and Bottom
-%  ncfile(2).legend = 'v35 LL';
+%  ncfile(2).colour = {'g','y'}; % Surface and Bottom
+%  ncfile(2).legend = 'New';
 %  ncfile(2).translate = 1;
+ 
+
 
 
 
@@ -185,8 +137,8 @@ outputdirectory = 'I:\tfv_007_AED_BIV\Plots\Regions_1\';
 % yr = 2015;
 % def.datearray = datenum(yr,11:05:41,01);
 
-yr = 2008;
-def.datearray = datenum(yr:02:2019,01,01);
+yr = 2006;
+def.datearray = datenum(yr,01:03:13,01);
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';

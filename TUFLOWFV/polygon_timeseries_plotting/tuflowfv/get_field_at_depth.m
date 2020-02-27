@@ -7,7 +7,7 @@ inc = 1;
 
 if strcmpi(level,'surface')
     
-    sss = find(mDepth > -2);
+    sss = find(mDepth > -5);
     
     if ~isempty(sss)
         

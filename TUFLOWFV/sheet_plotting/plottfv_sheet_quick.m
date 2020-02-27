@@ -4,20 +4,20 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'T:\PEEL\NEWER\run_1981_1983.nc';
+ncfile = 'I:\Hawkesbury\HN_Cal_v3\output\HN_Cal_warmup_WQ_TR01_TO_TR10.nc';
 
-outdir = 'run_1981_1983 Crash\';
+outdir = 'I:\Hawkesbury\Plots\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_PHY_GRN';
+varname = 'TRACE_2';
 
-cax = [0 40];
+cax = [0 100];
 
-title = 'GRN';
+title = 'SiO2';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 0; % 1 to save movie, 0 to just display on screen
-save_images = 0;
+save_images = 1;
 
 plot_interval = 1;
 
@@ -101,15 +101,15 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     end
     
-   Depth = tdat.D;
-    
-    
-    if clip_depth < 900
-    
-        Depth(Depth < clip_depth) = 0;
-    
-        cdata(Depth == 0) = NaN;
-    end
+%    Depth = tdat.D;
+%     
+%     
+%     if clip_depth < 900
+%     
+%         Depth(Depth < clip_depth) = 0;
+%     
+%         cdata(Depth == 0) = NaN;
+%     end
     
     if strcmpi(varname,'WQ_TRC_RET') == 1
         cdata = cdata ./ 86400;
@@ -131,8 +131,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         set(gca,'box','on');hold on
         
         
-        %plot(332260.0,6076740.0,'*k');
-        
+        plot(281633.0, 6212426.0,'*k');
+        plot(281838.05, 6212888.35,'*r');
         
         set(findobj(gca,'type','surface'),...
             'FaceLighting','phong',...
@@ -175,8 +175,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-%           xlim([387966.19196582          393472.220545519]);
-%           ylim([6392278.87159036          6395796.49173727]);
+          xlim([278618.794310116          291179.288389944]);
+          ylim([6207520.43853683          6215544.92413307]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

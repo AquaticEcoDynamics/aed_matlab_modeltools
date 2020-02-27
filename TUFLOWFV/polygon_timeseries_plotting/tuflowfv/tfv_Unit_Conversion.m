@@ -6,27 +6,30 @@ function[ydata,units,isConv] = tfv_Unit_Conversion(ydata,varname)
 isConv = 1;
 switch varname
     
-%     case  'H'
-%         % mmol/m^3 to mg/L
-%         ydata = ydata -0.606;%* (14/1000);
-%         units = 'm';
-% 
+    %     case  'H'
+    %         % mmol/m^3 to mg/L
+    %         ydata = ydata -0.606;%* (14/1000);
+    %         units = 'm';
+    %
     case  'WQ_OXY_OXY'
         % mmol/m^3 to mg/L
         ydata = ydata * (32/1000);
         units = 'mg/L';
-        
+    case  'WQ_OXY_SAT'
+        % mmol/m^3 to mg/L
+        ydata = ydata * 1;
+        units = '%';        
     case  'WQ_OGM_DON'
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
         units = 'mg/L';
-     
+        
     case  'WQ_OGM_DOC'
         % mmol/m^3 to mg/L
         ydata = ydata / 83.333333;
         units = 'mg/L';
-    
-   case  'WQ_OGM_POC'
+        
+    case  'WQ_OGM_POC'
         % mmol/m^3 to mg/L
         ydata = ydata / 83.333333;
         units = 'mg/L';
@@ -45,16 +48,16 @@ switch varname
     case 'TN'
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
-        units = 'mg/L';  
+        units = 'mg/L';
         
     case 'WQ_NIT_AMM'
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
         units = 'mg/L';
-     case 'WQ_NIT_NIT'
+    case 'WQ_NIT_NIT'
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
-        units = 'mg/L';       
+        units = 'mg/L';
         
     case 'WQ_DIAG_PHY_TCHLA'
         ydata = ydata;
@@ -90,12 +93,12 @@ switch varname
     case 'WQ_OGM_DONR'
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
-        units = 'mg/L';        
+        units = 'mg/L';
         
     case 'WQ_OGM_DOPR'
         % mmol/m^3 to mg/L
         ydata = ydata * (31/1000);
-        units = 'mg/L';   
+        units = 'mg/L';
         
     case 'ON'
         % mmol/m^3 to mg/L
@@ -114,7 +117,9 @@ switch varname
     case 'WQ_DIAG_TOT_TN'
         ydata = ydata * (14/1000);
         units = 'mg/L';
-
+    case 'WQ_DIAG_TOT_TKN'
+        ydata = ydata * (14/1000);
+        units = 'mg/L';        
     case 'WQ_DIAG_TOT_TOC'
         ydata = ydata * (12/1000);
         units = 'mg/L';
@@ -122,7 +127,13 @@ switch varname
     case 'WQ_DIAG_TOT_TURBIDITY'
         ydata = ydata * 1;
         units = 'NTU';
-        case 'WQ_TRC_AGE'
+    case 'WQ_DIAG_TOT_TSS'
+        ydata = ydata * 1;
+        units = 'mg/L';
+    case 'WQ_NCS_SS1'
+        ydata = ydata * 1;
+        units = 'mg/L';
+    case 'WQ_TRC_AGE'
         ydata = ydata * 1/86400;
         units = 'Days';
         
@@ -133,11 +144,11 @@ switch varname
         %
         
     otherwise
-      %  disp(['No Conversion Made for: ',varname]);
-      ydata = ydata * 1;
+        %  disp(['No Conversion Made for: ',varname]);
+        ydata = ydata * 1;
         units = [];
         isConv = 0;
-
+        
         
         
 end

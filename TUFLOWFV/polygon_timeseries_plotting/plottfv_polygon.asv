@@ -646,15 +646,11 @@ for var = 1:length(varname)
         
         
         if isFieldRange
-            shp(site).Name 
             outdata = calc_data_ranges(fdata,shp(site).X,shp(site).Y,fieldprctile,varname{var});
-  
-
-            if sum(~isnan(outdata.low)) > 2
-                
+            if sum(~isnan(outdata.low) > 2)
+                save outdata
             plot(outdata.Date,outdata.low,'color',[0.6 0.6 0.6],'displayname',['Field Data \itP_{',num2str(fieldprctile(1)),'}']);hold on
             plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'displayname',['Field Data \itP_{',num2str(fieldprctile(2)),'}']);hold on
-            
             end
         end
             

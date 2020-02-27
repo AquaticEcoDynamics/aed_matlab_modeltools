@@ -7,6 +7,7 @@ rawGeo = tfv_readnetcdf(filename,'timestep',1);
 clear functions
 inpol = inpolygon(X,Y,sX,sY);
 sss = find(inpol == 1);
+%length(sss)
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
 num_lims = length(pred_lims);
 nn = (num_lims+1)/2;

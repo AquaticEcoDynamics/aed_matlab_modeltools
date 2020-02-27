@@ -38,10 +38,15 @@ switch agency
          mface = 'dk';
         mcolor = [255/255 61/255 9/255];
         
-    case 'OTHER (NYSDEC, OMNR and USGS)'
+    case 'OTHER'
          mface = '^k';
         mcolor = [255/255 61/255 9/255];
-        
+    case 'Sydney Water'
+        mface = 'ok';
+        mcolor = [255/255 61/255 9/255];
+    case 'DPIE'
+        mface = '^k';
+        mcolor = [255/255 61/255 9/255];
     otherwise
            mface = 'ok';
         mcolor = [255/255 61/255 9/255];

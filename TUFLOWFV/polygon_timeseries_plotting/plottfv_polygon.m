@@ -33,14 +33,17 @@ if ~exist('add_coorong','var')
 end
 
 isConv = 0;
-if plotmodel
-allvars = tfv_infonetcdf(ncfile(1).name);
-end
-shp = shaperead(polygon_file);
 
 if ~exist('plotmodel','var')
     plotmodel = 1;
 end
+
+if plotmodel
+    allvars = tfv_infonetcdf(ncfile(1).name);
+end
+shp = shaperead(polygon_file);
+
+
 
 if ~exist('isFieldRange','var')
     isFieldRange = 0;

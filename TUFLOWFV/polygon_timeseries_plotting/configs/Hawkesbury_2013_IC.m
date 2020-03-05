@@ -3,7 +3,7 @@
 addpath(genpath('tuflowfv'));
 
 
-fielddata = 'hawkesbury';
+fielddata = 'hawkesbury_all';
 
 
 
@@ -80,7 +80,7 @@ islegend = 1;
 isYlim = 1;
 isRange = 1;
 isRange_Bottom = 1;
-Range_ALL = 0;
+Range_ALL = 1;
 
 filetype = 'eps';
 def.expected = 1; % plot expected WL
@@ -94,7 +94,7 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013\';
+outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013_2014\';
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
@@ -106,13 +106,13 @@ outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013\';
  ncfile(1).legend = 'New';
  ncfile(1).translate = 1;
 %  
-%  ncfile(2).name = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_WQ.nc';
-%  ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
-% 
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {'g','y'}; % Surface and Bottom
-%  ncfile(2).legend = 'New';
-%  ncfile(2).translate = 1;
+ ncfile(2).name = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2014_WQ.nc';
+ %ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
+
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = 'New';
+ ncfile(2).translate = 1;
  
 
 
@@ -135,7 +135,7 @@ outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013\';
 % def.datearray = datenum(yr,11:05:41,01);
 
 yr = 2013;
-def.datearray = datenum(yr,05:04:17,01);
+def.datearray = datenum(yr,05:04:25,01);
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';

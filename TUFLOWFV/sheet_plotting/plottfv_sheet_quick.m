@@ -4,22 +4,24 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'I:\Hawkesbury\HN_Cal_v3\output\HN_Cal_warmup_WQ_TR01_TO_TR10.nc';
+ncfile = 'I:\tfv_009_AED_BIV_Met\Output\erie_AED_diag.nc';
 
-outdir = 'I:\Hawkesbury\Plots\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\tfv_009_met_fielddata\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'TRACE_2';
+varname = 'WQ_DIAG_MAG_RSP_BEN';
 
 cax = [0 100];
 
-title = 'SiO2';
+conv = 1;%14/1000;
+
+title = 'WQ_DIAG_MAG_RSP_BEN';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 0; % 1 to save movie, 0 to just display on screen
-save_images = 1;
+create_movie = 1; % 1 to save movie, 0 to just display on screen
+save_images = 0;
 
-plot_interval = 1;
+plot_interval = 10;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -115,6 +117,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         cdata = cdata ./ 86400;
     end
     
+    cdata = cdata * conv;
+    
     if first_plot
         
         hfig = figure('visible','on','position',[304         166        1271         812]);
@@ -131,8 +135,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         set(gca,'box','on');hold on
         
         
-        plot(281633.0, 6212426.0,'*k');
-        plot(281838.05, 6212888.35,'*r');
+%         plot(281633.0, 6212426.0,'*k');
+%         plot(281838.05, 6212888.35,'*r');
         
         set(findobj(gca,'type','surface'),...
             'FaceLighting','phong',...
@@ -145,7 +149,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         x_lim = get(gca,'xlim');
         y_lim = get(gca,'ylim');
         
-%         caxis(cax);
+        % caxis(cax);
         
         cb = colorbar;
         
@@ -175,8 +179,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([278618.794310116          291179.288389944]);
-          ylim([6207520.43853683          6215544.92413307]);
+%           xlim([278618.794310116          291179.288389944]);
+%           ylim([6207520.43853683          6215544.92413307]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);
@@ -191,7 +195,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         
         set(txtDate,'String',datestr(timesteps(i),'dd mmm yyyy HH:MM'));
         
-        %caxis(cax);
+       % caxis(cax);
 
     end
     

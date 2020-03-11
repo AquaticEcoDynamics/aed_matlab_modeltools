@@ -103,7 +103,7 @@ outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013_2014\';
 %  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(1).legend = 'New';
+ ncfile(1).legend = '2013';
  ncfile(1).translate = 1;
 %  
  ncfile(2).name = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2014_WQ.nc';
@@ -111,7 +111,7 @@ outputdirectory = 'I:\Hawkesbury\Plots\HN_Cal_2013_2014\';
 
  ncfile(2).symbol = {'-';'--'};
  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(2).legend = 'New';
+ ncfile(2).legend = '2014';
  ncfile(2).translate = 1;
  
 

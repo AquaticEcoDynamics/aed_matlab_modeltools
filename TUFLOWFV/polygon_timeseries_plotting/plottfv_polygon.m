@@ -11,6 +11,9 @@ warning('off','all')
 if exist('isRange','var') == 0
     isRange = 1;
 end
+if ~exist('htmloutput','var')
+    htmloutput = outputdirectory;
+end
 
 if exist('Range_ALL','var') == 0
     Range_ALL = 0;
@@ -359,6 +362,9 @@ for var = 1:length(varname)
                                         %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
                                         set(fig2,'HandleVisibility','off');
                                     end
+                                    
+                                    uistack(fig,'bottom');
+                                    uistack(fig2,'bottom');
                                 end
                             end
                         end
@@ -405,68 +411,43 @@ for var = 1:length(varname)
                                             if fgf > 1
                                              fp = plot(xdata_d,ydata_d,mface,...
                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none' ,'markersize',3,'HandleVisibility','off');hold on
+                                                        uistack(fp,'top');
 
                                             else
                                              fp = plot(xdata_d,ydata_d,mface,...
                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',3,'displayname',[agency, ' Bot']);hold on
+                                                        uistack(fp,'top');
                                             end
-%                                             switch agency
-%                                                 case 'WIR'
-%                                                     if fplotw
-%                                                         fp = plot(xdata_d,ydata_d,'o',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none' ,'markersize',3,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'o',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',3,'displayname','WIR Bottom');hold on
-%                                                         fplotw = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 case 'MAFRL'
-%                                                     
-%                                                     %if min(data(mod).date < datenum(2002,01,01))
-%                                                     
-%                                                     if fplotm
-%                                                         fp = plot(xdata_d,ydata_d,'p',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',2,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'p',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',2,'displayname','MAFRL Bottom');hold on
-%                                                         fplotm = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                     
-%                                                     %end
-%                                                 case 'SCU'
-%                                                     if fplots
-%                                                         fp = plot(xdata_d,ydata_d,'d',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',4,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'d',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',4,'displayname','SCU Bottom');hold on
-%                                                         fplots = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 case 'MU'
-%                                                     if fplotmu
-%                                                         fp = plot(xdata_d,ydata_d,'s',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',4,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'s',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',4,'displayname','MU Bottom');hold on
-%                                                         fplotmu = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 otherwise
-%                                                     if fplotw
-%                                                         fp = plot(xdata_d,ydata_d,'o',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none' ,'markersize',3,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'o',...
-%                                                             'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',3,'displayname','WIR Bottom');hold on
-%                                                         fplotw = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                             end
+                                            
+                                            if isYlim
+                                                
+                                                ggg = find(ydata_d > def.cAxis(var).value(2));
+                                                
+                                                if ~isempty(ggg)
+                                                    agencyused2 = [agencyused2;{'Outside Range'}];
+                                                     fgf = sum(strcmpi(agencyused2,'Outside Range'));
+                                                     rdata = [];
+                                                     rdata(1:length(ggg),1) = def.cAxis(var).value(2);
+                                                     
+                                                     hhh = find(ydata_d(ggg) >= def.datearray(1) & ...
+                                                         ydata_d(ggg) <= def.datearray(end));
+                                                     
+                                                     if ~isempty(hhh)
+                                                     if fgf > 1
+                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                        'markersize',6,'linewidth',1,'HandleVisibility','off');hold on
+                                                                    uistack(fp,'top');
+
+                                                        else
+                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                        'markersize',6,'linewidth',1,'displayname','Outside Range');hold on
+                                                                    uistack(fp,'top');
+                                                     end
+                                                     end
+                                                end
+                                            end
+                                                     
+              
                                         end
                                         
                                     end
@@ -517,7 +498,10 @@ for var = 1:length(varname)
                                         fig2 = fillyy(data(mod).date,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal(plim_i,:));
                                         set(fig2,'HandleVisibility','off');
                                     end
+                                    uistack(fig,'bottom');
+                                    uistack(fig2,'bottom');
                                 end
+                                    
                             end
                         end
                     end
@@ -557,51 +541,43 @@ for var = 1:length(varname)
                                             
                                             if fgf > 1
                                              fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
-
+                                                uistack(fp,'top');
                                             else
                                              fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                             uistack(fp,'top');
                                             end
                                             
-                                            
-%                                             switch agency
-%                                                 case 'WIR'
-%                                                     if fplotw
-%                                                         fp = plot(xdata_d,ydata_d,'ok','markerfacecolor',[255/255 61/255 9/255] ,'markersize',3,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'ok','markerfacecolor',[255/255 61/255 9/255],'markersize',3,'displayname','WIR Surface');hold on
-%                                                         fplotw = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 case 'MAFRL'
-%                                                     
-%                                                     % if min(data(mod).date) < datenum(2002,01,01)
-%                                                     
-%                                                     if fplotm
-%                                                         fp = plot(xdata_d,ydata_d,'pk','markerfacecolor',[232/255 90/255 24/255],'markersize',2,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'pk','markerfacecolor',[232/255 90/255 24/255],'markersize',2,'displayname','MAFRL Surface');hold on
-%                                                         fplotm = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                     %end
-%                                                 case 'SCU'
-%                                                     if fplots
-%                                                         fp = plot(xdata_d,ydata_d,'dk','markerfacecolor',[255/255 111/255 4/255],'markersize',4,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'dk','markerfacecolor',[255/255 111/255 4/255],'markersize',4,'displayname','SCU Surface');hold on
-%                                                         fplots = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 case 'MU'
-%                                                     if fplotmu
-%                                                         fp = plot(xdata_d,ydata_d,'sk','markerfacecolor',[232/255 90/255 24/255],'markersize',4,'HandleVisibility','off');hold on
-%                                                     else
-%                                                         fp = plot(xdata_d,ydata_d,'sk','markerfacecolor',[232/255 90/255 24/255],'markersize',4,'displayname','MU Surface');hold on
-%                                                         fplotmu = 1;
-%                                                     end
-%                                                     uistack(fp,'top');
-%                                                 otherwise
-%                                             end
+                                             if isYlim
+                                                
+                                                ggg = find(ydata_d > def.cAxis(var).value(2));
+                                                
+                                                if ~isempty(ggg)
+                                                    agencyused = [agencyused;{'Outside Range'}];
+                                                     fgf = sum(strcmpi(agencyused,'Outside Range'));
+                                                     rdata = [];
+                                                     rdata(1:length(ggg),1) = def.cAxis(var).value(2);
+                                                      hhh = find(xdata_d(ggg) >= def.datearray(1) & ...
+                                                         xdata_d(ggg) <= def.datearray(end));
+                                                     
+                                                     if ~isempty(hhh)
+                                                     if fgf > 1
+ 
+                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                        'markersize',6,'linewidth',1,'HandleVisibility','off');hold on
+                                                                    uistack(fp,'top');
+
+                                                     else
+                                                            
+                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                        'markersize',6,'linewidth',1,'displayname','Outside Range');hold on
+                                                                    uistack(fp,'top');
+                                                     end
+                                                     uistack(fp,'top');
+                                                     
+                                                     end
+                                                end
+                                            end
+%                                            
                                         end
                                         
                                         
@@ -654,8 +630,8 @@ for var = 1:length(varname)
 
             if sum(~isnan(outdata.low)) > 200
                 
-            plot(outdata.Date,outdata.low,'color',[0.6 0.6 0.6],'displayname',['Field Data \itP_{',num2str(fieldprctile(1)),'}']);hold on
-            plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'displayname',['Field Data \itP_{',num2str(fieldprctile(2)),'}']);hold on
+            plot(outdata.Date,outdata.low,'color',[0.6 0.6 0.6],'linestyle','--','displayname',['Field Data \itP_{',num2str(fieldprctile(1)),'}']);hold on
+            plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'linestyle','--','displayname',['Field Data \itP_{',num2str(fieldprctile(2)),'}']);hold on
             
             end
         end
@@ -888,6 +864,9 @@ for var = 1:length(varname)
         clear data
         
     end
+    
+    create_html_for_directory_onFly(savedir,varname{var},htmloutput);
+    
 end
 
-create_html_for_directory(outputdirectory);
+create_html_for_directory(outputdirectory,htmloutput);

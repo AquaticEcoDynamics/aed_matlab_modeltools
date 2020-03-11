@@ -84,6 +84,8 @@ fieldprctile = [10 90];
 
 
 outputdirectory = 'I:\tfv_009_AED_BIV_Met\Plots\Model 009\';
+htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\tfv_009_met_fielddata\';
+
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________

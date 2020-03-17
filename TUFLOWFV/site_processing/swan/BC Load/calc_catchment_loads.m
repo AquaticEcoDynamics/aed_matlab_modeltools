@@ -1,5 +1,7 @@
 clear all; close all;
 
+addpath(genpath('tuflowfv'));
+
 load data.mat;
 
 sites =fieldnames(data);

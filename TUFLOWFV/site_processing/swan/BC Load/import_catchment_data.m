@@ -55,7 +55,7 @@ for i = 1:length(header)
     sss = strsplit(ttt,'.');
     
     data.(sss{1}).(sss{2}).Date =  mdate;
-    data.(sss{1}).(sss{2}).Data =str2doubleq(datacell{i+1});
+    data.(sss{1}).(sss{2}).Data =str2double(datacell{i+1});
 end
 
 

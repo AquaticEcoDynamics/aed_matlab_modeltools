@@ -41,11 +41,22 @@ switch agency
     case 'OTHER'
          mface = '^k';
         mcolor = [255/255 61/255 9/255];
-    case 'Sydney Water'
+    case 'SWC' %Hawkesbury
         mface = 'ok';
         mcolor = [255/255 61/255 9/255];
-    case 'DPIE'
+    case 'DPIE-mc'
         mface = '^k';
+        mcolor = [255/255 61/255 9/255];
+    case 'WNSW'
+         mface = 'sk';
+        mcolor = [255/255 61/255 9/255];
+        
+    case 'DPIE-bouy'
+         mface = 'pk';
+        mcolor = [255/255 61/255 9/255];
+        
+    case 'Hornsby'
+         mface = 'hk';
         mcolor = [255/255 61/255 9/255];
     otherwise
            mface = 'ok';

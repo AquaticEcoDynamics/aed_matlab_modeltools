@@ -146,7 +146,7 @@ headers = {...
 
 %
 clear datearray;
-datearray(:,1) = datenum(2007,01,01,00,00,00):1:datenum(2020,01,01,00,00,00);
+datearray(:,1) = datenum(1990,01,01,00,00,00):1:datenum(2020,01,01,00,00,00);
 
 % create_interpolated_BC_for_inflow_Helena(swan,headers,datearray);   disp('Helena');close all;%DONE
 % create_interpolated_BC_for_inflow_Bennet(swan,headers,datearray); disp('Bennet');close all;%DONE
@@ -156,11 +156,11 @@ datearray(:,1) = datenum(2007,01,01,00,00,00):1:datenum(2020,01,01,00,00,00);
 % % %
 % create_interpolated_BC_for_inflow_Ellenbrook(swan,headers,datearray); disp('Ellenbrook');close all;
 % create_interpolated_BC_for_inflow_Susannah(swan,headers,datearray);   disp('Susannah');close all;
-% create_interpolated_BC_for_inflow_UpperSwan_2000(swan,headers,datearray);disp('UpperSwan');close all;
+ create_interpolated_BC_for_inflow_UpperSwan_2000(swan,headers,datearray);disp('UpperSwan');close all;
 % 
 % create_interpolated_BC_for_inflow_Bayswater(swan,headers,datearray);disp('Bayswater');close all; %DONE
 % create_interpolated_BC_for_inflow_Jane(swan,headers,datearray);disp('Jane');close all;
-create_interpolated_BC_for_inflow_Canning(swan,headers,datearray);disp('Canning');close all;
+%create_interpolated_BC_for_inflow_Canning(swan,headers,datearray);disp('Canning');close all;
 
 % create_interpolated_oxygenation_plant_GFD(oxy,headers,datearray);disp('GFD Oxygenation Plants');close all;
 % create_interpolated_oxygenation_plant_CAV(oxy,headers,datearray);disp('CAV Oxygenation Plants');close all;

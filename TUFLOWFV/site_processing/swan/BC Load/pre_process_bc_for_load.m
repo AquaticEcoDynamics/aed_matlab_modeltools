@@ -24,6 +24,15 @@ for i = 3:length(dirlist);
         ((data.(site).DON * tnconv) .* Load.(site).L) + ...
         ((data.(site).PON * tnconv) .* Load.(site).L) + ...
         ((data.(site).DONR * tnconv) .* Load.(site).L);
+
+        Load.(site).TN_mgL = ...
+        (data.(site).AMM * tnconv) + ...
+        (data.(site).NIT * tnconv)+ ...
+        (data.(site).DON * tnconv) + ...
+        (data.(site).PON * tnconv)+ ...
+        (data.(site).DONR * tnconv) ;
+    
+    
     
     Load.(site).AMM_mg = (data.(site).AMM * tnconv) .* Load.(site).L;
     Load.(site).NIT_mg = (data.(site).NIT * tnconv) .* Load.(site).L;
@@ -44,6 +53,12 @@ for i = 3:length(dirlist);
         ((data.(site).POP * tpconv) .* Load.(site).L) + ...
         ((data.(site).DOPR * tpconv) .* Load.(site).L);
     
+    Load.(site).TP_mgL = ...
+        ((data.(site).FRP * tpconv)) + ...
+        ((data.(site).FRP_ADS * tpconv)) + ...
+        ((data.(site).DOP * tpconv)) + ...
+        ((data.(site).POP * tpconv)) + ...
+        ((data.(site).DOPR * tpconv));    
     
     Load.(site).FRP_mg = (data.(site).FRP * tpconv) .* Load.(site).L;
     Load.(site).FRP_ADS_mg = (data.(site).FRP_ADS * tpconv) .* Load.(site).L;
@@ -55,20 +70,20 @@ for i = 3:length(dirlist);
     
     
     
-    Load.(site).TN_kg = Load.(site).TN_mg /1e-6;
-    Load.(site).TP_kg = Load.(site).TP_mg /1e-6;
+    Load.(site).TN_kg = Load.(site).TN_mg *1e-6;
+    Load.(site).TP_kg = Load.(site).TP_mg *1e-6;
     
-    Load.(site).AMM_kg = Load.(site).AMM_mg /1e-6;
-    Load.(site).NIT_kg = Load.(site).NIT_mg /1e-6;
-    Load.(site).DON_kg = Load.(site).DON_mg /1e-6;
-    Load.(site).PON_kg = Load.(site).PON_mg /1e-6;
-    Load.(site).DONR_kg = Load.(site).DONR_mg /1e-6;
+    Load.(site).AMM_kg = Load.(site).AMM_mg *1e-6;
+    Load.(site).NIT_kg = Load.(site).NIT_mg *1e-6;
+    Load.(site).DON_kg = Load.(site).DON_mg *1e-6;
+    Load.(site).PON_kg = Load.(site).PON_mg *1e-6;
+    Load.(site).DONR_kg = Load.(site).DONR_mg *1e-6;
     
-    Load.(site).FRP_kg = Load.(site).FRP_mg /1e-6;
-    Load.(site).FRP_ADS_kg = Load.(site).FRP_ADS_mg /1e-6;
-    Load.(site).DOP_kg = Load.(site).DOP_mg /1e-6;
-    Load.(site).POP_kg = Load.(site).POP_mg /1e-6;
-    Load.(site).DOPR_kg = Load.(site).DOPR_mg /1e-6;
+    Load.(site).FRP_kg = Load.(site).FRP_mg *1e-6;
+    Load.(site).FRP_ADS_kg = Load.(site).FRP_ADS_mg *1e-6;
+    Load.(site).DOP_kg = Load.(site).DOP_mg *1e-6;
+    Load.(site).POP_kg = Load.(site).POP_mg *1e-6;
+    Load.(site).DOPR_kg = Load.(site).DOPR_mg *1e-6;
     
 end
 

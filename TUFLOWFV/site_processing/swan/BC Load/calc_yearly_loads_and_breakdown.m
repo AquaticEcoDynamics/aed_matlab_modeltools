@@ -20,12 +20,14 @@ fprintf(fid1,'\n');
 
 
 fid2 = fopen('Yearly_TN_KG_April_to_April.csv','wt');
+fprintf(fid2,'Year,');
 for i = 1:length(sites)
     fprintf(fid2,'%s,',sites{i});
 end
 fprintf(fid2,'\n');
 
 fid3 = fopen('Yearly_TP_KG_April_to_April.csv','wt');
+fprintf(fid3,'Year,');
 for i = 1:length(sites)
     fprintf(fid3,'%s,',sites{i});
 end

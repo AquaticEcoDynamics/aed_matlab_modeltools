@@ -12,6 +12,11 @@ for k = 1:length(dirlist)
     end
     
     data = tfv_readBCfile([basedir,dirlist(k).name]);
+   
+    if isfield(data,'ISOTIME')
+        data.Date = data.ISOTIME;
+        rmfield(data,'ISOTIME');
+    end
     
     datearray = [min(data.Date):(max(data.Date) - min(data.Date))/5:max(data.Date)];
     

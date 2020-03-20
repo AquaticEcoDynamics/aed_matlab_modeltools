@@ -75,8 +75,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_chx\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\',rgh,'_chx\'];
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_chx_2\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\',rgh,'_chx_2\'];
 
 % ____________________________________________________________Configuration
 
@@ -86,24 +86,28 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\',rgh,'
 ncfile(1).name = ['R:\SCERM/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(1).legend = 'Model';
+ncfile(1).legend = 'NECTAR';
 ncfile(1).translate = 1;
 % 
-ncfile(2).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM\Output\swan_2007_2008_nAED_ALL.nc'];
+ncfile(2).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM\Output\swan_2007_2008_ALL.nc'];
 ncfile(2).symbol = {'-';'-'};
 ncfile(2).colour = {'k','r'}; % Surface and Bottom
-ncfile(2).legend = 'Model';
+ncfile(2).legend = 'with AED LW Factor';
 ncfile(2).translate = 1;
 % 
-
+% ncfile(3).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM\Output\swan_2007_2008_nAED_LW_ALL.nc'];
+% ncfile(3).symbol = {'-';'-'};
+% ncfile(3).colour = {'g','y'}; % Surface and Bottom
+% ncfile(3).legend = 'Model';
+% ncfile(3).translate = 1;
 
 
 
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2007;
-def.datearray = datenum(yr,03,01:04:30);
-def.dateformat = 'mmm-yy';
+def.datearray = datenum(yr,03:02:11,01);
+def.dateformat = 'dd-mmm';
 % Defaults_________________________________________________________________
 
 % Makes start date, end date and datetick array

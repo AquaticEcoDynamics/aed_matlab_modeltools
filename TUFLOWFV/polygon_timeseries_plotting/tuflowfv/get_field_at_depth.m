@@ -26,8 +26,18 @@ if strcmpi(level,'surface')
                 
                 [~,tt] = max(mDepth_b(sss2));
                 
-                xdata(inc,1) = mDate_b(sss2(tt(1)));
-                ydata(inc,1) = mData_b(sss2(tt(1)));
+                ggg = find(mDepth_b(sss2) == mDepth_b(sss2(tt(1))));
+                
+                if length(ggg) > 3
+                    
+                    xdata(inc,1) = mean(mDate_b(sss2(ggg)));
+                    ydata(inc,1) = mean(mData_b(sss2(ggg)));
+                    
+                else
+                    xdata(inc,1) = mDate_b(sss2(tt(1)));
+                    ydata(inc,1) = mData_b(sss2(tt(1)));
+                end
+                
                 inc = inc + 1;
             end
         end

@@ -10,31 +10,25 @@ warning('off','all')
 if exist('isHTML','var') == 0
     isHTML = 1;
 end
-
-
-if exist('isRange','var') == 0
-    isRange = 1;
-end
 if ~exist('htmloutput','var')
     htmloutput = outputdirectory;
 end
 
+if exist('isRange','var') == 0
+    isRange = 1;
+end
 if exist('Range_ALL','var') == 0
     Range_ALL = 0;
 end
-
 if exist('isRange_Bottom','var') == 0
     isRange_Bottom = 0;
 end
-
 if ~exist('custom_datestamp','var')
     custom_datestamp = 0;
 end
-
 if ~exist('add_triangle','var')
     add_triangle = 0;
 end
-
 if ~exist('add_coorong','var')
     add_coorong = 0;
 end
@@ -44,13 +38,16 @@ isConv = 0;
 if ~exist('plotmodel','var')
     plotmodel = 1;
 end
-
 if plotmodel
     allvars = tfv_infonetcdf(ncfile(1).name);
 end
+
 shp = shaperead(polygon_file);
-
-
+if ~exist('sites','var')
+    sites = [1:1:1:length(shp)];
+end
+disp('SHP sites:')
+disp(sites)
 
 if ~exist('isFieldRange','var')
     isFieldRange = 0;
@@ -80,11 +77,11 @@ col_pal = [[255 195 77]./255;[255 159 0]./255;[255 129 0]./255];
 col_pal = [[255 195 77]./255;[255 159 0]./255;[255 129 0]./255];
 
 %col_pal_bottom = [[0.8 0.8 0.8];[0.5 0.5 0.5];[0.3 0.3 0.3]];
-col_pal_bottom = [[0.627450980392157         0.796078431372549                         1];...
-    [0.0549019607843137         0.525490196078431         0.968627450980392];...
-    [0.0509803921568627         0.403921568627451         0.968627450980392]];
+col_pal_bottom = [[0.62745  0.796078  1];...
+                  [0.054901  0.525490 0.968627];...
+                  [0.050980  0.403921 0.9686272]    ];
 
-bottom_edge_color = [0.0509803921568627         0.215686274509804         0.968627450980392];
+bottom_edge_color = [0.05098039 0.215686 0.968627];
 
 % Load Field Data and Get site names
 field = load(['matfiles/',fielddata,'.mat']);
@@ -317,8 +314,7 @@ for var = 1:length(varname)
         end
     end
     c_units = [];
-    for site = 1:length(shp)
-        
+    for site = sites %1:length(shp)
         
         isepa = 0;
         isdewnr = 0;
@@ -628,14 +624,16 @@ for var = 1:length(varname)
         end
         
         
+        % Optional code to add long-term montly observed data percentile 
+        % bands ontoplots
         if isFieldRange
             shp(site).Name 
             outdata = calc_data_ranges(fdata,shp(site).X,shp(site).Y,fieldprctile,varname{var});
 
             if sum(~isnan(outdata.low)) > 200
                 
-            plot(outdata.Date,outdata.low,'color',[0.6 0.6 0.6],'linestyle','--','displayname',['Field Data \itP_{',num2str(fieldprctile(1)),'}']);hold on
-            plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'linestyle','--','displayname',['Field Data \itP_{',num2str(fieldprctile(2)),'}']);hold on
+            plot(outdata.Date,outdata.low, 'color',[0.6 0.6 0.6],'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
+            plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on
             
             end
         end

@@ -9,13 +9,13 @@ ncfile = 'I:\tfv_009_AED_BIV_Met\Output\erie_AED_diag.nc';
 outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\tfv_009_met_fielddata\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_DIAG_MAG_RSP_BEN';
+varname = 'WQ_DIAG_MAG_NMP_BEN';
 
 cax = [0 100];
 
 conv = 1;%14/1000;
 
-title = 'WQ_DIAG_MAG_RSP_BEN';
+title = 'WQ_DIAG_MAG_NMP_BEN';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen

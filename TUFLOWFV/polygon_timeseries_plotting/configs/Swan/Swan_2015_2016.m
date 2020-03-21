@@ -28,12 +28,24 @@ rgh = '2015_2016';
 %     'WQ_DIAG_PHY_TCHLA',...
 %     'WQ_DIAG_TOT_TSS',...
 %     'WQ_DIAG_TOT_TURBIDITY',...
-%     };
-
-varname = {...
-    'SAL',...
-    'TEMP',...
+%     'SAL',...
+%     'TEMP',...
+%      };
+ 
+ varname = {...
+         'WQ_PHY_GRN',...
+    'WQ_PHY_BGA',...
+    'WQ_PHY_CRYPT',...
+    'WQ_PHY_DIATOM',...
+    'WQ_PHY_DINO',...
+    'WQ_PHY_DINO_IN',...
     };
+ 
+
+% varname = {...
+%     'SAL',...
+%     'TEMP',...
+%     };
 
 % def.cAxis(1).value = [0 20];
 % def.cAxis(2).value = [0 55];
@@ -74,25 +86,26 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\',rgh,'\'];
+
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_AA\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\V4_B2_Multiyear\',rgh,'\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['R:\SCERM/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM\Output/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
 ncfile(1).legend = 'Model';
 ncfile(1).translate = 1;
 % 
-ncfile(2).name = ['R:\SCERM/swan_',rgh,'_rst_ALL.nc'];
-ncfile(2).symbol = {'-';'-'};
-ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(2).legend = 'Model';
-ncfile(2).translate = 1;
+% ncfile(2).name = ['R:\SCERM/swan_',rgh,'_rst_ALL.nc'];
+% ncfile(2).symbol = {'-';'-'};
+% ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(2).legend = 'Model';
+% ncfile(2).translate = 1;
 % 
 
 
@@ -101,7 +114,10 @@ ncfile(2).translate = 1;
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(yr,04:03:16,01);
+
+def.datearray = datenum(yr,03:01:08,01);
+
+%def.datearray = datenum(yr,04:03:16,01);
 def.dateformat = 'mmm-yy';
 % Defaults_________________________________________________________________
 

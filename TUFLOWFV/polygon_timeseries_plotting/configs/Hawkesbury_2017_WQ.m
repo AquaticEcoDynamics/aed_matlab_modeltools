@@ -96,7 +96,7 @@ depth_range = [0.5 100];
 
 
 outputdirectory = 'I:\Hawkesbury\HN_Cal_v4\Plots\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4\2017_2018\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4 A1\2017_2018\'];
 
 % ____________________________________________________________Configuration
 
@@ -109,13 +109,13 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Mode
  ncfile(1).legend = '2017';
  ncfile(1).translate = 1;
 %  
-%  ncfile(2).name = 'I:\Hawkesbury\HN_Cal_v4\output\HN_Cal_2018_WQ.nc';
-%  %ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
-% 
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(2).legend = '2014';
-%  ncfile(2).translate = 1;
+ ncfile(2).name = 'T:\HN_Cal_v4\output\HN_Cal_2018_WQ.nc';
+ %ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
+
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = '2014';
+ ncfile(2).translate = 1;
  
 
 

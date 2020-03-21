@@ -8,7 +8,7 @@ run(conf);
 warning('off','all')
 
 if exist('isHTML','var') == 0
-    isRange = 1;
+    isHTML = 1;
 end
 
 

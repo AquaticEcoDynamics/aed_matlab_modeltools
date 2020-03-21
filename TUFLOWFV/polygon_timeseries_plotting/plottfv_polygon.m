@@ -7,6 +7,10 @@ run(conf);
 
 warning('off','all')
 
+if exist('isHTML','var') == 0
+    isRange = 1;
+end
+
 
 if exist('isRange','var') == 0
     isRange = 1;
@@ -864,9 +868,14 @@ for var = 1:length(varname)
         clear data
         
     end
+	
+	if isHTML
     
     create_html_for_directory_onFly(savedir,varname{var},htmloutput);
     
+	end
 end
 
-create_html_for_directory(outputdirectory,htmloutput);
+if isHTML
+	create_html_for_directory(outputdirectory,htmloutput);
+end

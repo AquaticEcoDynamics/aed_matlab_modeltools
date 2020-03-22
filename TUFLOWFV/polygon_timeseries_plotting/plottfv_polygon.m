@@ -2,11 +2,16 @@ function plottfv_polygon(conf)
 
 close all;
 
+
+%--------------------------------------------------------------------------
+disp('plottfv_polygon: START')
+disp('')
 addpath(genpath('configs'));
 run(conf);
-
 warning('off','all')
+%--------------------------------------------------------------------------
 
+%--------------------------------------------------------------------------
 if exist('isHTML','var') == 0
     isHTML = 1;
 end
@@ -72,17 +77,27 @@ if exist('plotsite','var')
         end
     end
 end
+%--------------------------------------------------------------------------
 
-col_pal = [[255 195 77]./255;[255 159 0]./255;[255 129 0]./255];
-col_pal = [[255 195 77]./255;[255 159 0]./255;[255 129 0]./255];
 
-%col_pal_bottom = [[0.8 0.8 0.8];[0.5 0.5 0.5];[0.3 0.3 0.3]];
-col_pal_bottom = [[0.62745  0.796078  1];...
-                  [0.054901  0.525490 0.968627];...
-                  [0.050980  0.403921 0.9686272]    ];
 
-bottom_edge_color = [0.05098039 0.215686 0.968627];
+%--------------------------------------------------------------------------
+% Color Palette (Default)
+% Checkout this link for color palette options: https://htmlcolors.com/flat-colors
 
+surface_edge_color = [ 30  50  53]./255;    
+surface_face_color = [ 68 108 134]./255; 
+surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
+col_pal            =[[176 190 197]./255;[255 159 0]./255;[255 129 0]./255];
+
+bottom_edge_color = [33  33  33]./255;     
+bottom_face_color = [141 110 99]./255;
+bottom_line_color = [62  39  35]./255;
+col_pal_bottom    =[[215 204 200]./255; [0.054901  0.525490 0.968627];[0.050980  0.403921 0.9686272] ];
+%--------------------------------------------------------------------------
+
+
+%--------------------------------------------------------------------------
 % Load Field Data and Get site names
 field = load(['matfiles/',fielddata,'.mat']);
 fdata = field.(fielddata);
@@ -93,15 +108,15 @@ for i = 1:length(sitenames)
     X(i) = fdata.(sitenames{i}).(vars{1}).X;
     Y(i) = fdata.(sitenames{i}).(vars{1}).Y;
 end
+%--------------------------------------------------------------------------
 
+%--------------------------------------------------------------------------
 if plotmodel
     for mod = 1:length(ncfile)
         tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
         all_cells(mod).X = double(tdata.cell_X);
         all_cells(mod).Y = double(tdata.cell_Y);
-        
-        % name2 = 'Z:\Busch\Studysites\Peel\2018_Modelling\Peel_WQ_Model_v4_benthic\Output\benthic_08flow\sim_2016_Open_2D.nc';
-        
+                
         if isfield(ncfile(mod),'tfv')
             ttdata = tfv_readnetcdf(ncfile(mod).tfv,'names','D');
         else
@@ -113,57 +128,57 @@ if plotmodel
     end
 end
 if plotmodel
-    
     allvars = tfv_infonetcdf(ncfile(1).name);
-    
 end
-
-
 clear ttdata
 %D = 0;
+%--------------------------------------------------------------------------
 
+
+
+%--------------------------------------------------------------------------
 for var = 1:length(varname)
     
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);
     mkdir([savedir,'eps/']);
     loadname = varname{var};
+    
+    
     if plotmodel
-        
+
+        diagVar = regexp(loadname,'DIAG');
+
         for mod = 1:length(ncfile)
             disp(['Loading Model ',num2str(mod)]);
             loadname = varname{var};
             
             switch varname{var}
                 
-                case 'OXYPC'
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});
-                    tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});
+                case 'OXYPC'                   
                     
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});
+                    tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});                    
                     raw(mod).data.OXYPC = tra.TRACE_1 ./ oxy.WQ_AED_OXYGEN_OXY;
                     clear tra oxy
-                case 'WindSpeed'
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
                     
+                case 'WindSpeed'
+                    
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
                     raw(mod).data.WindSpeed = sqrt(power(oxy.W10_x,2) + power(oxy.W10_y,2));
                     clear  oxy
                     
                 case 'WindDirection'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
-                    
-                    raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);
-                    
-                    clear  oxy
-                    
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});                    
+                    raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);                    
+                    clear  oxy                  
                     
                 case 'WQ_DIAG_PHY_TCHLA'
                     
                     if sum(strcmpi(allvars,'WQ_DIAG_PHY_TCHLA')) == 0
-                        
                         tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});
-                        
-                        raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
+                            raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
                             ((tchl.WQ_PHY_CRYPT / 50)*12) + ...
                             ((tchl.WQ_PHY_DIATOM / 26)*12) + ...
                             ((tchl.WQ_PHY_DINO / 40)*12) + ...
@@ -174,26 +189,25 @@ for var = 1:length(varname)
                     end
                     
                 case 'V'
+
                     oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});
-                    
                     raw(mod).data.V = sqrt(power(oxy.V_x,2) + power(oxy.V_y,2));
                     clear tra oxy
                     
                 case 'ON'
+                    
                     %                 TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
                     %                 AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
                     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
                     %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
-                    %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
-                    
+                    %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);                    
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
-                    raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;
-                    
-                    clear DON PON
-                    
+                    raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;                    
+                    clear DON PON                    
                     
                 case 'TN'
+                    
                     %                 TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
                     %                 AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
                     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
@@ -203,86 +217,67 @@ for var = 1:length(varname)
                     AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
-                    raw(mod).data.TN = DON.WQ_OGM_DON + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM;
-                    
-                    clear TN AMM NIT
-                    
+                    raw(mod).data.TN = DON.WQ_OGM_DON + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM;                    
+                    clear TN AMM NIT                   
                     
                 case 'OP'
+                    
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    %
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});
                     raw(mod).data.OP = DON.WQ_OGM_DOP + PON.WQ_OGM_POP;
-                    clear TP FRP
-                    
+                    clear TP FRP                    
                     
                 case 'WQ_OGM_DON'
+                    
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    %
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
-                    
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});                   
                     if sum(strcmpi(allvars,'WQ_OGM_DONR')) > 0
-                        
                         DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON + DONR.WQ_OGM_DONR;
-                        
-                        
-                        
                     else
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON;% + DONR.WQ_OGM_DONR;
-                        
                     end
                     clear DON DONR
+
                 case 'WQ_OGM_DOC'
+                    
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    %
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});
-                    
-                    if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0
-                        
+                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});                    
+                    if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0                        
                         DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});
-                        raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;
-                        
+                        raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;                        
                     else
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC;% + DOCR.WQ_OGM_DOCR;
-                    end
-                    
+                    end                    
                     clear DOC DOCR
                     
                 case 'WQ_OGM_DOP'
+                    
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    %
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
-                    
-                    if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0
-                        
+                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});                    
+                    if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0                        
                         DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});
-                        raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;
-                        
+                        raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;                        
                     else
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP;% + DOPR.WQ_OGM_DOPR;
-                    end
-                    
-                    clear DOP DOPR
-                    
-                    
+                    end                    
+                    clear DOP DOPR                                        
                     
                 case 'TURB'
+                    
                     SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});
                     POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});
-                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
-                    
-                    raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
-                    
+                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});                    
+                    raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);                    
                     clear TP FRP
                     
                     sites = fieldnames(fdata);
@@ -295,14 +290,14 @@ for var = 1:length(varname)
                 otherwise
                     
                     raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
+                    
             end
         end
         
-        clear functions
-        
+        clear functions        
         
         switch varname{var}
-            
+
             case 'WQ_OXY_OXY'
                 ylab = 'Oxygen (mg/L)';
             case 'SAL'
@@ -313,6 +308,8 @@ for var = 1:length(varname)
                 ylab = '';
         end
     end
+    
+    
     c_units = [];
     for site = sites %1:length(shp)
         
@@ -354,16 +351,15 @@ for var = 1:length(varname)
                                 if isRange_Bottom
                                     fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc,col_pal_bottom(1,:));hold on
                                     %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
-                                    set(fig,'DisplayName',[ncfile(mod).legend,' Bot (Range)']);
+                                    set(fig,'DisplayName',[ncfile(mod).legend,' (Botm Range)']);
                                     hold on
                                     
                                     for plim_i=2:(nn-1)
                                         fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal_bottom(plim_i,:));
                                         %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
                                         set(fig2,'HandleVisibility','off');
-                                    end
-                                    
-                                    uistack(fig,'bottom');
+                                    end                                    
+                                    uistack(fig, 'bottom');
                                     uistack(fig2,'bottom');
                                 end
                             end
@@ -410,12 +406,12 @@ for var = 1:length(varname)
                                             
                                             if fgf > 1
                                              fp = plot(xdata_d,ydata_d,mface,...
-                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor','none' ,'markersize',3,'HandleVisibility','off');hold on
+                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                         uistack(fp,'top');
 
                                             else
                                              fp = plot(xdata_d,ydata_d,mface,...
-                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor','none','markersize',3,'displayname',[agency, ' Bot']);hold on
+                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'displayname',[agency, ' Bot']);hold on
                                                         uistack(fp,'top');
                                             end
                                             
@@ -435,12 +431,12 @@ for var = 1:length(varname)
                                                      if ~isempty(hhh)
                                                      if fgf > 1
                                                          fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',6,'linewidth',1,'HandleVisibility','off');hold on
+                                                                        'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
                                                                     uistack(fp,'top');
 
                                                         else
                                                          fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',6,'linewidth',1,'displayname','Outside Range');hold on
+                                                                        'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
                                                                     uistack(fp,'top');
                                                      end
                                                      end
@@ -467,11 +463,14 @@ for var = 1:length(varname)
                     
                     if plotmodel
                         [xdata,ydata] = tfv_averaging(data(mod).date_b,data(mod).pred_lim_ts_b(3,:),def);
+                        if diagVar>0 % removes inital zero value (eg in diganostics)
+                          xdata(1:2) = NaN;
+                        end  
                     end
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
-                        plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' Bot (Median)'],...
+                        plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Botm Median)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
@@ -491,7 +490,7 @@ for var = 1:length(varname)
                                 if isRange
                                     %
                                     fig = fillyy(data(mod).date,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
-                                    set(fig,'DisplayName',[ncfile(mod).legend,' Surf (Range)']);
+                                    set(fig,'DisplayName',[ncfile(mod).legend,' (Surf Range)']);
                                     hold on
                                     
                                     for plim_i=2:(nn-1)
@@ -539,11 +538,12 @@ for var = 1:length(varname)
                                         if plotvalidation
                                             fgf = sum(strcmpi(agencyused,agencyname));
                                             
-                                            if fgf > 1
-                                             fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
+                                            if fgf > 1 
+                                             %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
+                                             fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                             else
-                                             fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                             fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
                                              uistack(fp,'top');
                                             end
                                             
@@ -563,13 +563,13 @@ for var = 1:length(varname)
                                                      if fgf > 1
  
                                                          fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',6,'linewidth',1,'HandleVisibility','off');hold on
+                                                                        'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
                                                                     uistack(fp,'top');
 
                                                      else
                                                             
                                                          fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',6,'linewidth',1,'displayname','Outside Range');hold on
+                                                                        'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
                                                                     uistack(fp,'top');
                                                      end
                                                      uistack(fp,'top');
@@ -596,16 +596,17 @@ for var = 1:length(varname)
  
                     
                     
-                    if plotmodel
-                        
+                    if plotmodel                        
                         [xdata,ydata] = tfv_averaging(data(mod).date,data(mod).pred_lim_ts(3,:),def);
-                        
+                        if diagVar>0 % removes inital zero value (eg in diganostics)
+                          xdata(1:2) = NaN;
+                        end                          
                     end
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
-                    if plotmodel
-                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' Surf (Median)'],...
-                            'linestyle',ncfile(mod).symbol{1});hold on
+                    if plotmodel 
+                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
+                           'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
                     end
@@ -632,8 +633,8 @@ for var = 1:length(varname)
 
             if sum(~isnan(outdata.low)) > 200
                 
-            plot(outdata.Date,outdata.low, 'color',[0.6 0.6 0.6],'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
-            plot(outdata.Date,outdata.high,'color',[0.6 0.6 0.6],'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on
+            plot(outdata.Date,outdata.low, 'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
+            plot(outdata.Date,outdata.high,'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on
             
             end
         end
@@ -671,7 +672,7 @@ for var = 1:length(varname)
         else
             depdep = [num2str(depth_range(2)),'m'];
         end
-        text(0.15,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        text(0.92,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         
         if add_triangle
@@ -873,7 +874,14 @@ for var = 1:length(varname)
     
 	end
 end
+%--------------------------------------------------------------------------
 
+
+%--------------------------------------------------------------------------
 if isHTML
 	create_html_for_directory(outputdirectory,htmloutput);
 end
+
+disp('')
+disp('plottfv_polygon: DONE')
+%--------------------------------------------------------------------------

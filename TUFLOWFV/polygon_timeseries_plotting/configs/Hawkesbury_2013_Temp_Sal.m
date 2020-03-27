@@ -20,7 +20,7 @@ def.cAxis(2).value = [0 35];            %'SAL',...
 
 
 
-polygon_file = 'GIS/HN/HN_Calibration_v2.shp';
+polygon_file = 'GIS/HN/HN_Calibration_v3.shp';
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'

@@ -63,7 +63,7 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 
 
 
-polygon_file = 'GIS/HN/HN_Calibration_v2.shp';
+polygon_file = 'GIS/HN/HN_Calibration_v3.shp';
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'

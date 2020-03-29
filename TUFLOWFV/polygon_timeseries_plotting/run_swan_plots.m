@@ -13,5 +13,5 @@ clear all; close all;
 
 plottfv_polygon Swan_2018_2019.m                
 
-plottfv_polygon Swan_2015_2016.m    
-plottfv_polygon Swan_2016_2017.m    
+% plottfv_polygon Swan_2015_2016.m    
+% plottfv_polygon Swan_2016_2017.m    

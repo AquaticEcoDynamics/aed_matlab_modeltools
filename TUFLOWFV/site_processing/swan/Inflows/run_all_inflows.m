@@ -117,6 +117,8 @@ replace_flows_with_calculated;
 
 merge_tidal_data_2019;
 
+process_tide_filter;
+
 plot_bcfiles('BCs/Flow/');
 
 plot_bcfiles('BCs/OxyPlants/');

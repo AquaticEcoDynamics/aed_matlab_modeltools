@@ -5,11 +5,33 @@ load swan.mat;
 shp = shaperead('ERZnew.shp');
 
 addpath(genpath('honeycomb'));
+addpath(genpath('hexscatter'));
 
 
 % The configuration stuff.
 
-the_poly = 4;
+% Polygon to use
+the_poly = 5;
+
+%Check spreadsheet ERZ ID and Inflows to be sure which shapefile ID and
+%inflows to use.
+
+%Order to Use | Actual Polygon Region
+%
+%	1					9
+%	2                   1
+%	3                   2
+%	4                   3
+%	5                   4
+%	6                   5
+%	7                   6
+%	8                   7
+%	9                   8
+%	10                  10
+%	11                  11
+%	12                  12
+
+filename = 'Zone 4';
 
 fvar = 'WQ_PHS_FRP';
 lvar = 'TP_kg';
@@ -33,13 +55,15 @@ deltaT_Text = '3 Months';
 lsites = fieldnames(Load);
 fsites = fieldnames(swan);
 
+% List of all inflows INSIDE and UPSTREAM of polygon region
 allsites = {...
     'Bennett_Inflow',...
-    'Ellenbrook_Inflow',...
     'Helena_Inflow',...
+    'Ellenbrook_Inflow',...
     'Jane_Inflow',...
     'Susannah_Inflow',...
     'Upper_Swan_Inflow',...
+    'Bayswater_Inflow';
     };
 
 
@@ -47,20 +71,20 @@ allsites = {...
 
 xtext_1 = 'TP (kg)';
 ytext_1 = 'FRP (mg/L)';
-xlim_1 = [0 2000];
+xlim_1 = [0 4000];
 ylim_1 = [0 0.3];
-honeybins_1 = [100 500];
-title_1 = 'Zone 3 (Local + Upstream)';
+honeybins_1 = [100 20]; % [100 500];
+title_1 = 'Zone 4 (Local + Upstream)';
 zlim_1 = [0 350];
 
 % Plot 2 configs.................................................
 
 ytext_2 = 'FRP (mg/L)';
 xtext_2 = '$$\overline{TP}^*_{inf}$$';
-honeybins_2 = [20 500];
+honeybins_2 = [25 25];
 xlim_2 = [0 0.2];
 ylim_2 = [0 0.3];
-title_2 = 'Zone 3 (Local + Upstream)';
+title_2 = 'Zone 4 (Local + Upstream)';
 zlim_2 = [0 350];
 % Plot 3 configs..................................................
 
@@ -68,8 +92,8 @@ ytext_3 = 'FRP (mg/L)';
 xtext_3 = '$$\overline{TP}^*_{inf}$$';
 xlim_3 = [0 0.2];
 ylim_3 = [0 0.3];
-honeybins_3 = [20 500];
-title_3 = 'Zone 3 (Local)';
+honeybins_3 = [400 40]; % [20 500];
+title_3 = 'Zone 4 (Local)';
 zlim_3 = [0 350];
 
 % The runtime stuff
@@ -168,9 +192,11 @@ end
 
 
 
+cdata(1:length(the_load_local),1) = 1;
+rHex = 1.0 ;
+ifFillEmptyHex = 0 ;
 
-
-
+save scrap.mat the_load_region the_field cdata xlim_1 ylim_1 rHex ifFillEmptyHex -mat;
 
 
 % Plotting.......................................................
@@ -187,6 +213,7 @@ if ~isempty(honeybins_1)
 else
     H = honeycomb(the_load_region,the_field);
 end
+
 
 set(gca,'ylim',ylim_1);
 set(gca,'xlim',xlim_1);
@@ -249,7 +276,7 @@ xLeft = (21-xSize)/2;
 yTop = (30-ySize)/2;
 set(gcf,'paperposition',[0 0 xSize ySize])
 
-saveas(gcf,'Honeycomb Zone 3.png');
+saveas(gcf,[filename,'.png']);
 
 close all;
 

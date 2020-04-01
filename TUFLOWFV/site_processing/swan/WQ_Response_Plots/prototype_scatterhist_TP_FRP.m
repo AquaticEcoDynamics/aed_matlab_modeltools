@@ -1,18 +1,22 @@
 function prototype_hexplot
 
 load Load.mat;
-load swan.mat;
+load swan_din.mat;
 shp = shaperead('ERZnew.shp');
 
 addpath(genpath('honeycomb'));
+addpath(genpath('hexscatter'));
 
 
 % The configuration stuff.
 
 % Polygon to use
-the_poly = 4;
+the_poly = 5;
 
-%Order to Use | Actual Polygon Region
+%Check spreadsheet ERZ ID and Inflows to be sure which shapefile ID and
+%inflows to use.
+
+%POlygon to Use | Actual ERZ Region
 %
 %	1					9
 %	2                   1
@@ -27,7 +31,9 @@ the_poly = 4;
 %	11                  11
 %	12                  12
 
+filename = 'FRP_TP_Zone 4_SH';
 
+outdir = 'FRP_TP/';
 
 fvar = 'WQ_PHS_FRP';
 lvar = 'TP_kg';
@@ -40,6 +46,9 @@ mbins(1).val = [1 2 3];
 mbins(2).val = [4 5 6];
 mbins(3).val = [7 8 9];
 mbins(4).val = [10 11 12];
+
+the_season_name = {'Summer';'Autumn';'Winter';'Spring'};
+
 
 deltaT_Text = '3 Months';
 
@@ -54,11 +63,12 @@ fsites = fieldnames(swan);
 % List of all inflows INSIDE and UPSTREAM of polygon region
 allsites = {...
     'Bennett_Inflow',...
-    'Ellenbrook_Inflow',...
     'Helena_Inflow',...
+    'Ellenbrook_Inflow',...
     'Jane_Inflow',...
     'Susannah_Inflow',...
     'Upper_Swan_Inflow',...
+    'Bayswater_Inflow';
     };
 
 
@@ -66,9 +76,9 @@ allsites = {...
 
 xtext_1 = 'TP (kg)';
 ytext_1 = 'FRP (mg/L)';
-xlim_1 = [0 2000];
-ylim_1 = [0 0.3];
-honeybins_1 = [100 500];
+xlim_1 = [0 7000];
+ylim_1 = [0 10];
+honeybins_1 = [600 25]; % [100 500];
 title_1 = 'Zone 3 (Local + Upstream)';
 zlim_1 = [0 350];
 
@@ -76,22 +86,26 @@ zlim_1 = [0 350];
 
 ytext_2 = 'FRP (mg/L)';
 xtext_2 = '$$\overline{TP}^*_{inf}$$';
-honeybins_2 = [20 500];
-xlim_2 = [0 0.2];
-ylim_2 = [0 0.3];
+honeybins_2 = [25 25];
+xlim_2 = [0 2.5];
+ylim_2 = [0 10];
 title_2 = 'Zone 3 (Local + Upstream)';
 zlim_2 = [0 350];
 % Plot 3 configs..................................................
 
 ytext_3 = 'FRP (mg/L)';
 xtext_3 = '$$\overline{TP}^*_{inf}$$';
-xlim_3 = [0 0.2];
-ylim_3 = [0 0.3];
-honeybins_3 = [20 500];
+xlim_3 = [0 2.5];
+ylim_3 = [0 10];
+honeybins_3 = [25 25]; % [20 500];
 title_3 = 'Zone 3 (Local)';
 zlim_3 = [0 350];
 
 % The runtime stuff
+
+if ~exist(outdir,'dir')
+    mkdir(outdir);
+end
 
 int = 1;
 the_lsites = [];
@@ -149,6 +163,7 @@ the_load_local = [];
 the_load_local_Q = [];
 the_load_region_Q = [];
 the_load_region = [];
+the_season = [];
 int = 1;
 
 for i = 1:length(years)
@@ -164,6 +179,7 @@ for i = 1:length(years)
         tq = [];% region load
         tdn = [];% local load/flow
         tda = [];% region load/flow
+        tg  = {};
         
         % Creating the arrays the same size as the field data for that date
         % range
@@ -172,21 +188,27 @@ for i = 1:length(years)
         tdn(1:the_field_counter(int),1) = local_QF;
         tda(1:the_field_counter(int),1) = group_QF;
         
-
+        
+        tg(1:the_field_counter(int),1) = the_season_name(j);
+        
         % The final variables that will be plotted.
         the_load_local = [the_load_local;td];
         the_load_local_Q = [the_load_local_Q;tdn];
         the_load_region_Q = [the_load_region_Q;tda];
         the_load_region = [the_load_region;tq];
-        
+        the_season = [the_season;tg];
         
         int = int + 1;
     end
 end
 
 
+disp(['Limit Local Load: ',num2str(min(the_load_local)),' ',num2str(max(the_load_local))]);
+disp(['Limit Local Q: ',num2str(min(the_load_local_Q)),' ',num2str(max(the_load_local_Q))]);
+disp(['Limit Region Load: ',num2str(min(the_load_region)),' ',num2str(max(the_load_region))]);
+disp(['Limit Region Q: ',num2str(min(the_load_region_Q)),' ',num2str(max(the_load_region_Q))]);
 
-
+disp(['Limit Field Conc: ',num2str(min(the_field)),' ',num2str(max(the_field))]);
 
 
 
@@ -194,83 +216,111 @@ end
 
 % Plotting.......................................................
 
-fig = figure;
+
+
+% Subplot 1_______________________________
+%subplot(1,3,1)
+
+fig = figure('position',[1004         627         834         351]);
 set(fig,'defaultTextInterpreter','latex')
 set(0,'DefaultAxesFontName','Times')
 
-% Subplot 1_______________________________
-subplot(1,3,1)
 set(gca,'TickLabelInterpreter','latex')
-if ~isempty(honeybins_1)
-    H = honeycomb(the_load_region,the_field,honeybins_1);
-else
-    H = honeycomb(the_load_region,the_field);
-end
+% if ~isempty(honeybins_1)
+%     H = honeycomb(the_load_region,the_field,honeybins_1);
+% else
+%     H = honeycomb(the_load_region,the_field);
+% end
 
-set(gca,'ylim',ylim_1);
-set(gca,'xlim',xlim_1);
-caxis(zlim_1);
+scatterhist(the_load_region,the_field,'group',the_season);
+
+
+% set(gca,'ylim',ylim_1);
+% set(gca,'xlim',xlim_1);
+%caxis(zlim_1);
 ylabel(ytext_1,'fontsize',8);
 xlabel(xtext_1,'fontsize',8);
 title(title_1,'fontsize',8);
 
-cb = colorbar;
-set(cb,'position',[0.3 0.6 0.01 0.3],'fontsize',6);
+text(0.1,0.9,['  $$\Delta$$T = ',deltaT_Text],'units','normalized','FontSize',6);
+text(0.1,0.85,['\#','$$\Delta$$T = ',num2str(length(years)*length(mbins))],'units','normalized','FontSize',6);
+text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized','FontSize',6);
+
+% cb = colorbar;
+% set(cb,'position',[0.3 0.6 0.01 0.3],'fontsize',6);
+saveas(gcf,[outdir,'Plot1_',filename,'.png']);close
 
 
 % Subplot 3_______________________________
-subplot(1,3,2)
-set(gca,'TickLabelInterpreter','latex')
-if ~isempty(honeybins_2)
-    H = honeycomb(the_load_region_Q,the_field,honeybins_2);
-else
-    H = honeycomb(the_load_region_Q,the_field);
-end
-set(gca,'ylim',ylim_2);
-set(gca,'xlim',xlim_2);
-caxis(zlim_2);
+%subplot(1,3,2)
+fig = figure('position',[1004         627         834         351]);
+set(fig,'defaultTextInterpreter','latex')
+set(0,'DefaultAxesFontName','Times')
+
+set(gca,'TickLabelInterpreter','latex')% if ~isempty(honeybins_2)
+%     H = honeycomb(the_load_region_Q,the_field,honeybins_2);
+% else
+%     H = honeycomb(the_load_region_Q,the_field);
+% end
+
+scatterhist(the_load_region_Q,the_field,'group',the_season);
+
+% set(gca,'ylim',ylim_2);
+% set(gca,'xlim',xlim_2);
+%caxis(zlim_2);
 ylabel(ytext_2,'fontsize',8);
 h = xlabel(xtext_2,'fontsize',8);
 title(title_2,'fontsize',8);
 
+text(0.1,0.9,['  $$\Delta$$T = ',deltaT_Text],'units','normalized','FontSize',6);
+text(0.1,0.85,['\#','$$\Delta$$T = ',num2str(length(years)*length(mbins))],'units','normalized','FontSize',6);
+text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized','FontSize',6);
 
-cb = colorbar;
-set(cb,'position',[0.575 0.6 0.01 0.3],'fontsize',6);
+% cb = colorbar;
+% set(cb,'position',[0.575 0.6 0.01 0.3],'fontsize',6);
+saveas(gcf,[outdir,'Plot2_',filename,'.png']);close
 
 % Subplot 3_______________________________
-subplot(1,3,3)
-set(gca,'TickLabelInterpreter','latex')
-if ~isempty(honeybins_3)
-    H = honeycomb(the_load_local_Q,the_field,honeybins_3);
-else
-    H = honeycomb(the_load_local_Q,the_field);
-end
-set(gca,'ylim',ylim_3);
-set(gca,'xlim',xlim_3);
-caxis(zlim_3);
+%subplot(1,3,3)
+fig = figure('position',[1004         627         834         351]);
+set(fig,'defaultTextInterpreter','latex')
+set(0,'DefaultAxesFontName','Times')
+
+set(gca,'TickLabelInterpreter','latex')% if ~isempty(honeybins_3)
+%     H = honeycomb(the_load_local_Q,the_field,honeybins_3);
+% else
+%     H = honeycomb(the_load_local_Q,the_field);
+% end
+
+scatterhist(the_load_local_Q,the_field,'group',the_season);
+
+
+% set(gca,'ylim',ylim_3);
+% set(gca,'xlim',xlim_3);
+%caxis(zlim_3);
 ylabel(ytext_3,'fontsize',8);
 h = xlabel(xtext_2,'fontsize',8);
 title(title_3,'fontsize',8);
 
-cb = colorbar;
-set(cb,'position',[0.8625 0.6 0.01 0.3],'fontsize',6);
+% cb = colorbar;
+% set(cb,'position',[0.8625 0.6 0.01 0.3],'fontsize',6);
 
 
-text(0.6,0.3,['  $$\Delta$$T = ',deltaT_Text],'units','normalized','FontSize',6);
-text(0.6,0.25,['\#','$$\Delta$$T = ',num2str(length(years)*length(mbins))],'units','normalized','FontSize',6);
-text(0.6,0.2,['n = ',num2str(length(the_field)),' Samples'],'units','normalized','FontSize',6);
+text(0.1,0.9,['  $$\Delta$$T = ',deltaT_Text],'units','normalized','FontSize',6);
+text(0.1,0.85,['\#','$$\Delta$$T = ',num2str(length(years)*length(mbins))],'units','normalized','FontSize',6);
+text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized','FontSize',6);
 
-set(gcf, 'PaperPositionMode', 'manual');
-set(gcf, 'PaperUnits', 'centimeters');
-xSize = 21;
-ySize = 6;
-xLeft = (21-xSize)/2;
-yTop = (30-ySize)/2;
-set(gcf,'paperposition',[0 0 xSize ySize])
+% set(gcf, 'PaperPositionMode', 'manual');
+% set(gcf, 'PaperUnits', 'centimeters');
+% xSize = 21;
+% ySize = 6;
+% xLeft = (21-xSize)/2;
+% yTop = (30-ySize)/2;
+% set(gcf,'paperposition',[0 0 xSize ySize])
 
-saveas(gcf,'Honeycomb Zone 3.png');
+saveas(gcf,[outdir,'Plot3_',filename,'.png']);close
 
-close all;
+%close all;
 
 
 end

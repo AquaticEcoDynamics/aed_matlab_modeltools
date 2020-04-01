@@ -11,7 +11,7 @@ addpath(genpath('hexscatter'));
 % The configuration stuff.
 
 % Polygon to use
-the_poly = 5;
+the_poly = 4;
 
 %Check spreadsheet ERZ ID and Inflows to be sure which shapefile ID and
 %inflows to use.
@@ -31,7 +31,9 @@ the_poly = 5;
 %	11                  11
 %	12                  12
 
-filename = 'DIN_TN_Zone 4_SH';
+filename = 'DIN_TN_Zone 3_SH';
+
+outdir = 'DIN_TN/';
 
 fvar = 'DIN';
 lvar = 'TN_kg';
@@ -66,7 +68,7 @@ allsites = {...
     'Jane_Inflow',...
     'Susannah_Inflow',...
     'Upper_Swan_Inflow',...
-    'Bayswater_Inflow';
+    %'Bayswater_Inflow';
     };
 
 
@@ -77,7 +79,7 @@ ytext_1 = 'DIN (mg/L)';
 xlim_1 = [0 7000];
 ylim_1 = [0 10];
 honeybins_1 = [600 25]; % [100 500];
-title_1 = 'Zone 4 (Local + Upstream)';
+title_1 = 'Zone 3 (Local + Upstream)';
 zlim_1 = [0 350];
 
 % Plot 2 configs.................................................
@@ -87,7 +89,7 @@ xtext_2 = '$$\overline{TN}^*_{inf}$$';
 honeybins_2 = [25 25];
 xlim_2 = [0 2.5];
 ylim_2 = [0 10];
-title_2 = 'Zone 4 (Local + Upstream)';
+title_2 = 'Zone 3 (Local + Upstream)';
 zlim_2 = [0 350];
 % Plot 3 configs..................................................
 
@@ -96,10 +98,14 @@ xtext_3 = '$$\overline{TN}^*_{inf}$$';
 xlim_3 = [0 2.5];
 ylim_3 = [0 10];
 honeybins_3 = [25 25]; % [20 500];
-title_3 = 'Zone 4 (Local)';
+title_3 = 'Zone 3 (Local)';
 zlim_3 = [0 350];
 
 % The runtime stuff
+
+if ~exist(outdir,'dir')
+    mkdir(outdir);
+end
 
 int = 1;
 the_lsites = [];
@@ -242,7 +248,7 @@ text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized'
 
 % cb = colorbar;
 % set(cb,'position',[0.3 0.6 0.01 0.3],'fontsize',6);
-saveas(gcf,['Plot1_',filename,'.png']);close
+saveas(gcf,[outdir,'Plot1_',filename,'.png']);close
 
 
 % Subplot 3_______________________________
@@ -272,7 +278,7 @@ text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized'
 
 % cb = colorbar;
 % set(cb,'position',[0.575 0.6 0.01 0.3],'fontsize',6);
-saveas(gcf,['Plot2_',filename,'.png']);close
+saveas(gcf,[outdir,'Plot2_',filename,'.png']);close
 
 % Subplot 3_______________________________
 %subplot(1,3,3)
@@ -312,7 +318,7 @@ text(0.1,0.8,['n = ',num2str(length(the_field)),' Samples'],'units','normalized'
 % yTop = (30-ySize)/2;
 % set(gcf,'paperposition',[0 0 xSize ySize])
 
-saveas(gcf,['Plot3_',filename,'.png']);close
+saveas(gcf,[outdir,'Plot3_',filename,'.png']);close
 
 %close all;
 

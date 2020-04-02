@@ -9,19 +9,19 @@ ncfile = 'Q:\Busch\Studysites\Swan\Simulations\SCERM_NoCanning\Output\swan_2018_
 outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\V4_B2_Multiyear_nCanning\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_NIT_NIT';
+varname = 'WQ_DIAG_PHY_MPB';
 
-cax = [0 0.5];
+cax = [0 1000];
 
-conv = 14/1000;%14/1000;
+conv = 1;%14/1000;%14/1000;
 
-title = 'WQ_NIT_NIT';
+title = 'WQ_DIAG_PHY_MPB';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen
 save_images = 0;
 
-plot_interval = 1;
+plot_interval = 4;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -179,8 +179,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([390426.159471774          400676.010166237]);
-          ylim([6452332.06546219          6458880.35717258]);
+          xlim([388980.863046855          398604.194750214]);
+          ylim([6453762.0536537           6459910.0830346]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

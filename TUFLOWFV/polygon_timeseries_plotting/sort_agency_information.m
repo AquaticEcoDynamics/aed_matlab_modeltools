@@ -44,6 +44,10 @@ switch agency
     case 'SWC' %Hawkesbury
         mface = 'ok';
         mcolor = [255/255 61/255 9/255];
+		
+	case 'SWC' %Hawkesbury
+        mface = 'dk';
+        mcolor = [255/255 61/255 9/255];
     case 'DPIE-mc'
         mface = '^k';
         mcolor = [255/255 61/255 9/255];

@@ -4,9 +4,25 @@ dirlist = dir('Inflows/');
 
 addpath(genpath('tuflowfv'));
 
+[snum,sstr] = xlsread('TFV_Inflow_Locations.xlsx','A2:C100');
+
+inf_name = sstr(:,1);
+inf_X = snum(:,1);
+inf_Y = snum(:,2);
+
 for i = 3:length(dirlist);
     
     site = regexprep(dirlist(i).name,'.csv','');
+    
+    ssss = find(strcmpi(inf_name,site) == 1);
+    
+    if isempty(ssss)
+        stop;
+        
+    else
+        Load.(site).X = inf_X(ssss);
+        Load.(site).Y = inf_Y(ssss);
+    end
     
     data.(site) = tfv_readBCfile(['Inflows/',dirlist(i).name]);
     
@@ -17,6 +33,7 @@ for i = 3:length(dirlist);
     
     tnconv = 14/1000;
     tpconv = 31/1000;
+    oxyconv = 32/1000;
     
     Load.(site).TN_mg = ...
         ((data.(site).AMM * tnconv) .* Load.(site).L) + ...
@@ -42,7 +59,8 @@ for i = 3:length(dirlist);
     Load.(site).PON_mg = (data.(site).PON * tnconv) .* Load.(site).L;
     Load.(site).DONR_mg = (data.(site).DONR * tnconv) .* Load.(site).L;
     
-    
+        Load.(site).OXY_mg = (data.(site).OXY * oxyconv) .* Load.(site).L;
+
     
     
     
@@ -87,9 +105,12 @@ for i = 3:length(dirlist);
     Load.(site).POP_kg = Load.(site).POP_mg *1e-6;
     Load.(site).DOPR_kg = Load.(site).DOPR_mg *1e-6;
     
+    Load.(site).OXY_kg = Load.(site).OXY_mg *1e-6;
+    
 end
 
 save Load.mat Load -mat;
+save('../WQ_Response_Plots/Load.mat','Load','-mat');
 
 sites = fieldnames(Load);
 

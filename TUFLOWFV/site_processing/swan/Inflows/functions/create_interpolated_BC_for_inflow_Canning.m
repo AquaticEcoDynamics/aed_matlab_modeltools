@@ -1,4 +1,4 @@
-function create_interpolated_BC_for_inflow_Ellenbrook(swan,headers,datearray)
+function create_interpolated_BC_for_inflow_Canning(swan,headers,datearray)
 
 
 ISOTime = datearray;
@@ -58,15 +58,19 @@ clear t_date t_data;
 %__________________________________________________________________________
 varname = 'SAL';%Changed from s6162994
 
-t_depth = swan.s6161838.(varname).Depth;
-tt = find(t_depth > -0.3);
 
-[t_date,ind] = unique(swan.s6161838.(varname).Date(tt));
-t_data = swan.s6161838.(varname).Data(tt(ind));
+Sal = create_interpolated_dataset(swan,varname,'s6161838','Bottom',datearray);
 
-ss = find(~isnan(t_data) == 1);
 
-Sal = interp1(t_date(ss),t_data(ss),datearray,'linear',mean(t_data(ss)));
+% t_depth = swan.s6161838.(varname).Depth;
+% tt = find(t_depth > -0.3);
+% 
+% [t_date,ind] = unique(swan.s6161838.(varname).Date(tt));
+% t_data = swan.s6161838.(varname).Data(tt(ind));
+% 
+% ss = find(~isnan(t_data) == 1);
+% 
+% Sal = interp1(t_date(ss),t_data(ss),datearray,'linear',mean(t_data(ss)));
 
 figure;plot(Sal);title('Sal');
 

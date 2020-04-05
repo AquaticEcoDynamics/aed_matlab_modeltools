@@ -7,7 +7,7 @@ load swan.mat;
 
 %datearray(:,1) = datenum(2007,01,01):1:datenum(2014,12,31,11,59,00);
 
-datearray(:,1) = datenum(2007,01:1:144,01);
+ datearray(:,1) = datenum(2007,01:1:144,01);
 
 
 swan_lower = [];
@@ -44,6 +44,7 @@ newsites = {...
     's616189',...
     's6161837',...
     's6163179',...
+    's6161837',...
     };
     %'s6161837',...RIV
 %    's6163179',... SCB

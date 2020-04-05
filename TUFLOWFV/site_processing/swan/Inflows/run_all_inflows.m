@@ -103,7 +103,7 @@ datearray(:,1) = datenum(2007,01,01,00,00,00):1:datenum(2020,01,01,00,00,00);
 % % %
 % create_interpolated_BC_for_inflow_Ellenbrook(swan,headers,datearray); disp('Ellenbrook');close all;
 % create_interpolated_BC_for_inflow_Susannah(swan,headers,datearray);   disp('Susannah');close all;
-  create_interpolated_BC_for_inflow_UpperSwan_2000(swan,headers,datearray);disp('UpperSwan');close all;
+%  create_interpolated_BC_for_inflow_UpperSwan_2000(swan,headers,datearray);disp('UpperSwan');close all;
 % 
 % create_interpolated_BC_for_inflow_Bayswater(swan,headers,datearray);disp('Bayswater');close all; %DONE
 % create_interpolated_BC_for_inflow_Jane(swan,headers,datearray);disp('Jane');close all;

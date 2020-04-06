@@ -38,7 +38,7 @@ isylabel = 1;
 islegend = 1;
 isYlim = 1;
 isRange = 1;
-isRange_Bottom = 1;
+isRange_Bottom = 0;
 custom_datestamp = 0;
 
 filetype = 'eps';
@@ -58,13 +58,13 @@ outputdirectory = 'plotting_output\Swan2018Phytooff\Test3tfv_newShp';
 %nc file loc changed%
 ncfile(1).name = 'Z:\Amina\Swan2018_Phyto_totals_off/Output/swan.nc';% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
-ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ncfile(1).colour = {[255/255 61/255 9/255],'k'}; % Surface and Bottom
 ncfile(1).legend = 'Model';
 ncfile(1).translate = 1;
 % 
 % ncfile(2).name = 'G:\Swan\monthly_201502.nc';
 % ncfile(2).symbol = {'-';'-'};
-% ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(2).colour = {[255/255 61/255 9/255],'k'}; % Surface and Bottom
 % ncfile(2).legend = 'Model';
 % ncfile(2).translate = 1;
 % 

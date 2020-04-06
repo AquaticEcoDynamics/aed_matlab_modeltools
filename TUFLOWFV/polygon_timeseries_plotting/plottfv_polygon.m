@@ -38,6 +38,11 @@ if ~exist('add_coorong','var')
     add_coorong = 0;
 end
 
+if ~exist('fielddata_matfile','var')
+    fielddata_matfile = ['matfiles/',fielddata,'.mat'];
+end
+
+
 isConv = 0;
 
 if ~exist('plotmodel','var')
@@ -99,7 +104,7 @@ col_pal_bottom    =[[215 204 200]./255; [0.054901  0.525490 0.968627];[0.050980 
 
 %--------------------------------------------------------------------------
 % Load Field Data and Get site names
-field = load(['matfiles/',fielddata,'.mat']);
+field = load(fielddata_matfile);
 fdata = field.(fielddata);
 sitenames = fieldnames(fdata);
 

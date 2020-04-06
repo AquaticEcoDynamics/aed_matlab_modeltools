@@ -2,8 +2,10 @@
 addpath(genpath('tuflowfv'));
 
 % SITE Configuration_______________________________________________________
-polygon_file = 'GIS/Erie/erie_validation_v4.shp';
+fielddata_matfile = '..\..\..\Lake-Erie\matlab\modeltools\matfiles\erie.mat';
 fielddata = 'erie';
+
+polygon_file = '..\..\..\Lake-Erie\matlab\modeltools\gis\erie_validation_v4.shp';
 
 sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration

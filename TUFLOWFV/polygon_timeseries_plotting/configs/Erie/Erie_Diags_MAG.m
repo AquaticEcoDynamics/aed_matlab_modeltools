@@ -3,8 +3,10 @@
 addpath(genpath('tuflowfv'));
 
 
+fielddata_matfile = '..\..\..\Lake-Erie\matlab\modeltools\matfiles\erie.mat';
 fielddata = 'erie';
 
+polygon_file = '..\..\..\Lake-Erie\matlab\modeltools\gis\erie_validation_v4.shp';
 
 
 
@@ -41,7 +43,6 @@ def.cAxis(9).value = [0 50];   %'WQ_DIAG_PHY_TCHLA',...
 
 
 
-polygon_file = 'GIS/Erie/erie_validation_v4.shp';
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'

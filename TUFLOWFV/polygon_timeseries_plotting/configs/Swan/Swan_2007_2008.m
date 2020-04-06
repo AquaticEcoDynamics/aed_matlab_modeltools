@@ -2,7 +2,10 @@
 addpath(genpath('tuflowfv'));
 
 
+fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
+
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
 
 yr = 2007;
 rgh = '2007_2008';
@@ -46,8 +49,7 @@ rgh = '2007_2008';
 def.cAxis(1).value = [5 45];
 
 
-%polygon_file = 'GIS/CEWH_Reporting.shp';
-polygon_file = 'GIS/Swan/Swan_Sites.shp';
+
 %changed the polygon file loc
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'

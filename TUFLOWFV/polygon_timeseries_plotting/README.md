@@ -40,4 +40,7 @@ This file will define each region to be plotted. The file itself is reletively e
 + The file must be of type polygon and NOT polygonz (matlab has trouble reading it)
 + The shape file must contain the folowing fields, Name and Plot_Order.
 
+### Configuration file
+
+Once the other two files have been created, it is the configuration file that ties them together with the model output. All configurations are stored in the config directory. More information about the flags and settings requried can be found in the readme file.
 

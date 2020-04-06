@@ -63,7 +63,7 @@ def.cAxis(22).value = [0 15];           %'WQ_DIAG_TOT_TOC',...
 def.cAxis(23).value = [0 300];           %'WQ_DIAG_TOT_TSS',...
 def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
-def.cAxis(26).value = [0 30];         %'SAL',...
+def.cAxis(26).value = [];         %'SAL',...
 
 
 polygon_file = 'GIS/HN/HN_Calibration_v3.shp';
@@ -98,8 +98,8 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v4\Plots_A42017\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4_A4\2017_2018\'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v4\Plots_A52017\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4_A5\2017_2018\'];
 
 % ____________________________________________________________Configuration
 

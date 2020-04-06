@@ -1,6 +1,8 @@
 function IC = create_IC_matfile(sdate)
 addpath(genpath('functions'));
 
+%limit_swan_sites_lower
+
 %load Matfiles/swan_small.mat; 
 load Tidaldata.mat;
 load swan_lower.mat;

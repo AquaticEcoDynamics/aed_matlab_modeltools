@@ -31,9 +31,23 @@ rgh = '2012_2013';
 %     };
 
 varname = {...
+        'WQ_NCS_SS1',...
+    'WQ_OXY_OXY',...
+    'WQ_SIL_RSI',...
+    'WQ_NIT_AMM',...
+    'WQ_NIT_NIT',...
+    'WQ_PHS_FRP',...
+    'WQ_PHS_FRP_ADS',...
+    'WQ_OGM_DOC',...
+    'WQ_OGM_POC',...
+    'WQ_OGM_DON',...
+    'WQ_OGM_PON',...
+    'WQ_OGM_DOP',...
+    'WQ_OGM_POP',...
+    'WQ_PHY_GRN',...
     'SAL',...
     'TEMP',...
-    };
+     };
 % def.cAxis(1).value = [0 20];
 % def.cAxis(2).value = [0 55];
 def.cAxis(1).value = [5 45];
@@ -73,8 +87,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\',rgh,'\'];
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\IC_Chx\',rgh,'\'];
 
 % ____________________________________________________________Configuration
 
@@ -87,11 +101,11 @@ ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.
 ncfile(1).legend = 'Model';
 ncfile(1).translate = 1;
 % 
-ncfile(2).name = ['R:\SCERM/swan_',rgh,'_rst_ALL.nc'];
-ncfile(2).symbol = {'-';'-'};
-ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(2).legend = 'Model';
-ncfile(2).translate = 1;
+% ncfile(2).name = ['R:\SCERM/swan_',rgh,'_rst_ALL.nc'];
+% ncfile(2).symbol = {'-';'-'};
+% ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(2).legend = 'Model';
+% ncfile(2).translate = 1;
 % 
 
 
@@ -100,7 +114,7 @@ ncfile(2).translate = 1;
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(yr,04:03:16,01);
+def.datearray = datenum(yr,02:03:16,01);
 def.dateformat = 'mmm-yy';
 % Defaults_________________________________________________________________
 

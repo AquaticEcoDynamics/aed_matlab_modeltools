@@ -380,8 +380,16 @@ for var = 1:length(varname)
                                     xdata_t = [];
                                     ydata_t = [];
                                     
-                                    [xdata_t,ydata_t] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
+                                    [xdata_ta,ydata_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,...
+                                        fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
                                     
+                                    
+                                    gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
+                                    
+                                    if ~isempty(gfg)
+                                        xdata_t = xdata_ta(gfg);
+                                        ydata_t = ydata_ta(gfg);
+                                    end
                                     
                                     if ~isempty(xdata_t)
                                         
@@ -516,7 +524,16 @@ for var = 1:length(varname)
                                 if isfield(fdata.(sitenames{sss(j)}),varname{var})
                                     xdata_t = [];
                                     ydata_t = [];
-                                    [xdata_t,ydata_t] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
+                                    [xdata_ta,ydata_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
+                                    
+                                    
+                                     gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
+                                    
+                                    if ~isempty(gfg)
+                                        xdata_t = xdata_ta(gfg);
+                                        ydata_t = ydata_ta(gfg);
+                                    end
+                                    
                                     
                                     if ~isempty(xdata_t)
                                         
@@ -721,7 +738,9 @@ for var = 1:length(varname)
         
         xlim([def.datearray(1) def.datearray(end)]);
         if isYlim
-            ylim([def.cAxis(var).value]);
+            if ~isempty(def.cAxis(var).value)
+                ylim([def.cAxis(var).value]);
+            end
         else
             def.cAxis(var).value = get(gca,'ylim');
             def.cAxis(var).value(1) = 0;

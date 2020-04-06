@@ -3,10 +3,10 @@
 addpath(genpath('tuflowfv'));
 
 
-fielddata_matfile = '..\..\..\Hawkesbury\modeltools\matfiles\hawkesbury_all.mat';
+fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
 fielddata = 'hawkesbury_all';
 
-polygon_file = '..\..\..\Hawkesbury\modeltools\gis\SC_Zones.shp';
+polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\SC_Zones.shp';
 
 
 varname = {...

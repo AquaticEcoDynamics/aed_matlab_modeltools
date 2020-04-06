@@ -3,10 +3,10 @@
 addpath(genpath('tuflowfv'));
 
 
-fielddata_matfile = '..\..\..\Hawkesbury\modeltools\matfiles\hawkesbury_all.mat';
+fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
 fielddata = 'hawkesbury_all';
 
-polygon_file = '..\..\..\Hawkesbury\modeltools\gis\HN_Calibration_v3.shp';
+polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
 
 varname = {'WQ_DIAG_NCS_D_TAUB'};
 def.cAxis(1).value = [0 0.5];    		%'WQ_DIAG_NCS_D_TAUB',...

@@ -68,25 +68,27 @@ Multiple models can be configured on the same plot, this will add ranges to all 
 Range_ALL = 1; 
 ```
 
-```
-filetype = 'eps';
-def.expected = 1; % plot expected WL
-```
 
+The isFieldRange adds the percentile lines calculated from all field data years onto the plot. The fieldprctile variable defines the different percentile ranges.
 ```
 isFieldRange = 1;
 fieldprctile = [10 90];
 ```
 
+It is sometimes useful to only plot shallow or deep cells. The depth_range var specifies the depths to be included on the plot.
 ```
 depth_range = [0.5 100];
 ```
 
+___
+#### Input / Output paths
 
 ```
 outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v4\Plots A5\';
 htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4_A5\2013_2014\'];
 ```
+The outputdirectory specifies where the raw plots are saved to. However, these an number in the 100's if enough variables and regions are plotted. The htlmoutput directory specifies where the html output is saved. The function will add all plots for a variable into a html document which can be easier to use than the raw plots.
+
 ```
  ncfile(1).name = 'T:\HN_Cal_v4\output\HN_Cal_2013_2014_2D_WQ.nc';
  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';

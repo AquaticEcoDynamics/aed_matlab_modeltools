@@ -95,44 +95,60 @@ The outputdirectory specifies where the raw plots are saved to. However, these a
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2013';
- ncfile(1).translate = 1;
  
  ncfile(2).name = 'T:\HN_Cal_v4\output\HN_Cal_2014_WQ.nc';
  ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
  ncfile(2).symbol = {'-';'--'};
  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
  ncfile(2).legend = '2014';
- ncfile(2).translate = 1;
  ```
+Multiple models can be plotted on the same graph, and these are configured in this section:
+
++ ncfile(1).name: File location of the netcdf
++ ncfile(1).tfv: the function requires the d variable to work. Sometimes this is in a different netcdf, in which case configure this variable (else remove it entirely). However, it's best to just configure tuflow to output d in all netcdf's
++ ncfile(1).symbol: The user can configure different surface and bottom line styles
++ ncfile(1).colour: the colour of the surface and bottom median lines
++ ncfile(1).legeng: The string for that model that will appear in the legend
 
 
-
+___
+#### Start, End, tick intervals & format for the plot
 ```
 % Makes start date, end date and datetick array
 
 yr = 2013;
 def.datearray = datenum(yr,05:04:25,01);
-```
 
-```
 def.dateformat = 'mm-yy';
 % Must have same number as variable to plot & in same order
+```
+___
+#### Final configuration flags
 
+```
 def.dimensions = [14 6]; % Width & Height in cm
-
+```
+Plot dimensions
+```
 def.dailyave = 0; % 1 for daily average, 0 for off. Daily average turns off smoothing.
 def.smoothfactor = 3; % Must be odd number (set to 3 if none)
+```
+If the user wants the model data to be daily averaged
 
-def.fieldsymbol = {'.','.'}; % Cell with same number of levels
-def.fieldcolour = {'m',[0.6 0.6 0.6]}; % Cell with same number of levels
-
+```
 def.font = 'Arial';
 
 def.xlabelsize = 7;
 def.ylabelsize = 7;
 def.titlesize = 12;
 def.legendsize = 6;
+```
+Font sizes
+```
 def.legendlocation = 'northeastoutside';
-
+```
+Legend location
+```
 def.visible = 'off'; % on or off
 ```
+Display plot to screen

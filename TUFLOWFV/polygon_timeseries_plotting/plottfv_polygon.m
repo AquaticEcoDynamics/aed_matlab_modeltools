@@ -90,12 +90,12 @@ end
 % Color Palette (Default)
 % Checkout this link for color palette options: https://htmlcolors.com/flat-colors
 
-surface_edge_color = [ 30  50  53]./255;    
-surface_face_color = [ 68 108 134]./255; 
+surface_edge_color = [ 30  50  53]./255;
+surface_face_color = [ 68 108 134]./255;
 surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
 col_pal            =[[176 190 197]./255;[255 159 0]./255;[255 129 0]./255];
 
-bottom_edge_color = [33  33  33]./255;     
+bottom_edge_color = [33  33  33]./255;
 bottom_face_color = [141 110 99]./255;
 bottom_line_color = [62  39  35]./255;
 col_pal_bottom    =[[215 204 200]./255; [0.054901  0.525490 0.968627];[0.050980  0.403921 0.9686272] ];
@@ -121,7 +121,7 @@ if plotmodel
         tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
         all_cells(mod).X = double(tdata.cell_X);
         all_cells(mod).Y = double(tdata.cell_Y);
-                
+        
         if isfield(ncfile(mod),'tfv')
             ttdata = tfv_readnetcdf(ncfile(mod).tfv,'names','D');
         else
@@ -151,19 +151,19 @@ for var = 1:length(varname)
     
     
     if plotmodel
-
+        
         diagVar = regexp(loadname,'DIAG');
-
+        
         for mod = 1:length(ncfile)
             disp(['Loading Model ',num2str(mod)]);
             loadname = varname{var};
             
             switch varname{var}
                 
-                case 'OXYPC'                   
+                case 'OXYPC'
                     
                     oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});
-                    tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});                    
+                    tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});
                     raw(mod).data.OXYPC = tra.TRACE_1 ./ oxy.WQ_AED_OXYGEN_OXY;
                     clear tra oxy
                     
@@ -175,15 +175,15 @@ for var = 1:length(varname)
                     
                 case 'WindDirection'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});                    
-                    raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);                    
-                    clear  oxy                  
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                    raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);
+                    clear  oxy
                     
                 case 'WQ_DIAG_PHY_TCHLA'
                     
                     if sum(strcmpi(allvars,'WQ_DIAG_PHY_TCHLA')) == 0
                         tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});
-                            raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
+                        raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
                             ((tchl.WQ_PHY_CRYPT / 50)*12) + ...
                             ((tchl.WQ_PHY_DIATOM / 26)*12) + ...
                             ((tchl.WQ_PHY_DINO / 40)*12) + ...
@@ -194,7 +194,7 @@ for var = 1:length(varname)
                     end
                     
                 case 'V'
-
+                    
                     oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});
                     raw(mod).data.V = sqrt(power(oxy.V_x,2) + power(oxy.V_y,2));
                     clear tra oxy
@@ -205,11 +205,11 @@ for var = 1:length(varname)
                     %                 AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
                     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
                     %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
-                    %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);                    
+                    %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
-                    raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;                    
-                    clear DON PON                    
+                    raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;
+                    clear DON PON
                     
                 case 'TN'
                     
@@ -222,8 +222,8 @@ for var = 1:length(varname)
                     AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
-                    raw(mod).data.TN = DON.WQ_OGM_DON + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM;                    
-                    clear TN AMM NIT                   
+                    raw(mod).data.TN = DON.WQ_OGM_DON + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM;
+                    clear TN AMM NIT
                     
                 case 'OP'
                     
@@ -233,14 +233,14 @@ for var = 1:length(varname)
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});
                     raw(mod).data.OP = DON.WQ_OGM_DOP + PON.WQ_OGM_POP;
-                    clear TP FRP                    
+                    clear TP FRP
                     
                 case 'WQ_OGM_DON'
                     
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});                   
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
                     if sum(strcmpi(allvars,'WQ_OGM_DONR')) > 0
                         DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON + DONR.WQ_OGM_DONR;
@@ -248,19 +248,19 @@ for var = 1:length(varname)
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON;% + DONR.WQ_OGM_DONR;
                     end
                     clear DON DONR
-
+                    
                 case 'WQ_OGM_DOC'
                     
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});                    
-                    if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0                        
+                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});
+                    if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0
                         DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});
-                        raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;                        
+                        raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;
                     else
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC;% + DOCR.WQ_OGM_DOCR;
-                    end                    
+                    end
                     clear DOC DOCR
                     
                 case 'WQ_OGM_DOP'
@@ -268,21 +268,21 @@ for var = 1:length(varname)
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});                    
-                    if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0                        
+                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
+                    if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0
                         DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});
-                        raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;                        
+                        raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;
                     else
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP;% + DOPR.WQ_OGM_DOPR;
-                    end                    
-                    clear DOP DOPR                                        
+                    end
+                    clear DOP DOPR
                     
                 case 'TURB'
                     
                     SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});
                     POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});
-                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});                    
-                    raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);                    
+                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
+                    raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
                     clear TP FRP
                     
                     sites = fieldnames(fdata);
@@ -299,10 +299,10 @@ for var = 1:length(varname)
             end
         end
         
-        clear functions        
+        clear functions
         
         switch varname{var}
-
+            
             case 'WQ_OXY_OXY'
                 ylab = 'Oxygen (mg/L)';
             case 'SAL'
@@ -363,7 +363,7 @@ for var = 1:length(varname)
                                         fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal_bottom(plim_i,:));
                                         %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
                                         set(fig2,'HandleVisibility','off');
-                                    end                                    
+                                    end
                                     uistack(fig, 'bottom');
                                     uistack(fig2,'bottom');
                                 end
@@ -418,45 +418,46 @@ for var = 1:length(varname)
                                             fgf = sum(strcmpi(agencyused2,agencyname));
                                             
                                             if fgf > 1
-                                             fp = plot(xdata_d,ydata_d,mface,...
-                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'HandleVisibility','off');hold on
-                                                        uistack(fp,'top');
-
+                                                fp = plot(xdata_d,ydata_d,mface,...
+                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'HandleVisibility','off');hold on
+                                                uistack(fp,'top');
+                                                
                                             else
-                                             fp = plot(xdata_d,ydata_d,mface,...
-                                                            'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'displayname',[agency, ' Bot']);hold on
-                                                        uistack(fp,'top');
+                                                fp = plot(xdata_d,ydata_d,mface,...
+                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'displayname',[agency, ' Bot']);hold on
+                                                uistack(fp,'top');
                                             end
                                             
                                             if isYlim
-                                                
-                                                ggg = find(ydata_d > def.cAxis(var).value(2));
-                                                
-                                                if ~isempty(ggg)
-                                                    agencyused2 = [agencyused2;{'Outside Range'}];
-                                                     fgf = sum(strcmpi(agencyused2,'Outside Range'));
-                                                     rdata = [];
-                                                     rdata(1:length(ggg),1) = def.cAxis(var).value(2);
-                                                     
-                                                     hhh = find(ydata_d(ggg) >= def.datearray(1) & ...
-                                                         ydata_d(ggg) <= def.datearray(end));
-                                                     
-                                                     if ~isempty(hhh)
-                                                     if fgf > 1
-                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
-                                                                    uistack(fp,'top');
-
-                                                        else
-                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
-                                                                    uistack(fp,'top');
-                                                     end
-                                                     end
+                                                if ~isempty(def.cAxis(var).value)
+                                                    ggg = find(ydata_d > def.cAxis(var).value(2));
+                                                    
+                                                    if ~isempty(ggg)
+                                                        agencyused2 = [agencyused2;{'Outside Range'}];
+                                                        fgf = sum(strcmpi(agencyused2,'Outside Range'));
+                                                        rdata = [];
+                                                        rdata(1:length(ggg),1) = def.cAxis(var).value(2);
+                                                        
+                                                        hhh = find(ydata_d(ggg) >= def.datearray(1) & ...
+                                                            ydata_d(ggg) <= def.datearray(end));
+                                                        
+                                                        if ~isempty(hhh)
+                                                            if fgf > 1
+                                                                fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                    'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
+                                                                uistack(fp,'top');
+                                                                
+                                                            else
+                                                                fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                    'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
+                                                                uistack(fp,'top');
+                                                            end
+                                                        end
+                                                    end
                                                 end
                                             end
-                                                     
-              
+                                            
+                                            
                                         end
                                         
                                     end
@@ -477,8 +478,8 @@ for var = 1:length(varname)
                     if plotmodel
                         [xdata,ydata] = tfv_averaging(data(mod).date_b,data(mod).pred_lim_ts_b(3,:),def);
                         if diagVar>0 % removes inital zero value (eg in diganostics)
-                          xdata(1:2) = NaN;
-                        end  
+                            xdata(1:2) = NaN;
+                        end
                     end
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
@@ -513,7 +514,7 @@ for var = 1:length(varname)
                                     uistack(fig,'bottom');
                                     uistack(fig2,'bottom');
                                 end
-                                    
+                                
                             end
                         end
                     end
@@ -532,7 +533,7 @@ for var = 1:length(varname)
                                     [xdata_ta,ydata_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
                                     
                                     
-                                     gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
+                                    gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
                                     
                                     if ~isempty(gfg)
                                         xdata_t = xdata_ta(gfg);
@@ -560,46 +561,49 @@ for var = 1:length(varname)
                                         if plotvalidation
                                             fgf = sum(strcmpi(agencyused,agencyname));
                                             
-                                            if fgf > 1 
-                                             %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
-                                             fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
+                                            if fgf > 1
+                                                %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                             else
-                                             fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
-                                             uistack(fp,'top');
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                                uistack(fp,'top');
                                             end
                                             
-                                             if isYlim
+                                            if isYlim
                                                 
-                                                ggg = find(ydata_d > def.cAxis(var).value(2));
-                                                
-                                                if ~isempty(ggg)
-                                                    agencyused = [agencyused;{'Outside Range'}];
-                                                     fgf = sum(strcmpi(agencyused,'Outside Range'));
-                                                     rdata = [];
-                                                     rdata(1:length(ggg),1) = def.cAxis(var).value(2);
-                                                      hhh = find(xdata_d(ggg) >= def.datearray(1) & ...
-                                                         xdata_d(ggg) <= def.datearray(end));
-                                                     
-                                                     if ~isempty(hhh)
-                                                     if fgf > 1
- 
-                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
-                                                                    uistack(fp,'top');
-
-                                                     else
+                                                if ~isempty(def.cAxis(var).value)
+                                                    
+                                                    ggg = find(ydata_d > def.cAxis(var).value(2));
+                                                    
+                                                    if ~isempty(ggg)
+                                                        agencyused = [agencyused;{'Outside Range'}];
+                                                        fgf = sum(strcmpi(agencyused,'Outside Range'));
+                                                        rdata = [];
+                                                        rdata(1:length(ggg),1) = def.cAxis(var).value(2);
+                                                        hhh = find(xdata_d(ggg) >= def.datearray(1) & ...
+                                                            xdata_d(ggg) <= def.datearray(end));
+                                                        
+                                                        if ~isempty(hhh)
+                                                            if fgf > 1
+                                                                
+                                                                fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                    'markersize',4,'linewidth',1,'HandleVisibility','off');hold on
+                                                                uistack(fp,'top');
+                                                                
+                                                            else
+                                                                
+                                                                fp = plot(xdata_d(ggg),rdata,'k+',...
+                                                                    'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
+                                                                uistack(fp,'top');
+                                                            end
+                                                            uistack(fp,'top');
                                                             
-                                                         fp = plot(xdata_d(ggg),rdata,'k+',...
-                                                                        'markersize',4,'linewidth',1,'displayname','Outside Range');hold on
-                                                                    uistack(fp,'top');
-                                                     end
-                                                     uistack(fp,'top');
-                                                     
-                                                     end
+                                                        end
+                                                    end
                                                 end
                                             end
-%                                            
+                                            %
                                         end
                                         
                                         
@@ -607,28 +611,28 @@ for var = 1:length(varname)
                                 end
                                 
                             end
-               
+                            
                             if(strlength(site_string)>7)
                                 disp(site_string)
                             end
                             clear site_string;
-               
+                            
                         end
                     end
- 
                     
                     
-                    if plotmodel                        
+                    
+                    if plotmodel
                         [xdata,ydata] = tfv_averaging(data(mod).date,data(mod).pred_lim_ts(3,:),def);
                         if diagVar>0 % removes inital zero value (eg in diganostics)
-                          xdata(1:2) = NaN;
-                        end                          
+                            xdata(1:2) = NaN;
+                        end
                     end
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
-                    if plotmodel 
+                    if plotmodel
                         plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
-                           'linestyle',ncfile(mod).symbol{1});hold on
+                            'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
                     end
@@ -647,22 +651,22 @@ for var = 1:length(varname)
         end
         
         
-        % Optional code to add long-term montly observed data percentile 
+        % Optional code to add long-term montly observed data percentile
         % bands ontoplots
         if isFieldRange
-            shp(site).Name 
+            shp(site).Name
             outdata = calc_data_ranges(fdata,shp(site).X,shp(site).Y,fieldprctile,varname{var});
-
+            
             if sum(~isnan(outdata.low)) > 200
                 
-            plot(outdata.Date,outdata.low, 'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
-            plot(outdata.Date,outdata.high,'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on
-            
+                plot(outdata.Date,outdata.low, 'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
+                plot(outdata.Date,outdata.high,'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on
+                
             end
         end
-            
-            
-            
+        
+        
+        
         
         
         %          if strcmpi({loadname},'WQ_OXY_OXY') == 1 & strcmpi(shp(site).Name,'Murray_Bridge') == 1
@@ -749,7 +753,7 @@ for var = 1:length(varname)
         else
             def.cAxis(var).value = get(gca,'ylim');
             def.cAxis(var).value(1) = 0;
-        %    ylim([def.cAxis(var).value]);
+            %    ylim([def.cAxis(var).value]);
         end
         
         if ~custom_datestamp
@@ -891,19 +895,19 @@ for var = 1:length(varname)
         clear data
         
     end
-	
-	if isHTML
     
-    create_html_for_directory_onFly(savedir,varname{var},htmloutput);
-    
-	end
+    if isHTML
+        
+        create_html_for_directory_onFly(savedir,varname{var},htmloutput);
+        
+    end
 end
 %--------------------------------------------------------------------------
 
 
 %--------------------------------------------------------------------------
 if isHTML
-	create_html_for_directory(outputdirectory,htmloutput);
+    create_html_for_directory(outputdirectory,htmloutput);
 end
 
 disp('')

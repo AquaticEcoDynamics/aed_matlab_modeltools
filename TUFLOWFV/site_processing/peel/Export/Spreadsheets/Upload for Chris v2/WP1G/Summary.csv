@@ -1,3 +1,0 @@
-Sampling Date,Num of Timesteps,Min Temp (Bottom),Mean Temp (Bottom),Max Temp (Bottom),Min Temp (Surface),Mean Temp (Surface),Max Temp (Surface),Min Salinity (Bottom),Mean Salinity (Bottom),Max Salinity (Bottom),Min Salinity (Surface),Mean Salinity (Surface),Max Salinity (surface),Min Oxygen (Bottom),Mean Oxygen (Bottom),Max Oxygen (Bottom),Min Oxygen (Surface),Mean Oxygen (Surface),Max Oxygen (surface),Oxygen Timesteps below 4 (Bottom),Oxygen Timesteps below 4 (Surface)
-20160518,372,15.1479,17.2117,21.0452,14.4969,17.6748,21.7835,38.1702,38.7658,39.4070,37.1194,38.3347,38.9698,5.5872,6.6207,7.3767,6.1839,6.9158,7.3660,
-20160727,372,9.9275,11.4199,13.0031,8.7592,11.7913,14.1140,35.6751,36.0460,37.0737,35.1752,35.9577,36.4492,6.4532,7.8006,8.7510,7.0679,7.9503,8.7732,

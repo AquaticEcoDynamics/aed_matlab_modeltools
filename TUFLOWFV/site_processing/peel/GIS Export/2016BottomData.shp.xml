@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<metadata xml:lang="en"><Esri><CreaDate>20190709</CreaDate><CreaTime>12470900</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.2\ArcToolbox\Toolboxes\Data Management Tools.tbx\RepairGeometry" Date="20190709" Time="124709">RepairGeometry "D:\Github\AED_Scripts\Matlab\Peel Plotting\GIS Export\2016BottomData.shp" DELETE_NULL</Process></lineage></DataProperties></Esri></metadata>

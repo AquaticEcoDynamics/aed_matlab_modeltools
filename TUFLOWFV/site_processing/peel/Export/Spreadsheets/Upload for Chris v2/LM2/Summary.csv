@@ -1,9 +1,0 @@
-Sampling Date,Num of Timesteps,Min Temp (Bottom),Mean Temp (Bottom),Max Temp (Bottom),Min Temp (Surface),Mean Temp (Surface),Max Temp (Surface),Min Salinity (Bottom),Mean Salinity (Bottom),Max Salinity (Bottom),Min Salinity (Surface),Mean Salinity (Surface),Max Salinity (surface),Min Oxygen (Bottom),Mean Oxygen (Bottom),Max Oxygen (Bottom),Min Oxygen (Surface),Mean Oxygen (Surface),Max Oxygen (surface),Oxygen Timesteps below 4 (Bottom),Oxygen Timesteps below 4 (Surface)
-20160516,372,16.8426,16.8491,16.8575,15.6229,15.8536,16.3097,37.0810,37.1707,37.3267,25.4479,25.4726,25.5063,4.5693,4.7550,4.8909,7.7243,7.8098,7.9051,
-20161031,372,18.8569,20.0029,20.4743,17.1019,19.2879,20.9674,11.7418,19.4276,24.5198,4.8352,7.3124,9.8928,5.1971,5.7826,6.5832,7.3057,7.5838,7.9315,
-20170216,372,23.8660,24.3499,25.0405,23.1084,25.6112,29.1587,31.3186,32.8227,34.3035,28.5333,29.7026,30.8321,5.6550,6.2694,6.8250,6.7130,6.8934,7.1553,
-20160720,372,, NaN,,, NaN,,, NaN,,, NaN,,, NaN,,, NaN,,
-20170424,372,20.3672,22.5397,23.9167,18.4853,21.7626,27.0331,29.4432,31.9571,34.1240,20.0895,21.6662,24.2099,4.1840,5.0813,5.7808,6.6158,7.0420,7.6132,
-20171010,
-20180111,
-20170615,372,, NaN,,, NaN,,, NaN,,, NaN,,, NaN,,, NaN,,

@@ -67,13 +67,13 @@ htmloutput = ['J:\Hawkesbury\HN_Cal_v4\Plots\HN_Cal_v4\2017_2018_1\'];
  ncfile(1).legend = '2013';
  ncfile(1).translate = 1;
 %  
- ncfile(2).name = 'J:\Hawkesbury\HN_Cal_v4\output\HN_Cal_2018_HYDRO.nc';
+ %ncfile(2).name = 'J:\Hawkesbury\HN_Cal_v4\output\HN_Cal_2018_HYDRO.nc';
  %ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
 
- ncfile(2).symbol = {'-';'--'};
- ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(2).legend = '2014';
- ncfile(2).translate = 1;
+ %ncfile(2).symbol = {'-';'--'};
+ %ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ %ncfile(2).legend = '2014';
+ %ncfile(2).translate = 1;
  
 
 

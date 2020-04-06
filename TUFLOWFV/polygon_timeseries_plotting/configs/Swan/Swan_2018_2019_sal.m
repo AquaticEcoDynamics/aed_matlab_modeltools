@@ -57,15 +57,15 @@ fieldprctile = [10 90];
 
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_SAL\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\V4_B2_Multiyear_SAL\',rgh,'\'];
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_SAL3\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\V4_B3_Multiyear_SAL\',rgh,'\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['T:\SCERM\Output/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM_Canning_SAL\Output/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom
 ncfile(1).legend = 'Model';
@@ -84,7 +84,7 @@ ncfile(1).translate = 1;
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(yr,04:03:16,01);
+def.datearray = datenum(yr,03:03:16,01);
 
 %def.datearray = datenum(yr,04:03:16,01);
 def.dateformat = 'mmm-yy';

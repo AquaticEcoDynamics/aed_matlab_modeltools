@@ -19,6 +19,13 @@ Before running the plottfv_polygon function the user needs to create / configure
 + A Regional Polygon Shapefile
 + A configuration file contains the links to all of the different input files, output directories and setting for the function.
 
+Once all three are configured correctly, the function is called by:
+
+```matlab
+plottfv_polygon config
+```
+Where "config" is the name of your configuration file outlined below.
+
 **NOTE: The field data, regional shapefile and the model all need to be in the same projection**
 
 ### Field Data Matfile

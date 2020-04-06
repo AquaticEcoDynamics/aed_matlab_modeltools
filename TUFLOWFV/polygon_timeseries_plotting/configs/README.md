@@ -109,7 +109,7 @@ The outputdirectory specifies where the raw plots are saved to. However, these a
 Multiple models can be plotted on the same graph, and these are configured in this section:
 
 + ncfile(1).name: File location of the netcdf
-+ ncfile(1).tfv: the function requires the d variable to work. Sometimes this is in a different netcdf, in which case configure this variable (else remove it entirely). However, it's best to just configure tuflow to output d in all netcdf's
++ ncfile(1).tfv: the function requires the "d" (depth) variable to work. Sometimes this is in a different netcdf, in which case configure this variable (else remove it entirely). However, it's best to just configure tuflow to output d in all netcdf's
 + ncfile(1).symbol: The user can configure different surface and bottom line styles
 + ncfile(1).colour: the colour of the surface and bottom median lines
 + ncfile(1).legeng: The string for that model that will appear in the legend

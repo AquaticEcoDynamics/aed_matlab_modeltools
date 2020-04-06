@@ -19,6 +19,10 @@ fielddata = 'hawkesbury_all';
 
 polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
 ```
+The user can configure a partial subset of the polygons to be plotted. 
+```
+sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
+```
 ___
 
 #### Variables to be plotted, and their ylimits

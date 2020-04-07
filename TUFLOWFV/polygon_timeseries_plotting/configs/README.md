@@ -95,7 +95,7 @@ The outputdirectory specifies where the raw plots are saved to. However, these a
 
 ```
  ncfile(1).name = 'T:\HN_Cal_v4\output\HN_Cal_2013_2014_2D_WQ.nc';
- ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
+ ncfile(1).tfv = 'T:\HN_Cal_v4\output\HN_Cal_2013_2014_2D_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2013';

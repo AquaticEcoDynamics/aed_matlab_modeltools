@@ -41,6 +41,14 @@ The varname cell uses Tuflowfv variables names and specifies which variables wil
 
 If def.cAxis(1).value is left empty (def.cAxis(1).value = []) then no ylimit will be applied to that variables plot. If the flag isYlim (described below) is set to 0 no ylimit will be applied to all variables.
 
+```
+start_plot_ID = 24; % Skip vars and start plotting at this var;
+```
+
+If your config file is set up to plot a lot of variables and you want to skip some, you an start the plotting at a set index number.
+
+Only plotting a specified subset of variable to be implimented later.
+
 ___
 #### Turn on or off field data
 ```

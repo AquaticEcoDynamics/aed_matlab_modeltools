@@ -44,3 +44,8 @@ This file will define each region to be plotted. The file itself is reletively e
 
 Once the other two files have been created, it is the configuration file that ties them together with the model output. All configurations are stored in the config directory. More information about the flags and settings requried can be found in the readme file.
 
+## Units
+
+By default the function will plot the data in "model units". However, for a small number of common variables there is a subfunction that will convert both the model and field data into different units.
+
+https://github.com/AquaticEcoDynamics/aed_matlab_modeltools/blob/master/TUFLOWFV/polygon_timeseries_plotting/tuflowfv/tfv_Unit_Conversion.m

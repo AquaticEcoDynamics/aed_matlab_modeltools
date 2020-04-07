@@ -50,6 +50,9 @@ switch agency
     case 'DPIE-mc'
         mface = '^k';
         mcolor = [255/255 61/255 9/255];
+     case 'DPIE-sc'
+        mface = '^k';
+        mcolor = [255/255 61/255 9/255];   
     case 'WNSW'
          mface = 'sk';
         mcolor = [255/255 61/255 9/255];

@@ -66,6 +66,8 @@ def.cAxis(24).value = [5 40];           %'Temp',...
 def.cAxis(25).value = [];         %'SAL',...
 
 
+start_plot_ID = 24; % Skip vars and start plotting at this var;
+
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'

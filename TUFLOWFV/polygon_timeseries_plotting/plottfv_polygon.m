@@ -38,6 +38,10 @@ if ~exist('add_coorong','var')
     add_coorong = 0;
 end
 
+if ~exist('start_plot_ID','var')
+    start_plot_ID = 1;
+end
+
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end
@@ -142,7 +146,7 @@ clear ttdata
 
 
 %--------------------------------------------------------------------------
-for var = 1:length(varname)
+for var = start_plot_ID:length(varname)
     
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);

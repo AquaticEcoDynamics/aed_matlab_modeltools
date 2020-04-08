@@ -1,27 +1,33 @@
-clear all; close all;
+function transect_plot(theStruct)
 
 addpath(genpath('tuflowfv'));
 
-ncfile = 'G:\Work Stuff\HN_Cal_2017_2018_2D_WQ.nc';
+ncfile = theStruct.ncfile;
 
-fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
-fielddata = 'hawkesbury_all';
+fielddata_matfile = theStruct.fielddata_matfile;
+fielddata = theStruct.fielddata;
 
-polygon_file = '..\..\..\Hawkesbury\gis\TransectPolygon_HN.shp';
+polygon_file = theStruct.polygon_file;
 
-polygon_line = '..\..\..\Hawkesbury\gis\Transectpnt_HN_100.shp';
+polygon_line = theStruct.polygon_line;
 
-varname = 'WQ_DIAG_TOT_TP';
-ylab = 'TP (mg/L)';
-conv = 31/1000;
+varname = theStruct.varname;
+ylab = theStruct.ylab;
+conv = theStruct.conv;
 
-xl = [0 250];
-yl = [0 0.3];
-offset = 0.01;
+xl = theStruct.xl;
+yl = theStruct.yl;
+offset = theStruct.offset;
 
-outname = 'TP_Plot_v2.png';
+outname = theStruct.outname;
+outdir = theStruct.outdir;
+daterange = theStruct.daterange;
 
-daterange = datenum(2017,09:10,01);
+if ~exist(outdir,'dir')
+    mkdir(outdir);
+end
+
+%________________________________________
 
 surface_edge_color = [ 30  50  53]./255;
 surface_face_color = [ 68 108 134]./255;
@@ -104,6 +110,8 @@ end
 fig1 = figure('position',[173         505        1597         420]);
 set(fig1,'defaultTextInterpreter','latex')
 set(0,'DefaultAxesFontName','Times')
+set(0,'DefaultAxesFontSize',6)
+
 ax = get(gca);
 
 fig = fillyy(pdata.dist,pdata.pred_lim_ts(1,:),pdata.pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
@@ -117,7 +125,7 @@ end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
 leg = legend('show');
-set(leg,'location','NorthEast','fontsize',7);
+set(leg,'location','NorthEast','fontsize',6);
 
 %_________________________________________________________________________________________________________
 
@@ -140,7 +148,7 @@ for i = 1:length(fzone)
                 
                 if ~isempty(sss)
                     cdist = [];
-                    cdist(1:length(sss),1) = thedist - 5;
+                    cdist(1:length(sss),1) = thedist - theStruct.Polyoffset;
                     cdata = fdata.(sites{j}).(varname).Data(sss)*conv;
                     fielddata = [fielddata;cdata];
                     fielddist = [fielddist;cdist];
@@ -162,12 +170,13 @@ xlabs = [0:20:250];
 
 set(gca,'xtick',xlabs,'xticklabel',xlabs);
 
-xlabel('Distance from Ocean (km)');
-ylabel(ylab);
+xlabel('Distance from Ocean (km)','fontsize',8);
+ylabel(ylab,'fontsize',8);
 box_vars = findall(gca,'Tag','Box');
 
 
-text(0.1,1.05,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end),'dd/mm/yyyy')],
+text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end),'dd/mm/yyyy')],'units','normalized',...
+    'fontsize',6,'color',[0.4 0.4 0.4]);
 
 xlim(xl);
 ylim(yl);
@@ -183,17 +192,23 @@ for i = 1:length(udist)
     mval = max(fielddata(sss));
     
     mval = mval + offset;
-    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',8,'horizontalalignment','center');
+    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
     end
 end
 ah1=axes('position',get(gca,'position'),'visible','off');
 
-hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',7);
-saveas(gcf,outname);
+hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',6);
 
-%close
+  set(gcf, 'PaperPositionMode', 'manual');
+        set(gcf, 'PaperUnits', 'centimeters');
+        xSize = 16;
+        ySize = 6;
+        xLeft = (21-xSize)/2;
+        yTop = (30-ySize)/2;
+        set(gcf,'paperposition',[0 0 xSize ySize])
 
 
 
+saveas(gcf,[outdir,outname]);
 
-
+close

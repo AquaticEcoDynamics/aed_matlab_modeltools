@@ -32,10 +32,8 @@ end
 surface_edge_color = [ 30  50  53]./255;
 surface_face_color = [ 68 108 134]./255;
 surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
-col_pal            =[[176 190 197]./255;[255 159 0]./255;[255 129 0]./255];
+col_pal            =[[176 190 197]./255;[120 144 156]./255;[130 167 214]./255];
 median_line = [0 96 100]./255;
-
-
 dimc = [0.9 0.9 0.9]; % dimmest (lightest) color
 
 field = load(fielddata_matfile);

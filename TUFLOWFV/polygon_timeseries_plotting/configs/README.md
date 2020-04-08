@@ -22,7 +22,11 @@ polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp'
 The user can configure a partial subset of the polygons to be plotted. 
 ```
 sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
+start_plot_ID = 24; % Skip vars and start plotting at this var;
+end_plot_ID = 24; % Skip vars and start plotting at this var;
 ```
+The above three flags can be set to run partial subsets of your variables and sites. This is handy in regions with highly variable data across sites.
+
 ___
 
 #### Variables to be plotted, and their ylimits
@@ -41,11 +45,7 @@ The varname cell uses Tuflowfv variables names and specifies which variables wil
 
 If def.cAxis(1).value is left empty (def.cAxis(1).value = []) then no ylimit will be applied to that variables plot. If the flag isYlim (described below) is set to 0 no ylimit will be applied to all variables.
 
-```
-start_plot_ID = 24; % Skip vars and start plotting at this var;
-```
 
-If your config file is set up to plot a lot of variables and you want to skip some, you an start the plotting at a set index number.
 
 Only plotting a specified subset of variable to be implimented later.
 

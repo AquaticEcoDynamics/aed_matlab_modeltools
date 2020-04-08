@@ -12,14 +12,14 @@ polygon_file = '..\..\..\Hawkesbury\gis\TransectPolygon_HN.shp';
 polygon_line = '..\..\..\Hawkesbury\gis\Transectpnt_HN_100.shp';
 
 varname = 'WQ_DIAG_TOT_TN';
-
+ylab = 'TN (mg/L)';
 conv = 14/1000;
 
 xl = [0 250];
 yl = [0 3];
 offset = 0.1;
 
-outname = 'TN_Plot_v2.png';
+outname = 'HN_V4_A5_Transect_TN.png';
 
 daterange = datenum(2017,09:10,01);
 
@@ -104,6 +104,8 @@ end
 fig1 = figure('position',[173         505        1597         420]);
 set(fig1,'defaultTextInterpreter','latex')
 set(0,'DefaultAxesFontName','Times')
+set(0,'DefaultAxesFontSize',6)
+
 ax = get(gca);
 
 fig = fillyy(pdata.dist,pdata.pred_lim_ts(1,:),pdata.pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
@@ -117,7 +119,7 @@ end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
 leg = legend('show');
-set(leg,'location','NorthEast','fontsize',7);
+set(leg,'location','NorthEast','fontsize',6);
 
 %_________________________________________________________________________________________________________
 
@@ -162,10 +164,13 @@ xlabs = [0:20:250];
 
 set(gca,'xtick',xlabs,'xticklabel',xlabs);
 
-xlabel('Distance from Ocean (km)');
-ylabel('TN (mg/L)');
+xlabel('Distance from Ocean (km)','fontsize',8);
+ylabel(ylab,'fontsize',8);
 box_vars = findall(gca,'Tag','Box');
 
+
+text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end),'dd/mm/yyyy')],'units','normalized',...
+    'fontsize',6,'color',[0.4 0.4 0.4]);
 
 xlim(xl);
 ylim(yl);
@@ -181,15 +186,26 @@ for i = 1:length(udist)
     mval = max(fielddata(sss));
     
     mval = mval + offset;
-    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',8,'horizontalalignment','center');
+    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
     end
 end
 ah1=axes('position',get(gca,'position'),'visible','off');
 
-hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',7);
+hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',6);
+
+  set(gcf, 'PaperPositionMode', 'manual');
+        set(gcf, 'PaperUnits', 'centimeters');
+        xSize = 16;
+        ySize = 6;
+        xLeft = (21-xSize)/2;
+        yTop = (30-ySize)/2;
+        set(gcf,'paperposition',[0 0 xSize ySize])
+
+
+
 saveas(gcf,outname);
 
-%close
+close
 
 
 

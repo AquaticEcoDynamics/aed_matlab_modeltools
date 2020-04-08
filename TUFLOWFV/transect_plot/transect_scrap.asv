@@ -11,15 +11,15 @@ polygon_file = '..\..\..\Hawkesbury\gis\TransectPolygon_HN.shp';
 
 polygon_line = '..\..\..\Hawkesbury\gis\Transectpnt_HN_100.shp';
 
-varname = 'WQ_DIAG_TOT_TN';
-
-conv = 14/1000;
+varname = 'WQ_DIAG_TOT_TP';
+ylab = 'TP (mg/L)';
+conv = 31/1000;
 
 xl = [0 250];
-yl = [0 3];
-offset = 0.1;
+yl = [0 0.3];
+offset = 0.01;
 
-outname = 'TN_Plot_v2.png';
+outname = 'TP_Plot_v2.png';
 
 daterange = datenum(2017,09:10,01);
 
@@ -107,7 +107,7 @@ set(0,'DefaultAxesFontName','Times')
 ax = get(gca);
 
 fig = fillyy(pdata.dist,pdata.pred_lim_ts(1,:),pdata.pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
-set(fig,'DisplayName','Model');
+set(fig,'DisplayName','Model Range');
 hold on
 
 for plim_i=2:(nn-1)
@@ -116,7 +116,8 @@ for plim_i=2:(nn-1)
 end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
-
+leg = legend('show');
+set(leg,'location','NorthEast','fontsize',7);
 
 %_________________________________________________________________________________________________________
 
@@ -148,7 +149,11 @@ for i = 1:length(fzone)
         end
     end
 end
-                    
+
+
+
+
+
 boxplot(fielddata,fielddist,'positions',unique(fielddist));               
 
 xlim(xl);
@@ -158,11 +163,15 @@ xlabs = [0:20:250];
 set(gca,'xtick',xlabs,'xticklabel',xlabs);
 
 xlabel('Distance from Ocean (km)');
-ylabel('TN (mg/L)');
+ylabel(ylab);
+box_vars = findall(gca,'Tag','Box');
 
-leg = legend('show');
-set(leg,'location','northeastoutside','fontsize',7);
 
+text(0.1,1.05,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end),'dd/mm/yyyy')],
+
+xlim(xl);
+ylim(yl);
+xlabs = [0:20:250];
 udist = unique(fielddist);
 
 for i = 1:length(udist)
@@ -177,7 +186,9 @@ for i = 1:length(udist)
     text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',8,'horizontalalignment','center');
     end
 end
+ah1=axes('position',get(gca,'position'),'visible','off');
 
+hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',7);
 saveas(gcf,outname);
 
 %close

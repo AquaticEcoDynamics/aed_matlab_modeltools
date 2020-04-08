@@ -23,7 +23,7 @@ The user can configure a partial subset of the polygons to be plotted.
 ```
 sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 start_plot_ID = 24; % Skip vars and start plotting at this var;
-end_plot_ID = 24; % Skip vars and start plotting at this var;
+end_plot_ID = 24; % Skip vars and end plotting at this var;
 ```
 The above three flags can be set to run partial subsets of your variables and sites. This is handy in regions with highly variable data across sites.
 

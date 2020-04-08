@@ -42,6 +42,10 @@ if ~exist('start_plot_ID','var')
     start_plot_ID = 1;
 end
 
+if ~exist('end_plot_ID','var')
+    end_plot_ID = length(varname);
+end
+
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end
@@ -146,7 +150,7 @@ clear ttdata
 
 
 %--------------------------------------------------------------------------
-for var = start_plot_ID:length(varname)
+for var = start_plot_ID:end_plot_ID
     
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);

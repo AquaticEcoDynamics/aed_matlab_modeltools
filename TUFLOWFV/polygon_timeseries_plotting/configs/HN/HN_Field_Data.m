@@ -9,6 +9,12 @@ fielddata = 'hawkesbury_all';
 polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
 
 
+sites = [4:01:16];
+
+start_plot_ID = 1;
+
+end_plot_ID = 1;
+
 varname = {...
     'COND',...
     'ECLOI',...
@@ -122,7 +128,7 @@ Range_ALL = 1;
 plotmodel = 0;
 filetype = 'eps';
 def.expected = 1; % plot expected WL
-isFieldRange = 1;
+isFieldRange = 0;
 fieldprctile = [10 90];
 
 % ____________________________________________________________Configuration
@@ -130,8 +136,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'I:\Hawkesbury\Plots\Field Data 2010-2020\';
-htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\Field Data 2010-2020\';
+outputdirectory = 'G:\Work Stuff\Hawkesbury\Plots\Field Data 2010-2020\';
+htmloutput = 'D:\Cloud/Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\Field Data 2010-2020 v2\';
 
 % ____________________________________________________________Configuration
 

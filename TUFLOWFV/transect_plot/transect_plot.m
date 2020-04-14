@@ -32,10 +32,8 @@ end
 surface_edge_color = [ 30  50  53]./255;
 surface_face_color = [ 68 108 134]./255;
 surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
-col_pal            =[[176 190 197]./255;[255 159 0]./255;[255 129 0]./255];
+col_pal            =[[176 190 197]./255;[120 144 156]./255;[130 167 214]./255];
 median_line = [0 96 100]./255;
-
-
 dimc = [0.9 0.9 0.9]; % dimmest (lightest) color
 
 field = load(fielddata_matfile);
@@ -91,8 +89,8 @@ ucellY = adata.cell_Y(ucells);
 uData = mdata.(varname)(ucells,thetime);
 
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
- num_lims = length(pred_lims);
-        nn = (num_lims+1)/2;
+num_lims = length(pred_lims);
+nn = (num_lims+1)/2;
 [ix,iy] = size(uData);
 
 
@@ -107,7 +105,7 @@ for i = 1:ix
     end
 end
 
-fig1 = figure('position',[173         505        1597         420]);
+fig1 = figure;%('position',[173         505        1597         420]);
 set(fig1,'defaultTextInterpreter','latex')
 set(0,'DefaultAxesFontName','Times')
 set(0,'DefaultAxesFontSize',6)
@@ -124,8 +122,8 @@ for plim_i=2:(nn-1)
 end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
-leg = legend('show');
-set(leg,'location','NorthEast','fontsize',6);
+    leg = legend('show');
+    set(leg,'location','NorthEast','fontsize',6);
 
 %_________________________________________________________________________________________________________
 
@@ -161,22 +159,33 @@ end
 
 
 
-
-boxplot(fielddata,fielddist,'positions',unique(fielddist));               
-
+if ~isempty(fielddata)
+    boxplot(fielddata,fielddist,'positions',unique(fielddist),'color','k','plotstyle','compact');
+end
 xlim(xl);
 ylim(yl);
 xlabs = [0:20:250];
 
 set(gca,'xtick',xlabs,'xticklabel',xlabs);
 
-xlabel('Distance from Ocean (km)','fontsize',8);
 ylabel(ylab,'fontsize',8);
-box_vars = findall(gca,'Tag','Box');
+%xlabel('Distance from Ocean (km)','fontsize',8);
 
+if ~isempty(fielddata)
+    box_vars = findall(gca,'Tag','Box');
+end
 
 text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end),'dd/mm/yyyy')],'units','normalized',...
     'fontsize',6,'color',[0.4 0.4 0.4]);
+
+% if ~isempty(fielddata)
+%     leg = legend('show');
+%     set(leg,'location','NorthEast','fontsize',6);
+%     
+% else
+%     leg = legend('show');
+%     set(leg,'location','NorthEast','fontsize',6);
+% end
 
 xlim(xl);
 ylim(yl);
@@ -186,29 +195,39 @@ udist = unique(fielddist);
 for i = 1:length(udist)
     
     if udist(i) < xl(end)
-    
-    sss = find(fielddist == udist(i));
-    
-    mval = max(fielddata(sss));
-    
-    mval = mval + offset;
-    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
+        
+        sss = find(fielddist == udist(i));
+        
+        mval = max(fielddata(sss));
+        
+        mval = mval + offset;
+        text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
     end
 end
-ah1=axes('position',get(gca,'position'),'visible','off');
+if ~isempty(fielddata)
+    
+    ah1=axes('position',get(gca,'position'),'visible','off');
+    
+    hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',6);
+    
+    xlabel('Distance from Ocean (km)','fontsize',8);
+    
+end
 
-hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',6);
-
-  set(gcf, 'PaperPositionMode', 'manual');
-        set(gcf, 'PaperUnits', 'centimeters');
-        xSize = 16;
-        ySize = 6;
-        xLeft = (21-xSize)/2;
-        yTop = (30-ySize)/2;
-        set(gcf,'paperposition',[0 0 xSize ySize])
+text(0.5,-0.1,'Distance from Ocean (km)','units','normalized',...
+    'fontsize',8,'color','k','horizontalalignment','center');
 
 
+set(gcf, 'PaperPositionMode', 'manual');
+set(gcf, 'PaperUnits', 'centimeters');
+xSize = 16;
+ySize = 8;
+xLeft = (21-xSize)/2;
+yTop = (30-ySize)/2;
+set(gcf,'paperposition',[0 0 xSize ySize])
 
-saveas(gcf,[outdir,outname]);
+
+
+print(gcf,[outdir,outname],'-dpng','-opengl');
 
 close

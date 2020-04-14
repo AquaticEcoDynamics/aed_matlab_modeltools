@@ -9,11 +9,11 @@ fielddata = 'hawkesbury_all';
 polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
 
 
-sites = [4:01:16];
+%sites = [4:01:16];
 
-start_plot_ID = 1;
+%start_plot_ID = 1;
 
-end_plot_ID = 1;
+%end_plot_ID = 1;
 
 varname = {...
     'COND',...

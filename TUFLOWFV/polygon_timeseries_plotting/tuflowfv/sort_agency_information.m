@@ -33,6 +33,9 @@ switch agency
     case 'ECCC-WQ'
          mface = 'hk';
         mcolor = [255/255 61/255 9/255];
+    case 'ECCC-YSI'
+         mface = 'dk';
+        mcolor = [255/255 61/255 9/255];
         
     case 'EPA'
          mface = 'dk';

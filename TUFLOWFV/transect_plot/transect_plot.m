@@ -122,7 +122,8 @@ for plim_i=2:(nn-1)
 end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
-
+    leg = legend('show');
+    set(leg,'location','NorthEast','fontsize',6);
 
 %_________________________________________________________________________________________________________
 

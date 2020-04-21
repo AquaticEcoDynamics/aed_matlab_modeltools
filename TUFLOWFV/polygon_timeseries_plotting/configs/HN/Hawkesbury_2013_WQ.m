@@ -66,7 +66,7 @@ def.cAxis(24).value = [5 40];           %'Temp',...
 def.cAxis(25).value = [];         %'SAL',...
 
 
-start_plot_ID = 24; % Skip vars and start plotting at this var;
+%start_plot_ID = 24; % Skip vars and start plotting at this var;
 
 
 plottype = 'timeseries'; %timeseries or 'profile'
@@ -99,14 +99,14 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v4\Plots A5\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v4_A5\2013_2014\'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots A1\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A1\2013_2014\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'T:\HN_Cal_v4\output\HN_Cal_2013_2014_2D_WQ.nc';
+ ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2013_2014_2D_WQ.nc';
 %  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom

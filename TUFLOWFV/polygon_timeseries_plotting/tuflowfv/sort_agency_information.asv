@@ -56,9 +56,8 @@ switch agency
     case 'WNSW'
          mface = 'sk';
         mcolor = [255/255 61/255 9/255];
-        
     case 'BC'
-         mface = '>k';
+         mface = 'sk';
         mcolor = [255/255 61/255 9/255];  
         
     case 'DPIE-bouy'

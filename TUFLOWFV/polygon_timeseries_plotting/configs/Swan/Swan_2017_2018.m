@@ -12,6 +12,10 @@ rgh = '2017_2018';
 
 
 varname = {...
+     'WQ_DIAG_TOT_TN',...
+     'WQ_DIAG_TOT_TP',...
+     'WQ_DIAG_TOT_TSS',...
+     'WQ_DIAG_TOT_TURBIDITY',...
         'WQ_NCS_SS1',...
     'WQ_OXY_OXY',...
     'WQ_SIL_RSI',...
@@ -67,25 +71,25 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\IC_Chx\',rgh,'\'];
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC_Chx\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Catchment_Model_2017\',rgh,'\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['R:\SCERM/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Q:\SCERM\SCERM\Output/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(1).legend = 'Model';
+ncfile(1).legend = 'SCERM';
 ncfile(1).translate = 1;
 % 
-% ncfile(2).name = ['R:\SCERM/swan_',rgh,'_rst_ALL.nc'];
-% ncfile(2).symbol = {'-';'-'};
-% ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-% ncfile(2).legend = 'Model';
-% ncfile(2).translate = 1;
+ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
+ncfile(2).symbol = {'-';'-'};
+ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ncfile(2).legend = 'Catchment';
+ncfile(2).translate = 1;
 % 
 
 

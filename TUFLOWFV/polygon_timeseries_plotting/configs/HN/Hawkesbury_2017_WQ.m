@@ -67,7 +67,7 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
 def.cAxis(26).value = [];         %'SAL',...
 
-start_plot_ID = 19;
+%start_plot_ID = 19;
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
@@ -99,14 +99,14 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_A12017\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A1\2017_2018\'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_V5_A4_2017\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A4\2017_2018\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_2D_WQ.nc';
+ ncfile(1).name = 'Z:\Busch\Studysites\Hawkesbury\HN_Cal_v5\output\HN_Cal_2017_2018_WQ.nc';
 %  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom

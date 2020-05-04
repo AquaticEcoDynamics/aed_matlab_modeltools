@@ -79,14 +79,25 @@ query_points(:,2) = data(~isnan(data(:,2)),2);
 
 pt_id = nearestNeighbor(dtri,query_points);
 
-geo_face_idx3 = adata.idx3(pt_id);
 
-[ucells,ind] = unique(geo_face_idx3);
-mdist = dist(ind);
+for i = 1:length(pt_id)
+    Cell_3D_IDs = find(adata.idx2==pt_id(i));
+    surfIndex(i) = min(Cell_3D_IDs);
+    botIndex(i) = max(Cell_3D_IDs);
+% geo_face_idx3 = adata.idx3(pt_id);
+% 
+% [ucells,ind] = unique(geo_face_idx3);
+% 
+% 
+% ucellX = adata.cell_X(ucells);
+% ucellY = adata.cell_Y(ucells);
+% 
+% 
+% surface_data = mdata.(varname)(adata.idx3(tdat.idx3 > 0),:);
 
-ucellX = adata.cell_X(ucells);
-ucellY = adata.cell_Y(ucells);
-uData = mdata.(varname)(ucells,thetime);
+end
+mdist = dist;
+uData =  mdata.(varname)(surfIndex,thetime);
 
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
 num_lims = length(pred_lims);
@@ -125,6 +136,14 @@ plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'Disp
     leg = legend('show');
     set(leg,'location','NorthEast','fontsize',6);
 
+    
+% ggg = find(pdata.pred_lim_ts(3,:) == 0);
+% 
+% pdata.dist(ggg)
+% 
+% stop
+    
+    
 %_________________________________________________________________________________________________________
 
 sites = fieldnames(fdata);
@@ -163,7 +182,9 @@ if ~isempty(fielddata)
     boxplot(fielddata,fielddist,'positions',unique(fielddist),'color','k','plotstyle','compact');
 end
 xlim(xl);
+if ~isempty(yl)
 ylim(yl);
+end
 xlabs = [0:20:250];
 
 set(gca,'xtick',xlabs,'xticklabel',xlabs);
@@ -188,7 +209,9 @@ text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end)
 % end
 
 xlim(xl);
+if ~isempty(yl)
 ylim(yl);
+end
 xlabs = [0:20:250];
 udist = unique(fielddist);
 

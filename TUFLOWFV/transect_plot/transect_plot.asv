@@ -39,26 +39,21 @@ dimc = [0.9 0.9 0.9]; % dimmest (lightest) color
 field = load(fielddata_matfile);
 fdata = field.(fielddata);
 
-fdata = add_secondary(fdata);
-
-
 pline = shaperead(polygon_line);
 fzone = shaperead(polygon_file);
 
 switch varname
     case 'TN_TP'
-        
-        
-        mdata = tfv_readnetcdf(ncfile,'names',{'WQ_DIAG_TOT_TN';'WQ_DIAG_TOT_TP'});
-        mdata.(varname) = (mdata.WQ_DIAG_TOT_TN * 14/1000) ./ (mdata.WQ_DIAG_TOT_TP* 31/1000);
-        
-        mdata.(varname) = mdata.(varname) * conv;
-        
-        
-        
+
+
+    mdata = tfv_readnetcdf(ncfile,'names',{'WQ_DIAG_TOT_TN';'WQ_DIAG_TOT_TP'});
+    mdata.(varname) = mdata.WQ_DIAG_TOT_TN / mdata.WQ_DIAG_TOT_TP;
+    
+    mdata.(varname) = mdata.(varname) * conv;
+    
     otherwise
-        mdata = tfv_readnetcdf(ncfile,'names',{varname});
-        mdata.(varname) = mdata.(varname) * conv;
+    mdata = tfv_readnetcdf(ncfile,'names',{varname});
+    mdata.(varname) = mdata.(varname) * conv;   
         
 end
 adata = tfv_readnetcdf(ncfile,'timestep',1);
@@ -66,8 +61,7 @@ mtime = tfv_readnetcdf(ncfile,'time',1);
 
 thetime = find(mtime.Time >= daterange(1) & ...
     mtime.Time < daterange(end));
-datestr(mtime.Time(1))
-datestr(mtime.Time(end))
+
 %__________________________________________________________________________
 
 % Model Processing
@@ -102,17 +96,17 @@ for i = 1:length(pt_id)
     Cell_3D_IDs = find(adata.idx2==pt_id(i));
     surfIndex(i) = min(Cell_3D_IDs);
     botIndex(i) = max(Cell_3D_IDs);
-    % geo_face_idx3 = adata.idx3(pt_id);
-    %
-    % [ucells,ind] = unique(geo_face_idx3);
-    %
-    %
-    % ucellX = adata.cell_X(ucells);
-    % ucellY = adata.cell_Y(ucells);
-    %
-    %
-    % surface_data = mdata.(varname)(adata.idx3(tdat.idx3 > 0),:);
-    
+% geo_face_idx3 = adata.idx3(pt_id);
+% 
+% [ucells,ind] = unique(geo_face_idx3);
+% 
+% 
+% ucellX = adata.cell_X(ucells);
+% ucellY = adata.cell_Y(ucells);
+% 
+% 
+% surface_data = mdata.(varname)(adata.idx3(tdat.idx3 > 0),:);
+
 end
 mdist = dist;
 uData =  mdata.(varname)(surfIndex,thetime);
@@ -151,17 +145,17 @@ for plim_i=2:(nn-1)
 end
 
 plot(pdata.dist,pdata.pred_lim_ts(3,:),'color',median_line,'linewidth',0.5,'DisplayName','Model Median');
-leg = legend('show');
-set(leg,'location','NorthEast','fontsize',6);
+    leg = legend('show');
+    set(leg,'location','NorthEast','fontsize',6);
 
-
+    
 % ggg = find(pdata.pred_lim_ts(3,:) == 0);
-%
+% 
 % pdata.dist(ggg)
-%
+% 
 % stop
-
-
+    
+    
 %_________________________________________________________________________________________________________
 
 sites = fieldnames(fdata);
@@ -201,7 +195,7 @@ if ~isempty(fielddata)
 end
 xlim(xl);
 if ~isempty(yl)
-    ylim(yl);
+ylim(yl);
 end
 xlabs = [0:20:250];
 
@@ -220,7 +214,7 @@ text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end)
 % if ~isempty(fielddata)
 %     leg = legend('show');
 %     set(leg,'location','NorthEast','fontsize',6);
-%
+%     
 % else
 %     leg = legend('show');
 %     set(leg,'location','NorthEast','fontsize',6);
@@ -228,7 +222,7 @@ text(0.05,1.02,[datestr(daterange(1),'dd/mm/yyyy'),' to ',datestr(daterange(end)
 
 xlim(xl);
 if ~isempty(yl)
-    ylim(yl);
+ylim(yl);
 end
 xlabs = [0:20:250];
 udist = unique(fielddist);
@@ -272,60 +266,3 @@ set(gcf,'paperposition',[0 0 xSize ySize])
 print(gcf,[outdir,outname],'-dpng','-opengl');
 
 close
-
-end
-
-function fdata = add_secondary(fdata)
-
-sites = fieldnames(fdata);
-
-for i = 1:length(sites)
-    
-    if isfield(fdata.(sites{i}),'WQ_DIAG_TOT_TN') && ...
-            isfield(fdata.(sites{i}),'WQ_DIAG_TOT_TP')
-        
-        
-        
-        TN_Date = fdata.(sites{i}).WQ_DIAG_TOT_TN.Date;
-        TN_Data = fdata.(sites{i}).WQ_DIAG_TOT_TN.Data * 14/1000;
-        TN_Depth = fdata.(sites{i}).WQ_DIAG_TOT_TN.Depth;
-        
-        TP_Date = fdata.(sites{i}).WQ_DIAG_TOT_TP.Date;
-        TP_Data = fdata.(sites{i}).WQ_DIAG_TOT_TP.Data * 31/1000;
-        TP_Depth = fdata.(sites{i}).WQ_DIAG_TOT_TP.Data;
-        
-        
-        
-        inc = 1;
-        
-        for j = 1:length(TN_Date)
-            
-            sss = find(TP_Date == TN_Date(j));% & ...
-                %TP_Depth == TN_Depth(j));
-            
-            if ~isempty(sss)
-                
-                fdata.(sites{i}).TN_TP.Date(inc,1) = TN_Date(j);
-                fdata.(sites{i}).TN_TP.Data(inc,1) = TN_Data(j) / TP_Data(sss(1));
-                fdata.(sites{i}).TN_TP.Depth(inc,1) = TN_Depth(j);
-                fdata.(sites{i}).TN_TP.X = fdata.(sites{i}).WQ_DIAG_TOT_TN.X;
-                fdata.(sites{i}).TN_TP.Y = fdata.(sites{i}).WQ_DIAG_TOT_TN.Y;
-                fdata.(sites{i}).TN_TP.Agency = fdata.(sites{i}).WQ_DIAG_TOT_TN.Agency;
-                
-                inc = inc + 1;
-                
-                
-                
-                %disp('Found TN:TP');
-            end
-        end
-    end
-end
-end
-
-
-
-
-
-
-

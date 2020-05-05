@@ -46,6 +46,11 @@ if ~exist('end_plot_ID','var')
     end_plot_ID = length(varname);
 end
 
+if ~exist('alph','var')
+	alph = 0.5;
+end
+
+
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end

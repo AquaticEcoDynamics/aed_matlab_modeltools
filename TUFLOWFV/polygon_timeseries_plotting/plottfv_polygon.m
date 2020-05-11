@@ -46,6 +46,11 @@ if ~exist('end_plot_ID','var')
     end_plot_ID = length(varname);
 end
 
+if ~exist('alph','var')
+	alph = 0.5;
+end
+
+
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end
@@ -101,12 +106,12 @@ end
 surface_edge_color = [ 30  50  53]./255;
 surface_face_color = [ 68 108 134]./255;
 surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
-col_pal            =[[176 190 197]./255;[255 159 0]./255;[255 129 0]./255];
+col_pal            =[[176 190 197]./255;[162 190 197]./255;[150 190 197]./255];
 
 bottom_edge_color = [33  33  33]./255;
 bottom_face_color = [141 110 99]./255;
 bottom_line_color = [62  39  35]./255;
-col_pal_bottom    =[[215 204 200]./255; [0.054901  0.525490 0.968627];[0.050980  0.403921 0.9686272] ];
+col_pal_bottom    =[[215 204 200]./255; [200 204 200]./255; [185 204 200]./255 ];
 %--------------------------------------------------------------------------
 
 
@@ -365,12 +370,14 @@ for var = start_plot_ID:end_plot_ID
                                     fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc,col_pal_bottom(1,:));hold on
                                     %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
                                     set(fig,'DisplayName',[ncfile(mod).legend,' (Botm Range)']);
+                                    set(fig,'FaceAlpha', alph);
                                     hold on
                                     
                                     for plim_i=2:(nn-1)
                                         fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal_bottom(plim_i,:));
                                         %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
                                         set(fig2,'HandleVisibility','off');
+                                        set(fig2,'FaceAlpha', alph);
                                     end
                                     uistack(fig, 'bottom');
                                     uistack(fig2,'bottom');
@@ -513,11 +520,14 @@ for var = start_plot_ID:end_plot_ID
                                     %
                                     fig = fillyy(data(mod).date,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
                                     set(fig,'DisplayName',[ncfile(mod).legend,' (Surf Range)']);
+                                    set(fig,'FaceAlpha', alph);
                                     hold on
                                     
                                     for plim_i=2:(nn-1)
                                         fig2 = fillyy(data(mod).date,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal(plim_i,:));
                                         set(fig2,'HandleVisibility','off');
+                                        set(fig2,'FaceAlpha', alph);
+
                                     end
                                     uistack(fig,'bottom');
                                     uistack(fig2,'bottom');

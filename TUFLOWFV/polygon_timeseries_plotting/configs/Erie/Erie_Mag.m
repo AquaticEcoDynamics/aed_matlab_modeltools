@@ -2,10 +2,12 @@
 addpath(genpath('tuflowfv'));
 
 % SITE Configuration_______________________________________________________
-fielddata_matfile = '..\..\..\Lake-Erie-2019\matlab\modeltools\matfiles\erie.mat';
+%fielddata_matfile = '..\..\..\Lake-Erie-2019\matlab\modeltools\matfiles\erie.mat';
+fielddata_matfile = '../../../Lake-Erie/matlab/modeltools/matfiles/erie.mat';
 fielddata = 'erie';
 
-polygon_file = '..\..\..\Lake-Erie-2019\matlab\modeltools\gis\erie_validation_v4.shp';
+%polygon_file = '..\..\..\Lake-Erie-2019\matlab\modeltools\gis\erie_validation_v4.shp';
+polygon_file = '../../../Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
 
 sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration
@@ -14,6 +16,7 @@ sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 
 % VAR Configuration________________________________________________________
 varname = {...
+    'WQ_DIAG_TOT_TN',...
     'WQ_DIAG_MAG_TMALG',...
     'WQ_DIAG_MAG_MAG_BEN',...
     'WQ_DIAG_MAG_IN_BEN',...
@@ -101,9 +104,11 @@ isFieldRange = 1;
 fieldprctile = [10 90];
 
 isHTML = 1;
-outputdirectory = 'F:\Temp_Plots/Erie/tfv_009_AED_BIV_Met_cgm1_2/';
+%htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results/v9_A3/';
+htmloutput = '/Volumes/Spinny/cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Erie/Model_Results/Older Results/tfv_009_met_fielddata_MAG/';
 
-htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results/v9_A3/';
+outputdirectory = '/Volumes/Spinny/Sims/Lake-Erie/tfv_009_AED_BIV_Met/Plotting/Model_009_T/';
+%outputdirectory = 'F:\Temp_Plots/Erie/tfv_009_AED_BIV_Met_cgm1_2/';
 
 % ____________________________________________________________Configuration
 
@@ -113,11 +118,16 @@ htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Resul
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'T:\tfv_009_AED_BIV_Met_A3\Output/erie_AED_diag.nc';
+ ncfile(1).name = '/Volumes/Spinny/Sims/Lake-Erie/tfv_009_AED_BIV_Met/Output/erie_AED_diag.nc';  %ncfile(1).name = 'T:\tfv_009_AED_BIV_Met_A3\Output/erie_AED_diag.nc';
+
  ncfile(1).symbol = {'-';'-'};
  ncfile(1).colour = {[0  96 100]./255,[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
- ncfile(1).legend = 'v09mag';
+ ncfile(1).legend = 'v09q';
  ncfile(1).translate = 1;
+
+
+
+
 %  
 %  ncfile(2).name = 'J:\Historical\run_2016_BASE.nc';
 %  ncfile(2).symbol = {'-';'--'};
@@ -136,7 +146,7 @@ htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Resul
 %def.datearray = datenum(yr,1:12:96,01);
 
 yr = 2013;
-def.datearray = datenum(yr,05:01:13,01);
+def.datearray = datenum(yr,05:01:08,05);
 
 def.dateformat = 'mm-yy';
 % Must have same number as variable to plot & in same order
@@ -158,3 +168,6 @@ def.legendsize = 6;
 def.legendlocation = 'northeastoutside';
 
 def.visible = 'off'; % on or off
+
+alph = 0.5; % transparency
+

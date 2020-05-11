@@ -21,22 +21,56 @@ theStruct.offset = 0.1;
 theStruct.Polyoffset = 5;
 
 theStruct.outname = 'HN_V5_A4_Transect_TN.png';
-theStruct.outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A4\Transect\';
+theStruct.outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A4\Transect_FRP\';
 
 theStruct.daterange = datenum(2017,09:10,01);
 
 
 
 
-for i =  7:01:16
+% for i =  7:01:16
+%     theStruct.daterange = datenum(2017,i:i+1,01);
+%     
+%     theStruct.outname = ['HN_V5_A4_Transect_TN_',datestr(theStruct.daterange(1),'yyyymmdd'),'_',datestr(theStruct.daterange(end),'yyyymmdd'),'.png'];
+%     
+%     transect_plot(theStruct);
+% 
+% end
+
+%FRP ____________________________________________________________
+
+% theStruct.ncfile = 'T:\HN_Cal_v5_A2_3D\output\HN_Cal_2017_2018_WQ.nc';
+% 
+% theStruct.fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
+% theStruct.fielddata = 'hawkesbury_all';
+% 
+% theStruct.polygon_file = '..\..\..\Hawkesbury\gis\TransectPolygon_HN.shp';
+% 
+% theStruct.polygon_line = '..\..\..\Hawkesbury\gis\Transectpnt_HN_100.shp';
+
+theStruct.varname = 'WQ_PHS_FRP_ADS';
+theStruct.ylab = 'FRP ADS(mg/L)';
+theStruct.conv = 31/1000;
+
+theStruct.xl = [0 250];
+theStruct.yl = [];
+theStruct.offset = 0.01;
+
+theStruct.Polyoffset = 5;
+
+
+
+for i = 7:01:16
+    
     theStruct.daterange = datenum(2017,i:i+1,01);
     
-    theStruct.outname = ['HN_V5_A4_Transect_TN_',datestr(theStruct.daterange(1),'yyyymmdd'),'_',datestr(theStruct.daterange(end),'yyyymmdd'),'.png'];
+    theStruct.outname = ['HN_V5_A4_Transect_FRP_',datestr(theStruct.daterange(1),'yyyymmdd'),'_',datestr(theStruct.daterange(end),'yyyymmdd'),'.png'];
     
     transect_plot(theStruct);
 
 end
 
+stop
 
 %TP ____________________________________________________________
 

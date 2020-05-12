@@ -128,7 +128,7 @@ Range_ALL = 1;
 plotmodel = 0;
 filetype = 'eps';
 def.expected = 1; % plot expected WL
-isFieldRange = 0;
+isFieldRange = 1;
 fieldprctile = [10 90];
 
 % ____________________________________________________________Configuration
@@ -136,8 +136,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\Field Data 2010-2020-SC\';
-htmloutput = 'D:\Cloud/Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\SC Field Data 2010-2020 v3\';
+outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_1\';
+htmloutput = '..\..\..\Hawkesbury\data\field_data_plots\SC\';
 
 % ____________________________________________________________Configuration
 

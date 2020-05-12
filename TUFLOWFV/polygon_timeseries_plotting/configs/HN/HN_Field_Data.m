@@ -136,8 +136,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'G:\Work Stuff\Hawkesbury\Plots\Field Data 2010-2020\';
-htmloutput = 'D:\Cloud/Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\Field Data 2010-2020 v3\';
+outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_1\';
+htmloutput = '..\..\..\Hawkesbury\data\field_data_plots\HN\';
 
 % ____________________________________________________________Configuration
 

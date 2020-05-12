@@ -50,6 +50,9 @@ if ~exist('alph','var')
 	alph = 0.5;
 end
 
+if ~isfield(def,'visible')
+    def.visible = 'on';
+end
 
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
@@ -351,7 +354,7 @@ for var = start_plot_ID:end_plot_ID
         epa_leg = 0;
         dewnr_leg = 0;
         
-        
+        figure('visible',def.visible);
         
         for mod = 1:length(ncfile)
             if plotmodel

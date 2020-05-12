@@ -99,8 +99,8 @@ def.expected = 1; % plot expected WL
 % Models___________________________________________________________________
 
 
-outputdirectory = 'I:\tfv_009_AED_BIV_Met\Plots\Field Data\';
-% ____________________________________________________________Configuration
+outputdirectory = 'F:\Erie_plotting\Plots\Base\';
+htmloutput = 'D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\Field_Data_2010_2018_v2\';% ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 

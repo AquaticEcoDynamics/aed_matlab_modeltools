@@ -4,18 +4,18 @@ addpath(genpath('tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'Q:\Busch\Studysites\Swan\Simulations\SCERM_NoCanning\Output\swan_2018_2019_ALL.nc';
+ncfile = 'I:\Erie_plotting\erie_AED.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\V4_B2_Multiyear_nCanning\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\V9_A4_Movies\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_DIAG_PHY_MPB';
+varname = 'WQ_MAG_CGM';
 
-cax = [0 1000];
+cax = [0 150];
 
-conv = 1;%14/1000;%14/1000;
+conv = 1;%31/1000;%14/1000;
 
-title = 'WQ_DIAG_PHY_MPB';
+title = 'Mag CGM';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen
@@ -78,7 +78,7 @@ first_plot = 1;
 
 
 
-for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
+for i = 40:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions
@@ -153,7 +153,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         
         cb = colorbar;
         
-        set(cb,'position',[0.1 0.2 0.01 0.25],...
+        set(cb,'position',[0.1 0.5 0.01 0.25],...
             'units','normalized','ycolor','k');
         
         colorTitleHandle = get(cb,'Title');
@@ -163,7 +163,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         axis off
         axis equal
         
-        text(0.1,0.5,title,...
+        text(0.1,0.85,title,...
             'Units','Normalized',...
             'Fontname','Candara',...
             'Fontsize',16,...
@@ -179,8 +179,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([388980.863046855          398604.194750214]);
-          ylim([6453762.0536537           6459910.0830346]);
+%           xlim([388980.863046855          398604.194750214]);
+%           ylim([6453762.0536537           6459910.0830346]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

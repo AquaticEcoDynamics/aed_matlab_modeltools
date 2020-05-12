@@ -3,12 +3,12 @@ clear all; close all;
 plottfv_polygon HN_Field_Data;
 plottfv_polygon SC_Field_Data;
 
-%  plottfv_polygon Hawkesbury_2013_WQ_DIAG
-%  plottfv_polygon Hawkesbury_2017_WQ_DiagPhy
 
 
-% plottfv_polygon Hawkesbury_2013_WQ
-% plottfv_polygon Hawkesbury_2017_WQ
+
+plottfv_polygon Hawkesbury_2013_WQ
+plottfv_polygon Hawkesbury_2014_WQ
+plottfv_polygon Hawkesbury_2017_WQ
 
 
 % plottfv_polygon Hawkesbury_2013_WQ_sal

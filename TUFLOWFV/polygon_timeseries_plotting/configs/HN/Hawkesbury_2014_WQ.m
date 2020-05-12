@@ -66,7 +66,7 @@ def.cAxis(24).value = [5 40];           %'Temp',...
 def.cAxis(25).value = [];         %'SAL',...
 
 
-start_plot_ID = 14; % Skip vars and start plotting at this var;
+start_plot_ID = 1; % Skip vars and start plotting at this var;
 
 
 

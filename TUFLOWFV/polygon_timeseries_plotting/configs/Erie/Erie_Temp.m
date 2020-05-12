@@ -82,9 +82,9 @@ isFieldRange = 1;
 fieldprctile = [10 90];
 
 isHTML = 1;
-outputdirectory = 'F:\Temp_Plots/Erie/tfv_009_AED_BIV_Met_cgm1_1_1/';
 
-htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results/v9_A3/';
+outputdirectory = 'I:\Erie_plotting\Plots\Base\';
+htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\V9_A4\';
 % ____________________________________________________________Configuration
 
 
@@ -93,7 +93,7 @@ htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Resul
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'P:\tfv_009_AED_BIV_Met_A3\Output/erie_TFV.nc';
+ ncfile(1).name = 'I:\Erie_plotting/erie_TFV.nc';
  ncfile(1).symbol = {'-';'-'};
  ncfile(1).colour = {[0  96 100]./255,[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
  ncfile(1).legend = 'v09I';

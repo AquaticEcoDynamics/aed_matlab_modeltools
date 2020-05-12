@@ -4,6 +4,12 @@ addpath(genpath('tuflowfv'));
 
 ncfile = theStruct.ncfile;
 
+
+if ~isfield(theStruct,'Depth')
+    theStruct.Depth = 'Surface';
+end
+
+
 fielddata_matfile = theStruct.fielddata_matfile;
 fielddata = theStruct.fielddata;
 
@@ -115,7 +121,12 @@ for i = 1:length(pt_id)
     
 end
 mdist = dist;
-uData =  mdata.(varname)(surfIndex,thetime);
+
+if strcmpi(theStruct.Depth,'Surface')==1
+    uData =  mdata.(varname)(surfIndex,thetime);
+else
+    uData =  mdata.(varname)(botIndex,thetime);
+end
 
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
 num_lims = length(pred_lims);

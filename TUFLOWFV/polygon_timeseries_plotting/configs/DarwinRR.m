@@ -2,7 +2,7 @@
 %% Configuration____________________________________________________________
 
 %----------- add TUFLOW matlab library ------------%
-addpath(genpath('tuflowfv')); 
+  
 
 %----------- add field data file in matfiles folder ------------%
 fielddata = 'drr'; 

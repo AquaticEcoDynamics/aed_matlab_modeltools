@@ -1,6 +1,6 @@
 
 % Configuration____________________________________________________________
-addpath(genpath('tuflowfv'));
+ 
 
 
 fielddata = 'peel';

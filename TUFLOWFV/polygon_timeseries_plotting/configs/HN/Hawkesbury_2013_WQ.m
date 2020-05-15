@@ -1,6 +1,6 @@
 
 % Configuration____________________________________________________________
-addpath(genpath('tuflowfv'));
+ 
 
 
 fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';

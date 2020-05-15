@@ -132,7 +132,11 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Mode
 %  
 %  ncfile(2).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
- 
+
+%  
+ def.boxlegend = 'northwest';
+def.rangelegend = 'northeast';
+
 
 
 def.dimensions = [16 8]; % Width & Height in cm

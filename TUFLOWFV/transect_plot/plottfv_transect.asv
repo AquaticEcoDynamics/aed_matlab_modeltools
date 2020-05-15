@@ -49,11 +49,7 @@ if ~exist('fielddata_matfile','var')
 end
 
 if ~isfield(def,'boxlegend')
-    def.boxlegend = 'northeast';
-end
-if ~isfield(def,'rangelegend')
-    def.rangelegend = 'northwest';
-end
+    def.boxlegend = 'northeast
 
 
 
@@ -165,7 +161,7 @@ for var = start_plot_ID:end_plot_ID
         end
         
         leg = legend('show');
-        set(leg,'location',def.rangelegend,'fontsize',6);
+        set(leg,'location','northeast','fontsize',6);
         
         box_vars = [];
         if plotvalidation
@@ -222,7 +218,7 @@ for var = start_plot_ID:end_plot_ID
             
             ah1=axes('position',get(gca,'position'),'visible','off');
             
-            hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location',def.boxlegend,'fontsize',6);
+            hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location','NorthWest','fontsize',6);
             
             xlabel('Distance from Ocean (km)','fontsize',8);
             

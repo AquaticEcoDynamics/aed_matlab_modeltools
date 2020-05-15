@@ -7,6 +7,8 @@ close all;
 disp('plottfv_polygon: START')
 disp('')
 addpath(genpath('configs'));
+addpath(genpath('../tuflowfv'));
+
 run(conf);
 warning('off','all')
 %--------------------------------------------------------------------------

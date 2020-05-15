@@ -4,7 +4,7 @@ function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX
 % Usage: H = H = getmodeldatalocation(filename,X,Y,varname)
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
-clear functions
+%clear functions
 inpol = inpolygon(X,Y,sX,sY);
 sss = find(inpol == 1);
 pred_lims = [0.05,0.25,0.5,0.75,0.95];

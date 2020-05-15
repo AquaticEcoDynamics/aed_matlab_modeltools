@@ -1,6 +1,6 @@
 function transect_plot(theStruct)
 
-addpath(genpath('tuflowfv'));
+addpath(genpath('../tuflowfv'));
 
 ncfile = theStruct.ncfile;
 

@@ -1,6 +1,6 @@
 clear all; close all; fclose all;
 
-addpath(genpath('tuflowfv'));
+addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';

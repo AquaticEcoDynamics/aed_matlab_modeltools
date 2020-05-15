@@ -11,6 +11,15 @@ switch varname
     %         ydata = ydata -0.606;%* (14/1000);
     %         units = 'm';
     %
+    case  'SAL'
+        % mmol/m^3 to mg/L
+        ydata = ydata * (1);
+        units = 'psu';
+    case  'TEMP'
+        % mmol/m^3 to mg/L
+        ydata = ydata * (1);
+        units = 'C';    
+    
     case  'WQ_OXY_OXY'
         % mmol/m^3 to mg/L
         ydata = ydata * (32/1000);
@@ -136,6 +145,10 @@ switch varname
     case 'WQ_TRC_AGE'
         ydata = ydata * 1/86400;
         units = 'Days';
+        
+    case 'TN_TP'
+        ydata = ydata * 1;
+        units = 'mg/L';
         
         %     case 'SAL'
         %         %PPT to uS/cm

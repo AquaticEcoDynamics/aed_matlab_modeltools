@@ -657,6 +657,7 @@ for var = start_plot_ID:end_plot_ID
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
+                        mod
                         plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;

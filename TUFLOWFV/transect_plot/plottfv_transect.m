@@ -4,7 +4,7 @@ close all;
 
 
 %--------------------------------------------------------------------------
-disp('plottfv_polygon: START')
+disp('plottfv_transect: START')
 disp('')
 addpath(genpath('configs'));
 addpath(genpath('../tuflowfv'));
@@ -82,11 +82,15 @@ end
 for var = start_plot_ID:end_plot_ID
     
     
+
     
     
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);
     loadname = varname{var};
+    
+    disp(['Plotting ',loadname]);
+    
     for mod = 1:length(ncfile)
         switch varname{var}
             
@@ -119,13 +123,16 @@ for var = start_plot_ID:end_plot_ID
         
         
         if plotvalidation
-            
+            fielddata = [];
+            fielddist = [];
             [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,loadname,def.pdates(tim).value);
             
         end
         
         
-        fig1 = figure;%('position',[173         505        1597         420]);
+        
+        
+        fig1 = figure('visible',def.visible);
         set(fig1,'defaultTextInterpreter','latex')
         set(0,'DefaultAxesFontName','Times')
         set(0,'DefaultAxesFontSize',6)
@@ -190,7 +197,7 @@ for var = start_plot_ID:end_plot_ID
             
             for i = 1:length(udist)
                 
-                if udist(i) < xl(end)
+                if udist(i) < def.xlim(end)
                     
                     sss = find(fielddist == udist(i));
                     

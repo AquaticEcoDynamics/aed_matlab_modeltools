@@ -64,9 +64,9 @@ for j = 1:length(pol)
                 if ~isempty(sss)
                     
                     if isSurf
-                        ttt = find(fDepth(sss) >= 2);
+                        ttt = find(fDepth(sss) >= -2);
                     else
-                        ttt = find(fDepth(sss) < 2);
+                        ttt = find(fDepth(sss) < -2);
                     end
                     
                     cdata = tfv_Unit_Conversion(fDat(sss(ttt)),varname);

@@ -11,10 +11,10 @@ fielddata = 'hawkesbury_all';
 points_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\Transectpnt_HN_100.shp';
 
 
-def.pdates(1).value = [datenum(2014,08,01) datenum(2014,09,01)];
-% def.pdates(2).value = [datenum(2017,06,01) datenum(2017,07,01)];
-% def.pdates(3).value = [datenum(2017,07,01) datenum(2017,08,01)];
-% def.pdates(4).value = [datenum(2017,08,01) datenum(2017,09,01)];
+def.pdates(1).value = [datenum(2017,05,01) datenum(2017,06,01)];
+def.pdates(2).value = [datenum(2017,06,01) datenum(2017,07,01)];
+def.pdates(3).value = [datenum(2017,07,01) datenum(2017,08,01)];
+def.pdates(4).value = [datenum(2017,08,01) datenum(2017,09,01)];
 % def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
 % def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
 
@@ -99,7 +99,9 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
 def.cAxis(26).value = [];         %'SAL',...
 
-start_plot_ID = 25;
+start_plot_ID = 20;
+end_plot_ID = 22;
+
 %start_plot_ID = 25;
 
 
@@ -118,24 +120,18 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = 'D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\RAW\';
-htmloutput = ['D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\HTML\'];
+outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\RAW\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\HTML\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'X:\Work\HN_Cal_v5\output\HN_Cal_2014_2015_WQ.nc';
- ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
- ncfile(1).legend = '2017';
- ncfile(1).translate = 1;
+ ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_rdom_WQ.nc';
+ ncfile(1).legend = 'kPO4 & RDOM';
 %  
-%  ncfile(2).name = 'T:\HN_Cal_v4\output\HN_Cal_2018_WQ.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(2).legend = '2014';
-%  ncfile(2).translate = 1;
+ ncfile(2).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_WQ.nc';
+ ncfile(2).legend = 'kPO4 == 0';
  
 
 

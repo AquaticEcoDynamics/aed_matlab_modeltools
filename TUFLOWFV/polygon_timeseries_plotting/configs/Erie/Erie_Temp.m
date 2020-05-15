@@ -1,5 +1,5 @@
 
-addpath(genpath('tuflowfv'));
+ 
 
 % SITE Configuration_______________________________________________________
 fielddata_matfile = '..\..\..\Lake-Erie-2019\matlab\modeltools\matfiles\erie.mat';

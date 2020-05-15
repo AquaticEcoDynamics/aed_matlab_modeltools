@@ -1,3 +1,5 @@
+%The is the configuration file for the transect_plot.m function.
+
 
 % Configuration____________________________________________________________
  
@@ -6,8 +8,38 @@
 fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
 fielddata = 'hawkesbury_all';
 
-polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
+points_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\Transectpnt_HN_100.shp';
 
+
+def.pdates(1).value = [datenum(2014,08,01) datenum(2014,09,01)];
+% def.pdates(2).value = [datenum(2017,06,01) datenum(2017,07,01)];
+% def.pdates(3).value = [datenum(2017,07,01) datenum(2017,08,01)];
+% def.pdates(4).value = [datenum(2017,08,01) datenum(2017,09,01)];
+% def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
+% def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
+
+
+
+
+
+def.binfielddata = 1;
+% radius distance to include field data. Used to bin data where number of
+% sites is higher, but the frequency of sampling is low. The specified
+% value will also make where on the line each polygon will be created. So
+% if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap. 
+
+def.binradius = 5;% in km;
+
+%distance from model polyline to be consided. 
+%Field data further than specified distance won't be included. 
+%Even if found with search radius. This is to attempt to exclude data
+%sampled outside of the domain.
+
+def.linedist = 500;%  in m
+
+def.xlim = [0 250];% xlim in KM
+def.xticks = [0:20:250];
+def.xlabel = 'Distance from Ocean (km)';
 
 
 varname = {...
@@ -67,55 +99,39 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
 def.cAxis(26).value = [];         %'SAL',...
 
-%start_plot_ID = 19;
+start_plot_ID = 25;
+%start_plot_ID = 25;
 
-plottype = 'timeseries'; %timeseries or 'profile'
-%plottype = 'profile'; % or 'profile'
 
 % Add field data to figure
-plotvalidation = true; % true or false
+plotvalidation = 1; % 1 or 0
 
-plotdepth = {'surface';};%'bottom'};%;'bottom'};%'bottom'}; % Cell with either one or both
-%plotdepth = {'surface'};%,'bottom'}; % Cell with either one or both
 
 istitled = 1;
 isylabel = 1;
 islegend = 1;
 isYlim = 1;
-isRange = 1;
-isRange_Bottom = 1;
-Range_ALL = 1;
-
-filetype = 'eps';
-def.expected = 1; % plot expected WL
-
-isFieldRange = 1;
-fieldprctile = [10 90];
-
-depth_range = [0.5 100];
-
+isHTML = 1;
+isSurf = 1; %plot surface (1) or bottom (0)
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_V5_A53\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A5\2017_2018\'];
+outputdirectory = 'D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\RAW\';
+htmloutput = ['D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\HTML\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_WQ.nc';
-%  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
+ ncfile(1).name = 'X:\Work\HN_Cal_v5\output\HN_Cal_2014_2015_WQ.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2017';
  ncfile(1).translate = 1;
 %  
 %  ncfile(2).name = 'T:\HN_Cal_v4\output\HN_Cal_2018_WQ.nc';
-%  %ncfile(2).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
-% 
 %  ncfile(2).symbol = {'-';'--'};
 %  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
 %  ncfile(2).legend = '2014';
@@ -123,28 +139,6 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Mode
  
 
 
-
-yr = 2017;
-def.datearray = datenum(yr,04:04:25,01);
-%def.datearray = datenum(yr,01:1:4,01);
-
-def.dateformat = 'mm-yy';
-% Must have same number as variable to plot & in same order
-
-def.dimensions = [14 6]; % Width & Height in cm
-
-def.dailyave = 0; % 1 for daily average, 0 for off. Daily average turns off smoothing.
-def.smoothfactor = 3; % Must be odd number (set to 3 if none)
-
-def.fieldsymbol = {'.','.'}; % Cell with same number of levels
-def.fieldcolour = {'m',[0.6 0.6 0.6]}; % Cell with same number of levels
-
-def.font = 'Arial';
-
-def.xlabelsize = 7;
-def.ylabelsize = 7;
-def.titlesize = 12;
-def.legendsize = 6;
-def.legendlocation = 'northeastoutside';
+def.dimensions = [16 8]; % Width & Height in cm
 
 def.visible = 'off'; % on or off

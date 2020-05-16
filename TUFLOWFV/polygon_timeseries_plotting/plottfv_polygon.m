@@ -7,6 +7,8 @@ close all;
 disp('plottfv_polygon: START')
 disp('')
 addpath(genpath('configs'));
+addpath(genpath('../tuflowfv'));
+
 run(conf);
 warning('off','all')
 %--------------------------------------------------------------------------
@@ -50,6 +52,9 @@ if ~exist('alph','var')
 	alph = 0.5;
 end
 
+if ~isfield(def,'visible')
+    def.visible = 'on';
+end
 
 if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
@@ -351,11 +356,19 @@ for var = start_plot_ID:end_plot_ID
         epa_leg = 0;
         dewnr_leg = 0;
         
-        
+        figure('visible',def.visible);
         
         for mod = 1:length(ncfile)
             if plotmodel
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
+                tic 
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
+                toc
+               % tic
+                %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
+                %toc
+                %save data.mat data -mat
+                %save data1.mat data1 -mat;
+                
             end
             
             for lev = 1:length(plotdepth)
@@ -649,6 +662,7 @@ for var = start_plot_ID:end_plot_ID
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
+                        mod
                         plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;

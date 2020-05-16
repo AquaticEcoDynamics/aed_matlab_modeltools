@@ -1,14 +1,19 @@
-function create_html_for_directory(outputdirectory)
+function create_html_for_directory(outputdirectory,htmloutput)
 
 %outputdirectory = 'F:\Dropbox\AED_PeelHarvey\Presentations\2018\Peel_WQ_Model_v5_2016_2017_3D_Murray_N_Test\Regions\';
 
 
 dirlist = dir(outputdirectory);
 
+if ~exist(htmloutput,'dir')
+    mkdir(htmloutput);
+end
+
+
 for i = 3:length(dirlist)
     mdir = dir([outputdirectory,dirlist(i).name,'\*.png']);
     
-    filename = [outputdirectory,dirlist(i).name];
+    filename = [htmloutput,dirlist(i).name];
     
     import mlreportgen.dom.*
 

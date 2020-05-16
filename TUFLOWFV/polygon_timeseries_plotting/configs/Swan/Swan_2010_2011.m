@@ -1,5 +1,5 @@
 % Configuration____________________________________________________________
-addpath(genpath('tuflowfv'));
+ 
 
 
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';

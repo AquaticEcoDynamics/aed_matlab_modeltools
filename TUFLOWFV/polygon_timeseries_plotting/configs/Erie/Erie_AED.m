@@ -1,12 +1,12 @@
 
 % Configuration____________________________________________________________
-addpath(genpath('tuflowfv'));
+ 
 
 
-fielddata_matfile = '..\..\..\Lake-Erie\matlab\modeltools\matfiles\erie.mat';
+fielddata_matfile = '..\..\..\Lake-Erie-2019\matlab\modeltools\matfiles\erie.mat';
 fielddata = 'erie';
 
-polygon_file = '..\..\..\Lake-Erie\matlab\modeltools\gis\erie_validation_v4.shp';
+polygon_file = '..\..\..\Lake-Erie-2019\matlab\modeltools\gis\erie_validation_v4.shp';
 
 
 
@@ -30,6 +30,11 @@ varname = {...
     'WQ_PHY_EDIAT',...
     'WQ_PHY_LDIAT',...
     'WQ_BIV_FILTFRAC',...
+    'WQ_DIAG_PHY_TCHLA',...
+    'WQ_DIAG_MAG_TMALG',...
+    'WQ_DIAG_BIV_TBIV',...
+    'WQ_DIAG_TOT_TN',...
+    'WQ_DIAG_TOT_TP',...
 };
 
 
@@ -51,8 +56,16 @@ def.cAxis(15).value = [0 20];    %'WQ_PHY_CHLOR',...
 def.cAxis(16).value = [0 125];  %'WQ_PHY_CRYPT',...
 def.cAxis(17).value = [0 2];  %'WQ_PHY_EDIAT',...
 def.cAxis(18).value = [0 15];   %'WQ_PHY_LDIAT',...
-% def.cAxis(19).value = [0 150];   %'WQ_MAG_CGM',...
-def.cAxis(19).value = [0 1];   %'WQ_BIV_FILTFRAC',...
+def.cAxis(19).value = [];   %'WQ_BIV_FILTFRAC',...
+def.cAxis(20).value = [];
+def.cAxis(21).value = [];
+def.cAxis(22).value = [];
+def.cAxis(23).value = [];
+def.cAxis(24).value = [];
+
+
+start_plot_ID = 1; % Skip vars and start plotting at this var;
+
 
 
 plottype = 'timeseries'; %timeseries or 'profile'
@@ -68,8 +81,8 @@ istitled = 1;
 isylabel = 0;
 islegend = 1;
 isYlim = 1;
-isRange = 0;
-isRange_Bottom = 0;
+isRange = 1;
+isRange_Bottom = 1;
 Range_ALL = 0;
 
 filetype = 'eps';
@@ -83,17 +96,17 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'I:\tfv_009_AED_BIV_Met\Plots\Model 009 A\';
-htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\V9_A1\';
+outputdirectory = 'I:\Erie_plotting\Plots\Base\';
+htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\V9_A4\';
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'I:\tfv_009_AED_nBIV_nMAG_Met\Output\erie_AED.nc';
+ ncfile(1).name = 'I:\Erie_plotting\erie_AED.nc';
  ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(1).legend = 'v11';
+ ncfile(1).colour = {[0  96 100]./255,[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+ ncfile(1).legend = 'Base';
  ncfile(1).translate = 1;
 %  
 %  ncfile(2).name = 'J:\Historical\run_2016_BASE.nc';

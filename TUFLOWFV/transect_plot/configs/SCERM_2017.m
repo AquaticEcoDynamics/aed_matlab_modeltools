@@ -5,10 +5,10 @@
  
 
 
-fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
+fielddata_matfile = '../../../SCERM/matlab/modeltools/matfiles/swan.mat';
 fielddata = 'swan';
 
-points_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Transect_Pnt.shp';
+points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
 
 
 def.pdates(1).value = [datenum(2017,04,01) datenum(2017,05,01)];
@@ -72,17 +72,17 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff\AED_Swan_BB\Tracer\Transect\RAW\';
-htmloutput = 'D:\Cloud\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Tracer\Transect\';
+outputdirectory = '/home/sysadmin/MATLAB/SCERM/Transect/RAW/';
+htmloutput = '/home/sysadmin/MATLAB/SCERM/Transect/HTML/';
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'F:\swan_2017_2018_tracer_ALL.nc';
+ ncfile(1).name = '/disks/Win2/swan_2017_2018_tracer_ALL.nc';
  ncfile(1).legend = 'Tracer Sim';
 %  
-%  ncfile(2).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_WQ.nc';
+%  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
  
 

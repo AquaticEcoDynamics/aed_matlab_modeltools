@@ -16,10 +16,10 @@ def.pdates(1).value = [datenum(2017,05,01) datenum(2017,06,01)];
 def.pdates(2).value = [datenum(2017,06,01) datenum(2017,07,01)];
 def.pdates(3).value = [datenum(2017,07,01) datenum(2017,08,01)];
 def.pdates(4).value = [datenum(2017,08,01) datenum(2017,09,01)];
-% def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
-% def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
-
-
+def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
+def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
+def.pdates(7).value = [datenum(2017,11,01) datenum(2017,12,01)];
+def.pdates(8).value = [datenum(2017,12,01) datenum(2018,01,01)];
 
 
 
@@ -121,8 +121,13 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
+<<<<<<< HEAD
 outputdirectory = 'disks/Win1/Model_Results/Testing/RAW/';
 htmloutput = 'disks/Disk1/Clould/Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Hawkesbury/Model_Results/Testing/HTML/';
+=======
+outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\HN_TRan\V5_A61\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\V5_A6\Transect\'];
+>>>>>>> 0263d7877841702a4d8fe0222c9e279b8a4bebc0
 
 % ____________________________________________________________Configuration
 

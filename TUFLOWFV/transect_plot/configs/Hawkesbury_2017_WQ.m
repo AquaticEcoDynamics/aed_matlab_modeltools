@@ -1,3 +1,4 @@
+
 %The is the configuration file for the transect_plot.m function.
 
 
@@ -99,8 +100,8 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
 def.cAxis(26).value = [];         %'SAL',...
 
-start_plot_ID = 1;
-end_plot_ID = 26;
+start_plot_ID = 20;
+end_plot_ID = 22;
 
 %start_plot_ID = 25;
 
@@ -132,13 +133,12 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Mode
 %  
 %  ncfile(2).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
-
 %  
  def.boxlegend = 'northwest';
 def.rangelegend = 'northeast';
 
 
-
 def.dimensions = [16 8]; % Width & Height in cm
 
 def.visible = 'off'; % on or off
+

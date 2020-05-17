@@ -121,8 +121,8 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\RAW\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Testing\HTML\'];
+outputdirectory = 'disks/Win1/Model_Results/Testing/RAW/';
+htmloutput = 'disks/Disk1/Clould/Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Hawkesbury/Model_Results/Testing/HTML/';
 
 % ____________________________________________________________Configuration
 

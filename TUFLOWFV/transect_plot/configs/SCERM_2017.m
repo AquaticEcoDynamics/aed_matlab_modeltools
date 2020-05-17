@@ -2,7 +2,7 @@
 
 
 % Configuration____________________________________________________________
- 
+
 
 
 fielddata_matfile = '../../../SCERM/matlab/modeltools/matfiles/swan.mat';
@@ -26,12 +26,12 @@ def.binfielddata = 1;
 % radius distance to include field data. Used to bin data where number of
 % sites is higher, but the frequency of sampling is low. The specified
 % value will also make where on the line each polygon will be created. So
-% if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap. 
+% if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap.
 
 def.binradius = 1;% in km;
 
-%distance from model polyline to be consided. 
-%Field data further than specified distance won't be included. 
+%distance from model polyline to be consided.
+%Field data further than specified distance won't be included.
 %Even if found with search radius. This is to attempt to exclude data
 %sampled outside of the domain.
 
@@ -73,7 +73,7 @@ isSurf = 1; %plot surface (1) or bottom (0)
 
 
 outputdirectory = '/home/sysadmin/MATLAB/SCERM/Transect/RAW/';
-htmloutput = '/home/sysadmin/MATLAB/SCERM/Transect/HTML/';
+htmloutput = '/disks/Disk1/Clould/Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Swan_BB/Tracer/Transect_Test/HTML/';
 
 % ____________________________________________________________Configuration
 
@@ -81,10 +81,10 @@ htmloutput = '/home/sysadmin/MATLAB/SCERM/Transect/HTML/';
 
  ncfile(1).name = '/disks/Win2/swan_2017_2018_tracer_ALL.nc';
  ncfile(1).legend = 'Tracer Sim';
-%  
+%
 %  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
- 
+
 
 
 def.boxlegend = 'southwest';

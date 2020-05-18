@@ -99,18 +99,18 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_V5_A53\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A5\2017_2018\'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_V5_A61\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A6\2017_2018\Timeseries\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_WQ.nc';
+ ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_rdom_WQ.nc';
 %  ncfile(1).tfv = 'I:\Hawkesbury\HN_Cal_v3_noIC\output\HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
- ncfile(1).legend = '2017';
+ ncfile(1).legend = 'kPO4 & RDOM';
  ncfile(1).translate = 1;
 %  
 %  ncfile(2).name = 'T:\HN_Cal_v4\output\HN_Cal_2018_WQ.nc';
@@ -147,4 +147,4 @@ def.titlesize = 12;
 def.legendsize = 6;
 def.legendlocation = 'northeastoutside';
 
-def.visible = 'off'; % on or off
+def.visible = 'on'; % on or off

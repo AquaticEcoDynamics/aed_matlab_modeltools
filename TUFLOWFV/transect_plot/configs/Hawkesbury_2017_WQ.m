@@ -3,7 +3,7 @@
 
 
 % Configuration____________________________________________________________
- 
+
 
 
 fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
@@ -27,12 +27,12 @@ def.binfielddata = 1;
 % radius distance to include field data. Used to bin data where number of
 % sites is higher, but the frequency of sampling is low. The specified
 % value will also make where on the line each polygon will be created. So
-% if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap. 
+% if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap.
 
 def.binradius = 5;% in km;
 
-%distance from model polyline to be consided. 
-%Field data further than specified distance won't be included. 
+%distance from model polyline to be consided.
+%Field data further than specified distance won't be included.
 %Even if found with search radius. This is to attempt to exclude data
 %sampled outside of the domain.
 
@@ -121,8 +121,8 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\HN_TRan\V5_A61\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\V5_A6\Transect\'];
+outputdirectory = '/disks/Win1/Model_Results/Testing/RAW/';
+htmloutput = '/disks/Disk1/Clould/Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Hawkesbury/Model_Results/Testing/HTML/';
 
 % ____________________________________________________________Configuration
 
@@ -130,10 +130,10 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Mode
 
  ncfile(1).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_rdom_WQ.nc';
  ncfile(1).legend = 'kPO4 & RDOM';
-%  
+%
 %  ncfile(2).name = 'T:\HN_Cal_v5\output\HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
-%  
+%
  def.boxlegend = 'northwest';
 def.rangelegend = 'northeast';
 
@@ -141,4 +141,3 @@ def.rangelegend = 'northeast';
 def.dimensions = [16 8]; % Width & Height in cm
 
 def.visible = 'off'; % on or off
-

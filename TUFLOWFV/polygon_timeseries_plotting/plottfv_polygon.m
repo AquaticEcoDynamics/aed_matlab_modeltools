@@ -21,6 +21,11 @@ if ~exist('htmloutput','var')
     htmloutput = outputdirectory;
 end
 
+if ~exist('fieldrange_min','var')
+    fieldrange_min = 200;
+end
+
+
 if exist('isRange','var') == 0
     isRange = 1;
 end
@@ -689,7 +694,7 @@ for var = start_plot_ID:end_plot_ID
             shp(site).Name
             outdata = calc_data_ranges(fdata,shp(site).X,shp(site).Y,fieldprctile,varname{var});
             
-            if sum(~isnan(outdata.low)) > 200
+            if sum(~isnan(outdata.low)) > fieldrange_min
                 
                 plot(outdata.Date,outdata.low, 'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(1)),'}']);hold on
                 plot(outdata.Date,outdata.high,'color',surface_edge_color,'linestyle',':','displayname',['Obs \itP_{',num2str(fieldprctile(2)),'}']);hold on

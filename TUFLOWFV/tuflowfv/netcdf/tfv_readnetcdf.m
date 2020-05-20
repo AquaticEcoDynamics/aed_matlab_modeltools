@@ -86,6 +86,9 @@ end
 if isTime
     time_id = netcdf.inqVarID(ncid,'ResTime');
     time_long_name = netcdf.getAtt(ncid,time_id,netcdf.inqAttName(ncid,time_id,0));
+    if length(time_long_name) < 15
+        time_long_name = netcdf.getAtt(ncid,time_id,netcdf.inqAttName(ncid,time_id,1));
+    end
     time_datum = time_long_name(end-18:end);
     %Date in matlab dates from which time is measured in seconds
     start_date = datenum(time_datum,'dd/mm/yyyy HH:MM');

@@ -20,8 +20,11 @@ def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
 def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
 def.pdates(7).value = [datenum(2017,11,01) datenum(2017,12,01)];
 def.pdates(8).value = [datenum(2017,12,01) datenum(2018,01,01)];
-
-
+def.pdates(9).value = [datenum(2018,01,01) datenum(2018,02,01)];
+def.pdates(10).value = [datenum(2018,02,01) datenum(2018,03,01)];
+def.pdates(11).value = [datenum(2018,03,01) datenum(2018,04,01)];
+def.pdates(12).value = [datenum(2018,04,01) datenum(2018,05,01)];
+def.pdates(13).value = [datenum(2018,05,01) datenum(2018,06,01)];
 
 def.binfielddata = 1;
 % radius distance to include field data. Used to bin data where number of
@@ -100,8 +103,8 @@ def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
 def.cAxis(26).value = [];         %'SAL',...
 
-start_plot_ID = 20;
-end_plot_ID = 22;
+start_plot_ID = 1;
+end_plot_ID = 26;
 
 %start_plot_ID = 25;
 
@@ -121,8 +124,8 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = '/disks/Win1/Model_Results/Testing/RAW/';
-htmloutput = '/disks/Disk1/Clould/Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Hawkesbury/Model_Results/Testing/HTML/';
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\Plots_V5_A611\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A6\2017_2018\Transect-Surface\'];
 
 % ____________________________________________________________Configuration
 

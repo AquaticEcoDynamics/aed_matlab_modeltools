@@ -188,9 +188,14 @@ for var = start_plot_ID:end_plot_ID
         ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
 
         xlabel(def.xlabel,'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
-
-        text(0.05,1.02,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy')],'units','normalized',...
+        
+        if isSurf
+        text(0.05,1.02,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
             'fontsize',6,'color',[0.4 0.4 0.4]);
+        else
+         text(0.05,1.02,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
+            'fontsize',6,'color',[0.4 0.4 0.4]);
+        end
 
 
         if ~isempty(box_vars)

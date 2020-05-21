@@ -19,6 +19,9 @@ if ~exist('htmloutput','var')
     htmloutput = outputdirectory;
 end
 
+if ~isfield(def,'export_shapefile')
+    def.export_shapefile = 0;
+end
 
 if ~exist('start_plot_ID','var')
     start_plot_ID = 1;

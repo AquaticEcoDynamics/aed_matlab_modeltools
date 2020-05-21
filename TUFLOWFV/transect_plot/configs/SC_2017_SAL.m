@@ -29,7 +29,7 @@ def.binfielddata = 1;
 % value will also make where on the line each polygon will be created. So
 % if radius == 5, then there will be a search polygon found at r*2, so 0km, 10km, 20km etc. In windy rivers these polygons may overlap.
 
-def.binradius = 1;% in km;
+def.binradius = 0.25;% in km;
 
 %distance from model polyline to be consided.
 %Field data further than specified distance won't be included.
@@ -42,6 +42,7 @@ def.xlim = [0 65];% xlim in KM
 def.xticks = [0:10:65];
 def.xlabel = 'Distance from HN (km)';
 
+def.export_shapefile = 1;
 
 varname = {...
     'TEMP',...

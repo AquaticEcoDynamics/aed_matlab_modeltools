@@ -32,10 +32,15 @@ for i = 1:length(thePolygons)
     pol(i).X = T.Vertices(:,1);
     pol(i).Y = T.Vertices(:,2);
     pol(i).Dist = dist(ind);
-    
+    pol(i).Geometry = 'Polygon';
 end
 
+
+
 sites = fieldnames(fdata);
+
+
+
 
 fielddata = [];
 fielddist = [];
@@ -80,4 +85,16 @@ for j = 1:length(pol)
     end
 end   
     
+if def.export_shapefile
+    sites = fieldnames(fdata);
+    for i = 1:length(sites)
+        vars = fieldnames(fdata.(sites{i}));
+        S(i).X = fdata.(sites{i}).(vars{1}).X; 
+        S(i).Y = fdata.(sites{i}).(vars{1}).Y;
+        S(i).Name = sites{i};
+        S(i).Geometry = 'Point';
+    end
     
+    shapewrite(pol,'fieldpolygons.shp');
+    shapewrite(S,'fieldsites.shp');
+end    

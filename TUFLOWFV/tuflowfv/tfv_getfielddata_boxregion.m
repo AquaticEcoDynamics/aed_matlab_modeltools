@@ -68,11 +68,15 @@ for j = 1:length(pol)
                 
                 if ~isempty(sss)
                     
+
+                    
                     if isSurf
                         ttt = find(fDepth(sss) >= -2);
                     else
                         ttt = find(fDepth(sss) < -2);
                     end
+                    
+                    disp(['Adding: ',num2str(length(ttt)),' from: ',sites{i}]);
                     
                     cdata = tfv_Unit_Conversion(fDat(sss(ttt)),varname);
                     cdist(1:length(ttt),1) = pol(j).Dist;

@@ -62,6 +62,9 @@ if ~exist('thevars_conv','var')
     thevars_conv = 1;
 end
 
+~exist('preproc','var')
+preproc = 0;
+end
 
 isConv = 0;
 
@@ -111,26 +114,32 @@ for mod = 1:length(ncfile)
         for k = 1:length(thevars)
             disp(thevars{k});
             td = tfv_readnetcdf(ncfile(mod).name,'names',thevars(k));
-
-
+            
+            
             switch thevars{k}
                 case 'WQ_OGM_DON'
                     if sum(strcmpi(allvars,'WQ_OGM_DONR')) == 1
                         td2 = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
                         td.(thevars{k}) = td.(thevars{k}) + td2.WQ_OGM_DONR;
                     end
+                    
+                case 'WQ_OGM_DOP'
+                    if sum(strcmpi(allvars,'WQ_OGM_DOPR')) == 1
+                        td2 = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});
+                        td.(thevars{k}) = td.(thevars{k}) + td2.WQ_OGM_DOPR;
+                    end
                 otherwise
             end
             raw(mod).data(k).Val = td.(thevars{k}); clear td;
         end
     else
-       data1 = compile_tracer_sim(ncfile(mod).name);
-       for k = 1:length(thevars)
-           raw(mod).data(k).Val = data1.TN.(thevars{k}) * thevars_conv;
-       end
-    end 
-        
-        
+        data1 = compile_tracer_sim(ncfile(mod).name);
+        for k = 1:length(thevars)
+            raw(mod).data(k).Val = data1.TN.(thevars{k}) * thevars_conv;
+        end
+    end
+    
+    
     tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
     all_cells(mod).X = double(tdata.cell_X);
     all_cells(mod).Y = double(tdata.cell_Y);
@@ -176,22 +185,22 @@ for tim = 1:length(def.pdates)
     
     for mod = 1:length(ncfile)
         
-%         fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
-%         %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
-%         set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
-%         set(fig,'FaceAlpha', alph);
-%         hold on
-%         
-%         for plim_i=2:(nn-1)
-%             fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
-%             %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
-%             set(fig2,'HandleVisibility','off');
-%             set(fig2,'FaceAlpha', alph);
-%         end
-%         
-%         plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);
-          H = area(data(mod).dist,pData);hold on
-  
+        %         fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
+        %         %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
+        %         set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
+        %         set(fig,'FaceAlpha', alph);
+        %         hold on
+        %
+        %         for plim_i=2:(nn-1)
+        %             fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
+        %             %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
+        %             set(fig2,'HandleVisibility','off');
+        %             set(fig2,'FaceAlpha', alph);
+        %         end
+        %
+        %         plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);
+        H = area(data(mod).dist,pData);hold on
+        
     end
     
     for kk = 1:length(thevars)

@@ -58,6 +58,9 @@ if ~isfield(def,'rangelegend')
     def.rangelegend = 'northwest';
 end
 
+if ~exist('thevars_conv','var')
+    thevars_conv = 1;
+end
 
 
 isConv = 0;
@@ -104,21 +107,30 @@ disp(['Plotting ',loadname]);
 
 for mod = 1:length(ncfile)
     
-    for k = 1:length(thevars)
-        disp(thevars{k});
-        td = tfv_readnetcdf(ncfile(mod).name,'names',thevars(k));
-        
-        
-        switch thevars{k}
-            case 'WQ_OGM_DON'
-                if sum(strcmpi(allvars,'WQ_OGM_DONR')) == 1
-                    td2 = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
-                    td.(thevars{k}) = td.(thevars{k}) + td2.WQ_OGM_DONR;
-                end
-            otherwise
+    if ~preproc
+        for k = 1:length(thevars)
+            disp(thevars{k});
+            td = tfv_readnetcdf(ncfile(mod).name,'names',thevars(k));
+
+
+            switch thevars{k}
+                case 'WQ_OGM_DON'
+                    if sum(strcmpi(allvars,'WQ_OGM_DONR')) == 1
+                        td2 = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
+                        td.(thevars{k}) = td.(thevars{k}) + td2.WQ_OGM_DONR;
+                    end
+                otherwise
+            end
+            raw(mod).data(k).Val = td.(thevars{k}); clear td;
         end
-        raw(mod).data(k).Val = td.(thevars{k}); clear td;
-    end
+    else
+       data1 = compile_tracer_sim(ncfile(mod).name);
+       for k = 1:length(thevars)
+           raw(mod).data(k).Val = data1.TN.(thevars{k}) * thevars_conv;
+       end
+    end 
+        
+        
     tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
     all_cells(mod).X = double(tdata.cell_X);
     all_cells(mod).Y = double(tdata.cell_Y);

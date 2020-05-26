@@ -56,6 +56,7 @@ thevars = {...
 thevars_conv = 14/1000;
 
 preproc = 1;
+addmarker = 1;
 
 %Field Var
 varname = {'WQ_DIAG_TOT_TN'};

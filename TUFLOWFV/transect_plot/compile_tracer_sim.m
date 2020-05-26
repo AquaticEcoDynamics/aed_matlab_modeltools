@@ -6,12 +6,12 @@ data = tfv_readnetcdf(ncfile);
 
 %%
 
-zone.Ocean.TN = 1;
-zone.Ocean.TP = 2;
+zone.Ocean.WQ_DIAG_TOT_TN = 1;
+zone.Ocean.WQ_DIAG_TOT_TP = 2;
 
 for i = 1:12
-    zone.(['ERZ_',num2str(i)]).TN = (i*2)+1;
-    zone.(['ERZ_',num2str(i)]).TP = (i*2)+2;
+    zone.(['ERZ_',num2str(i)]).WQ_DIAG_TOT_TN = (i*2)+1;
+    zone.(['ERZ_',num2str(i)]).WQ_DIAG_TOT_TP = (i*2)+2;
 end
 
 
@@ -56,17 +56,17 @@ zone.ERZ_12.Downstream = [];
 %%
 data1 = [];
 
-data1.TN.ocean = data.TRACE_1;
-data1.TP.ocean = data.TRACE_2;
+data1.WQ_DIAG_TOT_TN.ocean = data.TRACE_1;
+data1.WQ_DIAG_TOT_TP.ocean = data.TRACE_2;
 
-data1.TN.local(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
-data1.TP.local(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TN.local(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TP.local(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
 
-data1.TN.upstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
-data1.TP.upstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TN.upstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TP.upstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
 
-data1.TN.downstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
-data1.TP.downstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TN.downstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
+data1.WQ_DIAG_TOT_TP.downstream(1:size(data.TRACE_1,1),1:size(data.TRACE_1,2)) = 0;
 
 %%
 
@@ -84,27 +84,29 @@ for i = 1:length(data.cell_X)
         
     sss = find(data.idx2 == i);
     
-    data1.TN.local(sss,:) = data.(['TRACE_',num2str(zone.(['ERZ_',num2str(erz_zone)]).TN)])(sss,:);
-    data1.TP.local(sss,:) = data.(['TRACE_',num2str(zone.(['ERZ_',num2str(erz_zone)]).TP)])(sss,:);
+    data1.WQ_DIAG_TOT_TN.local(sss,:) = data.(['TRACE_',num2str(zone.(['ERZ_',num2str(erz_zone)]).WQ_DIAG_TOT_TN)])(sss,:);
+    data1.WQ_DIAG_TOT_TP.local(sss,:) = data.(['TRACE_',num2str(zone.(['ERZ_',num2str(erz_zone)]).WQ_DIAG_TOT_TP)])(sss,:);
     
     ups = zone.(['ERZ_',num2str(erz_zone)]).Upstream;
     dws = zone.(['ERZ_',num2str(erz_zone)]).Downstream;
     
     if ~isempty(ups)
         for k = 1:length(ups)
-            data1.TN.upstream(sss,:) = data1.TN.upstream(sss,:) + ...
-                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(ups(k))]).TN)])(sss,:);
-            data1.TP.upstream(sss,:) = data1.TP.upstream(sss,:) + ...
-                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(ups(k))]).TP)])(sss,:);
+            data1.WQ_DIAG_TOT_TN.upstream(sss,:) = data1.WQ_DIAG_TOT_TN.upstream(sss,:) + ...
+                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(ups(k))]).WQ_DIAG_TOT_TN)])(sss,:);
+            data1.WQ_DIAG_TOT_TP.upstream(sss,:) = data1.WQ_DIAG_TOT_TP.upstream(sss,:) + ...
+                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(ups(k))]).WQ_DIAG_TOT_TP)])(sss,:);
         end
     end
     if ~isempty(dws)
         for k = 1:length(dws)
-            data1.TN.downstream(sss,:) = data1.TN.downstream(sss,:) + ...
-                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(dws(k))]).TN)])(sss,:);
-            data1.TP.downstream(sss,:) = data1.TP.downstream(sss,:) + ...
-                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(dws(k))]).TP)])(sss,:);
+            data1.WQ_DIAG_TOT_TN.downstream(sss,:) = data1.WQ_DIAG_TOT_TN.downstream(sss,:) + ...
+                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(dws(k))]).WQ_DIAG_TOT_TN)])(sss,:);
+            data1.WQ_DIAG_TOT_TP.downstream(sss,:) = data1.WQ_DIAG_TOT_TP.downstream(sss,:) + ...
+                data.(['TRACE_',num2str(zone.(['ERZ_',num2str(dws(k))]).WQ_DIAG_TOT_TP)])(sss,:);
         end
     end
     
 end
+
+save data1.mat data1 -mat -v7.3;

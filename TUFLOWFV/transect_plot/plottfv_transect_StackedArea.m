@@ -126,7 +126,7 @@ for mod = 1:length(ncfile)
     else
        data1 = compile_tracer_sim(ncfile(mod).name);
        for k = 1:length(thevars)
-           raw(mod).data(k).Val = data1.TN.(thevars{k}) * thevars_conv;
+           raw(mod).data(k).Val = data1.(loadname).(thevars{k}) * thevars_conv;
        end
     end 
         

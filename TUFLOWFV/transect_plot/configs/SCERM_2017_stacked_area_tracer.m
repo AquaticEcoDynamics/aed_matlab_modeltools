@@ -53,15 +53,16 @@ thevars = {...
     'downstream',...
 };
 
-thevars_conv = 31/1000;
+thevars_conv = 14/1000;
 
 preproc = 1;
+addmarker = 1;
 
 %Field Var
-varname = {'WQ_DIAG_TOT_TP'};
+varname = {'WQ_DIAG_TOT_TN'};
 
 
-def.cAxis(1).value = [0 0.5];         %'SAL',...
+def.cAxis(1).value = [0 5];         %'SAL',...
 %def.cAxis(2).value = [5 25];         %'TEMP',...
 
 % start_plot_ID = 1;

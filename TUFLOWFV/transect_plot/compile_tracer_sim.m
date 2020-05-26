@@ -108,3 +108,5 @@ for i = 1:length(data.cell_X)
     end
     
 end
+
+save data1.mat data1 -mat -v7.3;

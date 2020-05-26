@@ -32,7 +32,10 @@ switch varname
         % mmol/m^3 to mg/L
         ydata = ydata * (14/1000);
         units = 'mg/L';
-        
+     case  'WQ_OGM_DONR'
+        % mmol/m^3 to mg/L
+        ydata = ydata * (14/1000);
+        units = 'mg/L';       
     case  'WQ_OGM_DOC'
         % mmol/m^3 to mg/L
         ydata = ydata / 83.333333;

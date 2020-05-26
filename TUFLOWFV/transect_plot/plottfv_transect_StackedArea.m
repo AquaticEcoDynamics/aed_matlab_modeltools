@@ -107,7 +107,17 @@ for mod = 1:length(ncfile)
     for k = 1:length(thevars)
         disp(thevars{k});
         td = tfv_readnetcdf(ncfile(mod).name,'names',thevars(k));
-        raw(mod).data(k).Val = td.(thevars{k});
+        
+        
+        switch thevars{k}
+            case 'WQ_OGM_DON'
+                if sum(strcmpi(allvars,'WQ_OGM_DONR')) == 1
+                    td2 = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
+                    td.(thevars{k}) = td.(thevars{k}) + td2.WQ_OGM_DONR;
+                end
+            otherwise
+        end
+        raw(mod).data(k).Val = td.(thevars{k}); clear td;
     end
     tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
     all_cells(mod).X = double(tdata.cell_X);
@@ -122,15 +132,17 @@ for tim = 1:length(def.pdates)
         
         for k = 1:length(thevars)
             
+            rd(mod).data.(thevars{k}) = raw(mod).data(k).Val;
+            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata_stacked(rd(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,thevars(k),def.pdates(tim).value,isSurf);
             
-        
-            [data(mod).Var(k),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data(k).Val,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf);
+            pData(:,k) = data(mod).pred_lim_ts(3,:);
+            
+            clear rd;
             
         end
     end
     
     
-    save data.mat data -mat
     
     
     if plotvalidation
@@ -141,33 +153,41 @@ for tim = 1:length(def.pdates)
     end
     
     
-    stop
+    
     
     fig1 = figure('visible',def.visible);
     set(fig1,'defaultTextInterpreter','latex')
     set(0,'DefaultAxesFontName','Times')
     set(0,'DefaultAxesFontSize',6)
     
+    cmap = parula(length(thevars));
+    
     for mod = 1:length(ncfile)
         
-        fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
-        %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
-        set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
-        set(fig,'FaceAlpha', alph);
-        hold on
-        
-        for plim_i=2:(nn-1)
-            fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
-            %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
-            set(fig2,'HandleVisibility','off');
-            set(fig2,'FaceAlpha', alph);
-        end
-        
-        plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);
-        
+%         fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
+%         %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
+%         set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
+%         set(fig,'FaceAlpha', alph);
+%         hold on
+%         
+%         for plim_i=2:(nn-1)
+%             fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
+%             %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
+%             set(fig2,'HandleVisibility','off');
+%             set(fig2,'FaceAlpha', alph);
+%         end
+%         
+%         plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);
+          H = area(data(mod).dist,pData);hold on
+  
     end
     
-    leg = legend('show');
+    for kk = 1:length(thevars)
+        H(kk).FaceColor = cmap(kk,:);
+    end
+    
+    
+    leg = legend(regexprep(thevars,'_',' '));
     set(leg,'location',def.rangelegend,'fontsize',6);
     
     box_vars = [];
@@ -178,8 +198,8 @@ for tim = 1:length(def.pdates)
         end
     end
     
-    if ~isempty(def.cAxis(var).value)
-        ylim(def.cAxis(var).value);
+    if ~isempty(def.cAxis(1).value)
+        ylim(def.cAxis(1).value);
     end
     
     xlim(def.xlim);
@@ -254,12 +274,14 @@ for tim = 1:length(def.pdates)
     
     print(gcf,finalname,'-opengl','-dpng');
     
+    close;
+    
     
 end
 
 if isHTML
     
-    create_html_for_directory_onFly(savedir,varname{var},htmloutput);
+    create_html_for_directory_onFly(savedir,varname{1},htmloutput);
     
 end
 %end

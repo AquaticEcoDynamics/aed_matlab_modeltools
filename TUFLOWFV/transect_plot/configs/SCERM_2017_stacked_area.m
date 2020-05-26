@@ -15,9 +15,13 @@ def.pdates(1).value = [datenum(2017,04,01) datenum(2017,05,01)];
 def.pdates(2).value = [datenum(2017,05,01) datenum(2017,06,01)];
 def.pdates(3).value = [datenum(2017,06,01) datenum(2017,07,01)];
 def.pdates(4).value = [datenum(2017,07,01) datenum(2017,08,01)];
-% def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
-% def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
-
+def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
+def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
+def.pdates(2).value = [datenum(2017,11,01) datenum(2017,12,01)];
+def.pdates(3).value = [datenum(2017,12,01) datenum(2018,01,01)];
+def.pdates(4).value = [datenum(2018,01,01) datenum(2018,02,01)];
+def.pdates(5).value = [datenum(2018,02,01) datenum(2018,03,01)];
+def.pdates(6).value = [datenum(2018,03,01) datenum(2018,04,01)];
 
 
 
@@ -46,7 +50,6 @@ thevars = {...
     'WQ_NIT_NIT',...
     'WQ_NIT_AMM',...
     'WQ_OGM_DON',...
-    'WQ_OGM_DONR',...
     'WQ_OGM_PON',...
 };
 
@@ -54,8 +57,8 @@ thevars = {...
 varname = {'WQ_DIAG_TOT_TN'};
 
 
-def.cAxis(1).value = [0 35];         %'SAL',...
-def.cAxis(2).value = [5 25];         %'TEMP',...
+def.cAxis(1).value = [0 5];         %'SAL',...
+%def.cAxis(2).value = [5 25];         %'TEMP',...
 
 % start_plot_ID = 1;
 % end_plot_ID = 1;
@@ -78,14 +81,14 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff/SCERM/Transect/RAW/';
+outputdirectory = 'F:\Work Stuff/SCERM/Transect/RAW1/';
 htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB/Stacked_Area/Transect_Test/HTML/';
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'E:\NCFILES\swan_2018_2019.nc';
+ ncfile(1).name = 'Z:\SCERM\SCERM\Output\swan_2017_2018_ALL.nc';
  ncfile(1).legend = 'Test Sim';
 %
 %  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
@@ -93,9 +96,9 @@ htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB/Stacked_
 
 
 
-def.boxlegend = 'southwest';
+def.boxlegend = 'northwest';
 def.rangelegend = 'northeast';
 
 def.dimensions = [16 8]; % Width & Height in cm
 
-def.visible = 'off'; % on or off
+def.visible = 'on'; % on or off

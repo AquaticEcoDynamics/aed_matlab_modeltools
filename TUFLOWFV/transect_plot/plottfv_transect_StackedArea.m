@@ -62,7 +62,7 @@ if ~exist('thevars_conv','var')
     thevars_conv = 1;
 end
 
-~exist('preproc','var')
+if ~exist('preproc','var')
 preproc = 0;
 end
 

@@ -16,15 +16,13 @@ def.pdates(2).value = [datenum(2017,05,01) datenum(2017,06,01)];
 def.pdates(3).value = [datenum(2017,06,01) datenum(2017,07,01)];
 def.pdates(4).value = [datenum(2017,07,01) datenum(2017,08,01)];
 def.pdates(5).value = [datenum(2017,03,01) datenum(2017,04,01)];
-def.pdates(6).value = [datenum(2017,03,15) datenum(2017,03,16)];
-
-% def.pdates(5).value = [datenum(2017,09,01) datenum(2017,10,01)];
-% def.pdates(6).value = [datenum(2017,10,01) datenum(2017,11,01)];
-% def.pdates(7).value = [datenum(2017,11,01) datenum(2017,12,01)];
-% def.pdates(8).value = [datenum(2017,12,01) datenum(2018,01,01)];
-% def.pdates(9).value = [datenum(2018,01,01) datenum(2018,02,01)];
-% def.pdates(10).value = [datenum(2018,02,01) datenum(2018,3,01)];
-% def.pdates(11).value = [datenum(2018,03,01) datenum(2018,4,01)];
+def.pdates(6).value = [datenum(2017,09,01) datenum(2017,10,01)];
+def.pdates(7).value = [datenum(2017,10,01) datenum(2017,11,01)];
+def.pdates(8).value = [datenum(2017,11,01) datenum(2017,12,01)];
+def.pdates(9).value = [datenum(2017,12,01) datenum(2018,01,01)];
+def.pdates(10).value = [datenum(2018,01,01) datenum(2018,02,01)];
+def.pdates(11).value = [datenum(2018,02,01) datenum(2018,3,01)];
+def.pdates(12).value = [datenum(2018,03,01) datenum(2018,4,01)];
 
 
 
@@ -71,8 +69,8 @@ varname = {...
     'SAL',...
     'TEMP',...
      };
-
-
+% 
+% 
 def.cAxis(1).value = [0 5];         
 def.cAxis(2).value = [0 0.5];
 def.cAxis(3).value = [0 50];         
@@ -94,8 +92,8 @@ def.cAxis(18).value = [0 15];
 def.cAxis(19).value = [0 40];         
 def.cAxis(20).value = [0 35];       
 
-% start_plot_ID = 1;
-% end_plot_ID = 1;
+start_plot_ID = 1;
+end_plot_ID = 1;
 
 %start_plot_ID = 25;
 

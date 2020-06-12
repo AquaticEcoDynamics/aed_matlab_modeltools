@@ -3,70 +3,46 @@
 
 
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
-%fielddata_matfile = '/Volumes/Spinny/Sims/SCERM/Matlab/modeltools/matfiles/swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Helena_Sites.shp';
-%polygon_file = '/Volumes/Spinny/Sims/SCERM/Matlab/modeltools/gis/Swan_Sites.shp';
-yr = 2009;
-rgh = '2009_2010';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
 
-%sites = [7];  % Sites in shapefile (polygon IDs) to plot
-
-
-% varname = {...
-%     'WQ_NCS_SS1',...
-%     'WQ_OXY_OXY',...
-%     'WQ_SIL_RSI',...
-%     'WQ_NIT_AMM',...
-%     'WQ_NIT_NIT',...
-%     'WQ_PHS_FRP',...
-%     'WQ_PHS_FRP_ADS',...
-%     'WQ_OGM_DOC',...
-%     'WQ_OGM_POC',...
-%     'WQ_OGM_DON',...
-%     'WQ_OGM_PON',...
-%     'WQ_OGM_DOP',...
-%     'WQ_OGM_POP',...
-%     'WQ_PHY_GRN',...
-%     'WQ_DIAG_TOT_TN',...
-%     'WQ_DIAG_TOT_TP',...
-%     'WQ_DIAG_PHY_TCHLA',...
-%     'WQ_DIAG_TOT_TSS',...
-%     'WQ_DIAG_TOT_TURBIDITY',...
-%     };
 
 varname = {...
     'SAL',...
     'TEMP',...
-    'D',...
-    'H',...
      };
 
-% def.cAxis(1).value = [0 20];
-% def.cAxis(2).value = [0 55];
-def.cAxis(1).value = [5 45];
+% varname = {...
+%     'SAL',...
+%     'TEMP',...
+%     };
+
+def.cAxis(1).value = [0 45];
+def.cAxis(2).value = [10 35];
+%def.cAxis(1).value = [5 45];
 
 
+%polygon_file = 'GIS/CEWH_Reporting.shp';
 %changed the polygon file loc
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
 
 % Add field data to figure
-plotmodel = 1;
+plotmodel = 0;
 
 %plotdepth = {'surface'};%,'bottom'}; % Cell with either one or both
 
 plotvalidation = 1; % true or false
 
 %----------- define plot options ------------%
-plotdepth = {'surface'};%{'surface','bottom'}; % Cell with either one or both
+plotdepth = {'surface';'bottom'};%{'surface','bottom'}; % Cell with either one or both
 istitled = 1;
 isylabel = 1;
 islegend = 1;
-isYlim = 0;
+isYlim = 1;
 isRange = 1;
-isRange_Bottom = 0;
+isRange_Bottom = 1;
 custom_datestamp = 0;
 
 filetype = 'eps';
@@ -80,17 +56,18 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Helena/Height_02\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Helena/Height_02/HTML\'];
+
+outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Long_Term_data_1995_2020\RAW\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Long_Term_data_1995_2020\HTML\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['Y:\Work\HELENA_v1\Output/swan_helena_v4i_NAR_MSB.nc'];% change this to the nc file loc
-ncfile(1).symbol = {'-'};% top and bottom
-ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ncfile(1).name = ['Z:\SCERM_HFP\Output/swan_helena_v4i_NAR_MSB.nc'];% change this to the nc file loc
+ncfile(1).symbol = {'-';'-'};% top and bottom
+ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom
 ncfile(1).legend = 'Model';
 ncfile(1).translate = 1;
 % 
@@ -106,9 +83,11 @@ ncfile(1).translate = 1;
 
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
-yr = 2008;
-def.datearray = datenum(yr,-1:03:16,01);
-def.dateformat = 'mmm-yy';
+%yr = 2009;
+def.datearray = datenum(1995:05:2020,01,01);
+
+%def.datearray = datenum(yr,04:03:16,01);
+def.dateformat = 'yyyy';
 % Defaults_________________________________________________________________
 
 % Makes start date, end date and datetick array

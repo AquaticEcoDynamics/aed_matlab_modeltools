@@ -5,7 +5,7 @@
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox.shp';
 
 yr = 2017;
 rgh = '2017_2018';
@@ -34,6 +34,8 @@ varname = {...
     'TEMP',...
      };
 
+ start_plot_ID = 19;
+ 
 % def.cAxis(1).value = [0 20];
 % def.cAxis(2).value = [0 55];
 def.cAxis(1).value = [5 45];
@@ -85,12 +87,12 @@ ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.
 ncfile(1).legend = 'SCERM';
 ncfile(1).translate = 1;
 % 
-ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
-ncfile(2).symbol = {'-';'-'};
-ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(2).legend = 'Catchment';
-ncfile(2).translate = 1;
-% 
+% ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
+% ncfile(2).symbol = {'-';'-'};
+% ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(2).legend = 'Catchment';
+% ncfile(2).translate = 1;
+% % 
 
 
 

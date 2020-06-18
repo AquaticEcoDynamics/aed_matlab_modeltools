@@ -38,7 +38,7 @@ for i = 1:length(sites)
             if ~isempty(sss)
                 
                 fdata.(sites{i}).TN_TP.Date(inc,1) = TN_Date(j);
-                fdata.(sites{i}).TN_TP.Data(inc,1) = TN_Data(j) / TP_Data(sss(1));
+                fdata.(sites{i}).TN_TP.Data(inc,1) = (TN_Data(j) * 14/1000) / (TP_Data(sss(1)) * 31/1000);
                 fdata.(sites{i}).TN_TP.Depth(inc,1) = TN_Depth(j);
                 fdata.(sites{i}).TN_TP.X = fdata.(sites{i}).WQ_DIAG_TOT_TN.X;
                 fdata.(sites{i}).TN_TP.Y = fdata.(sites{i}).WQ_DIAG_TOT_TN.Y;
@@ -53,3 +53,5 @@ for i = 1:length(sites)
         end
     end
 end
+hawkesbury_all = fdata;
+save('..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat','hawkesbury_all','-mat');

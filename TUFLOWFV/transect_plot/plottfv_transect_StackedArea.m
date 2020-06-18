@@ -135,7 +135,7 @@ for mod = 1:length(ncfile)
                     end
                 otherwise
             end
-            raw(mod).data(k).Val = td.(thevars{k}); clear td;
+            raw(mod).data(k).Val = td.(thevars{k})  * thevars_conv; clear td;
         end
     else
        data1 = compile_tracer_sim(ncfile(mod).name);

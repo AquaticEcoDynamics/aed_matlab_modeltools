@@ -1,11 +1,11 @@
 
-fid = fopen('Peelv3_Holes_NthCorner_Sed_Oxy_Coolup_hole_clip_200m_50m_polygon_min05m_UM.2dm','rt');
-fid2 = fopen('Peelv3_Holes_NthCorner_Sed_Oxy_Coolup_hole_clip_200m_50m_polygon_min05m_UM_Delta.2dm','wt');
+fid = fopen('Tweed_v002_wetland_ns_clipped_smooth_edited_1m.2dm ','rt');
+fid2 = fopen('Tweed_v002_wetland_ns_clipped_smooth_edited_1m_deep.2dm ','wt');
 
 fline = fgetl(fid);
 fprintf(fid2,'%s\n',fline);
 
-shp = shaperead('deepen.shp');
+shp = shaperead('Tweed_deep.shp');
 
 while ~feof(fid)
     fline = fgetl(fid);
@@ -21,7 +21,7 @@ while ~feof(fid)
         for j = 1:length(shp)
             inpol = inpolygon(XX,YY,shp(j).X,shp(j).Y);
             if inpol
-                ZZ = ZZ - (shp(j).Depth/4);
+                ZZ = ZZ *2;
             end
         end
 

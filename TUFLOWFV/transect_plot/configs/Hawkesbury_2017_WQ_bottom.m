@@ -35,8 +35,6 @@ def.pdates(int).value = [datenum(t_yr,09,01) datenum(t_yr,12,01)];int = int + 1;
 def.pdates(int).value = [datenum(t_yr,12,01) datenum(t_yr+1,03,01)];int = int + 1;
 def.pdates(int).value = [datenum(t_yr+1,03,01) datenum(t_yr+1,06,01)];int = int + 1;
 
-
-
 def.binfielddata = 1;
 % radius distance to include field data. Used to bin data where number of
 % sites is higher, but the frequency of sampling is low. The specified
@@ -55,6 +53,7 @@ def.linedist = 500;%  in m
 def.xlim = [0 250];% xlim in KM
 def.xticks = [0:20:250];
 def.xlabel = 'Distance from Ocean (km)';
+
 
 varname = {...
     'TN_TP',...
@@ -134,14 +133,14 @@ isylabel = 1;
 islegend = 1;
 isYlim = 1;
 isHTML = 1;
-isSurf = 1; %plot surface (1) or bottom (0)
+isSurf = 0; %plot surface (1) or bottom (0)
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\plots_V5_A8_2017_1_S\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A8\2017_2018\Transect-Surface-Seasons\'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\plots_V5_A8_2017_2_S\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A8\2017_2018\Transect-Bottom-Seasons\'];
 
 % ____________________________________________________________Configuration
 

@@ -108,7 +108,7 @@ for var = start_plot_ID:end_plot_ID
             case 'TN_TP'
                 oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
                 tra = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
-                raw(mod).data.TN_TP = (tra.WQ_DIAG_TOT_TN* 14/1000) ./ (oxy.WQ_DIAG_TOT_TP* 31/1000);
+                raw(mod).data.TN_TP = (oxy.WQ_DIAG_TOT_TN* 14/1000) ./ (tra.WQ_DIAG_TOT_TP* 31/1000);
 
 
 
@@ -187,8 +187,11 @@ for var = start_plot_ID:end_plot_ID
         if ~isempty(def.xticks)
             set(gca,'xtick',def.xticks,'xticklabel',def.xticks);
         end
-
-        ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        if strcmpi(loadname,'TN_TP') == 0
+         ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        else
+          ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        end
 
         xlabel(def.xlabel,'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         

@@ -16,13 +16,13 @@ def.pdates(2).value = [datenum(2017,05,01) datenum(2017,06,01)];
 def.pdates(3).value = [datenum(2017,06,01) datenum(2017,07,01)];
 def.pdates(4).value = [datenum(2017,07,01) datenum(2017,08,01)];
 def.pdates(5).value = [datenum(2017,03,01) datenum(2017,04,01)];
-def.pdates(6).value = [datenum(2017,09,01) datenum(2017,10,01)];
-def.pdates(7).value = [datenum(2017,10,01) datenum(2017,11,01)];
-def.pdates(8).value = [datenum(2017,11,01) datenum(2017,12,01)];
-def.pdates(9).value = [datenum(2017,12,01) datenum(2018,01,01)];
-def.pdates(10).value = [datenum(2018,01,01) datenum(2018,02,01)];
-def.pdates(11).value = [datenum(2018,02,01) datenum(2018,3,01)];
-def.pdates(12).value = [datenum(2018,03,01) datenum(2018,4,01)];
+% def.pdates(6).value = [datenum(2017,09,01) datenum(2017,10,01)];
+% def.pdates(7).value = [datenum(2017,10,01) datenum(2017,11,01)];
+% def.pdates(8).value = [datenum(2017,11,01) datenum(2017,12,01)];
+% def.pdates(9).value = [datenum(2017,12,01) datenum(2018,01,01)];
+% def.pdates(10).value = [datenum(2018,01,01) datenum(2018,02,01)];
+% def.pdates(11).value = [datenum(2018,02,01) datenum(2018,3,01)];
+% def.pdates(12).value = [datenum(2018,03,01) datenum(2018,4,01)];
 
 
 
@@ -93,7 +93,7 @@ def.cAxis(19).value = [0 40];
 def.cAxis(20).value = [0 35];       
 
 start_plot_ID = 1;
-end_plot_ID = 1;
+end_plot_ID = 20;
 
 %start_plot_ID = 25;
 
@@ -107,14 +107,14 @@ isylabel = 1;
 islegend = 1;
 isYlim = 1;
 isHTML = 1;
-isSurf = 0; %plot surface (1) or bottom (0)
+isSurf = 1; %plot surface (1) or bottom (0)
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 
 outputdirectory = 'F:\Work Stuff/SCERM/Transect/RAW/SCERM44_2017_2018_Bottom/';
-htmloutput = 'F:\Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Swan_BB/SCERM44_v5_A1_Transect/2017_2018_Bottom/';
+htmloutput = 'F:\Cloudstor/Shared/Aquatic Ecodynamics (AED)/AED_Swan_BB/SCERM44_v5_A1_Transect/2017_2018/';
 
 % ____________________________________________________________Configuration
 

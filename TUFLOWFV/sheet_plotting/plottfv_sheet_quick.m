@@ -4,24 +4,24 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'I:\Erie_plotting\erie_AED.nc';
+ncfile = 'Y:\Work\SCERM_v5\Output/swan_2017_2018_Profiles_ALL.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results\V9_A4_Movies\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\2017_Profiles\top1\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'WQ_MAG_CGM';
+varname = 'SAL';
 
-cax = [0 150];
+cax = [0 50];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'Mag CGM';
+title = 'SAL';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 1; % 1 to save movie, 0 to just display on screen
-save_images = 0;
+create_movie = 0; % 1 to save movie, 0 to just display on screen
+save_images = 1;
 
-plot_interval = 4;
+plot_interval = 1;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -29,7 +29,7 @@ plot_interval = 4;
 clip_depth = 0.05;% In m
 %clip_depth = 999;% In m
 
-isTop = 0;
+isTop = 1;
 
 %____________
 
@@ -78,7 +78,7 @@ first_plot = 1;
 
 
 
-for i = 40:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
+for i = 1:1:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions

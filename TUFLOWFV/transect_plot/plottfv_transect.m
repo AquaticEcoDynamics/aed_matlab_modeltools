@@ -58,7 +58,9 @@ if ~isfield(def,'rangelegend')
     def.rangelegend = 'northwest';
 end
 
-
+if ~exist('addmarker','var')
+addmarker = 1;
+end
 
 isConv = 0;
 
@@ -196,13 +198,33 @@ for var = start_plot_ID:end_plot_ID
         xlabel(def.xlabel,'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         if isSurf
-        text(0.05,1.02,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
+        text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
             'fontsize',6,'color',[0.4 0.4 0.4]);
         else
-         text(0.05,1.02,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
+         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
             'fontsize',6,'color',[0.4 0.4 0.4]);
         end
 
+         if addmarker
+        
+        HH=gca; HH.XAxis.TickLength = [0 0];
+        
+        load marker.mat;
+        
+        yl = get(gca,'ylim');
+        yl_r = (yl(2) - yl(1)) * 0.01;
+        
+        yx(1:length(marker.Dist)) = yl(2);
+        scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
+        
+
+        
+        for kkk = 1:length(marker.Dist)
+            text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
+        end
+    end
+        
+        
 
         if ~isempty(box_vars)
             udist = unique(fielddist);

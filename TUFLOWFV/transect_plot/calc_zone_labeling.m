@@ -1,6 +1,6 @@
 clear all; close all;
 
-shp = shaperead('../../../SCERM/matlab/tracer_simulation/ERZ_v2.shp');
+shp = shaperead('..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox_v2.shp');
 
 points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
 

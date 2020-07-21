@@ -30,7 +30,7 @@ varname = {...
 %     'WQ_OGM_DOP',...
 %     'WQ_OGM_POP',...
 %     'WQ_PHY_GRN',...
-    'SAL',...
+   'SAL',...
     'TEMP',...
      };
 
@@ -51,7 +51,7 @@ plotmodel = 1;
 plotvalidation = 1; % true or false
 
 %----------- define plot options ------------%
-plotdepth = {'surface';'bottom'};%{'surface','bottom'}; % Cell with either one or both
+plotdepth = {'surface';'bottom'};%;'bottom'};%{'surface','bottom'}; % Cell with either one or both
 istitled = 1;
 isylabel = 1;
 islegend = 1;
@@ -71,35 +71,39 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['F:\Work Stuff\SCERM\Plotting Output\Profile_Chx\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\2017_Profiles\'];
+outputdirectory = ['F:\Work Stuff\SCERM\Plotting Output\Profile_Chx12\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\SCERM8_SCERM44_v6_Wind\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['Y:\Work\SCERM_v5\Output/swan_2017_2018_Profiles_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['N:\SCERM\SCERM_v6\Output/SCERM8_2017_2018_noAED_wind_ALL_bak.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(1).legend = 'SCERM';
+ncfile(1).legend = 'v6 new Wind';
 ncfile(1).translate = 1;
 % 
-% ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
-% ncfile(2).symbol = {'-';'-'};
-% ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-% ncfile(2).legend = 'Catchment';
-% ncfile(2).translate = 1;
+ncfile(2).name = ['N:\SCERM\SCERM_v6_A2\Output/SCERM44_2017_2018_noAED_ALL_plt.nc'];% change this to the nc file loc
+ncfile(2).symbol = {'-';'-'};
+ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ncfile(2).legend = 'v6 SCERM44';
+ncfile(2).translate = 1;
 % 
 
-
+% ncfile(3).name = ['N:\SCERM\SCERM_v6\Output/SCERM44_noAED_2017_2018_ALL.nc'];% change this to the nc file loc
+% ncfile(3).symbol = {'-';'-'};
+% ncfile(3).colour = {'g','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(3).legend = 'scerm44 new bin';
+% ncfile(3).translate = 1;
 
 
 % yr = 2015;
-% def.datearray = datenum(yr,01:03:21,01);
+ def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(yr,02:01:05,01);
-%def.datearray = datenum(yr,03,15:01:17);
+%def.datearray = datenum(yr,02:01:05,01);
+def.datearray = datenum(yr,02:03:16,01);
 def.dateformat = 'mmm-yy';
 % Defaults_________________________________________________________________
 

@@ -234,19 +234,28 @@ for var = start_plot_ID:end_plot_ID
                     raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;
                     clear DON PON
                     
-                case 'TN'
-                    
-                    %                 TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
-                    %                 AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
-                    %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
-                    %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
-                    %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
-                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
-                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
-                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
-                    raw(mod).data.TN = DON.WQ_OGM_DON + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM;
-                    clear TN AMM NIT
+               % case 'WQ_DIAG_TOT_TN'
+               %     
+               %     %                 TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
+               %     %                 AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
+               %     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
+               %     %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
+               %     %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
+               %     NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
+               %     AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
+               %     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
+               %     DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
+               %     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
+               %     CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});
+               %     GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
+               %     BGA =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_BGA'});
+               %     CRYPT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_CRYPT'});
+               %     DIATOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_DIATOM'});
+               %     DINO =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_DINO'});
+               %     raw(mod).data.WQ_DIAG_TOT_TN = DON.WQ_OGM_DON + DONR.WQ_OGM_DONR + PON.WQ_OGM_PON + NIT.WQ_NIT_NIT + AMM.WQ_NIT_AMM + ...
+               %         (CPOM.WQ_OGM_CPOM.* 0.005) + (GRN.WQ_PHY_GRN.*0.15) + (BGA.WQ_PHY_BGA.*0.15) + ...
+               %         (CRYPT.WQ_PHY_CRYPT.*0.15) + (DIATOM.WQ_PHY_DIATOM.*0.15) + (DINO.WQ_PHY_DINO.*0.15);
+               %     clear TN AMM NIT
                     
                 case 'OP'
                     
@@ -256,6 +265,12 @@ for var = start_plot_ID:end_plot_ID
                     DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
                     PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});
                     raw(mod).data.OP = DON.WQ_OGM_DOP + PON.WQ_OGM_POP;
+                    clear TP FRP
+                    
+                case 'TN_CHX'
+                    TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
+                    CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});
+                    raw(mod).data.TN_CHX = TN.WQ_DIAG_TOT_TN - CPOM.WQ_OGM_CPOM;
                     clear TP FRP
                     
                 case 'WQ_OGM_DON'
@@ -724,13 +739,13 @@ for var = start_plot_ID:end_plot_ID
                 
                 ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
             end
-            text(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
+            % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         else
            if isylabel
                 
                 ylabel([regexprep(loadname,'_',' '),' (model units)'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
             end
-            text(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
+            % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         end
         
         
@@ -739,7 +754,7 @@ for var = start_plot_ID:end_plot_ID
         else
             depdep = [num2str(depth_range(2)),'m'];
         end
-        text(0.92,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        % BB TURN ONtext(0.92,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         
         if add_triangle

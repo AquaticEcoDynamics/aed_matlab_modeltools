@@ -4,22 +4,22 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'Y:\Work\SCERM_v5\Output/swan_2017_2018_Profiles_ALL.nc';
+ncfile = 'N:\SCERM\SCERM_v6\Output/SCERM8_2017_2018_noAED_ALL.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\2017_Profiles\top1\';
+outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\SCERM8_2017_V5_v6_Comp\Movies\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'SAL';
+varname = 'TEMP';
 
-cax = [0 50];
+cax = [10 30];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'SAL';
+title = 'TEMP Bottom';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 0; % 1 to save movie, 0 to just display on screen
-save_images = 1;
+create_movie = 1; % 1 to save movie, 0 to just display on screen
+save_images = 0;
 
 plot_interval = 1;
 
@@ -29,7 +29,7 @@ plot_interval = 1;
 clip_depth = 0.05;% In m
 %clip_depth = 999;% In m
 
-isTop = 1;
+isTop = 0;
 
 %____________
 
@@ -179,8 +179,8 @@ for i = 1:1:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-%           xlim([388980.863046855          398604.194750214]);
-%           ylim([6453762.0536537           6459910.0830346]);
+          xlim([390570.066437591          402744.362863775]);
+          ylim([6460568.84475645          6468346.60140324]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

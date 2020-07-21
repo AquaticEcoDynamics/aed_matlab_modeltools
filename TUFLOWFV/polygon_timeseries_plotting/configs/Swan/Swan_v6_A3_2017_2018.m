@@ -5,7 +5,7 @@
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox.shp';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox_v2.shp';
 
 yr = 2017;
 rgh = '2017_2018';
@@ -15,7 +15,8 @@ varname = {...
      'WQ_DIAG_TOT_TN',...
      'WQ_DIAG_TOT_TP',...
      'WQ_DIAG_TOT_TSS',...
-     'WQ_DIAG_TOT_TURBIDITY',...%'WQ_DIAG_PHY_TCHLA',...
+     'WQ_DIAG_TOT_TURBIDITY',...
+     'WQ_DIAG_PHY_TCHLA',...
         'WQ_NCS_SS1',...
     'WQ_OXY_OXY',...
     'WQ_SIL_RSI',...
@@ -37,18 +38,18 @@ varname = {...
     'SAL',...
     'TEMP',...
     'WQ_OGM_CPOM',...
-    'TN_CHX',...
+%     'TN_CHX',...
      };
 
  start_plot_ID = 1
- end_plot_ID = 1;
+ %end_plot_ID = 1;
 
 int = 1;
-def.cAxis(int).value = [0 10];int = int + 1; %	'WQ_DIAG_TOT_TN',...
+def.cAxis(int).value = [0 4];int = int + 1; %	'WQ_DIAG_TOT_TN',...
 def.cAxis(int).value = [0 0.5];int = int + 1; %    'WQ_DIAG_TOT_TP',...
 def.cAxis(int).value = [0 50];int = int + 1; %    'WQ_DIAG_TOT_TSS',...
 def.cAxis(int).value = [0 50 ];int = int + 1; %    'WQ_DIAG_TOT_TURBIDITY',...
-%def.cAxis(int).value = [0 50 ];int = int + 1; %    'WQ_DIAG_PHY_TCHLA',...
+def.cAxis(int).value = [0 50 ];int = int + 1; %    'WQ_DIAG_PHY_TCHLA',...
 def.cAxis(int).value = [0 10 ];int = int + 1; %    'WQ_NCS_SS1',...
 def.cAxis(int).value = [0 14 ];int = int + 1; %    'WQ_OXY_OXY',...
 def.cAxis(int).value = [0 10 ];int = int + 1; %    'WQ_SIL_RSI',...
@@ -96,7 +97,7 @@ custom_datestamp = 0;
 filetype = 'eps';
 def.expected = 0; % plot expected WL
 
-isFieldRange = 1;
+isFieldRange = 0;
 fieldprctile = [10 90];
 
 % ____________________________________________________________Configuration
@@ -107,8 +108,12 @@ fieldprctile = [10 90];
 % outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC_Chx\'];
 % htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Catchment_Model_2017\',rgh,'\'];
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC1111\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A2_V5_WQ_Comp_TN_TEst\',rgh,'\'];
+% outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC11111\'];
+% htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'\'];
+
+outputdirectory = ['F:\Junk\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'\RAW\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'\HTML\'];
+
 
 % ____________________________________________________________Configuration
 
@@ -116,19 +121,18 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v
 
 %nc file loc changed%
 
-ncfile(1).name = ['N:\SCERM\SCERM_v6_A2\Output/SCERM8_2017_2018_ALL_plt.nc'];% change this to the nc file loc
+ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM8_2017_2018_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(1).legend = 'AED2';
+ncfile(1).legend = 'SCERM 8';
 ncfile(1).translate = 1;
 
 
-%ncfile(2).name = ['N:\SCERM\SCERM_v6_A2\Output/SCERM8_2017_2018_AEDv2_ALL_plt.nc'];% change this to the nc file loc
-% ncfile(2).name = ['Q:\SCERM\SCERM\Output\ALL/swan_2017_2018_ALL.nc'];% change this to the nc file loc
-% ncfile(2).symbol = {'-';'-'};% top and bottom
-% ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-% ncfile(2).legend = 'V5';
-% ncfile(2).translate = 1;
+ncfile(2).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2017_2018_ALL.nc'];% change this to the nc file loc
+ncfile(2).symbol = {'-';'-'};% top and bottom
+ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ncfile(2).legend = 'SCERM 44';
+ncfile(2).translate = 1;
 % 
 % ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
 % ncfile(2).symbol = {'-';'-'};
@@ -143,7 +147,8 @@ ncfile(1).translate = 1;
 % yr = 2015;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(yr,02:03:16,01);
+def.datearray = datenum(yr,02:03:21,01);
+%def.datearray = datenum(yr,03:01:08,01);
 def.dateformat = 'mmm-yy';
 % Defaults_________________________________________________________________
 

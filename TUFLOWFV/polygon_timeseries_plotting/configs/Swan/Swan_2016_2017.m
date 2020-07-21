@@ -5,7 +5,7 @@
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox.shp';
 yr = 2016;
 rgh = '2016_2017';
 
@@ -74,15 +74,15 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\IC_Chx\',rgh,'\'];
+outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC1\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v4_v5\V4_B4_Multiyear_NewZones\',rgh,'\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['Q:\Busch\Studysites\Swan\Simulations\SCERM\Output/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Q:\SCERM\SCERM\Output\ALL/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom
 ncfile(1).legend = 'Model';

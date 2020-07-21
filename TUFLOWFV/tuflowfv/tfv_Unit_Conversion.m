@@ -152,7 +152,9 @@ switch varname
     case 'TN_TP'
         ydata = ydata * 1;
         units = 'mg/L';
-        
+    case 'TN_CHX'
+        ydata = ydata * (14/1000);
+        units = 'mg/L';        
         %     case 'SAL'
         %         %PPT to uS/cm
         %           ydata = ydata * (31/1000);

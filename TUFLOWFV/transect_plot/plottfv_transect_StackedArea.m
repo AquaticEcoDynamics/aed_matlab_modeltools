@@ -67,7 +67,7 @@ preproc = 0;
 end
 
 if ~exist('addmarker','var')
-addmarker = 0;
+addmarker = 1;
 end
 
 

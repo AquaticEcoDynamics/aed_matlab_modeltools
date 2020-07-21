@@ -21,6 +21,7 @@ while ~feof(fid)
         for j = 1:length(shp)
             inpol = inpolygon(XX,YY,shp(j).X,shp(j).Y);
             if inpol
+			% ZZ = ZZ * (shp(j).Factor /10)
                 ZZ = ZZ *2;
             end
         end

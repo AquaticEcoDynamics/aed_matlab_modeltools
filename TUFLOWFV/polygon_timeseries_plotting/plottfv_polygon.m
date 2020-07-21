@@ -25,6 +25,9 @@ if ~exist('fieldrange_min','var')
     fieldrange_min = 200;
 end
 
+if exist('validation_minmax','var') == 0
+    validation_minmax = 0;
+end
 
 if exist('isRange','var') == 0
     isRange = 1;
@@ -54,7 +57,7 @@ if ~exist('end_plot_ID','var')
 end
 
 if ~exist('alph','var')
-	alph = 0.5;
+    alph = 0.5;
 end
 
 if ~isfield(def,'visible')
@@ -148,10 +151,15 @@ if plotmodel
         if isfield(ncfile(mod),'tfv')
             ttdata = tfv_readnetcdf(ncfile(mod).tfv,'names','D');
         else
-            
-            ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
+            if sum(strcmpi(allvars,'D')) == 1
+                ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
+            else
+                tttdata = tfv_readnetcdf(ncfile(mod).name,'names',{'cell_Zb';'H'}); clear functions
+                ttdata.D = tttdata.H - tttdata.cell_Zb;clear tttdata;
+            end
         end
         %ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
+        
         d_data(mod).D = ttdata.D;
     end
 end
@@ -365,10 +373,10 @@ for var = start_plot_ID:end_plot_ID
         
         for mod = 1:length(ncfile)
             if plotmodel
-                tic 
+                tic
                 [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
                 toc
-               % tic
+                % tic
                 %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
                 %toc
                 %save data.mat data -mat
@@ -418,7 +426,7 @@ for var = start_plot_ID:end_plot_ID
                                     xdata_t = [];
                                     ydata_t = [];
                                     
-                                    [xdata_ta,ydata_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,...
+                                    [xdata_ta,ydata_ta,ydata_max_ta,ydata_min_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,...
                                         fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
                                     
                                     
@@ -427,13 +435,19 @@ for var = start_plot_ID:end_plot_ID
                                     if ~isempty(gfg)
                                         xdata_t = xdata_ta(gfg);
                                         ydata_t = ydata_ta(gfg);
+                                        ydata_max_t = ydata_max_ta(gfg);
+                                        ydata_min_t = ydata_min_ta(gfg);
                                     end
                                     
                                     if ~isempty(xdata_t)
                                         
                                         [xdata_d,ydata_d] = process_daily(xdata_t,ydata_t);
+                                        [~,ydata_max_d] = process_daily(xdata_t,ydata_max_t);
+                                        [~,ydata_min_d] = process_daily(xdata_t,ydata_min_t);
                                         
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
+                                        [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
+                                        [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
@@ -455,9 +469,23 @@ for var = start_plot_ID:end_plot_ID
                                                     'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 
+                                                if validation_minmax
+                                                    fp = plot(xdata_d,ydata_max_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                    fp = plot(xdata_d,ydata_min_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                end
+                                                uistack(fp,'top');
+                                                
                                             else
                                                 fp = plot(xdata_d,ydata_d,mface,...
                                                     'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'displayname',[agency, ' Bot']);hold on
+                                                if validation_minmax
+                                                    fp = plot(xdata_d,ydata_max_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                    fp = plot(xdata_d,ydata_min_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                end
                                                 uistack(fp,'top');
                                             end
                                             
@@ -545,7 +573,7 @@ for var = start_plot_ID:end_plot_ID
                                         fig2 = fillyy(data(mod).date,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),col_pal(plim_i,:));
                                         set(fig2,'HandleVisibility','off');
                                         set(fig2,'FaceAlpha', alph);
-
+                                        
                                     end
                                     uistack(fig,'bottom');
                                     uistack(fig2,'bottom');
@@ -566,7 +594,7 @@ for var = start_plot_ID:end_plot_ID
                                 if isfield(fdata.(sitenames{sss(j)}),varname{var})
                                     xdata_t = [];
                                     ydata_t = [];
-                                    [xdata_ta,ydata_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
+                                    [xdata_ta,ydata_ta,ydata_max_ta,ydata_min_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
                                     
                                     
                                     gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
@@ -574,6 +602,8 @@ for var = start_plot_ID:end_plot_ID
                                     if ~isempty(gfg)
                                         xdata_t = xdata_ta(gfg);
                                         ydata_t = ydata_ta(gfg);
+                                        ydata_max_t = ydata_max_ta(gfg);
+                                        ydata_min_t = ydata_min_ta(gfg);
                                     end
                                     
                                     
@@ -581,8 +611,13 @@ for var = start_plot_ID:end_plot_ID
                                         
                                         
                                         [xdata_d,ydata_d] = process_daily(xdata_t,ydata_t);
+                                        [~,ydata_max_d] = process_daily(xdata_t,ydata_max_t);
+                                        [~,ydata_min_d] = process_daily(xdata_t,ydata_min_t);
+                                        
                                         
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
+                                        [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
+                                        [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
@@ -601,8 +636,22 @@ for var = start_plot_ID:end_plot_ID
                                                 %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
+                                                if validation_minmax
+                                                    fp = plot(xdata_d,ydata_max_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                    fp = plot(xdata_d,ydata_min_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                end
+                                                uistack(fp,'top');
                                             else
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                                uistack(fp,'top');
+                                                 if validation_minmax
+                                                    fp = plot(xdata_d,ydata_max_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                    fp = plot(xdata_d,ydata_min_d,'r+',...
+                                                        'HandleVisibility','off');hold on
+                                                end
                                                 uistack(fp,'top');
                                             end
                                             
@@ -726,7 +775,7 @@ for var = start_plot_ID:end_plot_ID
             end
             text(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         else
-           if isylabel
+            if isylabel
                 
                 ylabel([regexprep(loadname,'_',' '),' (model units)'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
             end

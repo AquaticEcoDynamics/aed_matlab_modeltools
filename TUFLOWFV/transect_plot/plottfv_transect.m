@@ -27,6 +27,11 @@ if ~exist('start_plot_ID','var')
     start_plot_ID = 1;
 end
 
+if ~exist('isSpherical','var')
+    isSpherical = 0;
+end
+
+
 if ~exist('end_plot_ID','var')
     end_plot_ID = length(varname);
 end
@@ -128,18 +133,18 @@ for var = start_plot_ID:end_plot_ID
     for tim = 1:length(def.pdates)
 
         for mod = 1:length(ncfile)
-            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf);
+            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical);
         end
-
+        clear functions;
 
 
         if plotvalidation
             fielddata = [];
             fielddist = [];
-            [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,loadname,def.pdates(tim).value);
+            [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,loadname,def.pdates(tim).value,isSpherical);
 
         end
-
+        clear functions;
 
 
 

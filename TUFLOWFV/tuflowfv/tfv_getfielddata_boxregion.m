@@ -1,4 +1,17 @@
-function [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,varname,mtime)
+function [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,varname,mtime,isSpherical)
+
+%Convert from km to m
+binRad = def.binradius * 1000;
+
+distRad = binRad;
+
+
+
+% Convert Radius for spherical
+
+if isSpherical
+    binRad = binRad/111111;
+end
 
 % dusplicated processing in model data bit. Should be replaced.
 for i = 1:length(shp)
@@ -11,7 +24,12 @@ dist(1,1) = 0;
 for i = 2:length(shp)
     
     dist(i,1) = sqrt(power((sdata(i,1) - sdata(i-1,1)),2) + power((sdata(i,2)- sdata(i-1,2)),2)) + dist(i-1,1);
+
     
+    
+end
+if isSpherical
+   dist = dist * 111111;
 end
 
 dist = dist / 1000; % convert to km
@@ -27,7 +45,7 @@ for i = 1:length(thePolygons)
     
     [~,ind] = min(abs(dist - thePolygons(i)));
     
-    T = nsidedpoly(360,'Center',[shp(ind).X shp(ind).Y],'Radius',(def.binradius*1000));
+    T = nsidedpoly(360,'Center',[shp(ind).X shp(ind).Y],'Radius',binRad);
     
     pol(i).X = T.Vertices(:,1);
     pol(i).Y = T.Vertices(:,2);

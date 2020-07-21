@@ -163,7 +163,8 @@ switch varname
         
     otherwise
         %  disp(['No Conversion Made for: ',varname]);
-        ydata = ydata * 1;
+        
+        ydata = ydata .* 1;
         units = [];
         isConv = 0;
         

@@ -16,7 +16,7 @@ theyear = 2015;
 def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
 
 % Set up the time loops
-for ii = 04:14
+for ii = 04:15
 
 def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
 

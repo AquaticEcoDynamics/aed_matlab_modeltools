@@ -41,8 +41,8 @@ varname = {...
 %     'TN_CHX',...
      };
 
- start_plot_ID = 1
- %end_plot_ID = 1;
+ start_plot_ID = 1;
+ end_plot_ID = 7;
 
 int = 1;
 def.cAxis(int).value = [0 4];int = int + 1; %	'WQ_DIAG_TOT_TN',...
@@ -108,8 +108,8 @@ fieldprctile = [10 90];
 % outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC_Chx\'];
 % htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Catchment_Model_2017\',rgh,'\'];
 
-outputdirectory = ['F:\Junk\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'\HTML\'];
+outputdirectory = ['F:\Junk\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'_report\RAW_scenarios2\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\',rgh,'_report\HTML_scenarios2\'];
 
 % ____________________________________________________________Configuration
 
@@ -117,18 +117,26 @@ htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v
 
 %nc file loc changed%
 
-ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM8_2015_2016_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(1).legend = 'SCERM 8';
+ncfile(1).legend = 'SCERM 44 Base';
 ncfile(1).translate = 1;
 
 
-ncfile(2).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_ALL.nc'];% change this to the nc file loc
+ncfile(2).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_Dry_ALL.nc'];% change this to the nc file loc
 ncfile(2).symbol = {'-';'-'};% top and bottom
 ncfile(2).colour = {'r','g'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-ncfile(2).legend = 'SCERM 44';
+ncfile(2).legend = 'SCERM 44 Dry';
 ncfile(2).translate = 1;
+
+% ncfile(3).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_Capped_ALL.nc'];% change this to the nc file loc
+% ncfile(3).symbol = {'-';'-'};% top and bottom
+% ncfile(3).colour = {'b','c'};%{[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(3).legend = 'SCERM 44 Capped';
+% ncfile(3).translate = 1;
+
+
 % 
 % ncfile(2).name = ['P:\SCERM_TEST\Output\swan_2017_2018_catchment_ALL.nc'];
 % ncfile(2).symbol = {'-';'-'};

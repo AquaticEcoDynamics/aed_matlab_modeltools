@@ -67,7 +67,7 @@ plottype = 'timeseries'; %timeseries or 'profile'
 
 plotvalidation = true; % Add field data to figure (true or false)
 
-plotdepth = {'bottom'};%;'bottom'};  % Cell-array with either one or both
+plotdepth = {'surface'};%;'bottom'};  % Cell-array with either one or both
 
 validation_minmax = 1;
 
@@ -87,8 +87,8 @@ fieldprctile = [10 90];
 
 isHTML = 1;
 
-outputdirectory = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting\RAW_v4\';
-htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting\HTML_v4\';
+outputdirectory = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV/RAW/';
+htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -97,17 +97,17 @@ htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting\HTML_v4\';
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'F:/GLAD_EXT_SEDI_HIND_2D_000.nc';
+ ncfile(1).name = 'N:\GDSTN\TUFLOWFV\output\GLAD_EXT_SEDI_HIND_2D_000_bund_MZ_nTrace.nc';
  ncfile(1).symbol = {'-';'-'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
- ncfile(1).legend = 'GDSTON BASE';
+ ncfile(1).legend = 'Porous Bund';
  ncfile(1).translate = 1;
 %  
-%  ncfile(2).name = 'J:\Historical\run_2016_BASE.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-%  ncfile(2).legend = 'Restart';
-%  ncfile(2).translate = 1;
+  ncfile(2).name = 'N:\GDSTN\TUFLOWFV\output\GLAD_EXT_SEDI_HIND_2D_000.nc';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = 'Basecase';
+ ncfile(2).translate = 1;
  
 % ___________________________________________________________________Models
 
@@ -119,8 +119,11 @@ htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting\HTML_v4\';
 %def.datearray = datenum(yr,0def.datearray = datenum(yr,01:4:36,01);
 %def.datearray = datenum(yr,1:12:96,01);
 
-yr = 2012;
-def.datearray = datenum(yr,01:01:04,01);
+yr = 2011;
+def.datearray = datenum(yr,11,01:01:07);
+
+% yr = 2012;
+% def.datearray = datenum(yr,01:01:04,01);
 
 def.dateformat = 'mm-yy';
 % Must have same number as variable to plot & in same order

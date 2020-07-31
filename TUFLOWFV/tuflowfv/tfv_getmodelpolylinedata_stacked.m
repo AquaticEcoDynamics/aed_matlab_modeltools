@@ -1,4 +1,4 @@
-function [data,c_units,isConv] = tfv_getmodelpolylinedata_stacked(rawData,filename,X,Y,shp,varname,timebin,isSurf)
+function [data,c_units,isConv] = tfv_getmodelpolylinedata_stacked(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical)
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
 mtime = tfv_readnetcdf(filename,'time',1);
@@ -18,6 +18,10 @@ for i = 2:length(shp)
     
     dist(i,1) = sqrt(power((sdata(i,1) - sdata(i-1,1)),2) + power((sdata(i,2)- sdata(i-1,2)),2)) + dist(i-1,1);
     
+end
+
+if isSpherical
+    dist = dist * 111111;
 end
 
 dist = dist / 1000; % convert to km

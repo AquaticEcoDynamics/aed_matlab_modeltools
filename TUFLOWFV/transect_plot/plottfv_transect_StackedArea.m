@@ -67,9 +67,12 @@ preproc = 0;
 end
 
 if ~exist('addmarker','var')
-addmarker = 1;
+addmarker = 0;
 end
 
+if ~exist('isSpherical','var')
+    isSpherical = 0;
+end
 
 isConv = 0;
 
@@ -161,7 +164,7 @@ for tim = 1:length(def.pdates)
         for k = 1:length(thevars)
             
             rd(mod).data.(thevars{k}) = raw(mod).data(k).Val;
-            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata_stacked(rd(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,thevars(k),def.pdates(tim).value,isSurf);
+            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata_stacked(rd(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,thevars(k),def.pdates(tim).value,isSurf,isSpherical);
             
             pData(:,k) = data(mod).pred_lim_ts(3,:);
             
@@ -176,7 +179,7 @@ for tim = 1:length(def.pdates)
     if plotvalidation
         fielddata = [];
         fielddist = [];
-        [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,varname{1},def.pdates(tim).value);
+        [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,varname{1},def.pdates(tim).value,isSpherical);
         
     end
     

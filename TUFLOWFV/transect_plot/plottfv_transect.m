@@ -64,7 +64,7 @@ if ~isfield(def,'rangelegend')
 end
 
 if ~exist('addmarker','var')
-addmarker = 1;
+addmarker = 0;
 end
 
 isConv = 0;

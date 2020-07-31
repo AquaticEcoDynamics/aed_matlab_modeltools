@@ -103,8 +103,7 @@ ncfile(2).translate = 1;
 % def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
 %def.datearray = datenum(yr,02:01:05,01);
-def.datearray = datenum(yr,02:03:21,01);
-%def.datearray = datenum(yr,03:01:08,01);
+def.datearray = datenum(yr,04:03:17,01);%def.datearray = datenum(yr,03:01:08,01);
 def.dateformat = 'mmm-yy';
 % Defaults_________________________________________________________________
 

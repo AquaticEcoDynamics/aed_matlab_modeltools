@@ -612,6 +612,7 @@ for var = start_plot_ID:end_plot_ID
                                     [xdata_ta,ydata_ta,ydata_max_ta,ydata_min_ta] = get_field_at_depth(fdata.(sitenames{sss(j)}).(varname{var}).Date,fdata.(sitenames{sss(j)}).(varname{var}).Data,fdata.(sitenames{sss(j)}).(varname{var}).Depth,plotdepth{lev});
                                     
                                     
+                                    
                                     gfg = find(xdata_ta >= def.datearray(1) & xdata_ta <= def.datearray(end));
                                     
                                     if ~isempty(gfg)

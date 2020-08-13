@@ -55,8 +55,13 @@ if strcmpi(level,'surface')
     
 else
    mindepth = min(mDepth);
-
-    sss = find(mDepth < (mindepth+1));
+   
+   if mindepth < -5
+        mindepth = mindepth + 3;
+   else
+       mindepth = mindepth + 1;
+   end
+    sss = find(mDepth < (mindepth));
     
     if ~isempty(sss)
         

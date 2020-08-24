@@ -12,7 +12,7 @@ points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
 
 
 int = 1;
-theyear = 2017;
+theyear = 2015;
 %Initial Condition
 def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
 
@@ -22,7 +22,10 @@ for ii = 04:15
 def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
 
 end
-
+def.pdates(int).value = [datenum(theyear,05,01) datenum(theyear,08,01)];int = int + 1;
+def.pdates(int).value = [datenum(theyear,08,01) datenum(theyear,11,01)];int = int + 1;
+def.pdates(int).value = [datenum(theyear,11,01) datenum(theyear,14,01)];int = int + 1;
+def.pdates(int).value = [datenum(theyear,14,01) datenum(theyear,17,01)];int = int + 1;
 
 
 
@@ -47,19 +50,21 @@ def.xlabel = 'Distance from Fremantle (km)';
 
 
 thevars = {...
-    'WQ_PHS_FRP',...
-    'WQ_PHS_FRP_ADS',...
-    'WQ_OGM_DOP',...
-    'WQ_OGM_DOPR',...
-    'WQ_OGM_POP',...
+    'WQ_PHY_GRN',...
+    'WQ_PHY_BGA',...
+    'WQ_PHY_CRYPT',...
+    'WQ_PHY_DIATOM',...
+    'WQ_PHY_DINO',...
 };
 
 %Field Var
-varname = {'WQ_DIAG_TOT_TP'};
+varname = {'WQ_DIAG_PHY_TCHLA'};
 
-addmarker = 1;
 
-def.cAxis(1).value = [0 0.5];         %'SAL',...
+thevars_conv = 12/50;
+
+
+def.cAxis(1).value = [0 100];         %'SAL',...
 %def.cAxis(2).value = [5 25];         %'TEMP',...
 
 % start_plot_ID = 1;
@@ -83,15 +88,15 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2017_2018_report\StackedArea_SCERM44_TP\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2017_2018_report\StackedArea_SCERM44_TP\HTML\'];
+outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM8_TCHLA\RAW\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM8_TCHLA\HTML\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
-ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2017_2018_ALL.nc'];% change this to the nc file loc
-ncfile(1).legend = 'SCERM 44';
+ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM8_2015_2016_ALL.nc'];% change this to the nc file loc
+ncfile(1).legend = 'SCERM 8';
 %
 %  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';

@@ -67,10 +67,7 @@ preproc = 0;
 end
 
 if ~exist('addmarker','var')
-addmarker = 1;
-end
-if ~exist('markerfile','var')
-markerfile = 'marker2.mat';
+addmarker = 0;
 end
 
 if ~exist('isSpherical','var')
@@ -258,7 +255,7 @@ for tim = 1:length(def.pdates)
         
         HH=gca; HH.XAxis.TickLength = [0 0];
         
-        load(markerfile);
+        load marker.mat;
         
         yl = get(gca,'ylim');
         yl_r = (yl(2) - yl(1)) * 0.01;

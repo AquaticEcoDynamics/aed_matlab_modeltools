@@ -63,10 +63,16 @@ if ~isfield(def,'rangelegend')
     def.rangelegend = 'northwest';
 end
 
-if ~exist('addmarker','var')
-addmarker = 0;
+if exist('isRange','var') == 0
+    isRange = 0;
 end
 
+if ~exist('addmarker','var')
+addmarker = 1;
+end
+if ~exist('markerfile','var')
+markerfile = 'marker2.mat';
+end
 isConv = 0;
 
 
@@ -80,6 +86,8 @@ def.col_pal(2).value =[[215 204 200]./255; [200 204 200]./255; [185 204 200]./25
 
 def.median_line(1).value = [0 96 100]./255;
 def.median_line(2).value = [0 0 0];
+def.median_line(3).value = 'g';
+def.median_line(4).value = 'b';
 
 dimc = [0.9 0.9 0.9]; % dimmest (lightest) color
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
@@ -135,6 +143,7 @@ for var = start_plot_ID:end_plot_ID
     for tim = 1:length(def.pdates)
 
         for mod = 1:length(ncfile)
+            
             [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical);
         end
         clear functions;
@@ -156,21 +165,21 @@ for var = start_plot_ID:end_plot_ID
         set(0,'DefaultAxesFontSize',6)
 
         for mod = 1:length(ncfile)
+            if isRange
+                fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
+                %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
+                set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
+                set(fig,'FaceAlpha', alph);
+                hold on
 
-            fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
-            %fig = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(1,:),data(mod).pred_lim_ts_b(2*nn-1,:),dimc);hold on
-            set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
-            set(fig,'FaceAlpha', alph);
-            hold on
-
-            for plim_i=2:(nn-1)
-                fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
-                %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
-                set(fig2,'HandleVisibility','off');
-                set(fig2,'FaceAlpha', alph);
+                for plim_i=2:(nn-1)
+                    fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
+                    %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
+                    set(fig2,'HandleVisibility','off');
+                    set(fig2,'FaceAlpha', alph);
+                end
             end
-
-            plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);
+            plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);hold on
 
         end
 
@@ -214,7 +223,7 @@ for var = start_plot_ID:end_plot_ID
         
         HH=gca; HH.XAxis.TickLength = [0 0];
         
-        load marker.mat;
+        load(markerfile);
         
         yl = get(gca,'ylim');
         yl_r = (yl(2) - yl(1)) * 0.01;

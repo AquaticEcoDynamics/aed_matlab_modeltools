@@ -4,8 +4,8 @@ addpath(genpath('../tuflowfv'));
 
 dirlist = dir(['N:\SCERM\SCERM_v6_A3\Output_plt\','*.nc']);
 
-thedirs = [1 2 3 4 6 7 9 10]
-
+%thedirs = [1 2 3 4 6 7 9 10]
+thedirs = [3 4 7]
 for bb = thedirs%1:length(dirlist)
     
     

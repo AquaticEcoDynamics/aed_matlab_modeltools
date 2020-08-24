@@ -1,8 +1,8 @@
 clear all; close all;
 
-shp = shaperead('..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox_v2.shp');
+shp = shaperead('..\..\..\SCERM\matlab\modeltools\gis\swan_erz_only.shp');
 
-points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
+points_file = '../../../SCERM/matlab/modeltools/gis/Canning_Transect_Pnt.shp';
 
 pnt = shaperead(points_file);
 
@@ -44,5 +44,5 @@ for i = 1:length(uID)
     marker.End(i) = dist(sss(end));
 end
 
-save marker.mat marker -mat
+save marker3.mat marker -mat
 

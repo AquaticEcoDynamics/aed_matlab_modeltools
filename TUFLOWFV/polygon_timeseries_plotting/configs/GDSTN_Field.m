@@ -70,7 +70,7 @@ plotvalidation = true; % Add field data to figure (true or false)
 plotdepth = {'surface'};%;'bottom'};  % Cell-array with either one or both
 
 validation_minmax = 1;
-validation_raw = 1;
+validation_raw = 0;
 
 
 istitled = 1;
@@ -93,8 +93,8 @@ plotmodel = 0;
 
 isHTML = 1;
 
-outputdirectory = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV_Field/RAW/';
-htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV_Field/HTML/';
+outputdirectory = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV_Field_Daily/RAW/';
+htmloutput = 'F:\Cloudstor\Shared\AED_Gladstone\matlab\plotting/Timeseries_v4_NOV_Field_Daily/HTML/';
 % ____________________________________________________________Configuration
 
 

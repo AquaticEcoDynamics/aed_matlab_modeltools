@@ -5,21 +5,30 @@
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox_v2.shp';
 
 
 varname = {...
-    'SAL',...
-    'TEMP',...
+    'WQ_DIAG_PHY_TCHLA',...
+     'TEMP',...
+     'SAL',...
+     'WQ_DIAG_TOT_TN',...
+     'WQ_DIAG_TOT_TP',...
+     'WQ_OXY_OXY',...
      };
 
 % varname = {...
 %     'SAL',...
 %     'TEMP',...
 %     };
-
-def.cAxis(1).value = [0 45];
-def.cAxis(2).value = [10 35];
+int = 1;
+def.cAxis(int).value = [];int = int + 1;
+def.cAxis(int).value = [];int = int + 1;
+def.cAxis(int).value = [];int = int + 1;
+def.cAxis(int).value = [];int = int + 1;
+def.cAxis(int).value = [];int = int + 1;
+def.cAxis(int).value = [];int = int + 1;
+%def.cAxis(2).value = [10 35];
 %def.cAxis(1).value = [5 45];
 
 
@@ -57,8 +66,8 @@ fieldprctile = [10 90];
 
 
 
-outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Long_Term_data_1995_2020\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Long_Term_data_1995_2020\HTML\'];
+outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Field_Data_CHX\RAW\'];
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\Field_Data_CHX\HTML\'];
 
 % ____________________________________________________________Configuration
 
@@ -81,10 +90,10 @@ ncfile(1).translate = 1;
 
 
 
-% yr = 2015;
-% def.datearray = datenum(yr,01:03:21,01);
+ yr = 2008;
+ def.datearray = datenum(yr,01:03:21,01);
 %yr = 2009;
-def.datearray = datenum(1995:05:2020,01,01);
+%def.datearray = datenum(1995:05:2020,01,01);
 
 %def.datearray = datenum(yr,04:03:16,01);
 def.dateformat = 'yyyy';

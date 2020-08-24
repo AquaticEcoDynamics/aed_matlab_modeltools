@@ -142,6 +142,9 @@ switch varname
     case 'WQ_DIAG_TOT_TSS'
         ydata = ydata * 1;
         units = 'mg/L';
+	case 'TSS'
+        ydata = ydata * 1;
+        units = 'mg/L';
     case 'WQ_NCS_SS1'
         ydata = ydata * 1;
         units = 'mg/L';

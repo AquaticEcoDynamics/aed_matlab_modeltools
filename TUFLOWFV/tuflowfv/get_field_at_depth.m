@@ -34,9 +34,9 @@ if strcmpi(level,'surface')
                 if length(ggg) > 3
                     
                     xdata(inc,1) = mean(mDate_b(sss2(ggg)));
-                    
-                    ydata_max(inc,1) = max(mData_b(sss2(ggg)));
-                    ydata_min(inc,1) = min(mData_b(sss2(ggg)));
+                    [ydata_min(inc,1),ydata_max(inc,1)] = prctile(mData_b(sss2(ggg)),[10,90]);
+                    !ydata_max(inc,1) = max(mData_b(sss2(ggg)));
+                    !ydata_min(inc,1) = min(mData_b(sss2(ggg)));
                     ydata(inc,1) = mean(mData_b(sss2(ggg)));
                     
                 else
@@ -82,8 +82,9 @@ else
                 
                 xdata(inc,1) = mDate_b(sss2(tt(1)));
                 ydata(inc,1) = mData_b(sss2(tt(1)));
-                ydata_max(inc,1) = mDate_b(sss2(tt(1)));
-                ydata_min(inc,1) = mDate_b(sss2(tt(1)));
+				[ydata_min(inc,1),ydata_max(inc,1)] = prctile(mData_b(sss2(tt(1))),[10,90]);
+                %ydata_max(inc,1) = mData_b(sss2(tt(1)));
+                %ydata_min(inc,1) = mData_b(sss2(tt(1)));
                 
                 
                 inc = inc + 1;

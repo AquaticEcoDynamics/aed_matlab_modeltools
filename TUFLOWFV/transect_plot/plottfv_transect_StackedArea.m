@@ -67,7 +67,7 @@ preproc = 0;
 end
 
 if ~exist('addmarker','var')
-addmarker = 1;
+addmarker = 0;
 end
 if ~exist('markerfile','var')
 markerfile = 'marker2.mat';

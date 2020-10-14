@@ -115,7 +115,7 @@ plottype = 'timeseries'; %timeseries or 'profile'
 % Add field data to figure
 plotvalidation = true; % true or false
 
-plotdepth = {'surface';'bottom'};%;'bottom'};%'bottom'}; % Cell with either one or both
+plotdepth = {'surface'};%;'bottom'};%'bottom'}; % Cell with either one or both
 %plotdepth = {'surface'};%,'bottom'}; % Cell with either one or both
 
 istitled = 1;
@@ -136,8 +136,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_1\';
-htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\Field Data 2010_2020 v4 Report\';
+outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_2\';
+htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\Field Data\Field Data 2010_2020 v5 Report\';
 
 % ____________________________________________________________Configuration
 

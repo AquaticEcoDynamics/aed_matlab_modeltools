@@ -85,7 +85,7 @@ def.cAxis(19).value = [0 100];  %'WQ_DIAG_PHY_TCHLA',...
 def.cAxis(20).value = [0 50];   	%'WQ_DIAG_PHY_TCHLA_EXO',...
 def.cAxis(21).value = [0 80];   %'WQ_DIAG_TOT_TDN',... 
 def.cAxis(22).value = [0 2.5];  %'WQ_DIAG_TOT_TDP',... 
-def.cAxis(23).value = [0 2.5];   %'WQ_DIAG_TOT_TN',... 
+def.cAxis(23).value = [0 8];   %'WQ_DIAG_TOT_TN',... 
 def.cAxis(24).value = [0 20];	%'WQ_DIAG_TOT_TOC',...
 def.cAxis(25).value = [0 1];  %'WQ_DIAG_TOT_TON',... 
 def.cAxis(26).value = [0 0.1];  %'WQ_DIAG_TOT_TP',... 
@@ -136,8 +136,8 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_1\';
-htmloutput = '..\..\..\Hawkesbury\data\field_data_plots\SC\';
+outputdirectory = 'F:\Work Stuff\Hawkesbury\Plots\SC_2\';
+htmloutput = '..\..\..\Hawkesbury\data\field_data_plots\SC Field Data 2013\';
 
 % ____________________________________________________________Configuration
 
@@ -163,8 +163,12 @@ htmloutput = '..\..\..\Hawkesbury\data\field_data_plots\SC\';
 
 
 
-yr = 2010;
-def.datearray = datenum(yr:02:2020,01,01);
+% yr = 2010;
+% def.datearray = datenum(yr:02:2020,01,01);
+yr = 2013;
+def.datearray = datenum(yr,06:03:19,01);
+
+
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';

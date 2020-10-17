@@ -34,9 +34,13 @@ if strcmpi(level,'surface')
                 if length(ggg) > 3
                     
                     xdata(inc,1) = mean(mDate_b(sss2(ggg)));
-                    %[ydata_min(inc,1),ydata_max(inc,1)] = prctile(mData_b(sss2(ggg)),[10,90]);
-                    ydata_max(inc,1) = max(mData_b(sss2(ggg)));
-                    ydata_min(inc,1) = min(mData_b(sss2(ggg)));
+                    %[ydata_min(inc,1),ydata_max(inc,1)] 
+                    y = prctile(mData_b(sss2(ggg)),[10,90]);
+                    ydata_min(inc,1) = y(1);
+                    ydata_max(inc,1) = y(2);
+                    
+                    %ydata_max(inc,1) = max(mData_b(sss2(ggg)));
+                    %ydata_min(inc,1) = min(mData_b(sss2(ggg)));
                     ydata(inc,1) = mean(mData_b(sss2(ggg)));
                     
                 else
@@ -54,12 +58,17 @@ if strcmpi(level,'surface')
     end
     
 else
+    
    mindepth = min(mDepth);
    
-   if mindepth < -5
-        mindepth = mindepth + 3;
+   if mindepth < -1
+       if mindepth < -5
+            mindepth = mindepth + 3;
+       else
+           mindepth = mindepth + 1;
+       end
    else
-       mindepth = mindepth + 1;
+       mindepth = -1;
    end
     sss = find(mDepth < (mindepth));
     
@@ -82,7 +91,13 @@ else
                 
                 xdata(inc,1) = mDate_b(sss2(tt(1)));
                 ydata(inc,1) = mData_b(sss2(tt(1)));
-				[ydata_min(inc,1),ydata_max(inc,1)] = prctile(mData_b(sss2(tt(1))),[10,90]);
+				%[ydata_min(inc,1),ydata_max(inc,1)] = prctile(mData_b(sss2(tt(1))),[10,90]);
+                
+                    y = prctile(mData_b(sss2(tt(1))),[10,90]);
+                    ydata_min(inc,1) = y(1);
+                    ydata_max(inc,1) = y(2);
+                
+                
                 %ydata_max(inc,1) = mData_b(sss2(tt(1)));
                 %ydata_min(inc,1) = mData_b(sss2(tt(1)));
                 

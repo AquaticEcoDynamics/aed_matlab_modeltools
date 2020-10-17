@@ -3,11 +3,12 @@
 addpath(genpath('tuflowfv'));
 
 
-fielddata_matfile = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/matfiles/hawkesbury_all.mat';
-%fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
+%fielddata_matfile = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/matfiles/hawkesbury_all.mat';
+fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
 fielddata = 'hawkesbury_all';
 
-polygon_file = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/gis/HN_Calibration_v3.shp';
+%polygon_file = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/gis/HN_Calibration_v3.shp';
+polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
 
 
 
@@ -102,20 +103,22 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/';
-htmloutput = ['/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/'];
+%outputdirectory = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/';
+%htmloutput = ['/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/'];
+outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v6\Plots_MH_wq\2017\';
+htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v6_WQ\2017_2018\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/output/HN_Cal_2017_2018_3D_wq_WQ.nc';
+ ncfile(1).name = 'N:\Hawkesbury\HN_Cal_v6_A1a_2017\output\HN_Cal_2017_2018_3D_wq_WQ.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = 'V6 A1';
  ncfile(1).translate = 1;
   
- ncfile(2).name = '/Volumes/AED/Hawkesbury/HN_Cal_v5_A8/output/HN_Cal_2017_2018_WQ.nc';
+ ncfile(2).name = 'N:\Hawkesbury\HN_Cal_v5_A8\output\HN_Cal_2017_2018_WQ.nc';
  ncfile(2).symbol = {'-';'--'};
  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
  ncfile(2).legend = 'V5 A8';

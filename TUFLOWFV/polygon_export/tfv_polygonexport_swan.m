@@ -2,21 +2,21 @@ clear all; close all;
 warning off
 addpath(genpath('../tuflowfv'));
 
-dirlist = dir(['N:\SCERM\SCERM_v6_A3\Output_plt\','*.nc']);
+dirlist = dir(['N:\SCERM\SCERM_v6_A3\Output\ALL\','*.nc']);
 
 %thedirs = [1 2 3 4 6 7 9 10]
 thedirs = [3 4 7]
-for bb = thedirs%1:length(dirlist)
+for bb = 1:length(dirlist)
     
     
-    ncfile = ['N:\SCERM\SCERM_v6_A3\Output_plt\',dirlist(bb).name];
+    ncfile = ['N:\SCERM\SCERM_v6_A3\Output\ALL\',dirlist(bb).name];
     
     folder = regexprep(dirlist(bb).name,'.nc','');
     
     %polygon_file = '..\..\..\Lake-Erie-2019\matlab\modeltools\gis\erie_validation_v4.shp';
     polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_only.shp';
     
-    outdir = ['N:\SCERM\SCERM_v6_A3\Export_v2\',folder,'\'];
+    outdir = ['N:\SCERM\SCERM_v6_A3\Export_v4\',folder,'\'];
     
     thevars = {...
         'WQ_NIT_NIT',...

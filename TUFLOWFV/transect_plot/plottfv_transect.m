@@ -126,10 +126,123 @@ for var = start_plot_ID:end_plot_ID
                 raw(mod).data.TN_TP = (oxy.WQ_DIAG_TOT_TN* 14/1000) ./ (tra.WQ_DIAG_TOT_TP* 31/1000);
 
 
+                case 'ECOLI'
+                    
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                    raw(mod).data.ECOLI = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) ;
+                    clear ECOLI_F ECOLI_A
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ECLOI')
+                            fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
+                        end
+                    end
 
+                case 'ECOLI_TOTAL'
+                    
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});
+                    raw(mod).data.ECOLI_TOTAL = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) + (ECOLI_D.WQ_PAT_ECOLI_D) ;
+                    clear ECOLI_F ECOLI_A ECOLI_D
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ECLOI')
+                            fdata.(thesites{bdb}).ECOLI_TOTAL = fdata.(thesites{bdb}).ECLOI;
+                        end
+                    end
+
+                case 'ECOLI_PASSIVE'
+                    
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                    raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
+                    clear ECOLI_P  
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ECLOI')
+                            fdata.(thesites{bdb}).ECOLI_PASSIVE = fdata.(thesites{bdb}).ECLOI;
+                        end
+                    end
+
+                case 'ECOLI_SIMPLE'
+                    
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR3'});
+                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR3) ;
+                    clear ECOLI_P  
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ECLOI')
+                            fdata.(thesites{bdb}).ECOLI_SIMPLE = fdata.(thesites{bdb}).ECLOI;
+                        end
+                    end
+                    
+                case 'ENTEROCOCCI'
+                    
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                    %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
+                   raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
+                    clear ENT_F ENT_A 
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ENT')
+                            fdata.(thesites{bdb}).ENTEROCOCCI = fdata.(thesites{bdb}).ENT;
+                        end
+                    end
+                    
+                case 'ENTEROCOCCI_TOTAL'
+                    
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
+                   raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
+                    clear ENT_F ENT_A ENT_D
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ENT')
+                            fdata.(thesites{bdb}).ENTEROCOCCI_TOTAL = fdata.(thesites{bdb}).ENT;
+                        end
+                    end
+                    
+                case 'ENTEROCOCCI_PASSIVE'
+                    
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
+                    clear ENT_P  
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ENT')
+                            fdata.(thesites{bdb}).ENTEROCOCCI_PASSIVE = fdata.(thesites{bdb}).ENT;
+                        end
+                    end
+                    
+                case 'ENTEROCOCCI_SIMPLE'
+                    
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});
+                    raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR4) ;
+                    clear ENT_P  
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'ENT')
+                            fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
+                        end
+                    end
+                    
+                    
+                    
             otherwise
                 raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
         end
+        
         tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
         all_cells(mod).X = double(tdata.cell_X);
         all_cells(mod).Y = double(tdata.cell_Y);

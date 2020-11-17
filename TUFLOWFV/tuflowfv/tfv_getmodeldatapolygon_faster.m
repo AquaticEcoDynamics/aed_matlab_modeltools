@@ -122,7 +122,7 @@ tdate = dat.Time;
 % data.pred_lim_ts_b = prctile(data.bottom,pred_lims,1);
 % toc
 
-data.date = tdate;
+%data.date = tdate;
 %
 
 inc = 1;

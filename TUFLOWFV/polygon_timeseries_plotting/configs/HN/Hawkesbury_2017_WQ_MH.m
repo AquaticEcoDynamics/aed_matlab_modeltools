@@ -4,11 +4,11 @@ addpath(genpath('tuflowfv'));
 
 
 %fielddata_matfile = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/matfiles/hawkesbury_all.mat';
-fielddata_matfile = '..\..\..\Hawkesbury\matlab\modeltools\matfiles\hawkesbury_all.mat';
+fielddata_matfile = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/matfiles/hawkesbury_all.mat';
 fielddata = 'hawkesbury_all';
 
 %polygon_file = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/gis/HN_Calibration_v3.shp';
-polygon_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\HN_Calibration_v3.shp';
+polygon_file = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/gis/HN_Calibration_v3.shp';
 
 
 
@@ -39,6 +39,10 @@ varname = {...
     'WQ_DIAG_TOT_TURBIDITY',...
     'TEMP',...
     'SAL',...
+    'ECOLI_PASSIVE',...
+    'ECOLI_SIMPLE',...
+    'ENTEROCOCCI_PASSIVE',...
+    'ENTEROCOCCI_SIMPLE',...    
 };
 
 
@@ -67,7 +71,11 @@ def.cAxis(22).value = [0 15];           %'WQ_DIAG_TOT_TOC',...
 def.cAxis(23).value = [0 100];           %'WQ_DIAG_TOT_TSS',...
 def.cAxis(24).value = [0 300];         %'WQ_DIAG_TOT_TURBIDITY',...
 def.cAxis(25).value = [5 40];           %'Temp',...
-def.cAxis(26).value = [];         %'SAL',...
+def.cAxis(26).value = [0 40];         %'SAL',...
+def.cAxis(27).value = [0 500];           %'Temp',...
+def.cAxis(28).value = [0 500];           %'Temp',...
+def.cAxis(29).value = [0 500];           %'Temp',...
+def.cAxis(30).value = [0 500];           %'Temp',...
 
 %start_plot_ID = 19;
 
@@ -80,13 +88,13 @@ plotvalidation = true; % true or false
 plotdepth = {'surface';};%'bottom'};%;'bottom'};%'bottom'}; % Cell with either one or both
 %plotdepth = {'surface'};%,'bottom'}; % Cell with either one or both
 
-isHTML = 0;
+isHTML = 1;
 
 istitled = 1;
 isylabel = 1;
 islegend = 1;
 isYlim = 1;
-isRange = 0;
+isRange = 1;
 isRange_Bottom = 0;
 Range_ALL = 0;
 
@@ -105,28 +113,28 @@ depth_range = [0.5 100];
 
 %outputdirectory = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/';
 %htmloutput = ['/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/'];
-outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v6\Plots_MH_wq\2017\';
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v6_WQ\2017_2018\'];
+outputdirectory = '~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2017/';
+htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2017/html/'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = 'N:\Hawkesbury\HN_Cal_v6_A1a_2017\output\HN_Cal_2017_2018_3D_wq_WQ.nc';
+ ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A2_2017/output/HN_Cal_2017_2018_3D_wq_WQ.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
- ncfile(1).legend = 'V6 A1';
+ ncfile(1).legend = 'V6';
  ncfile(1).translate = 1;
   
- ncfile(2).name = 'N:\Hawkesbury\HN_Cal_v5_A8\output\HN_Cal_2017_2018_WQ.nc';
- ncfile(2).symbol = {'-';'--'};
- ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- ncfile(2).legend = 'V5 A8';
- ncfile(2).translate = 1;
+% ncfile(2).name = 'N:\Hawkesbury\HN_Cal_v5_A8\output\HN_Cal_2017_2018_WQ.nc';
+% ncfile(2).symbol = {'-';'--'};
+% ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+% ncfile(2).legend = 'V5 A8';
+% ncfile(2).translate = 1;
 
  
 yr = 2017;
-def.datearray = datenum(yr,04:04:25,01);
+def.datearray = datenum(yr,07:07:21,01);
 %def.datearray = datenum(yr,01:1:4,01);
 
 def.dateformat = 'mm-yy';
@@ -142,10 +150,10 @@ def.fieldcolour = {'m',[0.6 0.6 0.6]}; % Cell with same number of levels
 
 def.font = 'Arial';
 
-def.xlabelsize = 7;
-def.ylabelsize = 7;
+def.xlabelsize = 9;
+def.ylabelsize = 9;
 def.titlesize = 12;
-def.legendsize = 6;
+def.legendsize = 7;
 def.legendlocation = 'northeastoutside';
 
 def.visible = 'off'; % on or off

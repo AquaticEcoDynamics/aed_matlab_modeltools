@@ -359,19 +359,19 @@ for var = start_plot_ID:end_plot_ID
             set(gca,'xtick',def.xticks,'xticklabel',def.xticks);
         end
         if strcmpi(loadname,'TN_TP') == 0
-         ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+         ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         else
-          ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+          ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         end
 
-        xlabel(def.xlabel,'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        xlabel(def.xlabel,'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         if isSurf
         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
-            'fontsize',6,'color',[0.4 0.4 0.4]);
+            'fontsize',10,'color',[0.4 0.4 0.4]);
         else
          text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
-            'fontsize',6,'color',[0.4 0.4 0.4]);
+            'fontsize',10,'color',[0.4 0.4 0.4]);
         end
 
          if addmarker
@@ -388,9 +388,9 @@ for var = start_plot_ID:end_plot_ID
         
 
         
-        for kkk = 1:length(marker.Dist)
-            text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
-        end
+        %for kkk = 1:length(marker.Dist)
+        %    text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
+        %end
     end
         
         
@@ -414,7 +414,7 @@ for var = start_plot_ID:end_plot_ID
                     mval = max(fielddata(sss));
 
                     mval = mval + offset;
-                    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
+                    text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',6,'horizontalalignment','center');
                 end
             end
 

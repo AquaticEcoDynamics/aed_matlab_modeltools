@@ -14,7 +14,7 @@ fielddata = 'hawkesbury_all';
 %points_file = '..\..\..\Hawkesbury\matlab\modeltools\gis\Transectpnt_HN_100.shp';
 points_file = '/Users/00042030/Sims/Hawkesbury/matlab/modeltools/gis/Transectpnt_HN_100.shp';
 
-t_yr = 2017;
+t_yr = 2013;
 int = 1;
 
 % %Months
@@ -148,8 +148,8 @@ isHTML = 0;
 isSurf = 1; %plot surface (1) or bottom (0)
 isRange = 1;
  
-outputdirectory = '~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq_v/2017/transect/' ;
-htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq_v/2017/html/'];
+outputdirectory = '~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq_v/2013/transect/' ;
+htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq_v/2013/html/'];
 %outputdirectory = 'F:\Temp_Plots\Hawkesbury\HN_Cal_v5\plots_V5_A8_2013_1_S\';
 %htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Hawkesbury\Model_Results\HN_Cal_v5_A8\2013_2014\Transect-Surface-Seasons\'];
 
@@ -157,7 +157,7 @@ htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq_v/2017/html/'];
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A2_2017/output/HN_Cal_2017_2018_3D_wq_WQ.nc';
+ ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A2_2013/output/HN_Cal_2013_2014_3D_wq_WQ.nc';
 %ncfile(1).name = 'N:\Hawkesbury\HN_Cal_v5_A8\output\HN_Cal_2013_2014_WQ.nc';
  ncfile(1).legend = 'V6';
 

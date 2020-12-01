@@ -956,7 +956,7 @@ for var = start_plot_ID:end_plot_ID
         else
             if isylabel
                 
-                ylabel([regexprep(loadname,'_',' '),' (model units)'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
             end
             % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         end

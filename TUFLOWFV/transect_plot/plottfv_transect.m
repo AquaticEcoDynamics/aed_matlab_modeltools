@@ -126,7 +126,7 @@ for var = start_plot_ID:end_plot_ID
                 raw(mod).data.TN_TP = (oxy.WQ_DIAG_TOT_TN* 14/1000) ./ (tra.WQ_DIAG_TOT_TP* 31/1000);
 
 
-                case 'ECOLI'
+            case 'ECOLI'
                     
                     ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
                     ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
@@ -170,8 +170,8 @@ for var = start_plot_ID:end_plot_ID
 
                 case 'ECOLI_SIMPLE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR3'});
-                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR3) ;
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR1) ;
                     clear ECOLI_P  
                     
                     thesites = fieldnames(fdata);
@@ -226,8 +226,8 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_SIMPLE'
                     
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});
-                    raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR4) ;
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR2) ;
                     clear ENT_P  
                     
                     thesites = fieldnames(fdata);
@@ -373,8 +373,9 @@ for var = start_plot_ID:end_plot_ID
          text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
             'fontsize',10,'color',[0.4 0.4 0.4]);
         end
-
-         if addmarker
+        
+        
+        if addmarker
         
         HH=gca; HH.XAxis.TickLength = [0 0];
         
@@ -386,12 +387,10 @@ for var = start_plot_ID:end_plot_ID
         yx(1:length(marker.Dist)) = yl(2);
         scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
         
-
-        
         %for kkk = 1:length(marker.Dist)
         %    text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
         %end
-    end
+        end
         
         
 

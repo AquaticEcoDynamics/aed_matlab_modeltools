@@ -391,8 +391,8 @@ for var = start_plot_ID:end_plot_ID
 
                 case 'ECOLI_SIMPLE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR3'});
-                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR3) ;
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR2) ;
                     clear ECOLI_P  
                     
                     thesites = fieldnames(fdata);
@@ -457,7 +457,51 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
                         end
                     end
+
+                case 'HSI_CYANO'
+                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});
+                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});
+                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
+                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
+                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
+                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});
+                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});
+                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});
                     
+                    %------ temperature
+                    %The numbers I've used for Darwin Reservoir cyanobacteria are:
+                    %Theta_growth (v) = 1.08;
+                    %T_std = 28; %T_opt = 34; %T_max = 40;
+                    k =  4.1102;
+                    a = 35.0623;
+                    b =  0.1071;
+                    v =  1.0800;
+                    fT = v.^(TEM.TEMP-20)-v.^(k.*(TEM.TEMP-a))+b;
+                    
+                    %------ nitrogen
+                    KN = 4;                %   in mmol/m3
+                    fN = (NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM) ./ (KN+(NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM));
+                    
+                    %------ phosphorus
+                    KP = 0.15;    % in mmol/m3
+                    fP = FRP.WQ_PHS_FRP./(KP+FRP.WQ_PHS_FRP);
+                 
+                    %------ salinity
+                    KS = 5;                %   in PSU
+                    fS = KS ./ (KS+(SAL.SAL));
+                    fS(SAL.SAL<KS/2.)=1;
+                    
+                    %------ stratification/velocity
+                    KV = 0.5;
+                    V = (V_x.V_x.*V_x.V_x + V_y.V_y.*V_y.V_y).^0.5; %   in m/s
+                    fV = KV ./ (KV+V);
+                    fV(V<0.05)=0.;
+
+                    raw(mod).data.HSI_CYANO = ( fT .* min(fN,fP) .* fS .* fV);
+                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;  
+
+                    clear fT;
+                                        
                 otherwise
                     
                     raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});

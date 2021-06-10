@@ -113,14 +113,14 @@ depth_range = [0.5 100];
 
 %outputdirectory = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/';
 %htmloutput = ['/Volumes/AED/Hawkesbury/HN_Cal_v6_A1a_2017/plotting/Plots_V6/'];
-outputdirectory = '~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2017/';
-htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2017/html/'];
+outputdirectory = '~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2014/';
+htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2014/html/'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A2_2017/output/HN_Cal_2017_2018_3D_wq_WQ.nc';
+ ncfile(1).name = '/Volumes/AED/Hawkesbury/HN_Cal_v6_A2_2014/output/HN_Cal_2014_2015_3D_wq_WQ.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = 'V6';
@@ -133,7 +133,7 @@ htmloutput = ['~/Dropbox/HawkesburyNepean/HN_Cal_v6/Plots_MH_wq/2017/html/'];
 % ncfile(2).translate = 1;
 
  
-yr = 2017;
+yr = 2014;
 def.datearray = datenum(yr,07:07:21,01);
 %def.datearray = datenum(yr,01:1:4,01);
 

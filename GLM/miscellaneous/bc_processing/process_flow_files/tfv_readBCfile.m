@@ -28,9 +28,9 @@ while ~EOF
     else
         dataline = regexp(sLine,',','split');
         
-        for ii = 1:length(headers);
+        for ii = 1:length(headers)
             
-            if strcmpi(headers{ii},'Date')
+            if (strcmpi(headers{ii},'Date') || strcmpi(headers{ii},'ISOTIME'))
                 data.Date(inc,1) = datenum(dataline{ii},...
                                         'dd/mm/yyyy HH:MM:SS');
             else

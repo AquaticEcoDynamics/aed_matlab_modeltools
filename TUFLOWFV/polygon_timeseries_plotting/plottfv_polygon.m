@@ -202,27 +202,27 @@ for var = start_plot_ID:end_plot_ID
                 
                 case 'OXYPC'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});clear functions
                     tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});
                     raw(mod).data.OXYPC = tra.TRACE_1 ./ oxy.WQ_AED_OXYGEN_OXY;
                     clear tra oxy
                     
                 case 'WindSpeed'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});clear functions
                     raw(mod).data.WindSpeed = sqrt(power(oxy.W10_x,2) + power(oxy.W10_y,2));
                     clear  oxy
                     
                 case 'WindDirection'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});clear functions
                     raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);
                     clear  oxy
                     
                 case 'WQ_DIAG_PHY_TCHLA'
                     
                     if sum(strcmpi(allvars,'WQ_DIAG_PHY_TCHLA')) == 0
-                        tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});
+                        tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});clear functions
                         raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
                             ((tchl.WQ_PHY_CRYPT / 50)*12) + ...
                             ((tchl.WQ_PHY_DIATOM / 26)*12) + ...
@@ -230,12 +230,12 @@ for var = start_plot_ID:end_plot_ID
                             ((tchl.WQ_PHY_BGA / 40)*12));
                         clear tchl
                     else
-                        raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
+                        raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
                     end
                     
                 case 'V'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});clear functions
                     raw(mod).data.V = sqrt(power(oxy.V_x,2) + power(oxy.V_y,2));
                     clear tra oxy
                     
@@ -246,8 +246,8 @@ for var = start_plot_ID:end_plot_ID
                     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
                     %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
                     %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
-                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});clear functions
+                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});clear functions
                     raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;
                     clear DON PON
                     
@@ -279,14 +279,14 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
-                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});clear functions
+                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});clear functions
                     raw(mod).data.OP = DON.WQ_OGM_DOP + PON.WQ_OGM_POP;
                     clear TP FRP
                     
                 case 'TN_CHX'
-                    TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
-                    CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});
+                    TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});clear functions
+                    CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});clear functions
                     raw(mod).data.TN_CHX = TN.WQ_DIAG_TOT_TN - CPOM.WQ_OGM_CPOM;
                     clear TP FRP
                     
@@ -295,9 +295,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DONR')) > 0
-                        DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
+                        DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});clear functions
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON + DONR.WQ_OGM_DONR;
                     else
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON;% + DONR.WQ_OGM_DONR;
@@ -309,9 +309,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});
+                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0
-                        DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});
+                        DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});clear functions
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;
                     else
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC;% + DOCR.WQ_OGM_DOCR;
@@ -323,9 +323,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
+                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0
-                        DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});
+                        DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});clear functions
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;
                     else
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP;% + DOPR.WQ_OGM_DOPR;
@@ -334,9 +334,9 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'TURB'
                     
-                    SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});
-                    POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});
-                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
+                    SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});clear functions
+                    POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});clear functions
+                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});clear functions
                     raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
                     clear SS1 POC GRN
                     
@@ -349,8 +349,8 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ECOLI'
                     
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});clear functions
                     raw(mod).data.ECOLI = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) ;
                     clear ECOLI_F ECOLI_A
                     
@@ -363,9 +363,9 @@ for var = start_plot_ID:end_plot_ID
 
                 case 'ECOLI_TOTAL'
                     
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
-                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});clear functions
+                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});clear functions
                     raw(mod).data.ECOLI_TOTAL = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) + (ECOLI_D.WQ_PAT_ECOLI_D) ;
                     clear ECOLI_F ECOLI_A ECOLI_D
                     
@@ -378,7 +378,7 @@ for var = start_plot_ID:end_plot_ID
 
                 case 'ECOLI_PASSIVE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});clear functions
                     raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
                     clear ECOLI_P  
                     
@@ -391,7 +391,7 @@ for var = start_plot_ID:end_plot_ID
 
                 case 'ECOLI_SIMPLE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR2) ;
                     clear ECOLI_P  
                     
@@ -404,8 +404,8 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI'
                     
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
                     %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
                    raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
                     clear ENT_F ENT_A 
@@ -419,9 +419,9 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_TOTAL'
                     
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
-                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
+                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});clear functions
                    raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
                     clear ENT_F ENT_A ENT_D
                     
@@ -434,7 +434,7 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_PASSIVE'
                     
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
                     clear ENT_P  
                     
@@ -447,7 +447,7 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_SIMPLE'
                     
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});clear functions
                     raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR4) ;
                     clear ENT_P  
                     
@@ -459,14 +459,14 @@ for var = start_plot_ID:end_plot_ID
                     end
 
                 case 'HSI_CYANO'
-                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});
-                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});
-                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
-                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
-                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});
-                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});
-                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});
+                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});clear functions
+                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});clear functions
+                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});clear functions
+                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});clear functions
+                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});clear functions
+                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});clear functions
+                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});clear functions
+                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});clear functions
                     
                     %------ temperature
                     %The numbers I've used for Darwin Reservoir cyanobacteria are:
@@ -504,7 +504,7 @@ for var = start_plot_ID:end_plot_ID
                                         
                 otherwise
                     
-                    raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
+                    raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
                     
             end
         end
@@ -553,7 +553,7 @@ for var = start_plot_ID:end_plot_ID
         for mod = 1:length(ncfile)
             if plotmodel
                 tic
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);clear functions
                 toc
                 % tic
                 %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);

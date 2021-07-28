@@ -4,24 +4,24 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'N:\SCERM\SCERM_v6\Output/SCERM8_2017_2018_noAED_ALL.nc';
+ncfile = 'X:\Maryam\Sherry_Maryam\With Culvert\Roselea9\Output/Roselea.nc';
 
-outdir = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\SCERM8_2017_V5_v6_Comp\Movies\';
+outdir = 'C:\Users\00065525\Scratch\Roselea\Roselea7\Movies\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'TEMP';
+varname = 'D';
 
-cax = [10 30];
+cax = [0 5];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'TEMP Bottom';
+title = 'Height (m)';
 
 % These two slow processing down. Only set to 1 if required
 create_movie = 1; % 1 to save movie, 0 to just display on screen
 save_images = 0;
 
-plot_interval = 1;
+plot_interval = 24;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -29,7 +29,7 @@ plot_interval = 1;
 clip_depth = 0.05;% In m
 %clip_depth = 999;% In m
 
-isTop = 0;
+isTop = 1;
 
 %____________
 
@@ -78,7 +78,7 @@ first_plot = 1;
 
 
 
-for i = 1:1:length(timesteps)%1:plot_interval:length(timesteps)
+for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions
@@ -103,15 +103,15 @@ for i = 1:1:length(timesteps)%1:plot_interval:length(timesteps)
     
     end
     
-%    Depth = tdat.D;
-%     
-%     
-%     if clip_depth < 900
-%     
-%         Depth(Depth < clip_depth) = 0;
-%     
-%         cdata(Depth == 0) = NaN;
-%     end
+   Depth = tdat.D;
+    
+    
+    if clip_depth < 900
+    
+        Depth(Depth < clip_depth) = 0;
+    
+        cdata(Depth == 0) = NaN;
+    end
     
     if strcmpi(varname,'WQ_TRC_RET') == 1
         cdata = cdata ./ 86400;
@@ -179,8 +179,8 @@ for i = 1:1:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([390570.066437591          402744.362863775]);
-          ylim([6460568.84475645          6468346.60140324]);
+          xlim([388138.343429895          388487.177943441]);
+          ylim([6471121.0911399          6471343.95001086]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

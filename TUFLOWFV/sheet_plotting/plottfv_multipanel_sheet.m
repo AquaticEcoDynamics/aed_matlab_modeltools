@@ -1,23 +1,23 @@
 clear all; close all;
 
-addpath(genpath('tuflowfv'));
+addpath(genpath('..\tuflowfv'));
 int = 1;
 
 var(int).name  = 'WQ_NCS_SS1';
-var(int).nc    = 'great_2015_2017_aed_WQ.nc';
+var(int).nc    = 'Y:\CDM\Wave\coorong-bgc-master-20210414\coorong-bgc-master\02_modelling\output\CoorongBGC_006_validation_201707_201903_wq_wave_v2_all.nc';
 var(int).conv  = 1;
-var(int).caxis = [0 200];
-var(int).Title = 'SS1';
+var(int).caxis = [0 300];
+var(int).Title = 'Suspended Solids (mg/L)';
 
 
 
 int = int  + 1;
 
-var(int).name  = 'WQ_NCS_SS2';
-var(int).nc    = 'great_2015_2017_aed_WQ.nc';
+var(int).name  = 'WVHT';
+var(int).nc    = 'Y:\CDM\Wave\coorong-bgc-master-20210414\coorong-bgc-master\02_modelling\output\CoorongBGC_006_validation_201707_201903_wq_wave_v2_all.nc';
 var(int).conv  = 1;
-var(int).caxis = [0 200];
-var(int).Title = 'SS2';
+var(int).caxis = [0 0.2];
+var(int).Title = 'Wave Height';
 int = int  + 1;
 
 
@@ -45,9 +45,9 @@ int = int  + 1;
 
 
 
-pdate = datenum(2015,1,01:1:30,12,00,00);
+pdate = datenum(2017,7,01,1:2:120,00,00);
 
-outputdir = './Sheet/';
+outputdir = 'C:\Users\00065525\Scratch\CDM\Sheet\';
 
 cols = 2;
 rows = 1;
@@ -102,12 +102,12 @@ for j = 1:length(pdate)
         set(cb,'position',[cb1(1) (cb1(2)-0.1) cb1(3) 0.01]);
 
         text(0.2,0.99,var(i).Title,'fontsize',8,'units','normalized');
-        text(0.6,0.0,datestr(pdate(j),'dd-mm-yyyy'),'fontsize',8,'units','normalized','horizontalalignment','center');
+        text(0.6,0.0,datestr(pdate(j),'dd-mm-yyyy HH:MM'),'fontsize',8,'units','normalized','horizontalalignment','center');
         axis off; axis equal;
 
 
     end
-
+    
 
 
     set(gcf, 'PaperPositionMode', 'manual');
@@ -118,7 +118,7 @@ for j = 1:length(pdate)
     yTop = (30-ySize)/2;
     set(gcf,'paperposition',[0 0 xSize ySize])
 
-    finalname = [outputdir,datestr(pdate(j),'yyyymmdd'),'.png'];
+    finalname = [outputdir,datestr(pdate(j),'yyyymmdd_HHMM'),'.png'];
     %print(gcf,finalname,'-depsc2');
     print(gcf,finalname,'-dpng','-r300');
 

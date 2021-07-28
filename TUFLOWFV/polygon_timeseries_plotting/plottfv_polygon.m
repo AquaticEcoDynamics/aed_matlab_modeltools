@@ -22,11 +22,11 @@ if ~exist('htmloutput','var')
 end
 
 if ~exist('add_error','var')
-	add_error = 0;
+    add_error = 1;
 end
 
 if ~exist('add_human','var')
-	add_human = 1;
+    add_human = 0;
 end
 
 if ~exist('fieldrange_min','var')
@@ -368,7 +368,7 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_TOTAL'
                     
                     ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions
@@ -383,12 +383,12 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI_TOTAL = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_PASSIVE'
                     
                     ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});clear functions
                     raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
-                    clear ECOLI_P  
+                    clear ECOLI_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -396,12 +396,12 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI_PASSIVE = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_SIMPLE'
                     
                     ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR2) ;
-                    clear ECOLI_P  
+                    clear ECOLI_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -415,8 +415,8 @@ for var = start_plot_ID:end_plot_ID
                     ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
                     ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
                     %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
-                   raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
-                    clear ENT_F ENT_A 
+                    raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
+                    clear ENT_F ENT_A
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -430,7 +430,7 @@ for var = start_plot_ID:end_plot_ID
                     ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
                     ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
                     ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});clear functions
-                   raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
+                    raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
                     clear ENT_F ENT_A ENT_D
                     
                     thesites = fieldnames(fdata);
@@ -444,7 +444,7 @@ for var = start_plot_ID:end_plot_ID
                     
                     ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
-                    clear ENT_P  
+                    clear ENT_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -457,7 +457,7 @@ for var = start_plot_ID:end_plot_ID
                     
                     ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});clear functions
                     raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR4) ;
-                    clear ENT_P  
+                    clear ENT_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -465,7 +465,7 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
                         end
                     end
-
+                    
                 case 'HSI_CYANO'
                     TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});clear functions
                     SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});clear functions
@@ -493,7 +493,7 @@ for var = start_plot_ID:end_plot_ID
                     %------ phosphorus
                     KP = 0.15;    % in mmol/m3
                     fP = FRP.WQ_PHS_FRP./(KP+FRP.WQ_PHS_FRP);
-                 
+                    
                     %------ salinity
                     KS = 5;                %   in PSU
                     fS = KS ./ (KS+(SAL.SAL));
@@ -504,12 +504,12 @@ for var = start_plot_ID:end_plot_ID
                     V = (V_x.V_x.*V_x.V_x + V_y.V_y.*V_y.V_y).^0.5; %   in m/s
                     fV = KV ./ (KV+V);
                     fV(V<0.05)=0.;
-
+                    
                     raw(mod).data.HSI_CYANO = ( fT .* min(fN,fP) .* fS .* fV);
-                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;  
-
+                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;
+                    
                     clear fT;
-                                        
+                    
                 otherwise
                     
                     raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
@@ -772,40 +772,40 @@ for var = start_plot_ID:end_plot_ID
                     
                     
                     if add_error
-					MatchedData_bottom=[];
-                    if exist('xdata_d','var') && ~isempty(xdata_dt)
-                        % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
-                        % MatchedData_obs_surf=ydata_t(loc_obs);
-                        % MatchedData_sim_surf=ydata(loc_sim);
-                        
-                        disp('find field data ...');
-                        alldayso=floor(xdata_dt);
-                        unidayso=unique(alldayso);
-                        obsData(:,1)=unidayso;
-                        
-                        for uuo=1:length(unidayso)
-                            tmpinds=find(alldayso==unidayso(uuo));
-                            tmpydatatt=ydata_dt(tmpinds);
-                            obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
-                            clear tmpydatatt;
+                        MatchedData_bottom=[];
+                        if exist('xdata_d','var') && ~isempty(xdata_dt)
+                            % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
+                            % MatchedData_obs_surf=ydata_t(loc_obs);
+                            % MatchedData_sim_surf=ydata(loc_sim);
+                            
+                            disp('find field data ...');
+                            alldayso=floor(xdata_dt);
+                            unidayso=unique(alldayso);
+                            obsData(:,1)=unidayso;
+                            
+                            for uuo=1:length(unidayso)
+                                tmpinds=find(alldayso==unidayso(uuo));
+                                tmpydatatt=ydata_dt(tmpinds);
+                                obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
+                                clear tmpydatatt;
+                            end
+                            
+                            alldays=floor(xdata);
+                            unidays=unique(alldays);
+                            simData(:,1)=unidays;
+                            
+                            for uu=1:length(unidays)
+                                tmpinds=find(alldays==unidays(uu));
+                                simData(uu,2)=mean(ydata(tmpinds));
+                            end
+                            
+                            [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
+                            MatchedData_bottom = [v obsData(loc_obs,2) simData(loc_sim,2)];
+                            clear simData obsData v loc* alldays unidays
+                            clear xdata_dt ydata_dt xdata_d ydata_d
                         end
                         
-                        alldays=floor(xdata);
-                        unidays=unique(alldays);
-                        simData(:,1)=unidays;
-                        
-                        for uu=1:length(unidays)
-                            tmpinds=find(alldays==unidays(uu));
-                            simData(uu,2)=mean(ydata(tmpinds));
-                        end
-                        
-                        [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
-                        MatchedData_bottom = [v obsData(loc_obs,2) simData(loc_sim,2)];
-                        clear simData obsData v loc* alldays unidays
-                        clear xdata_dt ydata_dt xdata_d ydata_d
-                    end											
-                    
-                    
+                    end
                     
                 else
                     if plotmodel
@@ -1002,39 +1002,39 @@ for var = start_plot_ID:end_plot_ID
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
                     end
-					if add_error
-					 MatchedData_surf=[];
-                    if (exist('xdata_dt','var') && ~isempty(xdata_dt))
-                        % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
-                        % MatchedData_obs_surf=ydata_t(loc_obs);
-                        % MatchedData_sim_surf=ydata(loc_sim);
-                        
-                        disp('find field data ...');
-                        alldayso=floor(xdata_dt);
-                        unidayso=unique(alldayso);
-                        obsData(:,1)=unidayso;
-                        
-                        for uuo=1:length(unidayso)
-                            tmpinds=find(alldayso==unidayso(uuo));
-                            tmpydatatt=ydata_dt(tmpinds);
-                            obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
-                            clear tmpydatatt;
+                    if add_error
+                        MatchedData_surf=[];
+                        if (exist('xdata_dt','var') && ~isempty(xdata_dt))
+                            % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
+                            % MatchedData_obs_surf=ydata_t(loc_obs);
+                            % MatchedData_sim_surf=ydata(loc_sim);
+                            
+                            disp('find field data ...');
+                            alldayso=floor(xdata_dt);
+                            unidayso=unique(alldayso);
+                            obsData(:,1)=unidayso;
+                            
+                            for uuo=1:length(unidayso)
+                                tmpinds=find(alldayso==unidayso(uuo));
+                                tmpydatatt=ydata_dt(tmpinds);
+                                obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
+                                clear tmpydatatt;
+                            end
+                            
+                            alldays=floor(xdata);
+                            unidays=unique(alldays);
+                            simData(:,1)=unidays;
+                            
+                            for uu=1:length(unidays)
+                                tmpinds=find(alldays==unidays(uu));
+                                simData(uu,2)=mean(ydata(tmpinds));
+                            end
+                            
+                            [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
+                            MatchedData_surf = [v obsData(loc_obs,2) simData(loc_sim,2)];
+                            clear simData obsData v loc* alldays unidays
+                            clear xdata_d ydata_d xdata_dt ydata_dt
                         end
-                        
-                        alldays=floor(xdata);
-                        unidays=unique(alldays);
-                        simData(:,1)=unidays;
-                        
-                        for uu=1:length(unidays)
-                            tmpinds=find(alldays==unidays(uu));
-                            simData(uu,2)=mean(ydata(tmpinds));
-                        end
-                        
-                        [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
-                        MatchedData_surf = [v obsData(loc_obs,2) simData(loc_sim,2)];
-                        clear simData obsData v loc* alldays unidays
-                        clear xdata_d ydata_d xdata_dt ydata_dt
-                    end					
                     end
                     
                     %end
@@ -1084,21 +1084,21 @@ for var = start_plot_ID:end_plot_ID
         if isConv
             if isylabel
                 if add_human
-				ylabel([regexprep(loadname_human,'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
-				else
-                ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
-				end
+                    ylabel([regexprep(loadname_human,'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                else
+                    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                end
             end
             % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         else
             if isylabel
                 if add_human
-				ylabel([regexprep(loadname_human,'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
-				else
-				
-                ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
-				end
-			end
+                    ylabel([regexprep(loadname_human,'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                else
+                    
+                    ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                end
+            end
             % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         end
         
@@ -1232,68 +1232,70 @@ for var = start_plot_ID:end_plot_ID
             leg = legend('location',def.legendlocation);
             set(leg,'fontsize',def.legendsize);
         end
-		 %% adding error output
-        
-        MatchedData_obs=[];
-        MatchedData_sim=[];
-        
-        if (exist('MatchedData_surf','var') && ~isempty(MatchedData_surf))
-            MatchedData_obs=[MatchedData_obs, MatchedData_surf(:,2)];
-            MatchedData_sim=[MatchedData_sim, MatchedData_surf(:,3)];
-        end
-        if (exist('MatchedData_bottom','var') && ~isempty(MatchedData_bottom))
-            MatchedData_obs=[MatchedData_obs', MatchedData_bottom(:,2)'];
-            MatchedData_sim=[MatchedData_sim', MatchedData_bottom(:,3)'];
-        end
-        clear MatchedData_surf MatchedData_bottom
-        
-        if length(MatchedData_obs)>10
+        %% adding error output
+        if add_error
+            MatchedData_obs=[];
+            MatchedData_sim=[];
             
-            if size(MatchedData_obs,2)>1
-            [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs',MatchedData_sim');
+            if (exist('MatchedData_surf','var') && ~isempty(MatchedData_surf))
+                MatchedData_obs=[MatchedData_obs, MatchedData_surf(:,2)];
+                MatchedData_sim=[MatchedData_sim, MatchedData_surf(:,3)];
+            end
+            if (exist('MatchedData_bottom','var') && ~isempty(MatchedData_bottom))
+                MatchedData_obs=[MatchedData_obs', MatchedData_bottom(:,2)'];
+                MatchedData_sim=[MatchedData_sim', MatchedData_bottom(:,3)'];
+            end
+            clear MatchedData_surf MatchedData_bottom
+            
+            if length(MatchedData_obs)>10
+                
+                if size(MatchedData_obs,2)>1
+                    [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs',MatchedData_sim');
+                else
+                    [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs,MatchedData_sim);
+                end
+                
+                devia=(mean(MatchedData_sim)-mean(MatchedData_obs))/mean(MatchedData_obs);
+                
+                if abs(devia)>10
+                    deviaS='Out of range';
+                    deviaSn=NaN;
+                else
+                    deviaS=[num2str(devia*100,'%3.2f'),'%'];
+                    deviaSn=devia*100;
+                end
+                str{1}=['R = ',num2str(stat_r,'%1.4f')];
+                str{2}=['BIAS = ',deviaS];
+                % str{3}=['NMAE = ',num2str(stat_nmae,'%1.4f')];
+                % str{4}=['NRMS = ',num2str(stat_nrms,'%1.4f')];
+                str{3}=['MAE = ',num2str(stat_mae,'%3.2f'),' (', num2str(stat_nmae*100,'%3.2f'),'%)'];
+                str{4}=['RMS = ',num2str(stat_rms,'%3.2f'),' (', num2str(stat_nrms*100,'%3.2f'),'%)'];
+                if exist('isSaveErr','var') && isMEF
+                    str{5}=['nash = ',num2str(stat_nash,'%1.4f')];
+                end
+                dim=[0.7 0.1 0.25 0.3];
+                ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
+                set(ha,'FontSize',5);
+                errorMatrix.(shp(site).Name).(loadname).R=stat_r;
+                errorMatrix.(shp(site).Name).(loadname).BIAS=deviaSn;
+                errorMatrix.(shp(site).Name).(loadname).MAE=stat_mae;
+                errorMatrix.(shp(site).Name).(loadname).RMS=stat_rms;
+                errorMatrix.(shp(site).Name).(loadname).NMAE=stat_nmae;
+                errorMatrix.(shp(site).Name).(loadname).NRMS=stat_nrms;
+                errorMatrix.(shp(site).Name).(loadname).MEF=stat_nash;
+                clear str stat*;
             else
-                [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs,MatchedData_sim);
+                errorMatrix.(shp(site).Name).(loadname).R=NaN;
+                errorMatrix.(shp(site).Name).(loadname).BIAS=NaN;
+                errorMatrix.(shp(site).Name).(loadname).MAE=NaN;
+                errorMatrix.(shp(site).Name).(loadname).RMS=NaN;
+                errorMatrix.(shp(site).Name).(loadname).NMAE=NaN;
+                errorMatrix.(shp(site).Name).(loadname).NRMS=NaN;
+                errorMatrix.(shp(site).Name).(loadname).MEF=NaN;
             end
             
-            devia=(mean(MatchedData_sim)-mean(MatchedData_obs))/mean(MatchedData_obs);
-            
-            if abs(devia)>10
-                deviaS='Out of range';
-                deviaSn=NaN;
-            else
-                deviaS=[num2str(devia*100,'%3.2f'),'%'];
-                deviaSn=devia*100;
-            end
-            str{1}=['R = ',num2str(stat_r,'%1.4f')];
-            str{2}=['BIAS = ',deviaS];
-           % str{3}=['NMAE = ',num2str(stat_nmae,'%1.4f')];
-           % str{4}=['NRMS = ',num2str(stat_nrms,'%1.4f')];
-            str{3}=['MAE = ',num2str(stat_mae,'%3.2f'),' (', num2str(stat_nmae*100,'%3.2f'),'%)'];
-            str{4}=['RMS = ',num2str(stat_rms,'%3.2f'),' (', num2str(stat_nrms*100,'%3.2f'),'%)'];
-            if exist('isSaveErr','var') && isMEF
-              str{5}=['nash = ',num2str(stat_nash,'%1.4f')];
-            end
-            dim=[0.7 0.1 0.25 0.3];
-            ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
-            set(ha,'FontSize',5);
-            errorMatrix.(shp(site).Name).(loadname).R=stat_r;
-            errorMatrix.(shp(site).Name).(loadname).BIAS=deviaSn;
-            errorMatrix.(shp(site).Name).(loadname).MAE=stat_mae;
-            errorMatrix.(shp(site).Name).(loadname).RMS=stat_rms;
-            errorMatrix.(shp(site).Name).(loadname).NMAE=stat_nmae;
-            errorMatrix.(shp(site).Name).(loadname).NRMS=stat_nrms;
-            errorMatrix.(shp(site).Name).(loadname).MEF=stat_nash;
-            clear str stat*;
-        else
-            errorMatrix.(shp(site).Name).(loadname).R=NaN;
-            errorMatrix.(shp(site).Name).(loadname).BIAS=NaN;
-            errorMatrix.(shp(site).Name).(loadname).MAE=NaN;
-            errorMatrix.(shp(site).Name).(loadname).RMS=NaN;
-            errorMatrix.(shp(site).Name).(loadname).NMAE=NaN;
-            errorMatrix.(shp(site).Name).(loadname).NRMS=NaN;
-            errorMatrix.(shp(site).Name).(loadname).MEF=NaN;
         end
-      %  clear obsData simData v loc_obs loc_sim xdata_tt ydata_tt MatchedData*;					  
+        %  clear obsData simData v loc_obs loc_sim xdata_tt ydata_tt MatchedData*;
         
         %         if strcmp(varname{var},'WQ_AED_OXYGEN_OXY') == 1
         %
@@ -1385,8 +1387,8 @@ end
 disp('')
 disp('plottfv_polygon: DONE')
 %--------------------------------------------------------------------------
-if add_error																											   
-	if exist('isSaveErr','var') && isSaveErr
-		save(ErrFilename,'errorMatrix','-mat');
-	end
+if add_error
+    if exist('isSaveErr','var') && isSaveErr
+        save(ErrFilename,'errorMatrix','-mat');
+    end
 end

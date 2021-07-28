@@ -571,6 +571,9 @@ for var = start_plot_ID:end_plot_ID
                 
             end
             
+			xdata_dt = [];
+            ydata_dt = [];
+            incc=1;					
             for lev = 1:length(plotdepth)
                 
                 if strcmpi(plotdepth{lev},'bottom') == 1
@@ -606,6 +609,8 @@ for var = start_plot_ID:end_plot_ID
                             fplotmu = 0;
                             agencyused2 = [];
                             site_string = ['     field: '];
+		                    xdata_dt=[];
+                            ydata_dt=[];
                             for j = 1:length(sss)
                                 if isfield(fdata.(sitenames{sss(j)}),varname{var})
                                     
@@ -651,10 +656,17 @@ for var = start_plot_ID:end_plot_ID
                                             ydata_min_d = [];
                                         end
                                         
+										
+										
+										
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
+                                        ydata_dt=[ydata_dt ydata_d];
+
+
+										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
                                             
@@ -882,6 +894,11 @@ for var = start_plot_ID:end_plot_ID
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
+										xdata_dt=[xdata_dt xdata_d'];
+                                        ydata_dt=[ydata_dt ydata_d];
+										
+										
+										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
                                         else

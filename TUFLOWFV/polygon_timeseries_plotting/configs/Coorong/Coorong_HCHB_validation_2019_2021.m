@@ -9,7 +9,9 @@ fielddata_matfile = '../../../CDM/data/store/archive/lowerlakes.mat';
 fielddata = 'lowerlakes';
 %fielddata_matfile = 'lowerlakes.mat';
 %fielddata = 'lowerlakes';
-polygon_file = '../../../CDM/gis/supplementary/Coorong/Coorong_obs_sites.shp';
+
+=======
+polygon_file = '../../../CDM/gis/supplementary/Coorong\Final_Ruppia_Area.shp';
 
 %polygon_file = '.\GDSTN_Polygons_200m_v2_C3.shp';
 
@@ -22,6 +24,7 @@ polygon_file = '../../../CDM/gis/supplementary/Coorong/Coorong_obs_sites.shp';
 varname = {...
  'SAL',...
  'TEMP',...
+ 'H',...
  'WQ_DIAG_HAB_RUPPIA_HSI',...
  'WQ_DIAG_TOT_TN',...
  'WQ_DIAG_TOT_TP',...
@@ -128,6 +131,7 @@ isylabel = 1;
 islegend = 1;
 isYlim   = 1;
 isRange  = 1;
+
 isRange_Bottom = 0;
 Range_ALL = 0;
 
@@ -139,13 +143,14 @@ fieldprctile = [10 90];
 
 isHTML = 1;
 
-yr = 2019;
-def.datearray = datenum(yr,1:4:27,1);
+
+yr = 2017;
+def.datearray = datenum(yr,1:4:51,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = 'X:\CDM\hchb_tfvaed_2019_2021_v1/Images/RAW/';
-htmloutput = 'X:\CDM\hchb_tfvaed_2019_2021_v1/Images/HTML/';
+outputdirectory = 'X:\HCHB/validation_2019_2021_2/RAW/';
+htmloutput = 'X:\HCHB/validation_2019_2021_2/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -154,6 +159,7 @@ htmloutput = 'X:\CDM\hchb_tfvaed_2019_2021_v1/Images/HTML/';
 
 % Models___________________________________________________________________
  ncfile(1).name = 'C:\Users\00065525\Scratch\CDM\hchb_wave_201901_202103_wq_all.nc';
+
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2019 - 2021';
@@ -164,6 +170,7 @@ htmloutput = 'X:\CDM\hchb_tfvaed_2019_2021_v1/Images/HTML/';
 %  ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
 %  ncfile(2).legend = 'SC02';
 %  ncfile(2).translate = 1;
+
 % 
 %  ncfile(3).name = 'Y:\CIIP\Scenarios\phase1\SC04\CoorongBGC_SC04_LAC_dry_001_wq_all.nc';
 %  ncfile(3).symbol = {'-';'--'};

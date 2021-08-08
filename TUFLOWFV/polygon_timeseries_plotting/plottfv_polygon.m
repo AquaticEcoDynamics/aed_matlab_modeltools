@@ -111,6 +111,10 @@ if ~exist('depth_range','var')
     depth_range = [0 max_depth];
 end
 
+
+
+
+
 if exist('plotsite','var')
     shp_t = shp;
     clear shp;
@@ -125,6 +129,12 @@ if exist('plotsite','var')
         end
     end
 end
+
+for kk = 1:length(shp)
+    shp(kk).Name = regexprep(shp(kk).Name,' ','_');
+end
+
+
 %--------------------------------------------------------------------------
 
 

@@ -19,7 +19,7 @@ switch agency
     case 'SCU'
          mface = 'dk';
         mcolor = [255/255 111/255 4/255];
-    case 'UA Compiled'
+    case 'UA WQ'
          mface = 'dk';
         mcolor = [255/255 111/255 4/255];
     case 'MU'

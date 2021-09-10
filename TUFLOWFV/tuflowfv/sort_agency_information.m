@@ -7,9 +7,17 @@ switch agency
     case 'WIR'
         mface = 'ok';
         mcolor = [255/255 61/255 9/255];
-    case 'DEW'
+    case 'DEW WDSA Sonde'
         mface = 'ok';
         mcolor = [255/255 61/255 9/255];   
+        
+    case 'DEW WDSA Met'
+        mface = 'pk';
+        mcolor = [255/255 61/255 9/255];  
+        
+   case 'DEW WDSA Hydro'
+        mface = 'dk';
+        mcolor = [255/255 61/255 9/255]; 
     case 'MAFRL'
          mface = 'pk';
         mcolor = [232/255 90/255 24/255];

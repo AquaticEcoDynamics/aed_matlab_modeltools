@@ -86,6 +86,8 @@ if ~exist('fielddata_matfile','var')
 end
 
 
+
+
 isConv = 0;
 
 if ~exist('plotmodel','var')
@@ -125,6 +127,11 @@ if exist('plotsite','var')
         end
     end
 end
+
+if ~plotmodel
+    add_error = 0;
+end
+
 %--------------------------------------------------------------------------
 
 

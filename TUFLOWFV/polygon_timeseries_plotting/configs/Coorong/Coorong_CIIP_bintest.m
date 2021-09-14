@@ -5,11 +5,13 @@
 % fielddata_matfile = 'lowerlakes.mat';
 % fielddata = 'lowerlakes';
 
-fielddata_matfile = '..\..\..\CDM\scripts\modeltools\matfiles\lowerlakes.mat';
-fielddata = 'lowerlakes';
+% fielddata_matfile = '..\..\..\CDM\scripts\modeltools\matfiles\lowerlakes.mat';
+% fielddata = 'lowerlakes';
+fielddata_matfile = '..\..\..\CDM\data\store\hydro\dwlbc.mat';
+fielddata = 'dwlbc';
 %fielddata_matfile = 'lowerlakes.mat';
 %fielddata = 'lowerlakes';
-polygon_file = '..\..\..\CDM\scripts\modeltools\gis\Coorong\Ruppia_Zones.shp';
+polygon_file = '..\..\..\CDM\gis\supplementary\Coorong\Coorong_obs_sites.shp';
 
 %polygon_file = '.\GDSTN_Polygons_200m_v2_C3.shp';
 
@@ -180,8 +182,8 @@ def.datearray = datenum(yr,7:3:20,01);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = 'C:\Users\00065525\Scratch\CDM\mettest\Images\WINBIN/RAW/';
-htmloutput = 'C:\Users\00065525\Scratch\CDM\mettest\Images\WINBIN/HTML/';
+outputdirectory = 'C:\Users\00065525\Scratch\CDM\mettest\Images\WINBIN3/RAW/';
+htmloutput = 'C:\Users\00065525\Scratch\CDM\mettest\Images\WINBIN3/HTML/';
 % ____________________________________________________________Configuration
 
 

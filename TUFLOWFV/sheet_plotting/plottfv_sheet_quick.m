@@ -4,24 +4,24 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'X:\Maryam\Sherry_Maryam\With Culvert\Roselea9\Output/Roselea.nc';
+ncfile = 'X:\CDM\hchb_tfvaed_2019_2021_v1\output\hchb_wave_201901_202103_wq_all.nc';
 
-outdir = 'C:\Users\00065525\Scratch\Roselea\Roselea7\Movies\';
+outdir = 'X:\CDM\hchb_tfvaed_2019_2021_v1\Images/Movies\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'D';
+varname = 'TEMP';
 
-cax = [0 5];
+cax = [5 25];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'Height (m)';
+title = 'Temp (C)';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 1; % 1 to save movie, 0 to just display on screen
-save_images = 0;
+create_movie = 0; % 1 to save movie, 0 to just display on screen
+save_images = 1;
 
-plot_interval = 24;
+plot_interval = 1;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -179,8 +179,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([388138.343429895          388487.177943441]);
-          ylim([6471121.0911399          6471343.95001086]);
+          xlim([294343.700514121          325848.947410673]);
+          ylim([6048881.43071503          6069009.09434997]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

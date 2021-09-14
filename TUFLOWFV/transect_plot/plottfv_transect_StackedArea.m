@@ -146,6 +146,10 @@ for mod = 1:length(ncfile)
     else
        %data1 = compile_tracer_sim(ncfile(mod).name);
        load(datafile);
+       %[data1] = compile_tracer_sim(ncfile(mod).name);
+       
+       save data_TN_1.mat data1 -mat -v7.3;
+       
        for k = 1:length(thevars)
            raw(mod).data(k).Val = data1.(loadname).(thevars{k}) * thevars_conv;
        end
@@ -190,9 +194,9 @@ for tim = 1:length(def.pdates)
     
     
     fig1 = figure('visible',def.visible);
-    set(fig1,'defaultTextInterpreter','latex')
-    set(0,'DefaultAxesFontName','Times')
-    set(0,'DefaultAxesFontSize',6)
+ %   set(fig1,'defaultTextInterpreter','latex')
+    set(0,'DefaultAxesFontName','Arial')
+    set(0,'DefaultAxesFontSize',8)
     
     cmap = parula(length(thevars));
     
@@ -222,7 +226,7 @@ for tim = 1:length(def.pdates)
     
     
     leg = legend(regexprep(thevars,'_',' '));
-    set(leg,'location',def.rangelegend,'fontsize',6);
+    set(leg,'location',def.rangelegend,'fontsize',10);
     
     box_vars = [];
     if plotvalidation
@@ -242,17 +246,23 @@ for tim = 1:length(def.pdates)
         set(gca,'xtick',def.xticks,'xticklabel',def.xticks);
     end
     
-    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
-    
-    xlabel(def.xlabel,'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
-    
-    if isSurf
-        text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
-            'fontsize',6,'color',[0.4 0.4 0.4]);
-    else
-        text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
-            'fontsize',6,'color',[0.4 0.4 0.4]);
+    if exist('theunits','var')
+        %disp('hi')
+        c_units = theunits;
     end
+        
+    
+    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color','k','horizontalalignment','center');
+    
+    xlabel(def.xlabel,'fontsize',10,'color','k','horizontalalignment','center');
+    
+%     if isSurf
+%         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
+%             'fontsize',6,'color',[0.4 0.4 0.4]);
+%     else
+%         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
+%             'fontsize',6,'color',[0.4 0.4 0.4]);
+%     end
     
     if addmarker
         
@@ -261,15 +271,21 @@ for tim = 1:length(def.pdates)
         load(markerfile);
         
         yl = get(gca,'ylim');
-        yl_r = (yl(2) - yl(1)) * 0.01;
-        
+        yl_r = (yl(2) - yl(1)) * 0.03;
+        yl_r1 = (yl(2) - yl(1)) * 0.08;
         yx(1:length(marker.Dist)) = yl(2);
         scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
         
 
         
         for kkk = 1:length(marker.Dist)
-            text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
+            kkk
+            if kkk == 8 | kkk == 6
+                disp('hi');
+                text(marker.Dist(kkk),yl(2)+ yl_r1,['ERZ ',num2str(marker.Label(kkk))],'fontsize',8,'horizontalalignment','center');
+            else
+              text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',8,'horizontalalignment','center'); 
+            end
         end
     end
         
@@ -295,7 +311,7 @@ for tim = 1:length(def.pdates)
                 mval = max(fielddata(sss));
                 
                 mval = mval + offset;
-                text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
+                text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',7,'horizontalalignment','center');
             end
         end
         
@@ -327,8 +343,8 @@ for tim = 1:length(def.pdates)
     end
     finalname = [savedir,image_name];
     
-    print(gcf,finalname,'-opengl','-dpng');
-    
+    print(gcf,finalname,'-opengl','-dpng','-r300');
+    print(gcf,regexprep(finalname,'.png','.eps'),'-painters','-depsc2','-r300');
     close;
     
     

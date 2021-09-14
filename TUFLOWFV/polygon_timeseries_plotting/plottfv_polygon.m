@@ -113,6 +113,10 @@ if ~exist('depth_range','var')
     depth_range = [0 max_depth];
 end
 
+
+
+
+
 if exist('plotsite','var')
     shp_t = shp;
     clear shp;
@@ -131,6 +135,11 @@ end
 if ~plotmodel
     add_error = 0;
 end
+
+for kk = 1:length(shp)
+    shp(kk).Name = regexprep(shp(kk).Name,' ','_');
+end
+
 
 %--------------------------------------------------------------------------
 
@@ -1283,22 +1292,22 @@ for var = start_plot_ID:end_plot_ID
                 dim=[0.7 0.1 0.25 0.3];
                 ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
                 set(ha,'FontSize',5);
-                errorMatrix.(shp(site).Name).(loadname).R=stat_r;
-                errorMatrix.(shp(site).Name).(loadname).BIAS=deviaSn;
-                errorMatrix.(shp(site).Name).(loadname).MAE=stat_mae;
-                errorMatrix.(shp(site).Name).(loadname).RMS=stat_rms;
-                errorMatrix.(shp(site).Name).(loadname).NMAE=stat_nmae;
-                errorMatrix.(shp(site).Name).(loadname).NRMS=stat_nrms;
-                errorMatrix.(shp(site).Name).(loadname).MEF=stat_nash;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=stat_r;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=deviaSn;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=stat_mae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=stat_rms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=stat_nmae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=stat_nrms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=stat_nash;
                 clear str stat*;
             else
-                errorMatrix.(shp(site).Name).(loadname).R=NaN;
-                errorMatrix.(shp(site).Name).(loadname).BIAS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).MAE=NaN;
-                errorMatrix.(shp(site).Name).(loadname).RMS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).NMAE=NaN;
-                errorMatrix.(shp(site).Name).(loadname).NRMS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).MEF=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=NaN;
             end
             
         end

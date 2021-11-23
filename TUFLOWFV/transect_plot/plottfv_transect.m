@@ -48,6 +48,11 @@ if ~exist('plotvalidation','var')
     plotvalidation = 1;
 end
 
+if ~exist('clip_depth','var')
+    clip_depth = 0.00;
+end
+
+
 if ~isfield(def,'visible')
     def.visible = 'on';
 end
@@ -68,10 +73,10 @@ if exist('isRange','var') == 0
 end
 
 if ~exist('addmarker','var')
-addmarker = 0;
+    addmarker = 0;
 end
 if ~exist('markerfile','var')
-markerfile = 'marker2.mat';
+    markerfile = 'marker2.mat';
 end
 isConv = 0;
 
@@ -106,181 +111,181 @@ end
 
 
 for var = start_plot_ID:end_plot_ID
-
-
-
-
-
+    
+    
+    
+    
+    
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);
     loadname = varname{var};
-
+    
     disp(['Plotting ',loadname]);
-
+    
     for mod = 1:length(ncfile)
         switch varname{var}
-
+            
             case 'TN_TP'
                 oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
                 tra = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                 raw(mod).data.TN_TP = (oxy.WQ_DIAG_TOT_TN* 14/1000) ./ (tra.WQ_DIAG_TOT_TP* 31/1000);
-
-
+                
+                
             case 'ECOLI'
-                    
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
-                    raw(mod).data.ECOLI = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) ;
-                    clear ECOLI_F ECOLI_A
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ECLOI')
-                            fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
-                        end
+                
+                ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
+                ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                raw(mod).data.ECOLI = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) ;
+                clear ECOLI_F ECOLI_A
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ECLOI')
+                        fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
                     end
-
-                case 'ECOLI_TOTAL'
-                    
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
-                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});
-                    raw(mod).data.ECOLI_TOTAL = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) + (ECOLI_D.WQ_PAT_ECOLI_D) ;
-                    clear ECOLI_F ECOLI_A ECOLI_D
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ECLOI')
-                            fdata.(thesites{bdb}).ECOLI_TOTAL = fdata.(thesites{bdb}).ECLOI;
-                        end
+                end
+                
+            case 'ECOLI_TOTAL'
+                
+                ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
+                ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});
+                raw(mod).data.ECOLI_TOTAL = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) + (ECOLI_D.WQ_PAT_ECOLI_D) ;
+                clear ECOLI_F ECOLI_A ECOLI_D
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ECLOI')
+                        fdata.(thesites{bdb}).ECOLI_TOTAL = fdata.(thesites{bdb}).ECLOI;
                     end
-
-                case 'ECOLI_PASSIVE'
-                    
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
-                    raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
-                    clear ECOLI_P  
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ECLOI')
-                            fdata.(thesites{bdb}).ECOLI_PASSIVE = fdata.(thesites{bdb}).ECLOI;
-                        end
+                end
+                
+            case 'ECOLI_PASSIVE'
+                
+                ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
+                clear ECOLI_P
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ECLOI')
+                        fdata.(thesites{bdb}).ECOLI_PASSIVE = fdata.(thesites{bdb}).ECLOI;
                     end
-
-                case 'ECOLI_SIMPLE'
-                    
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
-                    raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR1) ;
-                    clear ECOLI_P  
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ECLOI')
-                            fdata.(thesites{bdb}).ECOLI_SIMPLE = fdata.(thesites{bdb}).ECLOI;
-                        end
+                end
+                
+            case 'ECOLI_SIMPLE'
+                
+                ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR1) ;
+                clear ECOLI_P
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ECLOI')
+                        fdata.(thesites{bdb}).ECOLI_SIMPLE = fdata.(thesites{bdb}).ECLOI;
                     end
-                    
-                case 'ENTEROCOCCI'
-                    
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
-                    %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
-                   raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
-                    clear ENT_F ENT_A 
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ENT')
-                            fdata.(thesites{bdb}).ENTEROCOCCI = fdata.(thesites{bdb}).ENT;
-                        end
+                end
+                
+            case 'ENTEROCOCCI'
+                
+                ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
+                ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
+                raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
+                clear ENT_F ENT_A
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ENT')
+                        fdata.(thesites{bdb}).ENTEROCOCCI = fdata.(thesites{bdb}).ENT;
                     end
-                    
-                case 'ENTEROCOCCI_TOTAL'
-                    
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
-                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
-                    raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
-                    clear ENT_F ENT_A ENT_D
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ENT')
-                            fdata.(thesites{bdb}).ENTEROCOCCI_TOTAL = fdata.(thesites{bdb}).ENT;
-                        end
+                end
+                
+            case 'ENTEROCOCCI_TOTAL'
+                
+                ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
+                ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
+                raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
+                clear ENT_F ENT_A ENT_D
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ENT')
+                        fdata.(thesites{bdb}).ENTEROCOCCI_TOTAL = fdata.(thesites{bdb}).ENT;
                     end
-                    
-                case 'ENTEROCOCCI_PASSIVE'
-                    
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
-                    raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
-                    clear ENT_P  
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ENT')
-                            fdata.(thesites{bdb}).ENTEROCOCCI_PASSIVE = fdata.(thesites{bdb}).ENT;
-                        end
+                end
+                
+            case 'ENTEROCOCCI_PASSIVE'
+                
+                ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
+                clear ENT_P
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ENT')
+                        fdata.(thesites{bdb}).ENTEROCOCCI_PASSIVE = fdata.(thesites{bdb}).ENT;
                     end
-                    
-                case 'ENTEROCOCCI_SIMPLE'
-                    
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
-                    raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR2) ;
-                    clear ENT_P  
-                    
-                    thesites = fieldnames(fdata);
-                    for bdb = 1:length(thesites)
-                        if isfield(fdata.(thesites{bdb}),'ENT')
-                            fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
-                        end
+                end
+                
+            case 'ENTEROCOCCI_SIMPLE'
+                
+                ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR2) ;
+                clear ENT_P
+                
+                thesites = fieldnames(fdata);
+                for bdb = 1:length(thesites)
+                    if isfield(fdata.(thesites{bdb}),'ENT')
+                        fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
                     end
-
-                case 'HSI_CYANO'
-                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});
-                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});
-                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
-                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
-                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});
-                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});
-                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});
-                    
-                    %------ temperature
-                    %The numbers I've used for Darwin Reservoir cyanobacteria are:
-                    %Theta_growth (v) = 1.08;
-                    %T_std = 28; %T_opt = 34; %T_max = 40;
-                    k =  4.1102;
-                    a = 35.0623;
-                    b =  0.1071;
-                    v =  1.0800;
-                    fT = v.^(TEM.TEMP-20)-v.^(k.*(TEM.TEMP-a))+b;
-                    
-                    %------ nitrogen
-                    KN = 4;                %   in mmol/m3
-                    fN = (NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM) ./ (KN+(NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM));
-                    
-                    %------ phosphorus
-                    KP = 0.15;    % in mmol/m3
-                    fP = FRP.WQ_PHS_FRP./(KP+FRP.WQ_PHS_FRP);
-                 
-                    %------ salinity
-                    KS = 5;                %   in PSU
-                    fS = KS ./ (KS+(SAL.SAL));
-                    fS(SAL.SAL<KS/2.)=1;
-                    
-                    %------ stratification/velocity
-                    KV = 0.5;
-                    V = (V_x.V_x.*V_x.V_x + V_y.V_y.*V_y.V_y).^0.5; %   in m/s
-                    fV = KV ./ (KV+V);
-                    fV(V<0.05)=0.;
-
-                    raw(mod).data.HSI_CYANO = ( fT .* min(fN,fP) .* fS .* fV);
-                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;  
-
-                    clear fT;
-                    
+                end
+                
+            case 'HSI_CYANO'
+                TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});
+                SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});
+                NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
+                AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
+                FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
+                DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});
+                V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});
+                V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});
+                
+                %------ temperature
+                %The numbers I've used for Darwin Reservoir cyanobacteria are:
+                %Theta_growth (v) = 1.08;
+                %T_std = 28; %T_opt = 34; %T_max = 40;
+                k =  4.1102;
+                a = 35.0623;
+                b =  0.1071;
+                v =  1.0800;
+                fT = v.^(TEM.TEMP-20)-v.^(k.*(TEM.TEMP-a))+b;
+                
+                %------ nitrogen
+                KN = 4;                %   in mmol/m3
+                fN = (NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM) ./ (KN+(NIT.WQ_NIT_NIT+AMM.WQ_NIT_AMM));
+                
+                %------ phosphorus
+                KP = 0.15;    % in mmol/m3
+                fP = FRP.WQ_PHS_FRP./(KP+FRP.WQ_PHS_FRP);
+                
+                %------ salinity
+                KS = 5;                %   in PSU
+                fS = KS ./ (KS+(SAL.SAL));
+                fS(SAL.SAL<KS/2.)=1;
+                
+                %------ stratification/velocity
+                KV = 0.5;
+                V = (V_x.V_x.*V_x.V_x + V_y.V_y.*V_y.V_y).^0.5; %   in m/s
+                fV = KV ./ (KV+V);
+                fV(V<0.05)=0.;
+                
+                raw(mod).data.HSI_CYANO = ( fT .* min(fN,fP) .* fS .* fV);
+                raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;
+                
+                clear fT;
+                
             otherwise
                 raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
         end
@@ -288,37 +293,42 @@ for var = start_plot_ID:end_plot_ID
         tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
         all_cells(mod).X = double(tdata.cell_X);
         all_cells(mod).Y = double(tdata.cell_Y);
-
-
-
-
-
+        
+        if sum(strcmpi(allvars,'D')) == 1
+            ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
+        else
+            tttdata = tfv_readnetcdf(ncfile(mod).name,'names',{'cell_Zb';'H'}); clear functions
+            ttdata.D = tttdata.H - tttdata.cell_Zb;clear tttdata;
+        end
+        
+        d_data(mod).D = ttdata.D;
+        
     end
-
+    
     for tim = 1:length(def.pdates)
-
+        
         for mod = 1:length(ncfile)
             
-            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical);
+            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical,d_data(mod).D,clip_depth);
         end
         clear functions;
-
-
+        
+        
         if plotvalidation
             fielddata = [];
             fielddist = [];
             [fielddata,fielddist] = tfv_getfielddata_boxregion(fdata,shp,def,isSurf,loadname,def.pdates(tim).value,isSpherical);
-
+            
         end
         clear functions;
-
-
-
+        
+        
+        
         fig1 = figure('visible',def.visible);
         set(fig1,'defaultTextInterpreter','latex')
         set(0,'DefaultAxesFontName','Times')
         set(0,'DefaultAxesFontSize',6)
-
+        
         for mod = 1:length(ncfile)
             if isRange
                 fig = fillyy(data(mod).dist,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,def.col_pal(mod).value(1,:));hold on
@@ -326,7 +336,7 @@ for var = start_plot_ID:end_plot_ID
                 set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']);
                 set(fig,'FaceAlpha', alph);
                 hold on
-
+                
                 for plim_i=2:(nn-1)
                     fig2 = fillyy(data(mod).dist,data(mod).pred_lim_ts(plim_i,:),data(mod).pred_lim_ts(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1),def.col_pal(mod).value(plim_i,:));
                     %fig2 = fillyy(data(mod).date_b,data(mod).pred_lim_ts_b(plim_i,:),data(mod).pred_lim_ts_b(2*nn-plim_i,:),dimc.*0.9.^(plim_i-1));
@@ -335,12 +345,12 @@ for var = start_plot_ID:end_plot_ID
                 end
             end
             plot(data(mod).dist,data(mod).pred_lim_ts(3,:),'color',def.median_line(mod).value,'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)']);hold on
-
+            
         end
-
+        
         leg = legend('show');
         set(leg,'location',def.rangelegend,'fontsize',6);
-
+        
         box_vars = [];
         if plotvalidation
             if ~isempty(fielddata)
@@ -348,88 +358,88 @@ for var = start_plot_ID:end_plot_ID
                 box_vars = findall(gca,'Tag','Box');
             end
         end
-
+        
         if ~isempty(def.cAxis(var).value)
             ylim(def.cAxis(var).value);
         end
-
+        
         xlim(def.xlim);
-
+        
         if ~isempty(def.xticks)
             set(gca,'xtick',def.xticks,'xticklabel',def.xticks);
         end
         if strcmpi(loadname,'TN_TP') == 0
-         ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+            ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         else
-          ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+            ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         end
-
+        
         xlabel(def.xlabel,'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         if isSurf
-        text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
-            'fontsize',10,'color',[0.4 0.4 0.4]);
+            text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
+                'fontsize',10,'color',[0.4 0.4 0.4]);
         else
-         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
-            'fontsize',10,'color',[0.4 0.4 0.4]);
+            text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
+                'fontsize',10,'color',[0.4 0.4 0.4]);
         end
         
         
         if addmarker
-        
-        HH=gca; HH.XAxis.TickLength = [0 0];
-        
-        load(markerfile);
-        
-        yl = get(gca,'ylim');
-        yl_r = (yl(2) - yl(1)) * 0.01;
-        
-        yx(1:length(marker.Dist)) = yl(2);
-        scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
-        
-        %for kkk = 1:length(marker.Dist)
-        %    text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
-        %end
+            
+            HH=gca; HH.XAxis.TickLength = [0 0];
+            
+            load(markerfile);
+            
+            yl = get(gca,'ylim');
+            yl_r = (yl(2) - yl(1)) * 0.01;
+            
+            yx(1:length(marker.Dist)) = yl(2);
+            scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
+            
+            %for kkk = 1:length(marker.Dist)
+            %    text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',4,'horizontalalignment','center');
+            %end
         end
         
         
-
+        
         if ~isempty(box_vars)
             udist = unique(fielddist);
-
+            
             yl = get(gca,'ylim');
-
+            
             ryl = yl(2)-yl(1);
-
+            
             offset = ryl * 0.03;
-
-
+            
+            
             for i = 1:length(udist)
-
+                
                 if udist(i) < def.xlim(end)
-
+                    
                     sss = find(fielddist == udist(i));
-
+                    
                     mval = max(fielddata(sss));
-
+                    
                     mval = mval + offset;
                     text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',6,'horizontalalignment','center');
                 end
             end
-
+            
         end
-
+        
         if ~isempty(box_vars)
-
+            
             ah1=axes('position',get(gca,'position'),'visible','off');
-
+            
             hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location',def.boxlegend,'fontsize',6);
-
+            
             xlabel('Distance from Ocean (km)','fontsize',8);
-
+            
         end
-
-
+        
+        
         set(gcf, 'PaperPositionMode', 'manual');
         set(gcf, 'PaperUnits', 'centimeters');
         xSize = def.dimensions(1);
@@ -437,22 +447,22 @@ for var = start_plot_ID:end_plot_ID
         xLeft = (21-xSize)/2;
         yTop = (30-ySize)/2;
         set(gcf,'paperposition',[0 0 xSize ySize])
-
+        
         if isSurf
             image_name = [datestr(def.pdates(tim).value(1),'yyyy-mm-dd'),'_',datestr(def.pdates(tim).value(end),'yyyy-mm-dd'),'_Surface.png'];
         else
             image_name = [datestr(def.pdates(tim).value(1),'yyyy-mm-dd'),'_',datestr(def.pdates(tim).value(end),'yyyy-mm-dd'),'_Bottom.png'];
         end
         finalname = [savedir,image_name];
-
+        
         print(gcf,finalname,'-opengl','-dpng');
-
-
+        
+        
     end
-
+    
     if isHTML
-
+        
         create_html_for_directory_onFly(savedir,varname{var},htmloutput);
-
+        
     end
 end

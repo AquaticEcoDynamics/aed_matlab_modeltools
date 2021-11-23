@@ -8,20 +8,38 @@
 fielddata_matfile = '../../../CDM/data/store/archive/cllmm.mat';
 %fielddata = 'UA';
 fielddata = 'cllmm';
-%polygon_file = '../../../CDM/gis/supplementary/Coorong\Coorong_obs_sites.shp';
-polygon_file = '../../../CDM/gis/supplementary\Coorong_IC_regions.shp';
+polygon_file = '../../../CDM/gis/supplementary/Coorong\Coorong_obs_sites.shp';
+%polygon_file = '../../../CDM/gis/supplementary\Coorong_IC_regions.shp';
 %polygon_file = '.\GDSTN_Polygons_200m_v2_C3.shp';
 
 %sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration
 
+% NCS_ss1
+% TRC_age
+% OXY_oxy
+% SIL_rsi
+% NIT_amm
+% NIT_nit
+% PHS_frp
+% PHS_frp_ads
+% OGM_doc
+% OGM_poc
+% OGM_don
+% OGM_pon
+% OGM_dop
+% OGM_pop
+% PHY_grn
 
 
 % VAR Configuration________________________________________________________
 varname = {...
-    'WVHT',...
+        'WVHT',...
+    'H',...
  'SAL',...
  'TEMP',...
+ 'WQ_NCS_SS1',...
+ 'WQ_SIL_RSI',...
  'WQ_DIAG_HAB_RUPPIA_HSI',...
  'WQ_DIAG_TOT_TN',...
  'WQ_DIAG_TOT_TP',...
@@ -38,6 +56,8 @@ varname = {...
     'WQ_OGM_DOP',...
     'WQ_OGM_PON',...
     'WQ_OGM_DON',...
+    'WQ_OGM_DOC',...
+    'WQ_OGM_POC',...
 %     'WQ_DIAG_MA2_TMALG',...
 %     'WQ_MA2_ULVA',...
 %     'WQ_DIAG_MA2_MAG_BEN',...
@@ -110,16 +130,17 @@ varname = {...
 for vvvv=1:65
 def.cAxis(vvvv).value = [ ];
 end
+%def.cAxis(3).value = [0 150];
 % ____________________________________________________________Configuration
 
 start_plot_ID = 1;
-%end_plot_ID = 18;
+%end_plot_ID = 3;
 % PLOT Configuration_______________________________________________________
 plottype = 'timeseries'; %timeseries or 'profile'
 
 plotvalidation = true; % Add field data to figure (true or false)
 
-plotdepth = {'surface'};%;'bottom'};  % Cell-array with either one or both
+plotdepth = {'surface';'bottom'};  % Cell-array with either one or both
 depth_range = [0.2 100];
 validation_minmax = 0;
 
@@ -140,12 +161,12 @@ fieldprctile = [10 90];
 isHTML = 1;
 
 yr = 2019;
-def.datearray = datenum(yr,7:4:31,1);
+def.datearray = datenum(yr,7:6:36,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/RAW/';
-htmloutput = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/HTML/';
+outputdirectory = 'C:\Users\00065525\AED Dropbox\AED_Coorong_db\7_hchb\Model Output\v5_testing\2D_3D_v5/RAW/';
+htmloutput = 'C:\Users\00065525\AED Dropbox\AED_Coorong_db\7_hchb\Model Output\v5_testing\2D_3D_v5/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -153,22 +174,32 @@ htmloutput = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/HTML/';
 
 
 % Models___________________________________________________________________
- ncfile(1).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_all.nc';
+ ncfile(1).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_v5_all_cpy.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
- ncfile(1).legend = '2017 - 2019';
+ ncfile(1).legend = '2D Corrected';
  ncfile(1).translate = 1;
 % 
-%  ncfile(2).name = 'Y:\CIIP\Scenarios\phase1\SC02\CoorongBGC_SC02_culverts_10x1500_dry_001_wq_all.nc';
+ ncfile(2).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_3D_v5_all.nc';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(2).legend = '3D Corrected';
+ ncfile(2).translate = 1;
+ 
+%  ncfile(2).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_v5_Uncorrected_Tide_all.nc';
 %  ncfile(2).symbol = {'-';'--'};
 %  ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(2).legend = 'SC02';
+%  ncfile(2).legend = '2D Uncorrected';
 %  ncfile(2).translate = 1;
+ 
+ 
+ 
+ 
 % 
-%  ncfile(3).name = 'Y:\CIIP\Scenarios\phase1\SC04\CoorongBGC_SC04_LAC_dry_001_wq_all.nc';
+%  ncfile(3).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_VH_all.nc';
 %  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {[254,224,139]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(3).legend = 'SC04';
+%  ncfile(3).colour = {'r','b'}; % Surface and Bottom
+%  ncfile(3).legend = 'VH';
 %  ncfile(3).translate = 1;
 % 
 %  ncfile(4).name = 'Y:\CIIP\Scenarios\phase1\SC05\CoorongBGC_SC05_SEFA_dry_001_wq_all.nc';

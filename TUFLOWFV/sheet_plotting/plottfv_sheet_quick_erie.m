@@ -4,24 +4,24 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'C:\Users\00065525\Scratch\Maryam\New 3D\Output\Roselea_poly2.nc';
+ncfile = 'Y:\Erie\GIS_Test\tfv_011_Scn00\Output\erie_00_1_AED.nc';
 
-outdir = 'C:\Users\00065525\Scratch\Maryam\New 3D/Roselea_poly2/';
+outdir = 'Y:\Erie\GIS_Test\tfv_011_Scn00\\Plot_2\';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'V_x';
+varname = 'WQ_DIAG_PHY_TCHLA';
 
-cax = [-1 1];
+cax = [0 10];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'Vx (m)';
+title = 'Depth (m)';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 0; % 1 to save movie, 0 to just display on screen
-save_images = 1;
+create_movie = 1; % 1 to save movie, 0 to just display on screen
+save_images = 0;
 
-plot_interval = 3;
+plot_interval = 1;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -29,7 +29,7 @@ plot_interval = 3;
 clip_depth = 0.05;% In m
 %clip_depth = 999;% In m
 
-isTop = 1;
+isTop = 0;
 
 %____________
 
@@ -151,7 +151,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         x_lim = get(gca,'xlim');
         y_lim = get(gca,'ylim');
         
-        caxis(cax);
+        %caxis(cax);
         
         cb = colorbar;
         
@@ -181,8 +181,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-%           xlim([306019.916783491           310273.95096848]);
-%           ylim([6274581.65164921           6277299.4138508]);
+%           xlim([596279.054858773          637912.273881589]);
+%           ylim([4731613.67259657          4758211.76374254]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);
@@ -197,7 +197,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         
         set(txtDate,'String',datestr(timesteps(i),'dd mmm yyyy HH:MM'));
         
-        caxis(cax);
+        %caxis(cax);
 
     end
     

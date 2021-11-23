@@ -6,20 +6,20 @@ addpath(genpath('../tuflowfv'));
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
 ncfile = 'C:\Users\00065525\Scratch\Maryam\New 3D\Output\Roselea_poly2.nc';
 
-outdir = 'C:\Users\00065525\Scratch\Maryam\New 3D/Roselea_poly2/';
+outdir = 'Z:\Maryam\Sherry_Maryam\With Culvert\Original\New 3D/Roselea_poly2/';
 
 %varname = 'WQ_DIAG_LND_SB';
 varname = 'V_x';
 
-cax = [-1 1];
+cax = [-10 10];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'Vx (m)';
+title = 'V (psu)';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 0; % 1 to save movie, 0 to just display on screen
-save_images = 1;
+create_movie = 1; % 1 to save movie, 0 to just display on screen
+save_images = 0;
 
 plot_interval = 3;
 

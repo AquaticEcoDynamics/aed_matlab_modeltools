@@ -15,13 +15,31 @@ polygon_file = '../../../CDM/gis/supplementary\Coorong_IC_regions.shp';
 %sites = [17,18,20];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration
 
+% NCS_ss1
+% TRC_age
+% OXY_oxy
+% SIL_rsi
+% NIT_amm
+% NIT_nit
+% PHS_frp
+% PHS_frp_ads
+% OGM_doc
+% OGM_poc
+% OGM_don
+% OGM_pon
+% OGM_dop
+% OGM_pop
+% PHY_grn
 
 
 % VAR Configuration________________________________________________________
 varname = {...
-    'WVHT',...
+        'WVHT',...
+    'H',...
  'SAL',...
  'TEMP',...
+ 'WQ_NCS_SS1',...
+ 'WQ_SIL_RSI',...
  'WQ_DIAG_HAB_RUPPIA_HSI',...
  'WQ_DIAG_TOT_TN',...
  'WQ_DIAG_TOT_TP',...
@@ -38,6 +56,8 @@ varname = {...
     'WQ_OGM_DOP',...
     'WQ_OGM_PON',...
     'WQ_OGM_DON',...
+    'WQ_OGM_DOC',...
+    'WQ_OGM_POC',...
 %     'WQ_DIAG_MA2_TMALG',...
 %     'WQ_MA2_ULVA',...
 %     'WQ_DIAG_MA2_MAG_BEN',...
@@ -112,8 +132,8 @@ def.cAxis(vvvv).value = [ ];
 end
 % ____________________________________________________________Configuration
 
-start_plot_ID = 1;
-%end_plot_ID = 18;
+start_plot_ID = 3;
+end_plot_ID = 3;
 % PLOT Configuration_______________________________________________________
 plottype = 'timeseries'; %timeseries or 'profile'
 
@@ -139,13 +159,13 @@ fieldprctile = [10 90];
 
 isHTML = 1;
 
-yr = 2019;
-def.datearray = datenum(yr,7:4:31,1);
+yr = 2017;
+def.datearray = datenum(yr,7:6:60,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/RAW/';
-htmloutput = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/HTML/';
+outputdirectory = 'X:\CDM\hchb_tfvaed_v1/IC_Regions/RAW/';
+htmloutput = 'X:\CDM\hchb_tfvaed_v1/IC_Regions/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -156,20 +176,20 @@ htmloutput = 'X:\CDM\hchb_tfvaed_v1/validation_2019_2021/HTML/';
  ncfile(1).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_all.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
- ncfile(1).legend = '2017 - 2019';
+ ncfile(1).legend = '2019 - 2021';
  ncfile(1).translate = 1;
 % 
-%  ncfile(2).name = 'Y:\CIIP\Scenarios\phase1\SC02\CoorongBGC_SC02_culverts_10x1500_dry_001_wq_all.nc';
-%  ncfile(2).symbol = {'-';'--'};
-%  ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(2).legend = 'SC02';
-%  ncfile(2).translate = 1;
+ ncfile(2).name = 'W:\CIIP\Scenarios\Calibration\2017_2019\CoorongBGC_006_validation_201707_201903_wq_all.nc';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(2).legend = '2017 - 2019';
+ ncfile(2).translate = 1;
 % 
-%  ncfile(3).name = 'Y:\CIIP\Scenarios\phase1\SC04\CoorongBGC_SC04_LAC_dry_001_wq_all.nc';
-%  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {[254,224,139]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(3).legend = 'SC04';
-%  ncfile(3).translate = 1;
+ ncfile(3).name = 'X:\CDM\hchb_tfvaed_v1\output\hchb_wave_21901101_20210701_wq_VH_all.nc';
+ ncfile(3).symbol = {'-';'--'};
+ ncfile(3).colour = {[254,224,139]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(3).legend = 'VH';
+ ncfile(3).translate = 1;
 % 
 %  ncfile(4).name = 'Y:\CIIP\Scenarios\phase1\SC05\CoorongBGC_SC05_SEFA_dry_001_wq_all.nc';
 %  ncfile(4).symbol = {'-';'--'};

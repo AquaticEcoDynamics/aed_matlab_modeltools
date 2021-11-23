@@ -63,14 +63,14 @@ if ~exist('thevars_conv','var')
 end
 
 if ~exist('preproc','var')
-preproc = 0;
+    preproc = 0;
 end
 
 if ~exist('addmarker','var')
-addmarker = 0;
+    addmarker = 0;
 end
 if ~exist('markerfile','var')
-markerfile = 'marker2.mat';
+    markerfile = 'marker2.mat';
 end
 
 if ~exist('isSpherical','var')
@@ -144,19 +144,19 @@ for mod = 1:length(ncfile)
             raw(mod).data(k).Val = td.(thevars{k})  * thevars_conv; clear td;
         end
     else
-       %data1 = compile_tracer_sim(ncfile(mod).name);
-       load(datafile);
-       %[data1] = compile_tracer_sim(ncfile(mod).name);
-       
-       save data_TN_1.mat data1 -mat -v7.3;
-       
-       for k = 1:length(thevars)
-           raw(mod).data(k).Val = data1.(loadname).(thevars{k}) * thevars_conv;
-       end
-    end 
+        %data1 = compile_tracer_sim(ncfile(mod).name);
+        load(datafile);
+        %[data1] = compile_tracer_sim(ncfile(mod).name);
         
+        save data_TN_1.mat data1 -mat -v7.3;
         
-
+        for k = 1:length(thevars)
+            raw(mod).data(k).Val = data1.(loadname).(thevars{k}) * thevars_conv;
+        end
+    end
+    
+    
+    
     tdata = tfv_readnetcdf(ncfile(mod).name,'timestep',1);
     all_cells(mod).X = double(tdata.cell_X);
     all_cells(mod).Y = double(tdata.cell_Y);
@@ -194,9 +194,18 @@ for tim = 1:length(def.pdates)
     
     
     fig1 = figure('visible',def.visible);
- %   set(fig1,'defaultTextInterpreter','latex')
+    %   set(fig1,'defaultTextInterpreter','latex')
     set(0,'DefaultAxesFontName','Arial')
     set(0,'DefaultAxesFontSize',8)
+    
+    set(gcf, 'PaperPositionMode', 'manual');
+    set(gcf, 'PaperUnits', 'centimeters');
+    xSize = def.dimensions(1);
+    ySize = def.dimensions(2);
+    xLeft = (21-xSize)/2;
+    yTop = (30-ySize)/2;
+    set(gcf,'paperposition',[0 0 xSize ySize])
+    
     
     cmap = parula(length(thevars));
     
@@ -224,17 +233,31 @@ for tim = 1:length(def.pdates)
         H(kk).FaceColor = cmap(kk,:);
     end
     
+
     
-    leg = legend(regexprep(thevars,'_',' '));
-    set(leg,'location',def.rangelegend,'fontsize',10);
     
     box_vars = [];
     if plotvalidation
         if ~isempty(fielddata)
-            boxplot(fielddata,fielddist,'positions',unique(fielddist),'color','k','plotstyle','compact');
+            boxplot(gca,fielddata,fielddist,'positions',unique(fielddist),'color','k','plotstyle','compact');
             box_vars = findall(gca,'Tag','Box');
         end
     end
+    
+    
+    if ~exist('thelabels','var')
+        thelabels = thevars;
+        
+    end
+    if ~isempty(box_vars)
+        thelabels = [thelabels,{'Field Data'}];
+    end
+    leg = legend(regexprep(thelabels,'_',' '));
+    set(leg,'location',def.rangelegend,'fontsize',10);
+    title(leg,[datestr(def.pdates(tim).value(1),'mmm yyyy'),' to ',datestr(def.pdates(tim).value(2),'mmm yyyy')],'fontsize',8)
+    
+    legpos = get(leg,'position');
+    
     
     if ~isempty(def.cAxis(1).value)
         ylim(def.cAxis(1).value);
@@ -250,19 +273,23 @@ for tim = 1:length(def.pdates)
         %disp('hi')
         c_units = theunits;
     end
-        
     
-    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color','k','horizontalalignment','center');
+    if ~exist('theylabel','var')
+        theylabel = loadname;
+    end
     
-    xlabel(def.xlabel,'fontsize',10,'color','k','horizontalalignment','center');
     
-%     if isSurf
-%         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
-%             'fontsize',6,'color',[0.4 0.4 0.4]);
-%     else
-%         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
-%             'fontsize',6,'color',[0.4 0.4 0.4]);
-%     end
+    ylabel([regexprep(theylabel,'_',' '),' (',c_units,')'],'fontsize',8,'color','k','horizontalalignment','center');
+    
+    xlabel(def.xlabel,'fontsize',8,'color','k','horizontalalignment','center');
+    
+    %     if isSurf
+    %         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
+    %             'fontsize',6,'color',[0.4 0.4 0.4]);
+    %     else
+    %         text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Bottom'],'units','normalized',...
+    %             'fontsize',6,'color',[0.4 0.4 0.4]);
+    %     end
     
     if addmarker
         
@@ -276,19 +303,19 @@ for tim = 1:length(def.pdates)
         yx(1:length(marker.Dist)) = yl(2);
         scatter(marker.Start,yx- yl_r,12,'V','filled','MarkerFaceColor','k','HandleVisibility','off');
         
-
+        
         
         for kkk = 1:length(marker.Dist)
-            kkk
+            
             if kkk == 8 | kkk == 6
-                disp('hi');
+                %    disp('hi');
                 text(marker.Dist(kkk),yl(2)+ yl_r1,['ERZ ',num2str(marker.Label(kkk))],'fontsize',8,'horizontalalignment','center');
             else
-              text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',8,'horizontalalignment','center'); 
+                text(marker.Dist(kkk),yl(2)+ yl_r,['ERZ ',num2str(marker.Label(kkk))],'fontsize',8,'horizontalalignment','center');
             end
         end
     end
-        
+    
     
     
     
@@ -311,7 +338,7 @@ for tim = 1:length(def.pdates)
                 mval = max(fielddata(sss));
                 
                 mval = mval + offset;
-                text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',7,'horizontalalignment','center');
+                text(gca,udist(i),mval,['n=',num2str(length(sss))],'fontsize',5,'horizontalalignment','center');
             end
         end
         
@@ -323,18 +350,20 @@ for tim = 1:length(def.pdates)
         
         hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location',def.boxlegend,'fontsize',6);
         
-        xlabel('Distance from Ocean (km)','fontsize',8);
+        hlegpos = get(hLegend,'position');
         
+        %      set(hLegend,'position',[legpos(1),legpos(2)-hlegpos(4),legpos(3),hlegpos(4)]);
+        %         legappend('Field Data');
+        xlabel('Distance from Ocean (km)','fontsize',8);
     end
     
     
-    set(gcf, 'PaperPositionMode', 'manual');
-    set(gcf, 'PaperUnits', 'centimeters');
-    xSize = def.dimensions(1);
-    ySize = def.dimensions(2);
-    xLeft = (21-xSize)/2;
-    yTop = (30-ySize)/2;
-    set(gcf,'paperposition',[0 0 xSize ySize])
+    text(0.5,-0.1,def.xlabel,'fontsize',8,'color','k','horizontalalignment','center','units','normalized');
+    
+    % get current (active) axes property
+    %     tt = get(gca,'OuterPosition')
+    %     set(gca,'OuterPosition',[tt(1) tt(2) + 0.05 tt(3) (4)])
+    
     
     if isSurf
         image_name = [datestr(def.pdates(tim).value(1),'yyyy-mm-dd'),'_',datestr(def.pdates(tim).value(end),'yyyy-mm-dd'),'_Surface.png'];

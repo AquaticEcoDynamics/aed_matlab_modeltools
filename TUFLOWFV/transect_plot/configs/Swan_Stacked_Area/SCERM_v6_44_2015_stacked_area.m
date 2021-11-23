@@ -13,19 +13,23 @@ points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
 int = 1;
 theyear = 2015;
 %Initial Condition
-def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
+%def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
 
 % Set up the time loops
-for ii = 04:15
+% for ii = 04:15
+% 
+% def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
+% 
+% end
+% def.pdates(int).value = [datenum(theyear,05,01) datenum(theyear,08,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,08,01) datenum(theyear,11,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,11,01) datenum(theyear,14,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,14,01) datenum(theyear,17,01)];int = int + 1;
 
-def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
-
-end
 def.pdates(int).value = [datenum(theyear,05,01) datenum(theyear,08,01)];int = int + 1;
 def.pdates(int).value = [datenum(theyear,08,01) datenum(theyear,11,01)];int = int + 1;
 def.pdates(int).value = [datenum(theyear,11,01) datenum(theyear,14,01)];int = int + 1;
 def.pdates(int).value = [datenum(theyear,14,01) datenum(theyear,17,01)];int = int + 1;
-
 
 
 def.binfielddata = 1;
@@ -56,6 +60,17 @@ thevars = {...
     'WQ_OGM_PON',...
 };
 
+thelabels = {...
+    'Nit',...
+    'Amm',...
+    'DONL',...
+    'DONR',...
+    'PON',...
+};
+
+theylabel = 'TN';
+
+
 %Field Var
 varname = {'WQ_DIAG_TOT_TN'};
 
@@ -72,6 +87,7 @@ def.cAxis(1).value = [0 5];         %'SAL',...
 % Add field data to figure
 plotvalidation = 1; % 1 or 0
 
+addmarker = 1;
 
 istitled = 1;
 isylabel = 1;
@@ -84,23 +100,24 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 
-outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TN\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TN\HTML\'];
-
+%outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TN\RAW\'];
+%htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TN\HTML\'];
+outputdirectory = ['C:\Users\00065525\AED Dropbox\AED_Swan_db\REG6.6\SCERM\plotting\StackedArea_SCERM44_TN_2015\RAW\'];
+htmloutput = ['C:\Users\00065525\AED Dropbox\AED_Swan_db\REG6.6\SCERM\plotting\StackedArea_SCERM44_TN_2015\HTML\'];
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
-ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['C:\Users\00065525\Scratch/SCERM44_2015_2016_newIC_ALL.nc'];% change this to the nc file loc
 ncfile(1).legend = 'SCERM 44 Base';%
 %  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
 %  ncfile(2).legend = 'kPO4 == 0';
 
 
 
-def.boxlegend = 'northwest';
-def.rangelegend = 'northeast';
+def.boxlegend = 'northeast';
+def.rangelegend = 'northwest';
 
-def.dimensions = [16 8]; % Width & Height in cm
+def.dimensions = [12 8]; % Width & Height in cm
 
 def.visible = 'on'; % on or off

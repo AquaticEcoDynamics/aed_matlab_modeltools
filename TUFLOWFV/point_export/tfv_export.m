@@ -393,6 +393,7 @@ function data = tfv_getmodeldatalocation(filename,rawData,X,Y,varname)
 
 %rawData = tfv_readnetcdf(filename,'names',varname);
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
+rawGeo_all = tfv_readnetcdf(filename,'names',{'layerface_Z'});
 
 %--% Search
 pnt(1,1) = X;
@@ -433,13 +434,17 @@ if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varna
     data.profile(1,:) = rawData.(varname{1})(Cell_3D_IDs(1),:);
     data.profile(2:length(Cell_3D_IDs)+1,:) = rawData.(varname{1})(Cell_3D_IDs,:);
     data.profile(length(Cell_3D_IDs)+2,:) = rawData.(varname{1})(Cell_3D_IDs(length(Cell_3D_IDs)),:);
-
-    data.depths(1)  = rawGeo.layerface_Z(surfIndex + pt_id - 1);
+    
+    
+    
+    data.depths(1:size(data.profile,1),1:size(data.profile,2)) = NaN;
+    
+    data.depths(1,:)  = rawGeo_all.layerface_Z(surfIndex + pt_id - 1,:);
     for i = 1 : rawGeo.NL(pt_id)
       % mid point of layer  
-      data.depths(i+1) = (rawGeo.layerface_Z(Cell_3D_IDs(i) + pt_id-1) + rawGeo.layerface_Z(Cell_3D_IDs(i) + pt_id-1 +1))/2.;
+      data.depths(i+1,:) = (rawGeo_all.layerface_Z(Cell_3D_IDs(i) + pt_id-1,:) + rawGeo_all.layerface_Z(Cell_3D_IDs(i) + pt_id-1 +1,:))/2.;
     end
-    data.depths(length(Cell_3D_IDs)+2)  = rawGeo.layerface_Z(botIndex+pt_id-1+1);    
+    data.depths(length(Cell_3D_IDs)+2,:)  = rawGeo_all.layerface_Z(botIndex+pt_id-1+1,:);    
     
     %disp(rawGeo.layerface_Z((surfIndex + pt_id - 1 ): (botIndex + pt_id + 10 )));
     

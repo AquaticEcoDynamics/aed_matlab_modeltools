@@ -26,13 +26,13 @@
 &Configuration
 
 ! Location of the model netcdf file
-model = 'V:\Busch\Studysites\Swan\Simulations\Swan Flood Modelling\Swan_2017_Flood_Event_v2\Output\swan.nc'
+model = 'Z:\Amina\Swan_2019_2020_Res_KL_Resp\Output\SCERM8_2019_2020_R2.nc'
 ! Output directory
 output_directory = 'Example_Output\tfv_export_flood\' 
 ! Start time of Plot
-time_start = '31/12/2016' 
+time_start = '31/12/2019' 
 ! End time of Plot
-time_end = '31/03/2017' 
+time_end = '31/03/2020' 
 ! Running average (smooth) for figure
 smooth = 3 
 
@@ -58,10 +58,9 @@ H.name = 'Height';
 H.units = 'm'
 H.caxis = [-1 2];
 
-
-!WQ_OXY_OXY.name = 'Oxygen';
-!WQ_OXY_OXY.units = 'mmol/m3';
-!WQ_OXY_OXY.caxis = [0 200];
+WQ_OXY_OXY.name = 'Oxygen';
+WQ_OXY_OXY.units = 'mmol/m3';
+WQ_OXY_OXY.caxis = [0 200];
 !
 !WQ_SIL_RSI.name = 'Silica';
 !WQ_SIL_RSI.units = 'mmol/m3';
@@ -129,3 +128,11 @@ H.caxis = [-1 2];
  Site3.X = 401603.56
  Site3.Y = 6470767.98
  Site3.name = 'Guildford'
+
+Site4.X = 388706
+Site4.Y = 6460953
+Site4.name = 'Matilda'
+
+Site4.X = 390711
+Site4.Y = 6459090
+Site4.name = 'Kwilena'

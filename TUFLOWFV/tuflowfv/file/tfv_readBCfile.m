@@ -34,11 +34,21 @@ while ~EOF
             switch upper(headers{ii})
                 
                 case 'ISOTIME'
+                    try
                     data.Date(inc,1) = datenum(dataline{ii},...
                         'dd/mm/yyyy HH:MM');
+                    catch
+                       data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy');
+                    end
                 case 'DATE'
+                    try
                     data.Date(inc,1) = datenum(dataline{ii},...
                         'dd/mm/yyyy HH:MM');
+                    catch
+                       data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy');
+                    end
                 otherwise
                     data.(headers{ii})(inc,1) = str2double(dataline{ii});
             end

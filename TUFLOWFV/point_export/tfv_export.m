@@ -4,19 +4,28 @@ function tfv_export(filename)
 % Usage: tfv_export config.nml
 %
 % Written by Brendan Busch
-addpath(genpath('../tuflowfv'));
+%addpath(genpath('../tuflowfv'));
 
-conf = read_nml_file(filename);
+%conf = read_nml_file(filename);
 
-ncfile = conf.Configuration.model;
 
-sites = conf.Sites;
+%save conf.mat conf -mat;
 
-variables = conf.Variables;
+run(filename);
+
+conf.Configuration = Configuration;
+conf.Variables = Variables;
+conf.Sites = Sites;
+
+ncfile = Configuration.model;
+
+sites = Sites;
+
+variables = Variables;
 
 vars = fieldnames(variables);
 snames = fieldnames(sites);
-outdir = conf.Configuration.output_directory;
+outdir = Configuration.output_directory;
 
 if ~exist(outdir,'dir')
     mkdir(outdir);

@@ -14,6 +14,10 @@ warning('off','all')
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
+if exist('add_vdata','var') == 0
+    add_vdata = 0;
+end
+
 if exist('isHTML','var') == 0
     isHTML = 1;
 end
@@ -141,6 +145,7 @@ end
 
 for kk = 1:length(shp)
     shp(kk).Name = regexprep(shp(kk).Name,' ','_');
+    shp(kk).Name = regexprep(shp(kk).Name,'\.','');
 end
 
 
@@ -208,6 +213,10 @@ end
 clear ttdata
 %D = 0;
 %--------------------------------------------------------------------------
+
+if add_vdata
+    vdataout = import_vdata(vdata);
+end
 
 
 
@@ -1140,6 +1149,29 @@ for var = start_plot_ID:end_plot_ID
                 'HandleVisibility','off',...
                 'markerfacecolor',[0.7 0.7 0.7],'markeredgecolor','k','markersize',3);%'color',[0.7 0.7 0.7]);
         end
+        
+        
+        if add_vdata
+            
+            for vd = 1:length(vdataout)
+                
+                %varname{var}
+                %site
+                if vdataout(vd).polygon == site & ...
+                        isfield(vdataout(vd).Data,varname{var})
+                    
+                    [vd_data,~,~] = tfv_Unit_Conversion(vdataout(vd).Data.(varname{var}).vdata,varname{var});
+                    
+                    plot(vdataout(vd).Data.(varname{var}).Date,vd_data,...
+                        vdataout(vd).plotcolor,'displayname',vdataout(vd).legend);
+                end
+            end
+        end
+                
+            
+            
+        
+        
         
         if add_coorong
             yrange = def.cAxis(var).value(2) - def.cAxis(var).value(1);

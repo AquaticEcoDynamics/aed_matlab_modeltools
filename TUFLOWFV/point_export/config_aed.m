@@ -25,9 +25,9 @@
 
 
 % Location of the model netcdf file
-Configuration.model = 'Y:\Erie\tfv_011_Scn00\Output\erie_00_TFV.nc';
+Configuration.model = 'Y:\Erie\tfv_011_Scn00\Output\erie_00_AED.nc';
 % Output directory
-Configuration.output_directory = 'tfv_011_Scn00\TFV\' ;
+Configuration.output_directory = 'tfv_011_Scn00\AED\' ;
 % Start time of Plot
 Configuration.time_start = '07/05/2013' ;
 % End time of Plot
@@ -44,21 +44,25 @@ Configuration.smooth = 3 ;
 % Each variable to be exported must be configured with name, units & caxis
 % Base name must match the variable name coming out of TFV
 
-Variables.TEMP.name = 'Temperature';
-Variables.TEMP.units = 'C';
-Variables.TEMP.caxis = [0 30];
+% Variables.WQ_DIAG_TOT_EXTC.name = 'Ext. Coef';
+% Variables.WQ_DIAG_TOT_EXTC.units = '-';
+% Variables.WQ_DIAG_TOT_EXTC.caxis = [0 100];
 
-% Variables.SAL.name = 'Salinity';
-% Variables.SAL.units = 'psu';
-% Variables.SAL.caxis = [0 40];
+Variables.WQ_PHS_FRP.name = 'FRP';
+Variables.WQ_PHS_FRP.units = 'mmol/m3';
+Variables.WQ_PHS_FRP.caxis = [0 1];
+
+% Variables.WQ_DIAG_MAG_TMALG.name = 'Biomass';
+% Variables.WQ_DIAG_MAG_TMALG.units = 'gDW.m/2';
+% Variables.WQ_DIAG_MAG_TMALG.caxis = [0 100];
 % 
-% Variables.H.name = 'Height';
-% Variables.H.units = 'm';
-% Variables.H.caxis = [-1 2];
-
-% Variables.WQ_OXY_OXY.name = 'Oxygen';
-% Variables.WQ_OXY_OXY.units = 'mmol/m3';
-% Variables.WQ_OXY_OXY.caxis = [0 200];
+% Variables.WQ_DIAG_MAG_GPP_BEN.name = 'Gross Primary Production';
+% Variables.WQ_DIAG_MAG_GPP_BEN.units = '-';
+% Variables.WQ_DIAG_MAG_GPP_BEN.caxis = [0 100];
+% 
+% Variables.WQ_DIAG_MAG_RSP_BEN.name = 'Respiring';
+% Variables.WQ_DIAG_MAG_RSP_BEN.units = '-';
+% Variables.WQ_DIAG_MAG_RSP_BEN.caxis = [0 100];
 %
 
 

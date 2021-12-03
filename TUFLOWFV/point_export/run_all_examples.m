@@ -4,4 +4,7 @@
 % create a csv of the data and a mat file
 
 tfv_export config
+tfv_export config_diag
+tfv_export config_aed
+
 

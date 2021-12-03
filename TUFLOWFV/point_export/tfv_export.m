@@ -697,6 +697,10 @@ if ~exist(full_dir,'dir')
     mkdir(full_dir);
 end
 
+fig1 = figure('visible','off');
+        set(0,'DefaultAxesFontName','Times')
+        set(0,'DefaultAxesFontSize',6)
+
 plot(data.date,smooth(data.surface,conf.Configuration.smooth),'k','DisplayName','Surface');hold on
 plot(data.date,smooth(data.bottom,conf.Configuration.smooth),'r','DisplayName','Bottom');
 

@@ -3,19 +3,19 @@ function plot_curtain(conf)
 
 addpath(genpath('tuflowfv'));
 
-ncfile = 'D:\Studysites\Erie\Simulations\20160602_Erie_2013_WSnetcdf_AED2\Output\erie__tfv.nc';
-geofile = 'D:\Studysites\Erie\Simulations\20160602_Erie_2013_WSnetcdf_AED2\Input\log\erie_geo.nc';
-linefile = 'erie_1.xy';
+ncfile = 'C:\Users\00065525\Scratch\Maryam\New 3D\Output\Roselea_poly2.nc';
+geofile = 'C:\Users\00065525\Scratch\Maryam\New 3D\Input\log\Roselea_poly3_geo.nc';
+linefile = 'curtain_xy.txt';
 
-ylimit = [-70 1.5];
-xlimit = [0 420]; % in km
+ylimit = [11 13];
+xlimit = [0 0.6]; % in km
 cax = [0 2];
 
 varname = 'SAL';
 
 title = 'Salinity (psu)';
 
-outdir = 'Example_Output\plottfv_curtain_quick\';
+outdir = 'Example_Output\Roselea_poly2\';
 
    if ~exist(outdir,'dir')
         mkdir(outdir);
@@ -107,7 +107,7 @@ for TL = 1:1:length(timesteps)
     axes('position',[0.075 0.05 0.8 0.8],'color','k'); % Bottom Left
     
     P1 = patch(model.x /1000,model.z,model.SAL','edgecolor','none');hold on
-    F1 = fill(fillX,fillY,[0.6 0.6 0.6]);
+    %F1 = fill(fillX,fillY,[0.6 0.6 0.6]);
     
     xlim(xlimit);
     ylim(ylimit);

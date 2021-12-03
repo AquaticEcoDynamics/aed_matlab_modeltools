@@ -4,24 +4,24 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = 'X:\Maryam\Sherry_Maryam\With Culvert\Roselea9\Output/Roselea.nc';
+ncfile = 'C:\Users\00065525\Scratch\Maryam\New 3D\Output\Roselea_poly2.nc';
 
-outdir = 'C:\Users\00065525\Scratch\Roselea\Roselea7\Movies\';
+outdir = 'C:\Users\00065525\Scratch\Maryam\New 3D/Roselea_poly2/';
 
 %varname = 'WQ_DIAG_LND_SB';
-varname = 'D';
+varname = 'V_x';
 
-cax = [0 5];
+cax = [-1 1];
 
 conv = 1;%31/1000;%14/1000;
 
-title = 'Height (m)';
+title = 'Vx (m)';
 
 % These two slow processing down. Only set to 1 if required
-create_movie = 1; % 1 to save movie, 0 to just display on screen
-save_images = 0;
+create_movie = 0; % 1 to save movie, 0 to just display on screen
+save_images = 1;
 
-plot_interval = 24;
+plot_interval = 3;
 
 
 %shp = shaperead('Matfiles/Udated_Wetlands.shp');
@@ -146,6 +146,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         
         %mapshow(shp,'EdgeColor','k','facecolor','none');hold on
         
+        colormap(jet);
+        
         x_lim = get(gca,'xlim');
         y_lim = get(gca,'ylim');
         
@@ -179,8 +181,8 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         first_plot = 0;
   
         
-          xlim([388138.343429895          388487.177943441]);
-          ylim([6471121.0911399          6471343.95001086]);
+%           xlim([306019.916783491           310273.95096848]);
+%           ylim([6274581.65164921           6277299.4138508]);
 
 %         xlim([294562.612607759          363234.552262931]);
 %         ylim([6045021.04244045          6088893.28083541]);

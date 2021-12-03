@@ -9,7 +9,8 @@ fielddata_matfile = '../../../CDM/data/store/archive/lowerlakes.mat';
 fielddata = 'lowerlakes';
 %fielddata_matfile = 'lowerlakes.mat';
 %fielddata = 'lowerlakes';
-polygon_file = '../../../CDM/gis/supplementary/Coorong\Final_Ruppia_Area.shp';
+polygon_file = '../../../CDM/gis/supplementary/Coorong\Coorong_obs_sites.shp';
+%polygon_file = '../../../CDM/gis/supplementary/Coorong\Final_Ruppia_Area.shp';
 
 %polygon_file = '.\GDSTN_Polygons_200m_v2_C3.shp';
 
@@ -39,18 +40,6 @@ varname = {...
     'WQ_OGM_DOP',...
     'WQ_OGM_PON',...
     'WQ_OGM_DON',...
-    'WQ_OGM_POC',...
-    'WQ_OGM_DOC',...
-%     'WQ_DIAG_MAG_ULVA_FI',...
-%     'WQ_DIAG_MAG_ULVA_FNIT',...
-%     'WQ_DIAG_MAG_ULVA_FPHO',...
-%     'WQ_DIAG_MAG_ULVA_FT',...
-%     'WQ_DIAG_MAG_ULVA_FSAL',...
-%     'WQ_DIAG_MAG_ULVA_FI_BEN',...
-%     'WQ_DIAG_MAG_ULVA_FNIT_BEN',...
-%     'WQ_DIAG_MAG_ULVA_FPHO_BEN',...
-%     'WQ_DIAG_MAG_ULVA_FT_BEN',...
-%     'WQ_DIAG_MAG_ULVA_FSAL_BEN',...
 };
 
 % def.cAxis(1).value = [0 200];   %'SAL',...
@@ -91,7 +80,8 @@ istitled = 1;
 isylabel = 1;
 islegend = 1;
 isYlim   = 1;
-isRange  = 0;
+isRange  = 1;
+
 isRange_Bottom = 0;
 Range_ALL = 0;
 
@@ -103,13 +93,14 @@ fieldprctile = [10 90];
 
 isHTML = 1;
 
+
 yr = 2017;
 def.datearray = datenum(yr,1:4:51,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = 'X:\HCHB/validation_2019_2021_2/RAW/';
-htmloutput = 'X:\HCHB/validation_2019_2021_2/HTML/';
+outputdirectory = 'X:\CDM\hchb_tfvaed_2019_2021_v1\Images/RAW/';
+htmloutput = 'X:\CDM\hchb_tfvaed_2019_2021_v1\Images/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -117,17 +108,19 @@ htmloutput = 'X:\HCHB/validation_2019_2021_2/HTML/';
 
 
 % Models___________________________________________________________________
- ncfile(1).name = 'X:\HCHB\hchb_wave_201901_202103_wq_all.nc';
+ ncfile(1).name = 'X:\CDM\hchb_tfvaed_2019_2021_v1\output\hchb_wave_201901_202103_wq_all.nc';
+
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2019 - 2021';
  ncfile(1).translate = 1;
 % 
- ncfile(2).name = 'X:\HCHB\2017_2019\CoorongBGC_006_validation_201707_201903_wq_all.nc';
+ ncfile(2).name = 'C:\Users\00065525\Scratch\CDM\CoorongBGC_006_validation_201707_201903_wq_all.nc';
  ncfile(2).symbol = {'-';'--'};
  ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
- ncfile(2).legend = '2017 - 2019';
+ ncfile(2).legend = 'CIIP 2017 - 2019';
  ncfile(2).translate = 1;
+
 % 
 %  ncfile(3).name = 'Y:\CIIP\Scenarios\phase1\SC04\CoorongBGC_SC04_LAC_dry_001_wq_all.nc';
 %  ncfile(3).symbol = {'-';'--'};

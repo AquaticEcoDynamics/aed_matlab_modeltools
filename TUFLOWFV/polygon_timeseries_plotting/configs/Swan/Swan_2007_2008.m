@@ -94,7 +94,7 @@ htmloutput = ['Y:\Swan\SCERM_v7\Output\',rgh,'\HTML\'];
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['C:\Users\00065525\Scratch\SCERM44/SCERM44_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Y:\Swan\SCERM_v7\Output/SCERM44_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
 ncfile(1).legend = 'Model';

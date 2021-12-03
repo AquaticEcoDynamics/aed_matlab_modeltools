@@ -30,16 +30,31 @@ while ~EOF
         
         for ii = 1:length(headers);
             
-            if strcmpi(headers{ii},'ISOTime')
-                data.Date(inc,1) = datenum(dataline{ii},...
-                                        'dd/mm/yyyy HH:MM');
-            else
-                data.(headers{ii})(inc,1) = str2double(dataline{ii});
+            
+            switch upper(headers{ii})
+                
+                case 'ISOTIME'
+                    try
+                    data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy HH:MM');
+                    catch
+                       data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy');
+                    end
+                case 'DATE'
+                    try
+                    data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy HH:MM');
+                    catch
+                       data.Date(inc,1) = datenum(dataline{ii},...
+                        'dd/mm/yyyy');
+                    end
+                otherwise
+                    data.(headers{ii})(inc,1) = str2double(dataline{ii});
             end
         end
         inc = inc + 1;
     end
 end
 
-    
-    
+

@@ -5,9 +5,9 @@
 fielddata_matfile = '..\..\..\SCERM\matlab\modeltools\matfiles\swan.mat';
 fielddata = 'swan';
 
-polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\Swan_Sites.shp';
-yr = 2009;
-rgh = '2009_2010';
+polygon_file = '..\..\..\SCERM\matlab\modeltools\gis\swan_erz_subbox.shp';
+yr = 2008;
+rgh = '2008_2009';
 
 
 % varname = {...
@@ -53,8 +53,10 @@ varname = {...
 
 % def.cAxis(1).value = [0 20];
 % def.cAxis(2).value = [0 55];
-def.cAxis(1).value = [5 45];
-
+%def.cAxis(1).value = [5 45];
+for vvvv=1:length(varname)
+def.cAxis(vvvv).value = [ ];
+end
 
 %changed the polygon file loc
 plottype = 'timeseries'; %timeseries or 'profile'
@@ -88,15 +90,16 @@ fieldprctile = [10 90];
 % Models___________________________________________________________________
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\IC_Chx\',rgh,'\'];
+
+outputdirectory = ['Y:\Swan\SCERM_v7\Output\',rgh,'\RAW\'];
+htmloutput = ['Y:\Swan\SCERM_v7\Output\',rgh,'\HTML\'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['R:\SCERM/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['C:\Users\00065525\Scratch\SCERM44\SCERM_v7\Output/SCERM44_',rgh,'_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
 ncfile(1).legend = 'Model';

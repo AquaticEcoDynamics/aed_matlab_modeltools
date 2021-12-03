@@ -4,8 +4,9 @@ rawGeo = tfv_readnetcdf(filename,'timestep',1);
 mtime = tfv_readnetcdf(filename,'time',1);
 
 
-
 [rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+
+%disp(['The units ',c_units]);
 
 for i = 1:length(shp)
     sdata(i,1) = shp(i).X;
@@ -44,7 +45,7 @@ thetime = find(mtime.Time >= timebin(1) & ...
     mtime.Time < timebin(end));
 
 
-
+thetime(end)
 
 if isSurf
     uData =  rawData.(varname{1})(surfIndex,thetime);

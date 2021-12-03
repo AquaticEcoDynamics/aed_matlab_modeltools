@@ -1,4 +1,4 @@
-function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX,sY,varname,D,depth_range)
+function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX,sY,varname,D,depth_range,layerface,NL,surface_offset)
 %--% Function to load the tuflowFV model output at a specified location
 % (X,Y).
 % Usage: H = H = getmodeldatalocation(filename,X,Y,varname)
@@ -14,7 +14,16 @@ nn = (num_lims+1)/2;
 
 [rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
 
+[iX,iY] = size(rawData.(varname{1}));
+cell_depths(1:iX,1:iY) = NaN;
 
+if length(rawData.(varname{1})) > length(D)
+        if surface_offset ~= 0 % There is an offset
+        
+        disp('Using surface offset');
+        cell_depths = calc_cell_depths(cell_depths,layerface,NL);
+        end
+end
 for iii = 1:length(sss)
     pt_id(iii) = sss(iii);
     Cell_3D_IDs = find(rawGeo.idx2==pt_id(iii));
@@ -26,13 +35,27 @@ for iii = 1:length(sss)
         %disp(pt_id);
     end
     
+    if surface_offset ~= 0 % There is an offset
+        
+        the_depths = cell_depths(Cell_3D_IDs,1);
+        
+        theval = the_depths(1) + surface_offset;
+        
+        [~,ind] = min(abs(the_depths - theval));
+        
+        surfIndex(iii) = Cell_3D_IDs(ind);
+        
+    else
+        
     surfIndex(iii) = min(Cell_3D_IDs);
+    
+    end
     botIndex(iii) = max(Cell_3D_IDs);
     
 end
 
 
-if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0
+if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0 & strcmp(varname{1},'WVHT') == 0
     
     data.surface = rawData.(varname{1})(surfIndex,:);
     data.bottom = rawData.(varname{1})(botIndex,:);

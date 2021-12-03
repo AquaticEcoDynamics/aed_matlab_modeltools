@@ -4,19 +4,28 @@ function tfv_export(filename)
 % Usage: tfv_export config.nml
 %
 % Written by Brendan Busch
-addpath(genpath('../tuflowfv'));
+%addpath(genpath('../tuflowfv'));
 
-conf = read_nml_file(filename);
+%conf = read_nml_file(filename);
 
-ncfile = conf.Configuration.model;
 
-sites = conf.Sites;
+%save conf.mat conf -mat;
 
-variables = conf.Variables;
+run(filename);
+
+conf.Configuration = Configuration;
+conf.Variables = Variables;
+conf.Sites = Sites;
+
+ncfile = Configuration.model;
+
+sites = Sites;
+
+variables = Variables;
 
 vars = fieldnames(variables);
 snames = fieldnames(sites);
-outdir = conf.Configuration.output_directory;
+outdir = Configuration.output_directory;
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
@@ -393,6 +402,7 @@ function data = tfv_getmodeldatalocation(filename,rawData,X,Y,varname)
 
 %rawData = tfv_readnetcdf(filename,'names',varname);
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
+rawGeo_all = tfv_readnetcdf(filename,'names',{'layerface_Z'});
 
 %--% Search
 pnt(1,1) = X;
@@ -433,13 +443,17 @@ if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varna
     data.profile(1,:) = rawData.(varname{1})(Cell_3D_IDs(1),:);
     data.profile(2:length(Cell_3D_IDs)+1,:) = rawData.(varname{1})(Cell_3D_IDs,:);
     data.profile(length(Cell_3D_IDs)+2,:) = rawData.(varname{1})(Cell_3D_IDs(length(Cell_3D_IDs)),:);
-
-    data.depths(1)  = rawGeo.layerface_Z(surfIndex + pt_id - 1);
+    
+    
+    
+    data.depths(1:size(data.profile,1),1:size(data.profile,2)) = NaN;
+    
+    data.depths(1,:)  = rawGeo_all.layerface_Z(surfIndex + pt_id - 1,:);
     for i = 1 : rawGeo.NL(pt_id)
       % mid point of layer  
-      data.depths(i+1) = (rawGeo.layerface_Z(Cell_3D_IDs(i) + pt_id-1) + rawGeo.layerface_Z(Cell_3D_IDs(i) + pt_id-1 +1))/2.;
+      data.depths(i+1,:) = (rawGeo_all.layerface_Z(Cell_3D_IDs(i) + pt_id-1,:) + rawGeo_all.layerface_Z(Cell_3D_IDs(i) + pt_id-1 +1,:))/2.;
     end
-    data.depths(length(Cell_3D_IDs)+2)  = rawGeo.layerface_Z(botIndex+pt_id-1+1);    
+    data.depths(length(Cell_3D_IDs)+2,:)  = rawGeo_all.layerface_Z(botIndex+pt_id-1+1,:);    
     
     %disp(rawGeo.layerface_Z((surfIndex + pt_id - 1 ): (botIndex + pt_id + 10 )));
     
@@ -682,6 +696,10 @@ full_dir = [outdir,'Export/',site,'/',var,'/'];
 if ~exist(full_dir,'dir')
     mkdir(full_dir);
 end
+
+fig1 = figure('visible','off');
+        set(0,'DefaultAxesFontName','Times')
+        set(0,'DefaultAxesFontSize',6)
 
 plot(data.date,smooth(data.surface,conf.Configuration.smooth),'k','DisplayName','Surface');hold on
 plot(data.date,smooth(data.bottom,conf.Configuration.smooth),'r','DisplayName','Bottom');

@@ -14,6 +14,10 @@ warning('off','all')
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
+if exist('add_vdata','var') == 0
+    add_vdata = 0;
+end
+
 if exist('isHTML','var') == 0
     isHTML = 1;
 end
@@ -85,6 +89,11 @@ if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end
 
+if ~exist('surface_offset','var')
+    surface_offset = 0;
+end
+
+
 
 isConv = 0;
 
@@ -130,8 +139,13 @@ if exist('plotsite','var')
     end
 end
 
+if ~plotmodel
+    add_error = 0;
+end
+
 for kk = 1:length(shp)
     shp(kk).Name = regexprep(shp(kk).Name,' ','_');
+    shp(kk).Name = regexprep(shp(kk).Name,'\.','');
 end
 
 
@@ -188,6 +202,9 @@ if plotmodel
         %ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
         
         d_data(mod).D = ttdata.D;
+        ttdata_1 = tfv_readnetcdf(ncfile(mod).name,'names',{'layerface_Z';'NL'});
+        d_data(mod).layerface = ttdata_1.layerface_Z;
+        d_data(mod).NL = ttdata_1.NL;
     end
 end
 if plotmodel
@@ -196,6 +213,10 @@ end
 clear ttdata
 %D = 0;
 %--------------------------------------------------------------------------
+
+if add_vdata
+    vdataout = import_vdata(vdata);
+end
 
 
 
@@ -571,7 +592,7 @@ for var = start_plot_ID:end_plot_ID
         for mod = 1:length(ncfile)
             if plotmodel
                 tic
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);clear functions
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset);clear functions
                 toc
                 % tic
                 %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
@@ -903,7 +924,7 @@ for var = start_plot_ID:end_plot_ID
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
-                                        
+
 										xdata_dt=[xdata_dt xdata_d'];
                                         ydata_dt=[ydata_dt ydata_d];
 										
@@ -927,6 +948,7 @@ for var = start_plot_ID:end_plot_ID
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
+                                                    
                                                     fp = plot(xdata_d,ydata_max_d,'+','color',[0.6 0.6 0.6],...
                                                         'HandleVisibility','off');hold on
                                                     fp = plot(xdata_d,ydata_min_d,'+','color',[0.6 0.6 0.6],...
@@ -937,6 +959,7 @@ for var = start_plot_ID:end_plot_ID
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
+                                                    
                                                     fp = plot(xdata_d,ydata_max_d,'+','color',[0.6 0.6 0.6],...
                                                         'HandleVisibility','off');hold on
                                                     fp = plot(xdata_d,ydata_min_d,'+','color',[0.6 0.6 0.6],...
@@ -1127,6 +1150,29 @@ for var = start_plot_ID:end_plot_ID
                 'markerfacecolor',[0.7 0.7 0.7],'markeredgecolor','k','markersize',3);%'color',[0.7 0.7 0.7]);
         end
         
+        
+        if add_vdata
+            
+            for vd = 1:length(vdataout)
+                
+                %varname{var}
+                %site
+                if vdataout(vd).polygon == site & ...
+                        isfield(vdataout(vd).Data,varname{var})
+                    
+                    [vd_data,~,~] = tfv_Unit_Conversion(vdataout(vd).Data.(varname{var}).vdata,varname{var});
+                    
+                    plot(vdataout(vd).Data.(varname{var}).Date,vd_data,...
+                        vdataout(vd).plotcolor,'displayname',vdataout(vd).legend);
+                end
+            end
+        end
+                
+            
+            
+        
+        
+        
         if add_coorong
             yrange = def.cAxis(var).value(2) - def.cAxis(var).value(1);
             y10 = yrange* 0.1;
@@ -1286,22 +1332,22 @@ for var = start_plot_ID:end_plot_ID
                 dim=[0.7 0.1 0.25 0.3];
                 ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
                 set(ha,'FontSize',5);
-                errorMatrix.(shp(site).Name).(loadname).R=stat_r;
-                errorMatrix.(shp(site).Name).(loadname).BIAS=deviaSn;
-                errorMatrix.(shp(site).Name).(loadname).MAE=stat_mae;
-                errorMatrix.(shp(site).Name).(loadname).RMS=stat_rms;
-                errorMatrix.(shp(site).Name).(loadname).NMAE=stat_nmae;
-                errorMatrix.(shp(site).Name).(loadname).NRMS=stat_nrms;
-                errorMatrix.(shp(site).Name).(loadname).MEF=stat_nash;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=stat_r;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=deviaSn;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=stat_mae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=stat_rms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=stat_nmae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=stat_nrms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=stat_nash;
                 clear str stat*;
             else
-                errorMatrix.(shp(site).Name).(loadname).R=NaN;
-                errorMatrix.(shp(site).Name).(loadname).BIAS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).MAE=NaN;
-                errorMatrix.(shp(site).Name).(loadname).RMS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).NMAE=NaN;
-                errorMatrix.(shp(site).Name).(loadname).NRMS=NaN;
-                errorMatrix.(shp(site).Name).(loadname).MEF=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=NaN;
             end
             
         end

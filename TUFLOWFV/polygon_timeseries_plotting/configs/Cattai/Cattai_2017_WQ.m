@@ -76,7 +76,8 @@ for i = 1:length(varname)
     def.cAxis(i).value = [];
 end
 
-%start_plot_ID = 19;
+start_plot_ID = 2;
+end_plot_ID = 2;
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
@@ -95,6 +96,8 @@ isRange = 1;
 isRange_Bottom = 1;
 Range_ALL = 1;
 
+add_error = 1;
+
 filetype = 'eps';
 def.expected = 1; % plot expected WL
 
@@ -108,25 +111,25 @@ depth_range = [0.5 100];
 % Models___________________________________________________________________
 
 
-outputdirectory = '/Projects2/Cattai/cattai_tfv_aed_v3/Plots/Timeseries/2017/RAW/';
-htmloutput = ['/Projects2/Cattai/cattai_tfv_aed_v3/Plots/Timeseries/2017/HTML/'];
+outputdirectory = '/Projects2/Cattai/cattai_tfv_aed_v4/Plots/Timeseries/2017/RAW/';
+htmloutput = ['/Projects2/Cattai/cattai_tfv_aed_v4/Plots/Timeseries/2017/HTML/'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Projects2/Cattai/cattai_tfv_aed_v3/output/CC_Cal_2017_2018_2.nc';
+ ncfile(1).name = '/Projects2/Cattai/cattai_tfv_aed_v4/output/CC_Cal_2017_2018_2.nc';
 %  ncfile(1).tfv = 'I:/Hawkesbury/HN_Cal_v3_noIC/output/HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = '2017 v3';
  ncfile(1).translate = 1;
 %  
-  ncfile(2).name = '/Projects2/Cattai/cattai_tfv_aed_v3/output/CC_Cal_2017_2018_2_2036.nc'; 
-  ncfile(2).symbol = {'-';'--'};
-  ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
-  ncfile(2).legend = '2036 v3';
-  ncfile(2).translate = 1;
+ % ncfile(2).name = '/Projects2/Cattai/cattai_tfv_aed_v4/output/CC_Cal_2017_2018_2_2036.nc'; 
+ % ncfile(2).symbol = {'-';'--'};
+ % ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ % ncfile(2).legend = '2036 v3';
+ % ncfile(2).translate = 1;
  
 
 

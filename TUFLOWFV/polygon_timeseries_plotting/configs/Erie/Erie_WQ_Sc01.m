@@ -14,7 +14,7 @@ fielddata = 'erie';
 %polygon_file = '../../../Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
 polygon_file = '~/AED Dropbox/AED_Erie_db/2021/Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
 
-sites = [1,2,3,4,5,6,17,18,20,25,26,28,30,31,32,33];  % Sites in shapefile (polygon IDs) to plot
+%sites = [1,2,3,4,5,6,17,18,20,25,26,28,30,31,32,33];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration
 
 % 
@@ -24,11 +24,6 @@ sites = [1,2,3,4,5,6,17,18,20,25,26,28,30,31,32,33];  % Sites in shapefile (poly
 % VAR Configuration________________________________________________________
 varname = {...
     'WQ_DIAG_PHY_TCHLA',...
-    'WQ_PHY_CYANO',...
-    'WQ_PHY_LDIAT',...
-    'WQ_PHY_CHLOR',...
-    'WQ_PHY_CRYPT',...
-    'WQ_PHY_EDIAT',...
     'WQ_DIAG_MAG_TMALG',... 
     'WQ_PHS_FRP',...
     'WQ_SIL_RSI',...
@@ -45,6 +40,11 @@ varname = {...
     'WQ_OGM_PON',...
     'WQ_OGM_DOP',...
     'WQ_OGM_POP',...
+    'WQ_PHY_CYANO',...
+    'WQ_PHY_LDIAT',...
+    'WQ_PHY_CHLOR',...
+    'WQ_PHY_CRYPT',...
+    'WQ_PHY_EDIAT',...
     'WQ_PHY_CYANO_RHO',...
     'WQ_PHY_CYANO_IN',...
     'WQ_PHY_CYANO_IP',...
@@ -85,7 +85,7 @@ plotdepth = {'surface';'bottom'};  % Cell-array with either one or both
 %plotdepth = {'surface'};  % Cell-array with either one or both
 
 istitled = 1;
-isylabel = 0;
+isylabel = 1;
 islegend = 1;
 isYlim   = 0;
 isRange  = 1;
@@ -99,15 +99,14 @@ isFieldRange = 1;
 fieldprctile = [10 90];
 
 
- depth_range = [2 200];
+ depth_range = [1 200];
  
  
 
-isHTML = 1;
+isHTML = 0;
 %htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results/v9_A3/';
-htmloutput = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TUFFVAED_FEB22_n2/_html/';
-
-outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TUFFVAED_FEB22_n2/';
+htmloutput = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TFVAED_v10n/_html/';
+outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TFVAED_v10n/';
 % ____________________________________________________________Configuration
 
 
@@ -117,23 +116,22 @@ outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_
 % Models___________________________________________________________________
 
 % ncfile(1).name = '/Volumes/T7 Touch/Erie/V9_A3/erie_AED.nc';  %ncfile(1).name = 'T:\tfv_009_AED_BIV_Met_A3\Output/erie_AED_diag.nc';
- ncfile(1).name = '/Volumes/T7 Touch/Erie/Output.n2/erie_AED.nc'; 
+ ncfile(1).name = '/Volumes/T7/Erie/Output.00/erie_00_AED.nc'; 
  ncfile(1).symbol = {'-';'-'};
  ncfile(1).colour = {[0  96 100]./255,[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
- ncfile(1).legend = 'n2';
+ ncfile(1).legend = 'v10n';
  ncfile(1).translate = 1;
 
-
-%  ncfile(2).name = '/Volumes/T7 Touch/Erie/Output.m/erie_AED.nc'; 
+%  ncfile(2).name = '/Volumes/T7 Touch/Erie/Output.01/erie_01_AED.nc'; 
 %  ncfile(2).symbol = {'-';'-'};
 %  ncfile(2).colour = {[100  96 100]./255,[62  39  100]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
-%  ncfile(2).legend = 'm';
+%  ncfile(2).legend = '01';
 %  ncfile(2).translate = 1;
 % 
-%  ncfile(3).name = '/Volumes/T7 Touch/Erie/Output.l/erie_AED.nc'; 
+%  ncfile(3).name = '/Volumes/T7 Touch/Erie/Output.02/erie_02_AED.nc'; 
 %  ncfile(3).symbol = {'-';'--'};
 %  ncfile(3).colour = {[0.2 0.9 0.139215686274509],[0         0         0]}; % Surface and Bottom
-%  ncfile(3).legend = 'l';
+%  ncfile(3).legend = '2';
 %  ncfile(3).translate = 1;% ___________________________________________________________________Models
 
  % ___________________________________________________________________Models
@@ -147,7 +145,7 @@ outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_
 %def.datearray = datenum(yr,1:12:96,01);
 
 yr = 2013;
-def.datearray = datenum(yr,05:01:10,05);
+def.datearray = datenum(yr,05:01:11,01);
 
 def.dateformat = 'mm-yy';
 % Must have same number as variable to plot & in same order
@@ -163,7 +161,7 @@ def.fieldcolour = {'m',[0.6 0.6 0.6]}; % Cell with same number of levels
 def.font = 'Arial';
 
 def.xlabelsize = 7;
-def.ylabelsize = 7;
+def.ylabelsize = 6;
 def.titlesize = 10;
 def.legendsize = 6;
 def.legendlocation = 'northeastoutside';

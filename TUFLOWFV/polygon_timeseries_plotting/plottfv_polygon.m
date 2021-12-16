@@ -290,6 +290,22 @@ for var = start_plot_ID:end_plot_ID
                     raw(mod).data.TN_CHX = TN.WQ_DIAG_TOT_TN - CPOM.WQ_OGM_CPOM;
                     clear TP FRP
                     
+                case 'CGM_QP'
+                    C2P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_MAG_CGM_C2P_BEN'});
+                    CGM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_MAG_MAG_BEN'});
+                    raw(mod).data.CGM_QP = CGM.WQ_DIAG_MAG_MAG_BEN ./ max(C2P.WQ_DIAG_MAG_CGM_C2P_BEN,0.01); %mmol P /m2
+                    raw(mod).data.CGM_QP = 1e3*raw(mod).data.CGM_QP * 30.91 ./ (max(CGM.WQ_DIAG_MAG_MAG_BEN,0.001)*12.0/0.25) ;
+                    
+                    clear C2P CGM
+                    
+                    
+                    thesites = fieldnames(fdata);
+                    for bdb = 1:length(thesites)
+                        if isfield(fdata.(thesites{bdb}),'WQ_DIAG_MAG_MAG_IP')
+                            fdata.(thesites{bdb}).CGM_QP = fdata.(thesites{bdb}).WQ_DIAG_MAG_MAG_IP;
+                        end
+                    end
+
                 case 'WQ_OGM_DON'
                     
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
@@ -743,7 +759,7 @@ for var = start_plot_ID:end_plot_ID
                     %                 xdata = data(mod).date;
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
-                        plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Botm Median)'],...
+                        plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
@@ -940,7 +956,7 @@ for var = start_plot_ID:end_plot_ID
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
                         mod
-                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
+                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;

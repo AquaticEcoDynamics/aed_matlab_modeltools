@@ -7,21 +7,42 @@ switch agency
     case 'WIR'
         mface = 'ok';
         mcolor = [255/255 61/255 9/255];
+    case 'DEW WDSA Sonde'
+        mface = 'ok';
+        mcolor = [255/255 61/255 9/255];   
         
+    case 'DEW WDSA Met'
+        mface = 'pk';
+        mcolor = [255/255 61/255 9/255];  
+        
+   case 'DEW WDSA Hydro'
+        mface = 'dk';
+        mcolor = [255/255 61/255 9/255]; 
     case 'MAFRL'
+         mface = 'pk';
+        mcolor = [232/255 90/255 24/255];
+    case 'SA EPA'
          mface = 'pk';
         mcolor = [232/255 90/255 24/255];
     case 'SCU'
          mface = 'dk';
         mcolor = [255/255 111/255 4/255];
+    case 'UA WQ'
+         mface = 'dk';
+        mcolor = [255/255 111/255 4/255];
     case 'MU'
+         mface = 'sk';
+        mcolor = [232/255 90/255 24/255];
+    case 'UA Logger'
          mface = 'sk';
         mcolor = [232/255 90/255 24/255];
      % Erie   
     case     'ECCC'
          mface = 'ok';
         mcolor = [255/255 61/255 9/255];
-        
+    case     'DEW SONDE'
+         mface = 'ok';
+        mcolor = [255/255 61/255 9/255];        
     case 'ECCC-CGM'
          mface = 'sk';
         mcolor = [255/255 61/255 9/255];

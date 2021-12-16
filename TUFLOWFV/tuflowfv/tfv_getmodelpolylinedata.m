@@ -1,4 +1,4 @@
-function [data,c_units,isConv] = tfv_getmodelpolylinedata(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical)
+function [data,c_units,isConv] = tfv_getmodelpolylinedata(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical,Depth,clip_depth)
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
 mtime = tfv_readnetcdf(filename,'time',1);
@@ -53,19 +53,29 @@ else
     uData =  rawData.(varname{1})(botIndex,thetime);
 end
 
+uDepth = Depth(surfIndex,thetime);
+
+
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
 num_lims = length(pred_lims);
 nn = (num_lims+1)/2;
 [ix,~] = size(uData);
 
 
+
+
 inc = 1;
 for i = 1:ix
-    xd = uData(i,:);
-    if sum(isnan(xd)) < length(xd)
-        xd(isnan(xd)) = mean(xd(~isnan(xd)));
-        data.pred_lim_ts(:,inc) = plims(xd,pred_lims)';
-        data.dist(inc,1) = dist(i);
-        inc = inc + 1;
+    
+    ddd = find(uDepth(i,:) < clip_depth);
+
+    if isempty(ddd)
+        xd = uData(i,:);
+        if sum(isnan(xd)) < length(xd)
+            xd(isnan(xd)) = mean(xd(~isnan(xd)));
+            data.pred_lim_ts(:,inc) = plims(xd,pred_lims)';
+            data.dist(inc,1) = dist(i);
+            inc = inc + 1;
+        end
     end
 end

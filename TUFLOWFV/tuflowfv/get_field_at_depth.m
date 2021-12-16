@@ -45,8 +45,8 @@ if strcmpi(level,'surface')
                     
                 else
                     xdata(inc,1) = mDate_b(sss2(tt(1)));
-                    ydata_max(inc,1) = mDate_b(sss2(tt(1)));
-                    ydata_min(inc,1) = mDate_b(sss2(tt(1)));
+                    ydata_max(inc,1) = mData_b(sss2(tt(1)));
+                    ydata_min(inc,1) = mData_b(sss2(tt(1)));
 
                                         
                     ydata(inc,1) = mData_b(sss2(tt(1)));

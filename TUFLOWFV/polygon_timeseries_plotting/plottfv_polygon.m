@@ -14,11 +14,23 @@ warning('off','all')
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
+if exist('add_vdata','var') == 0
+    add_vdata = 0;
+end
+
 if exist('isHTML','var') == 0
     isHTML = 1;
 end
 if ~exist('htmloutput','var')
     htmloutput = outputdirectory;
+end
+
+if ~exist('add_error','var')
+    add_error = 1;
+end
+
+if ~exist('add_human','var')
+    add_human = 0;
 end
 
 if ~exist('fieldrange_min','var')
@@ -77,6 +89,11 @@ if ~exist('fielddata_matfile','var')
     fielddata_matfile = ['matfiles/',fielddata,'.mat'];
 end
 
+if ~exist('surface_offset','var')
+    surface_offset = 0;
+end
+
+
 
 isConv = 0;
 
@@ -103,6 +120,10 @@ if ~exist('depth_range','var')
     depth_range = [0 max_depth];
 end
 
+
+
+
+
 if exist('plotsite','var')
     shp_t = shp;
     clear shp;
@@ -117,6 +138,17 @@ if exist('plotsite','var')
         end
     end
 end
+
+if ~plotmodel
+    add_error = 0;
+end
+
+for kk = 1:length(shp)
+    shp(kk).Name = regexprep(shp(kk).Name,' ','_');
+    shp(kk).Name = regexprep(shp(kk).Name,'\.','');
+end
+
+
 %--------------------------------------------------------------------------
 
 
@@ -170,6 +202,9 @@ if plotmodel
         %ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
         
         d_data(mod).D = ttdata.D;
+        ttdata_1 = tfv_readnetcdf(ncfile(mod).name,'names',{'layerface_Z';'NL'});
+        d_data(mod).layerface = ttdata_1.layerface_Z;
+        d_data(mod).NL = ttdata_1.NL;
     end
 end
 if plotmodel
@@ -178,6 +213,10 @@ end
 clear ttdata
 %D = 0;
 %--------------------------------------------------------------------------
+
+if add_vdata
+    vdataout = import_vdata(vdata);
+end
 
 
 
@@ -202,27 +241,27 @@ for var = start_plot_ID:end_plot_ID
                 
                 case 'OXYPC'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_AED_OXYGEN_OXY'});clear functions
                     tra = tfv_readnetcdf(ncfile(mod).name,'names',{'TRACE_1'});
                     raw(mod).data.OXYPC = tra.TRACE_1 ./ oxy.WQ_AED_OXYGEN_OXY;
                     clear tra oxy
                     
                 case 'WindSpeed'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});clear functions
                     raw(mod).data.WindSpeed = sqrt(power(oxy.W10_x,2) + power(oxy.W10_y,2));
                     clear  oxy
                     
                 case 'WindDirection'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'W10_x';'W10_y'});clear functions
                     raw(mod).data.WindDirection = (180 / pi) * atan2(-1*oxy.W10_x,-1*oxy.W10_y);
                     clear  oxy
                     
                 case 'WQ_DIAG_PHY_TCHLA'
                     
                     if sum(strcmpi(allvars,'WQ_DIAG_PHY_TCHLA')) == 0
-                        tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});
+                        tchl = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN';'WQ_PHY_CRYPT';'WQ_PHY_DIATOM';'WQ_PHY_DINO';'WQ_PHY_BGA'});clear functions
                         raw(mod).data.WQ_DIAG_PHY_TCHLA = (((tchl.WQ_PHY_GRN / 50)*12) + ...
                             ((tchl.WQ_PHY_CRYPT / 50)*12) + ...
                             ((tchl.WQ_PHY_DIATOM / 26)*12) + ...
@@ -230,12 +269,12 @@ for var = start_plot_ID:end_plot_ID
                             ((tchl.WQ_PHY_BGA / 40)*12));
                         clear tchl
                     else
-                        raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
+                        raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
                     end
                     
                 case 'V'
                     
-                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});
+                    oxy = tfv_readnetcdf(ncfile(mod).name,'names',{'V_x';'V_y'});clear functions
                     raw(mod).data.V = sqrt(power(oxy.V_x,2) + power(oxy.V_y,2));
                     clear tra oxy
                     
@@ -246,8 +285,8 @@ for var = start_plot_ID:end_plot_ID
                     %                 NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
                     %                 GRN = tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
                     %                 raw(mod).data.ON = TN.WQ_DIAG_TOT_TN - AMM.WQ_NIT_AMM - NIT.WQ_NIT_NIT - (GRN.WQ_PHY_GRN .* 0.15);
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
-                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});clear functions
+                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_PON'});clear functions
                     raw(mod).data.ON = DON.WQ_OGM_DON + PON.WQ_OGM_PON;
                     clear DON PON
                     
@@ -279,14 +318,14 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
-                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});clear functions
+                    PON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POP'});clear functions
                     raw(mod).data.OP = DON.WQ_OGM_DOP + PON.WQ_OGM_POP;
                     clear TP FRP
                     
                 case 'TN_CHX'
-                    TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});
-                    CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});
+                    TN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TN'});clear functions
+                    CPOM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_CPOM'});clear functions
                     raw(mod).data.TN_CHX = TN.WQ_DIAG_TOT_TN - CPOM.WQ_OGM_CPOM;
                     clear TP FRP
                     
@@ -311,9 +350,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});
+                    DON =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DON'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DONR')) > 0
-                        DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});
+                        DONR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DONR'});clear functions
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON + DONR.WQ_OGM_DONR;
                     else
                         raw(mod).data.WQ_OGM_DON = DON.WQ_OGM_DON;% + DONR.WQ_OGM_DONR;
@@ -325,9 +364,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});
+                    DOC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOC'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DOCR')) > 0
-                        DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});
+                        DOCR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOCR'});clear functions
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC + DOCR.WQ_OGM_DOCR;
                     else
                         raw(mod).data.WQ_OGM_DOC = DOC.WQ_OGM_DOC;% + DOCR.WQ_OGM_DOCR;
@@ -339,9 +378,9 @@ for var = start_plot_ID:end_plot_ID
                     %                 TP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_DIAG_TOT_TP'});
                     %                 FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
                     %                 raw(mod).data.OP = TP.WQ_DIAG_TOT_TP - FRP.WQ_PHS_FRP;
-                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});
+                    DOP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOP'});clear functions
                     if sum(strcmpi(allvars,'WQ_OGM_DOPR')) > 0
-                        DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});
+                        DOPR =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_DOPR'});clear functions
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP + DOPR.WQ_OGM_DOPR;
                     else
                         raw(mod).data.WQ_OGM_DOP = DOP.WQ_OGM_DOP;% + DOPR.WQ_OGM_DOPR;
@@ -350,9 +389,9 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'TURB'
                     
-                    SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});
-                    POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});
-                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});
+                    SS1 =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NCS_SS1'});clear functions
+                    POC =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_OGM_POC'});clear functions
+                    GRN =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHY_GRN'});clear functions
                     raw(mod).data.TURB = (SS1.WQ_NCS_SS1 .* 2.356)  + (GRN.WQ_PHY_GRN .* 0.1) + (POC.WQ_OGM_POC / 83.333333 .* 0.1);
                     clear SS1 POC GRN
                     
@@ -365,8 +404,8 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ECOLI'
                     
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});clear functions
                     raw(mod).data.ECOLI = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) ;
                     clear ECOLI_F ECOLI_A
                     
@@ -376,12 +415,12 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_TOTAL'
                     
-                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});
-                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});
-                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});
+                    ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions
+                    ECOLI_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_A'});clear functions
+                    ECOLI_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_D'});clear functions
                     raw(mod).data.ECOLI_TOTAL = (ECOLI_F.WQ_PAT_ECOLI_F)  +  (ECOLI_A.WQ_PAT_ECOLI_A) + (ECOLI_D.WQ_PAT_ECOLI_D) ;
                     clear ECOLI_F ECOLI_A ECOLI_D
                     
@@ -391,12 +430,12 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI_TOTAL = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_PASSIVE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR1'});clear functions
                     raw(mod).data.ECOLI_PASSIVE = (ECOLI_P.WQ_TRC_TR1) ;
-                    clear ECOLI_P  
+                    clear ECOLI_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -404,12 +443,12 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ECOLI_PASSIVE = fdata.(thesites{bdb}).ECLOI;
                         end
                     end
-
+                    
                 case 'ECOLI_SIMPLE'
                     
-                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    ECOLI_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ECOLI_SIMPLE = (ECOLI_P.WQ_TRC_TR2) ;
-                    clear ECOLI_P  
+                    clear ECOLI_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -420,11 +459,11 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI'
                     
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
                     %ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
-                   raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
-                    clear ENT_F ENT_A 
+                    raw(mod).data.ENTEROCOCCI = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A)  ;
+                    clear ENT_F ENT_A
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -435,10 +474,10 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_TOTAL'
                     
-                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});
-                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});
-                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});
-                   raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
+                    ENT_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_F'});clear functions
+                    ENT_A =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_A'});clear functions
+                    ENT_D =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ENTEROCOCCI_D'});clear functions
+                    raw(mod).data.ENTEROCOCCI_TOTAL = (ENT_F.WQ_PAT_ENTEROCOCCI_F)  +  (ENT_A.WQ_PAT_ENTEROCOCCI_A) + (ENT_D.WQ_PAT_ENTEROCOCCI_D) ;
                     clear ENT_F ENT_A ENT_D
                     
                     thesites = fieldnames(fdata);
@@ -450,9 +489,9 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_PASSIVE'
                     
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR2'});clear functions
                     raw(mod).data.ENTEROCOCCI_PASSIVE = (ENT_P.WQ_TRC_TR2) ;
-                    clear ENT_P  
+                    clear ENT_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -463,9 +502,9 @@ for var = start_plot_ID:end_plot_ID
                     
                 case 'ENTEROCOCCI_SIMPLE'
                     
-                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});
+                    ENT_P =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_TRC_TR4'});clear functions
                     raw(mod).data.ENTEROCOCCI_SIMPLE = (ENT_P.WQ_TRC_TR4) ;
-                    clear ENT_P  
+                    clear ENT_P
                     
                     thesites = fieldnames(fdata);
                     for bdb = 1:length(thesites)
@@ -473,16 +512,16 @@ for var = start_plot_ID:end_plot_ID
                             fdata.(thesites{bdb}).ENTEROCOCCI_SIMPLE = fdata.(thesites{bdb}).ENT;
                         end
                     end
-
+                    
                 case 'HSI_CYANO'
-                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});
-                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});
-                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});
-                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});
-                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});
-                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});
-                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});
-                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});
+                    TEM =  tfv_readnetcdf(ncfile(mod).name,'names',{'TEMP'});clear functions
+                    SAL =  tfv_readnetcdf(ncfile(mod).name,'names',{'SAL'});clear functions
+                    NIT =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_NIT'});clear functions
+                    AMM =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_NIT_AMM'});clear functions
+                    FRP =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PHS_FRP'});clear functions
+                    DEP =  tfv_readnetcdf(ncfile(mod).name,'names',{'D'});clear functions
+                    V_x =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_x'});clear functions
+                    V_y =  tfv_readnetcdf(ncfile(mod).name,'names',{'V_y'});clear functions
                     
                     %------ temperature
                     %The numbers I've used for Darwin Reservoir cyanobacteria are:
@@ -501,7 +540,7 @@ for var = start_plot_ID:end_plot_ID
                     %------ phosphorus
                     KP = 0.15;    % in mmol/m3
                     fP = FRP.WQ_PHS_FRP./(KP+FRP.WQ_PHS_FRP);
-                 
+                    
                     %------ salinity
                     KS = 5;                %   in PSU
                     fS = KS ./ (KS+(SAL.SAL));
@@ -512,15 +551,15 @@ for var = start_plot_ID:end_plot_ID
                     V = (V_x.V_x.*V_x.V_x + V_y.V_y.*V_y.V_y).^0.5; %   in m/s
                     fV = KV ./ (KV+V);
                     fV(V<0.05)=0.;
-
+                    
                     raw(mod).data.HSI_CYANO = ( fT .* min(fN,fP) .* fS .* fV);
-                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;  
-
+                    raw(mod).data.HSI_CYANO(raw(mod).data.HSI_CYANO<0.5) = 0;
+                    
                     clear fT;
-                                        
+                    
                 otherwise
                     
-                    raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});
+                    raw(mod).data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
                     
             end
         end
@@ -569,7 +608,7 @@ for var = start_plot_ID:end_plot_ID
         for mod = 1:length(ncfile)
             if plotmodel
                 tic
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset);clear functions
                 toc
                 % tic
                 %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
@@ -579,6 +618,9 @@ for var = start_plot_ID:end_plot_ID
                 
             end
             
+			xdata_dt = [];
+            ydata_dt = [];
+            incc=1;					
             for lev = 1:length(plotdepth)
                 
                 if strcmpi(plotdepth{lev},'bottom') == 1
@@ -614,6 +656,8 @@ for var = start_plot_ID:end_plot_ID
                             fplotmu = 0;
                             agencyused2 = [];
                             site_string = ['     field: '];
+		                    xdata_dt=[];
+                            ydata_dt=[];
                             for j = 1:length(sss)
                                 if isfield(fdata.(sitenames{sss(j)}),varname{var})
                                     
@@ -659,10 +703,17 @@ for var = start_plot_ID:end_plot_ID
                                             ydata_min_d = [];
                                         end
                                         
+										
+										
+										
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
+                                        ydata_dt=[ydata_dt ydata_d];
+
+
+										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
                                             
@@ -767,9 +818,41 @@ for var = start_plot_ID:end_plot_ID
                     
                     
                     
-                    
-                    
-                    
+                    if add_error
+                        MatchedData_bottom=[];
+                        if exist('xdata_d','var') && ~isempty(xdata_dt)
+                            % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
+                            % MatchedData_obs_surf=ydata_t(loc_obs);
+                            % MatchedData_sim_surf=ydata(loc_sim);
+                            
+                            disp('find field data ...');
+                            alldayso=floor(xdata_dt);
+                            unidayso=unique(alldayso);
+                            obsData(:,1)=unidayso;
+                            
+                            for uuo=1:length(unidayso)
+                                tmpinds=find(alldayso==unidayso(uuo));
+                                tmpydatatt=ydata_dt(tmpinds);
+                                obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
+                                clear tmpydatatt;
+                            end
+                            
+                            alldays=floor(xdata);
+                            unidays=unique(alldays);
+                            simData(:,1)=unidays;
+                            
+                            for uu=1:length(unidays)
+                                tmpinds=find(alldays==unidays(uu));
+                                simData(uu,2)=mean(ydata(tmpinds));
+                            end
+                            
+                            [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
+                            MatchedData_bottom = [v obsData(loc_obs,2) simData(loc_sim,2)];
+                            clear simData obsData v loc* alldays unidays
+                            clear xdata_dt ydata_dt xdata_d ydata_d
+                        end
+                        
+                    end
                     
                 else
                     if plotmodel
@@ -857,7 +940,12 @@ for var = start_plot_ID:end_plot_ID
                                         [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
-                                        
+
+										xdata_dt=[xdata_dt xdata_d'];
+                                        ydata_dt=[ydata_dt ydata_d];
+										
+										
+										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
                                         else
@@ -876,6 +964,7 @@ for var = start_plot_ID:end_plot_ID
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
+                                                    
                                                     fp = plot(xdata_d,ydata_max_d,'+','color',[0.6 0.6 0.6],...
                                                         'HandleVisibility','off');hold on
                                                     fp = plot(xdata_d,ydata_min_d,'+','color',[0.6 0.6 0.6],...
@@ -886,6 +975,7 @@ for var = start_plot_ID:end_plot_ID
                                                 fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
+                                                    
                                                     fp = plot(xdata_d,ydata_max_d,'+','color',[0.6 0.6 0.6],...
                                                         'HandleVisibility','off');hold on
                                                     fp = plot(xdata_d,ydata_min_d,'+','color',[0.6 0.6 0.6],...
@@ -961,7 +1051,40 @@ for var = start_plot_ID:end_plot_ID
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
                     end
-                    
+                    if add_error
+                        MatchedData_surf=[];
+                        if (exist('xdata_dt','var') && ~isempty(xdata_dt))
+                            % [v, loc_obs, loc_sim] = intersect(floor(xdata_t*10)/10, floor(xdata*10)/10);
+                            % MatchedData_obs_surf=ydata_t(loc_obs);
+                            % MatchedData_sim_surf=ydata(loc_sim);
+                            
+                            disp('find field data ...');
+                            alldayso=floor(xdata_dt);
+                            unidayso=unique(alldayso);
+                            obsData(:,1)=unidayso;
+                            
+                            for uuo=1:length(unidayso)
+                                tmpinds=find(alldayso==unidayso(uuo));
+                                tmpydatatt=ydata_dt(tmpinds);
+                                obsData(uuo,2)=mean(tmpydatatt(~isnan(tmpydatatt)));
+                                clear tmpydatatt;
+                            end
+                            
+                            alldays=floor(xdata);
+                            unidays=unique(alldays);
+                            simData(:,1)=unidays;
+                            
+                            for uu=1:length(unidays)
+                                tmpinds=find(alldays==unidays(uu));
+                                simData(uu,2)=mean(ydata(tmpinds));
+                            end
+                            
+                            [v, loc_obs, loc_sim] = intersect(obsData(:,1), simData(:,1));
+                            MatchedData_surf = [v obsData(loc_obs,2) simData(loc_sim,2)];
+                            clear simData obsData v loc* alldays unidays
+                            clear xdata_d ydata_d xdata_dt ydata_dt
+                        end
+                    end
                     
                     %end
                     
@@ -1009,14 +1132,21 @@ for var = start_plot_ID:end_plot_ID
         
         if isConv
             if isylabel
-                
-                ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                if add_human
+                    ylabel([regexprep(loadname_human,'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                else
+                    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                end
             end
             % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         else
             if isylabel
-                
-                ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                if add_human
+                    ylabel([regexprep(loadname_human,'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                else
+                    
+                    ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                end
             end
             % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         end
@@ -1035,6 +1165,29 @@ for var = start_plot_ID:end_plot_ID
                 'HandleVisibility','off',...
                 'markerfacecolor',[0.7 0.7 0.7],'markeredgecolor','k','markersize',3);%'color',[0.7 0.7 0.7]);
         end
+        
+        
+        if add_vdata
+            
+            for vd = 1:length(vdataout)
+                
+                %varname{var}
+                %site
+                if vdataout(vd).polygon == site & ...
+                        isfield(vdataout(vd).Data,varname{var})
+                    
+                    [vd_data,~,~] = tfv_Unit_Conversion(vdataout(vd).Data.(varname{var}).vdata,varname{var});
+                    
+                    plot(vdataout(vd).Data.(varname{var}).Date,vd_data,...
+                        vdataout(vd).plotcolor,'displayname',vdataout(vd).legend);
+                end
+            end
+        end
+                
+            
+            
+        
+        
         
         if add_coorong
             yrange = def.cAxis(var).value(2) - def.cAxis(var).value(1);
@@ -1151,6 +1304,70 @@ for var = start_plot_ID:end_plot_ID
             leg = legend('location',def.legendlocation);
             set(leg,'fontsize',def.legendsize);
         end
+        %% adding error output
+        if add_error
+            MatchedData_obs=[];
+            MatchedData_sim=[];
+            
+            if (exist('MatchedData_surf','var') && ~isempty(MatchedData_surf))
+                MatchedData_obs=[MatchedData_obs, MatchedData_surf(:,2)];
+                MatchedData_sim=[MatchedData_sim, MatchedData_surf(:,3)];
+            end
+            if (exist('MatchedData_bottom','var') && ~isempty(MatchedData_bottom))
+                MatchedData_obs=[MatchedData_obs', MatchedData_bottom(:,2)'];
+                MatchedData_sim=[MatchedData_sim', MatchedData_bottom(:,3)'];
+            end
+            clear MatchedData_surf MatchedData_bottom
+            
+            if length(MatchedData_obs)>10
+                
+                if size(MatchedData_obs,2)>1
+                    [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs',MatchedData_sim');
+                else
+                    [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs,MatchedData_sim);
+                end
+                
+                devia=(mean(MatchedData_sim)-mean(MatchedData_obs))/mean(MatchedData_obs);
+                
+                if abs(devia)>10
+                    deviaS='Out of range';
+                    deviaSn=NaN;
+                else
+                    deviaS=[num2str(devia*100,'%3.2f'),'%'];
+                    deviaSn=devia*100;
+                end
+                str{1}=['R = ',num2str(stat_r,'%1.4f')];
+                str{2}=['BIAS = ',deviaS];
+                % str{3}=['NMAE = ',num2str(stat_nmae,'%1.4f')];
+                % str{4}=['NRMS = ',num2str(stat_nrms,'%1.4f')];
+                str{3}=['MAE = ',num2str(stat_mae,'%3.2f'),' (', num2str(stat_nmae*100,'%3.2f'),'%)'];
+                str{4}=['RMS = ',num2str(stat_rms,'%3.2f'),' (', num2str(stat_nrms*100,'%3.2f'),'%)'];
+                if exist('isSaveErr','var') && isMEF
+                    str{5}=['nash = ',num2str(stat_nash,'%1.4f')];
+                end
+                dim=[0.7 0.1 0.25 0.3];
+                ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
+                set(ha,'FontSize',5);
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=stat_r;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=deviaSn;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=stat_mae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=stat_rms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=stat_nmae;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=stat_nrms;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=stat_nash;
+                clear str stat*;
+            else
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).BIAS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).RMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NMAE=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).NRMS=NaN;
+                errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).MEF=NaN;
+            end
+            
+        end
+        %  clear obsData simData v loc_obs loc_sim xdata_tt ydata_tt MatchedData*;
         
         %         if strcmp(varname{var},'WQ_AED_OXYGEN_OXY') == 1
         %
@@ -1242,3 +1459,8 @@ end
 disp('')
 disp('plottfv_polygon: DONE')
 %--------------------------------------------------------------------------
+if add_error
+    if exist('isSaveErr','var') && isSaveErr
+        save(ErrFilename,'errorMatrix','-mat');
+    end
+end

@@ -19,6 +19,8 @@ geo_face_cells(1:2,1:length(geo_face_idx3)) = ...
 unique_geo_face_cells = ...
     unique_geo_face_cells_w0(unique_geo_face_cells_w0 ~= 0);
 
+save test.mat unique_geo_face_cells geo_face_cells pt_id -mat;
+
 cells_idx2 = geo.cell_idx2(unique_geo_face_cells(1:end));
 cells_idx2
 subsample = cells_idx2(1:1:length(cells_idx2));

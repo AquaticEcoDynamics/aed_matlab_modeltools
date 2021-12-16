@@ -14,14 +14,19 @@ points_file = '../../../SCERM/matlab/modeltools/gis/Swan_Transect_Pnt.shp';
 int = 1;
 theyear = 2015;
 %Initial Condition
-def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,03,15) datenum(theyear,03,25)];int = int + 1;
+% 
+% % Set up the time loops
+% for ii = 04:15
+% 
+% def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
+% 
+% end
+% def.pdates(int).value = [datenum(theyear,05,01) datenum(theyear,08,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,08,01) datenum(theyear,11,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,11,01) datenum(theyear,14,01)];int = int + 1;
+% def.pdates(int).value = [datenum(theyear,14,01) datenum(theyear,15,25)];int = int + 1;
 
-% Set up the time loops
-for ii = 04:15
-
-def.pdates(int).value = [datenum(theyear,ii,01) datenum(theyear,ii+1,01)];int = int + 1;
-
-end
 def.pdates(int).value = [datenum(theyear,05,01) datenum(theyear,08,01)];int = int + 1;
 def.pdates(int).value = [datenum(theyear,08,01) datenum(theyear,11,01)];int = int + 1;
 def.pdates(int).value = [datenum(theyear,11,01) datenum(theyear,14,01)];int = int + 1;
@@ -50,16 +55,17 @@ def.xlabel = 'Distance from Fremantle (km)';
 
 
 thevars = {...
-    'ocean',...
-    'local',...
-    'upstream',...
-    'downstream',...
+    'Ocean',...
+    'Local',...
+    'Upstream',...
+    'Downstream',...
     'Avon',...
     'Canning',...
 };
 
 %Field Var
 varname = {'TP'};
+theunits = 'mg/L';
 
 addmarker = 1;
 
@@ -90,16 +96,16 @@ isSurf = 1; %plot surface (1) or bottom (0)
 % Models___________________________________________________________________
 
 %datafile = '../../../SCERM/matlab/tracer_simulation/data1.mat';
-datafile = 'data_TP.mat';
+datafile = 'data1.mat';
 
-outputdirectory = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TRACER_TP\RAW\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v6\V6_A3\2015_2016_report\StackedArea_SCERM44_TRACER_TP\HTML\'];
-
+outputdirectory = ['C:\Users\00065525\AED Dropbox\AED_Swan_db\REG6.6\SCERM\plotting\StackedArea_SCERM44_TRACER_TP\RAW\'];
+htmloutput = ['C:\Users\00065525\AED Dropbox\AED_Swan_db\REG6.6\SCERM\plotting\StackedArea_SCERM44_TRACER_TP\HTML\'];
+% ____
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
-ncfile(1).name = ['N:\SCERM\SCERM_v6_A3\Output_plt/SCERM44_2015_2016_Tracer_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['C:\Users\00065525\Scratch\SCERM44_2015_2016_Tracer_ALL.nc'];% change this to the nc file loc
 ncfile(1).legend = 'SCERM 8';
 %
 %  ncfile(2).name = 'T:/HN_Cal_v5/output/HN_Cal_2017_2018_kpo4_WQ.nc';
@@ -107,9 +113,9 @@ ncfile(1).legend = 'SCERM 8';
 
 
 
-def.boxlegend = 'northwest';
-def.rangelegend = 'northeast';
+def.boxlegend = 'northeast';
+def.rangelegend = 'northwest';
 
-def.dimensions = [16 8]; % Width & Height in cm
+def.dimensions = [12 8]; % Width & Height in cm
 
 def.visible = 'on'; % on or off

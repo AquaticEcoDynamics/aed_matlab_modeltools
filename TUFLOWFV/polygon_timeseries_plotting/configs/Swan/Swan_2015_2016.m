@@ -37,8 +37,9 @@ rgh = '2015_2016';
 
 % def.cAxis(1).value = [0 20];
 % def.cAxis(2).value = [0 55];
-def.cAxis(1).value = [5 45];
-
+for vvvv=1:length(varname)
+def.cAxis(vvvv).value = [ ];
+end
 
 %changed the polygon file loc
 plottype = 'timeseries'; %timeseries or 'profile'
@@ -73,15 +74,14 @@ fieldprctile = [10 90];
 
 
 
-outputdirectory = ['R:\SCERM\Plotting Output\',rgh,'_IC1\'];
-htmloutput = ['F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Swan_BB\SCERM_v4_v5\V4_B4_Multiyear_NewZones\',rgh,'\'];
-
-% ____________________________________________________________Configuration
+outputdirectory = ['Y:\Swan\SCERM_v7\Output\',rgh,'\RAW\'];
+htmloutput = ['Y:\Swan\SCERM_v7\Output\',rgh,'\HTML\'];
+%_______________________________________________________Configuration
 
 % Models___________________________________________________________________
 
 %nc file loc changed%
-ncfile(1).name = ['Q:\SCERM\SCERM\Output\ALL/swan_',rgh,'_ALL.nc'];% change this to the nc file loc
+ncfile(1).name = ['Y:\Swan\SCERM_v7\Output/SCERM44_2015_2016_basecase_test_ALL.nc'];% change this to the nc file loc
 ncfile(1).symbol = {'-';'-'};% top and bottom
 ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom
 ncfile(1).legend = 'Model';

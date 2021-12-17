@@ -7,12 +7,12 @@
 
 
 %fielddata_matfile = '../../../Lake-Erie/matlab/modeltools/matfiles/erie.mat';
-fielddata_matfile = '~/AED Dropbox/AED_Erie_db/2021/Lake-Erie/matlab/modeltools/matfiles/erie.mat';
+fielddata_matfile = '~/AED Dropbox/AED_Erie_db/2022/Lake-Erie/matlab/modeltools/matfiles/erie.mat';
 fielddata = 'erie';
 
 %polygon_file = '..\..\..\Lake-Erie-2019\matlab\modeltools\gis\erie_validation_v4.shp';
 %polygon_file = '../../../Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
-polygon_file = '~/AED Dropbox/AED_Erie_db/2021/Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
+polygon_file = '~/AED Dropbox/AED_Erie_db/2022/Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
 
 sites = [1,2,3,4,5,6,7,8,9,10,15,16,29,33,34,35,36,37];  % Sites in shapefile (polygon IDs) to plot
 % ____________________________________________________________Configuration
@@ -93,8 +93,8 @@ fieldprctile = [10 90];
 
 isHTML = 0;
 %htmloutput = 'F:\Cloudstor\Shared\Aquatic Ecodynamics (AED)\AED_Erie\Model_Results/v9_A3/';
-htmloutput = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TFVAED_Scen121112/bottom/_html/';
-outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_TFVAED_Scen121112/bottom/';
+htmloutput = '~/AED Dropbox/AED_Erie_db/2022/Analysis/ErieMH/Plotting/Erie_TFVAED_Scen121112X/bottom/_html/';
+outputdirectory = '~/AED Dropbox/AED_Erie_db/2022/Analysis/ErieMH/Plotting/Erie_TFVAED_Scen121112X/bottom/';
 % ____________________________________________________________Configuration
 
 
@@ -147,6 +147,12 @@ outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_
  ncfile(4).colour = { '#a569bd',[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
  ncfile(4).legend = '12 IC 2014';
  ncfile(4).translate = 1;
+
+  ncfile(5).name = '/Volumes/T7/Erie/Output_11.00/erie_00_AED.nc'; 
+ ncfile(5).symbol = {'-';'-'};
+ ncfile(5).colour = { '#f7dc6f',[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+ ncfile(5).legend = 'New Mesh';
+ ncfile(5).translate = 1;
 
 %  ncfile(5).name = '/Volumes/T7/Erie/Output.07/erie_07_AED.nc'; 
 %  ncfile(5).symbol = {'-';'-'};
@@ -249,6 +255,40 @@ outputdirectory = '~/AED Dropbox/AED_Erie_db/2021/Analysis/ErieMH/Plotting/Erie_
 %   ncfile(11).translate = 1;
 % 
 %  % ___________________________________________________________________Models
+
+
+% Add virtual datasets to the plots
+add_vdata = 1;
+
+vdata(1).matfile = 'vdata/1274_out.mat';
+vdata(1).fieldname  = 'vdata';
+vdata(1).polygon = 33;
+vdata(1).legend = 'GLM: 1274';
+vdata(1).plotcolor = 'r';
+
+vdata(2).matfile = 'vdata/1341_out.mat';
+vdata(2).fieldname  = 'vdata';
+vdata(2).polygon = 34;
+vdata(2).legend = 'GLM: 1341';
+vdata(2).plotcolor = 'r';
+
+vdata(3).matfile = 'vdata/1345_out.mat';
+vdata(3).fieldname  = 'vdata';
+vdata(3).polygon = 35;
+vdata(3).legend = 'GLM: 1345';
+vdata(3).plotcolor = 'r';
+
+vdata(4).matfile = 'vdata/1351_out.mat';
+vdata(4).fieldname  = 'vdata';
+vdata(4).polygon = 37;
+vdata(4).legend = 'GLM: 1351';
+vdata(4).plotcolor = 'r';
+
+vdata(5).matfile = 'vdata/1353_out.mat';
+vdata(5).fieldname  = 'vdata';
+vdata(5).polygon = 36;
+vdata(5).legend = 'GLM: 1353';
+vdata(5).plotcolor = 'r';
 
 
 

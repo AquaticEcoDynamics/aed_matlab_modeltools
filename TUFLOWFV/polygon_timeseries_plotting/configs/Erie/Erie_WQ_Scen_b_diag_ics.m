@@ -271,6 +271,40 @@ outputdirectory = '~/AED Dropbox/AED_Erie_db/2022/Analysis/ErieMH/Plotting/Erie_
 %  % ___________________________________________________________________Models
 
 
+% Add virtual datasets to the plots
+add_vdata = 1;
+
+vdata(1).matfile = 'vdata/1274_out.mat';
+vdata(1).fieldname  = 'vdata';
+vdata(1).polygon = 33;
+vdata(1).legend = 'GLM: 1274';
+vdata(1).plotcolor = 'r';
+
+vdata(2).matfile = 'vdata/1341_out.mat';
+vdata(2).fieldname  = 'vdata';
+vdata(2).polygon = 34;
+vdata(2).legend = 'GLM: 1341';
+vdata(2).plotcolor = 'r';
+
+vdata(3).matfile = 'vdata/1345_out.mat';
+vdata(3).fieldname  = 'vdata';
+vdata(3).polygon = 35;
+vdata(3).legend = 'GLM: 1345';
+vdata(3).plotcolor = 'r';
+
+vdata(4).matfile = 'vdata/1351_out.mat';
+vdata(4).fieldname  = 'vdata';
+vdata(4).polygon = 37;
+vdata(4).legend = 'GLM: 1351';
+vdata(4).plotcolor = 'r';
+
+vdata(5).matfile = 'vdata/1353_out.mat';
+vdata(5).fieldname  = 'vdata';
+vdata(5).polygon = 36;
+vdata(5).legend = 'GLM: 1353';
+vdata(5).plotcolor = 'r';
+
+
 
 % Defaults_________________________________________________________________
 

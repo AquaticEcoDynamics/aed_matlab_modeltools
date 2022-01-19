@@ -1,7 +1,10 @@
 %plottfv_polygon Erie_Mag
-
 %plottfv_polygon Erie_WQ
 %plottfv_polygon Erie_AED
 %plottfv_polygon Erie_Diags_NIT
-plottfv_polygon Erie_WQ2
-plottfv_polygon Erie_BIV
+%plottfv_polygon Erie_WQ2
+%plottfv_polygon Erie_WQ2
+%plottfv_polygon Erie_WQ_v11_s_linux
+%plottfv_polygon Erie_WQ_v11_b_linux
+plottfv_polygon Erie_WQ_v11_diag_s_linux
+plottfv_polygon Erie_WQ_v11_diag_b_linux

@@ -125,11 +125,11 @@ htmloutput = ['/Projects2/Cattai/cattai_tfv_aed_v4/Plots/Timeseries/2017/HTML/']
  ncfile(1).legend = '2017 v3';
  ncfile(1).translate = 1;
 %  
- % ncfile(2).name = '/Projects2/Cattai/cattai_tfv_aed_v4/output/CC_Cal_2017_2018_2_2036.nc'; 
- % ncfile(2).symbol = {'-';'--'};
- % ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
- % ncfile(2).legend = '2036 v3';
- % ncfile(2).translate = 1;
+ ncfile(2).name = '/Projects2/Cattai/cattai_tfv_aed_v4/output/CC_Cal_2017_2018_2_2036.nc'; 
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[0.749019607843137 0.227450980392157 0.0039215686274509],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
+ ncfile(2).legend = '2036 v3';
+ ncfile(2).translate = 1;
  
 
 

@@ -34,8 +34,6 @@ polygon_file = '../../../CDM/gis/supplementary/Coorong/Coorong_obs_sites.shp';
 
 % VAR Configuration________________________________________________________
 varname = {...
-        'WVHT',...
-    'H',...
  'SAL',...
  'TEMP',...
  'WQ_DIAG_TOT_TN',...
@@ -44,8 +42,6 @@ varname = {...
      'WQ_DIAG_TOT_TSS',...
     'WQ_DIAG_TOT_TURBIDITY',...
     'WQ_NCS_SS1',...
-    'WQ_NCS_SS2',...
-    'WQ_NCS_SS3',...
         'WQ_NIT_AMM',...
     'WQ_NIT_NIT',...
     'WQ_PHS_FRP',...
@@ -161,13 +157,13 @@ fieldprctile = [10 90];
 
 isHTML = 1;
 
-yr = 2019;
-def.datearray = datenum(yr,7:6:36,1);
+yr = 2013;
+def.datearray = datenum(yr,5:4:37,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/RAW/';
-htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/HTML/';
+outputdirectory = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31/plots/v18_newSHP_v2/RAW/';
+htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31/plots/v18_newSHP_v2/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -175,37 +171,37 @@ htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/HTM
 
 
 % Models___________________________________________________________________
- ncfile(1).name = '/Projects2/CDM/hchb_tfvaed_v1_resuspension/output_sedIC5/output/hchb_wave_21901101_20210701_wq_v5_resuspension_sedIC_all.nc';
- ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
- ncfile(1).legend = 'V1-5';
- ncfile(1).translate = 1;
+%  ncfile(1).name = '/AED/CIIP/CIIP_phase2_calibration/output/aedtest_v22_2013.nc';
+%  ncfile(1).symbol = {'-';'--'};
+%  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
+%  ncfile(1).legend = 'z5';
+%  ncfile(1).translate = 1;
 % 
- ncfile(2).name = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/output/hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
- ncfile(2).symbol = {'-';'--'};
- ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
- ncfile(2).legend = 'V31-0';
- ncfile(2).translate = 1;
+ ncfile(1).name = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31_newSHP/output_v18/hchb_calibration_201305_201601_newshp_all.nc';
+ ncfile(1).symbol = {'-';'--'};
+ ncfile(1).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(1).legend = 'z31-18';
+ ncfile(1).translate = 1;
 
-%  ncfile(3).name = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31/output/hchb_wave_21901101_20210701_wq_v5_resuspension_all_v1.nc';
+ ncfile(2).name = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31_newSHP/output_v17/hchb_calibration_201305_201601_newshp_all.nc';
+ ncfile(2).symbol = {'-';'--'};
+ ncfile(2).colour = {[153,213,148]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(2).legend = 'z31-17';
+ ncfile(2).translate = 1;
+% 
+%  ncfile(3).name = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31_newSHP/output_v18/hchb_calibration_201305_201601_newshp_all.nc';
 %  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {[230,245,152]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(3).legend = 'V2-1';
+%  ncfile(3).colour = {[216,179,101]./255,[1,102,94]./255}; % Surface and Bottom
+%  ncfile(3).legend = 'z31-18';
 %  ncfile(3).translate = 1;
-% % 
-%  ncfile(4).name = 'Y:/CIIP/Scenarios/phase1/SC05/CoorongBGC_SC05_SEFA_dry_001_wq_all.nc';
+%   
+%  ncfile(4).name = '/Projects2/CDM/hchb_tfvaed_v2_calibration_z31_newSHP/output_v16/hchb_calibration_201305_201601_newshp_all.nc';
 %  ncfile(4).symbol = {'-';'--'};
 %  ncfile(4).colour = {[230,245,152]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(4).legend = 'SC05';
+%  ncfile(4).legend = 'z31-16';
 %  ncfile(4).translate = 1;
-% 
-%  ncfile(5).name = 'Y:/CIIP/Scenarios/phase1/SC07/CoorongBGC_SC07_pump_in_out_reverse_500_ML_d_dry_001_wq_all.nc';
-%  ncfile(5).symbol = {'-';'--'};
-%  ncfile(5).colour = {[153,213,148]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(5).legend = 'SC07';
-%  ncfile(5).translate = 1;
-% 
-%  
+% % % 
+% %  
 
 % ___________________________________________________________________Models
 

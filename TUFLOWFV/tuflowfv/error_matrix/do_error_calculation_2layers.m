@@ -1,7 +1,7 @@
 
 function [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(obsData,simData)
 
-if length(obsData)>10
+if length(obsData)>6
     disp('doing errors here');
     
     stat_mae=mae_2layers(obsData,simData);

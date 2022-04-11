@@ -123,24 +123,50 @@ if ~timeseries % We are chasing entire variables at one or all timesteps
             if any(j)
                 if isempty(tstep)
                     %disp('crash 2');
-                    if strcmpi(varnames{j},'ResTime') == 0
+                %    if strcmpi(varnames{j},'ResTime') == 0
+                %        %data.(varnames{j}) = netcdf.getVar(ncid,varid(j),[0 0],[18773 3600],'double');
+                %        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                %    else
+                %        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                %    end
+                %else
+                %    if isempty(varunlimdim{j})
+                %        disp('crash 3');
+                %        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                %    else
+                %        disp('crash 4');
+                %        start = zeros(size(vardimids{j}));
+                %        start(varunlimdim{j}) = tstep - 1;
+                %        count = dimlen(vardimids{j}+1);
+                %        count(varunlimdim{j}) = 1;
+                %        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),start,count,'double');
+                %    end
+					
+					if strcmpi(varnames{j},'ResTime') == 0
                         %data.(varnames{j}) = netcdf.getVar(ncid,varid(j),[0 0],[18773 3600],'double');
-                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'single');
                     else
-                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'single');
                     end
                 else
                     if isempty(varunlimdim{j})
                         disp('crash 3');
-                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'double');
+                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),'single');
                     else
                         disp('crash 4');
                         start = zeros(size(vardimids{j}));
                         start(varunlimdim{j}) = tstep - 1;
                         count = dimlen(vardimids{j}+1);
                         count(varunlimdim{j}) = 1;
-                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),start,count,'double');
+                        data.(varnames{j}) = netcdf.getVar(ncid,varid(j),start,count,'single');
                     end
+					
+					
+					
+					
+					
+					
+					
                 end
             else
                 disp([names{i},' variable not found in ',filename]);

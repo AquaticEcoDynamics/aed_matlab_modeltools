@@ -1,4 +1,4 @@
-function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX,sY,varname,D,depth_range,layerface,NL,surface_offset)
+function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX,sY,varname,D,depth_range,layerface,NL,surface_offset,use_matfiles)
 %--% Function to load the tuflowFV model output at a specified location
 % (X,Y).
 % Usage: H = H = getmodeldatalocation(filename,X,Y,varname)
@@ -11,8 +11,14 @@ tdate = dat.Time;
 %clear functions
 inpol = inpolygon(X,Y,sX,sY);
 sss = find(inpol == 1);
-
-[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+if use_matfiles
+	[rawData.(varname{1}).outdata.surface,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.surface,varname{1});
+	[rawData.(varname{1}).outdata.bottom,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.bottom,varname{1});
+else
+	[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+end
+varname{1}
+c_units
 pred_lims = [0.05,0.25,0.5,0.75,0.95];
 if length(sss) > 1
 
@@ -40,10 +46,10 @@ if length(sss) > 1
 		
 		%disp(rawGeo.NL(pt_id));
 		
-		if(length(Cell_3D_IDs) ~= rawGeo.NL(pt_id(iii)))
+		%if(length(Cell_3D_IDs) ~= rawGeo.NL(pt_id(iii)))
 			%disp('cell3DiDs ~=NL');
 			%disp(pt_id);
-		end
+		%end
 		
 		if surface_offset ~= 0 % There is an offset
 			
@@ -63,25 +69,35 @@ if length(sss) > 1
 		botIndex(iii) = max(Cell_3D_IDs);
 		
 	end
+	
+	if ~use_matfiles
 
-
-	if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0 & strcmp(varname{1},'WVHT') == 0
-		
-		data.surface = rawData.(varname{1})(surfIndex,:);
-		data.bottom = rawData.(varname{1})(botIndex,:);
-		
-		%         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.(varname{1})(surfIndex,:),varname{1});
-		%         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1})(botIndex,:),varname{1});
-		%data.profile = rawData.(varname{1})(Cell_3D_IDs,:);
+		if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'D') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0 & strcmp(varname{1},'WVHT') == 0 & strcmp(varname{1},'W10_x') == 0 & strcmp(varname{1},'W10_y') == 0
+			
+			
+			data.surface = rawData.(varname{1})(surfIndex,:);
+			data.bottom = rawData.(varname{1})(botIndex,:);
+			
+			%         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.(varname{1})(surfIndex,:),varname{1});
+			%         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1})(botIndex,:),varname{1});
+			%data.profile = rawData.(varname{1})(Cell_3D_IDs,:);
+			
+		else
+			data.surface = rawData.(varname{1})(pt_id,:);
+			data.bottom = rawData.(varname{1})(pt_id,:);
+			
+			%         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.(varname{1})(pt_id,:),varname{1});
+			%         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1})(pt_id,:),varname{1});
+			
+		end
 		
 	else
-		data.surface = rawData.(varname{1})(pt_id,:);
-		data.bottom = rawData.(varname{1})(pt_id,:);
-		
-		%         [data.surface(iii,:),c_units,isConv] = tfv_Unit_Conversion(rawData.(varname{1})(pt_id,:),varname{1});
-		%         [data.bottom(iii,:),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1})(pt_id,:),varname{1});
-		
+	
+		data.surface = rawData.(varname{1}).outdata.surface(pt_id,:);
+		data.bottom = rawData.(varname{1}).outdata.bottom(pt_id,:);
 	end
+	
+	
 
 	point_D = D(pt_id,:);
 	%Get curtain series of predictive limits for variable varname

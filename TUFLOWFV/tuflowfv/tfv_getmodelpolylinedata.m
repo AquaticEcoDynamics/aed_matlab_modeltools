@@ -1,11 +1,15 @@
-function [data,c_units,isConv] = tfv_getmodelpolylinedata(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical,Depth,clip_depth)
+function [data,c_units,isConv] = tfv_getmodelpolylinedata(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical,Depth,clip_depth,use_matfiles)
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
 mtime = tfv_readnetcdf(filename,'time',1);
 
 clear functions;
-
-[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+if use_matfiles
+	[rawData.(varname{1}).outdata.surface,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.surface,varname{1});
+	[rawData.(varname{1}).outdata.bottom,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.bottom,varname{1});
+else
+	[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+end
 clear functions;
 
 for i = 1:length(shp)
@@ -44,16 +48,21 @@ end
 thetime = find(mtime.Time >= timebin(1) & ...
     mtime.Time < timebin(end));
 
-
-
-
-if isSurf
-    uData =  rawData.(varname{1})(surfIndex,thetime);
+if ~use_matfiles
+	if isSurf
+		uData =  rawData.(varname{1})(surfIndex,thetime);
+	else
+		uData =  rawData.(varname{1})(botIndex,thetime);
+	end
 else
-    uData =  rawData.(varname{1})(botIndex,thetime);
+	if isSurf
+		uData =  rawData.(varname{1}).outdata.surface(pt_id,thetime);
+	else
+		uData =  rawData.(varname{1}).outdata.bottom(pt_id,thetime);
+	end
 end
 
-uDepth = Depth(surfIndex,thetime);
+uDepth = Depth(pt_id,thetime);
 
 
 pred_lims = [0.05,0.25,0.5,0.75,0.95];

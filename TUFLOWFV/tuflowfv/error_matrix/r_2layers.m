@@ -24,5 +24,10 @@ clear v loc_obs loc_sim
 %ss = find(~isnan(MatchedData(:,1)) == 1);
 
 R = corrcoef(MatchedData(ss,2), MatchedData(ss,3));hold on;
-rf=R(1,2);
+[A] = size(R);
+if A(2) > 1
+	rf=R(1,2);
+else
+	rf(1,1:2) = NaN;
+end
 

@@ -2,8 +2,10 @@
 
 clear; close all;
 
-%conf='configs/Coorong/hchb_calibration_2013_linux_PH.m';
-conf='configs/Coorong/Coorong_CIIP_validation_2019_IC_3D_linux_PH.m';
+%conf='configs/Coorong/Coorong_eWater_comparison.m';
+%conf='configs/Coorong/Coorong_resuspension_check_allvars_development_20220314.m';
+%conf='configs/Coorong/Coorong_resuspension_check_allvars_development_SDG3_Windows.m';
+conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';
 %--------------------------------------------------------------------------
 disp('plottfv_polygon: START')
 disp('')
@@ -173,7 +175,7 @@ col_pal_bottom    =[[215 204 200]./255; [200 204 200]./255; [185 204 200]./255 ]
 %--------------------------------------------------------------------------
 % Load Field Data and Get site names
 field = load(fielddata_matfile);
-fdata = field.(fielddata);
+fdata = field.(fielddata); clear field;
 sitenames = fieldnames(fdata);
 
 for i = 1:length(sitenames)
@@ -207,12 +209,17 @@ if plotmodel
         ttdata_1 = tfv_readnetcdf(ncfile(mod).name,'names',{'layerface_Z';'NL'});
         d_data(mod).layerface = ttdata_1.layerface_Z;
         d_data(mod).NL = ttdata_1.NL;
+        d_data(mod).rawGeo = tdata;
+        
+        dat = tfv_readnetcdf(ncfile(mod).name,'time',1);
+        d_data(mod).tdate = dat.Time;
+
     end
 end
 if plotmodel
     allvars = tfv_infonetcdf(ncfile(1).name);
 end
-clear ttdata
+clear ttdata ttdata_1
 %D = 0;
 %--------------------------------------------------------------------------
 
@@ -594,7 +601,7 @@ for var = start_plot_ID:end_plot_ID
         for mod = 1:length(ncfile)
             if plotmodel
                 tic
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset);clear functions
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_quick(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset,0,d_data(mod).rawGeo,d_data(mod).tdate);clear functions
                 toc
                 % tic
                 %[data(mod),c_units,isConv] = tfv_getmodeldatapolygon(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range);
@@ -701,23 +708,28 @@ for var = start_plot_ID:end_plot_ID
 
 										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
+                                            if strcmp(fdata.(sitenames{sss(j)}).(varname{var}).Agency,'ALS')==1
+                                                agency='DEW ALS';
+                                            elseif strcmp(fdata.(sitenames{sss(j)}).(varname{var}).Agency,'AWQC (DEW)')==1
+                                                agency='DEW AWQC';
+                                            else
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
-                                            
+                                            end
                                         else
-                                            agency = 'WIR';
+                                            agency = 'DEW';
                                         end
                                         
                                         site_string = [site_string,' ',sitenames{sss(j)},'(',agency,'),'];
                                         
                                         %                     if strcmpi(agency,'DEWNR')
-                                        [mface,mcolor,agencyname] = sort_agency_information(agency);
+                                        [mface,mcolor,agencyname] = sort_agency_information_Coorong(agency);
                                         agencyused2 = [agencyused2;{agencyname}];
                                         if plotvalidation
                                             fgf = sum(strcmpi(agencyused2,agencyname));
                                             
                                             if fgf > 1
                                                 fp = plot(xdata_d,ydata_d,mface,...
-                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'HandleVisibility','off');hold on
+                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',mcolor,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 
                                                 if validation_minmax
@@ -730,7 +742,7 @@ for var = start_plot_ID:end_plot_ID
                                                 
                                             else
                                                 fp = plot(xdata_d,ydata_d,mface,...
-                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',bottom_face_color,'markersize',3,'displayname',[agency, ' Bot']);hold on
+                                                    'markeredgecolor',bottom_edge_color,'markerfacecolor',mcolor,'markersize',3,'displayname',[agency, ' Bot']);hold on
                                                 if validation_minmax
                                                     fp = plot(xdata_d,ydata_max_d,'r+',...
                                                         'HandleVisibility','off');hold on
@@ -848,7 +860,7 @@ for var = start_plot_ID:end_plot_ID
                                 if isRange
                                     %
                                     fig = fillyy(data(mod).date,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
-                                    set(fig,'DisplayName',[ncfile(mod).legend,' (Surf Range)']);
+                                    set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']); %Surf
                                     set(fig,'FaceAlpha', alph);
                                     hold on
                                     
@@ -933,13 +945,19 @@ for var = start_plot_ID:end_plot_ID
 										
 										
                                         if isfield(fdata.(sitenames{sss(j)}).(varname{var}),'Agency')
+                                            if strcmp(fdata.(sitenames{sss(j)}).(varname{var}).Agency,'ALS')==1
+                                                agency='DEW ALS';
+                                            elseif strcmp(fdata.(sitenames{sss(j)}).(varname{var}).Agency,'AWQC (DEW)')==1
+                                                agency='DEW AWQC';
+                                            else
                                             agency = fdata.(sitenames{sss(j)}).(varname{var}).Agency;
+                                            end
                                         else
-                                            agency = 'WIR';
+                                            agency = 'DEW';
                                         end
                                         site_string = [site_string,' ',sitenames{sss(j)},'(',agency,'),'];
                                         %                     if strcmpi(agency,'DEWNR')
-                                        [mface,mcolor,agencyname] = sort_agency_information(agency);
+                                        [mface,mcolor,agencyname] = sort_agency_information_Coorong(agency);
                                         agencyused = [agencyused;{agencyname}];
                                         
                                         if plotvalidation
@@ -947,7 +965,7 @@ for var = start_plot_ID:end_plot_ID
                                             
                                             if fgf > 1
                                                 %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
-                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',mcolor,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
                                                     
@@ -958,7 +976,7 @@ for var = start_plot_ID:end_plot_ID
                                                 end
                                                 uistack(fp,'top');
                                             else
-                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',mcolor,'markersize',3,'displayname',[agency]);hold on; %,' Surf'
                                                 uistack(fp,'top');
                                                 if validation_minmax
                                                     
@@ -1032,7 +1050,7 @@ for var = start_plot_ID:end_plot_ID
                     %                 ydata = data(mod).pred_lim_ts(3,:);
                     if plotmodel
                         mod
-                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Surf Median)'],...
+                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (Median)'],...
                             'linestyle',ncfile(mod).symbol{1});hold on
                         plotdate(1:length(xdata),mod) = xdata;
                         plotdata(1:length(ydata),mod) = ydata;
@@ -1213,7 +1231,8 @@ for var = start_plot_ID:end_plot_ID
         %             plot([datenum(2015,01,01) datenum(2019,01,01)],[25 25],'--k');
         %         end
         
-        xlim([def.datearray(1) def.datearray(end)]);
+        %xlim([def.datearray(1) def.datearray(end)]);
+        xlim([datenum(2019,11,1) def.datearray(end)]);
         if isYlim
             if ~isempty(def.cAxis(var).value)
                 ylim([def.cAxis(var).value]);
@@ -1331,7 +1350,8 @@ for var = start_plot_ID:end_plot_ID
                 if exist('isSaveErr','var') && isMEF
                     str{5}=['nash = ',num2str(stat_nash,'%1.4f')];
                 end
-                dim=[0.7 0.1 0.25 0.3];
+                hlp=get(leg,'Position');
+                dim=[hlp(1) 0.1 0.15 0.3];
                 ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
                 set(ha,'FontSize',5);
                 errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=stat_r;
@@ -1426,6 +1446,9 @@ for var = start_plot_ID:end_plot_ID
         
         clear data
         
+    if add_error && ~exist('isSaveErr','var') 
+        clear errorMatrix
+    end
     end
     
     if isHTML

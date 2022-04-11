@@ -14,6 +14,17 @@ warning('off','all')
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
+
+if exist('add_trigger_values','var') == 0
+	add_trigger_values = 0
+	
+end
+
+if exist('use_matfiles','var') == 0
+    use_matfiles = 0;
+end
+
+
 if exist('add_vdata','var') == 0
     add_vdata = 0;
 end
@@ -92,7 +103,9 @@ end
 if ~exist('surface_offset','var')
     surface_offset = 0;
 end
-
+if ~exist('plot_array','var')
+	plot_array = [];
+end
 
 
 isConv = 0;
@@ -105,11 +118,8 @@ if plotmodel
 end
 
 shp = shaperead(polygon_file);
-if ~exist('sites','var')
-    sites = [1:1:1:length(shp)];
-end
-disp('SHP sites:')
-disp(sites)
+
+
 
 if ~exist('isFieldRange','var')
     isFieldRange = 0;
@@ -125,7 +135,13 @@ if ~exist('depth_range','var')
     depth_range = [0 max_depth];
 end
 
-
+if add_trigger_values
+	[snum,sstr] = xlsread(trigger_file,'A2:D1000');
+	
+	trigger_vars = sstr(:,1);
+	trigger_values = snum(:,1);
+	trigger_label = sstr(:,3);
+end
 
 
 
@@ -134,6 +150,7 @@ if exist('plotsite','var')
     clear shp;
     inc = 1;
     disp('Removing plotting sites');
+	plotsite
     for bhb = 1:length(shp_t)
         
         if ismember(shp_t(bhb).Plot_Order,plotsite)
@@ -144,6 +161,21 @@ if exist('plotsite','var')
     end
 end
 
+if exist('plotsites_ID','var')
+    shp_t = shp;
+    clear shp;
+    inc = 1;
+    disp('Removing plotting sites');
+	plotsites_ID
+    for bhb = plotsites_ID
+        
+            
+            shp(inc) = shp_t(bhb);
+            inc = inc + 1;
+    end
+end
+
+
 if ~plotmodel
     add_error = 0;
 end
@@ -153,6 +185,12 @@ for kk = 1:length(shp)
     shp(kk).Name = regexprep(shp(kk).Name,'\.','');
 end
 
+if ~exist('sites','var')
+    sites = [1:1:1:length(shp)];
+end
+
+disp('SHP sites:')
+disp(sites)
 
 %--------------------------------------------------------------------------
 
@@ -186,7 +224,9 @@ for i = 1:length(sitenames)
     Y(i) = fdata.(sitenames{i}).(vars{1}).Y;
 end
 %--------------------------------------------------------------------------
-
+if isempty(plot_array)
+	plot_array = [start_plot_ID:end_plot_ID];
+end
 %--------------------------------------------------------------------------
 if plotmodel
     for mod = 1:length(ncfile)
@@ -202,14 +242,23 @@ if plotmodel
             else
                 tttdata = tfv_readnetcdf(ncfile(mod).name,'names',{'cell_Zb';'H'}); clear functions
                 ttdata.D = tttdata.H - tttdata.cell_Zb;clear tttdata;
+				clear tttdata;
             end
         end
         %ttdata = tfv_readnetcdf(ncfile(mod).name,'names','D');
         
-        d_data(mod).D = ttdata.D;
-        ttdata_1 = tfv_readnetcdf(ncfile(mod).name,'names',{'layerface_Z';'NL'});
-        d_data(mod).layerface = ttdata_1.layerface_Z;
-        d_data(mod).NL = ttdata_1.NL;
+        d_data(mod).D = single(ttdata.D);
+		
+		if surface_offset
+			ttdata_1 = tfv_readnetcdf(ncfile(mod).name,'names',{'layerface_Z';'NL'});
+			d_data(mod).layerface = single(ttdata_1.layerface_Z);
+			d_data(mod).NL = single(ttdata_1.NL);
+			clear ttdata_1
+		else
+			d_data(mod).layerface = [];
+			d_data(mod).NL = [];
+		end
+		clear ttdata;
     end
 end
 if plotmodel
@@ -223,10 +272,15 @@ if add_vdata
     vdataout = import_vdata(vdata);
 end
 
-
+if use_matfiles
+disp('Using Pre Processed Matfiles');
+	for i = 1:length(ncfile)
+		ncfile(i).dir = regexprep(ncfile(i).name,'.nc','/');
+	end
+end
 
 %--------------------------------------------------------------------------
-for var = start_plot_ID:end_plot_ID
+for var = plot_array%start_plot_ID:end_plot_ID
     
     savedir = [outputdirectory,varname{var},'/'];
     mkdir(savedir);
@@ -243,9 +297,9 @@ for var = start_plot_ID:end_plot_ID
 			
 			
             loadname = varname{var};
-
+			
             %
-			[raw(mod).data,fdata]  = import_netcdf_data(ncfile,mod,varname,var,fdata,loadname,allvars,single_precision);clear functions
+			[raw(mod).data,fdata]  = import_netcdf_data(ncfile,mod,varname,var,fdata,loadname,allvars,single_precision,use_matfiles);clear functions
 			
         end
         
@@ -277,8 +331,7 @@ for var = start_plot_ID:end_plot_ID
         nn = (num_lims+1)/2;
         
         leg_inc = 1;
-        
-        
+
         inpol = inpolygon(X,Y,shp(site).X,shp(site).Y);
         
         sss = find(inpol == 1);
@@ -296,7 +349,7 @@ for var = start_plot_ID:end_plot_ID
 
 			
                 tic
-                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset);clear functions
+                [data(mod),c_units,isConv] = tfv_getmodeldatapolygon_faster(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp(site).X,shp(site).Y,{loadname},d_data(mod).D,depth_range,d_data(mod).layerface,d_data(mod).NL,surface_offset,use_matfiles);clear functions
 				toc
 
 				
@@ -803,7 +856,15 @@ for var = start_plot_ID:end_plot_ID
             end
         end
         
-        
+        if add_trigger_values
+		
+		trig = find(strcmpi(trigger_vars,loadname) == 1);
+		
+			if ~isempty(trig)
+			
+				plot([def.datearray(1) def.datearray(end)],[trigger_values(trig) trigger_values(trig)],'--r','DisplayName',trigger_label{trig});
+			end
+		end
         
         
         
@@ -823,7 +884,7 @@ for var = start_plot_ID:end_plot_ID
         if isConv
             if isylabel
                 if add_human
-                    ylabel([regexprep(loadname_human,'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                    ylabel([regexprep(varname_human{var},'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
                 else
                     ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
                 end
@@ -832,7 +893,7 @@ for var = start_plot_ID:end_plot_ID
         else
             if isylabel
                 if add_human
-                    ylabel([regexprep(loadname_human,'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
+                    ylabel([regexprep(varname_human{var},'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
                 else
                     
                     ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
@@ -1009,7 +1070,7 @@ for var = start_plot_ID:end_plot_ID
             end
             clear MatchedData_surf MatchedData_bottom
             
-            if length(MatchedData_obs)>10
+            if length(MatchedData_obs)>6
                 
                 if size(MatchedData_obs,2)>1
                     [stat_mae,stat_r,stat_rms,stat_nash,stat_nmae,stat_nrms]=do_error_calculation_2layers(MatchedData_obs',MatchedData_sim');

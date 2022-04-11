@@ -5,7 +5,7 @@
 % fielddata_matfile = 'lowerlakes.mat';
 % fielddata = 'lowerlakes';
 
-fielddata_matfile = '/Projects2/busch_github_TBD/CDM_TBD/data/store/archive/cllmm.mat';
+fielddata_matfile = '/Projects2/busch_github/CDM/data/store/archive/cllmm.mat';
 %fielddata = 'UA';
 fielddata = 'cllmm';
 polygon_file = '../../../CDM/gis/supplementary/Coorong/Coorong_obs_sites.shp';
@@ -162,12 +162,12 @@ fieldprctile = [10 90];
 isHTML = 1;
 
 yr = 2019;
-def.datearray = datenum(yr,7:6:36,1);
+def.datearray = datenum(yr,7:6:42,1);
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/RAW/';
-htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/HTML/';
+outputdirectory = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/MPB/RAW/';
+htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/MPB/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -175,23 +175,25 @@ htmloutput = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/plots/v1/HTM
 
 
 % Models___________________________________________________________________
- ncfile(1).name = '/Projects2/CDM/hchb_tfvaed_v1_resuspension/output_sedIC5/output/hchb_wave_21901101_20210701_wq_v5_resuspension_sedIC_all.nc';
- ncfile(1).symbol = {'-';'--'};
- ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
- ncfile(1).legend = 'V1-5';
- ncfile(1).translate = 1;
+%  ncfile(1).name = '/Projects2/CDM/hchb_tfvaed_v1_resuspension/output_sedIC5/output/hchb_wave_21901101_20210701_wq_v5_resuspension_sedIC_all.nc';
+%  ncfile(1).symbol = {'-';'--'};
+%  ncfile(1).colour = {[140,81,10]./255,[216,179,101]./255};% Surface and Bottom % Surface and Bottom
+%  ncfile(1).legend = 'V1-5';
+%  ncfile(1).translate = 1;
 % 
+ ncfile(1).name = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/output_MPB/hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
+ ncfile(1).symbol = {'-';'--'};
+ ncfile(1).colour = {[230,245,152]./255,[1,102,94]./255}; % Surface and Bottom
+ ncfile(1).legend = 'V31-MPB';
+ ncfile(1).translate = 1;
+ 
  ncfile(2).name = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31_newSHP/output/hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
  ncfile(2).symbol = {'-';'--'};
  ncfile(2).colour = {[252,141,89]./255,[1,102,94]./255}; % Surface and Bottom
  ncfile(2).legend = 'V31-0';
  ncfile(2).translate = 1;
 
-%  ncfile(3).name = '/Projects2/CDM/hchb_tfvaed_v2_resuspension_z31/output/hchb_wave_21901101_20210701_wq_v5_resuspension_all_v1.nc';
-%  ncfile(3).symbol = {'-';'--'};
-%  ncfile(3).colour = {[230,245,152]./255,[1,102,94]./255}; % Surface and Bottom
-%  ncfile(3).legend = 'V2-1';
-%  ncfile(3).translate = 1;
+
 % % 
 %  ncfile(4).name = 'Y:/CIIP/Scenarios/phase1/SC05/CoorongBGC_SC05_SEFA_dry_001_wq_all.nc';
 %  ncfile(4).symbol = {'-';'--'};

@@ -6,10 +6,15 @@ function[ydata,units,isConv] = tfv_Unit_Conversion(ydata,varname)
 isConv = 1;
 switch varname
     
-    %     case  'H'
-    %         % mmol/m^3 to mg/L
-    %         ydata = ydata -0.606;%* (14/1000);
-    %         units = 'm';
+	case 'ECOLI_PASSIVE'
+		ydata = ydata * 1;
+		units = 'cfu/100mL';
+		
+	case 'ENTEROCOCCI_PASSIVE'
+		disp('hi');
+		ydata = ydata * 1;
+		units = 'cfu/100mL';
+    
     %
     case  'SAL'
         % mmol/m^3 to mg/L

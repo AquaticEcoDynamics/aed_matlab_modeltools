@@ -4,8 +4,9 @@ clear; close all;
 
 %conf='configs/Coorong/Coorong_eWater_comparison.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_development_20220314.m';
-%conf='configs/Coorong/Coorong_resuspension_check_allvars_development_SDG3_Windows.m';
-conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';
+%conf='configs/Coorong/Coorong_resuspension_check_allvars_development_good.m';
+%conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';
+conf='configs/Coorong/Coorong_eWater_comparison_linux_PH_GEN15.m';
 %--------------------------------------------------------------------------
 disp('plottfv_polygon: START')
 disp('')
@@ -120,7 +121,7 @@ end
 
 max_depth = 5000;
 if ~exist('depth_range','var')
-    depth_range = [0 max_depth];
+    depth_range = [0.5 max_depth];
 end
 
 
@@ -859,7 +860,7 @@ for var = start_plot_ID:end_plot_ID
                                 
                                 if isRange
                                     %
-                                    fig = fillyy(data(mod).date,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,col_pal(1,:));hold on
+                                    fig = fillyy(data(mod).date,data(mod).pred_lim_ts(1,:),data(mod).pred_lim_ts(2*nn-1,:),dimc,col_pal(mod,:));hold on
                                     set(fig,'DisplayName',[ncfile(mod).legend,' (Range)']); %Surf
                                     set(fig,'FaceAlpha', alph);
                                     hold on

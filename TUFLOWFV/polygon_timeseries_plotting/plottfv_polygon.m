@@ -12,8 +12,20 @@ addpath(genpath('../tuflowfv'));
 run(conf);
 warning('off','all')
 %--------------------------------------------------------------------------
+sheet_vars_list;
 
+% Style 1 == PLIM = arithmetic mean  = mean-cell
+
+% If var found on sheet_var_list is will use mean-area, else mean-vol
+%Style 2 == volume-weighted mean = mean-vol
+			%area-weighted mean = mean-area
 %--------------------------------------------------------------------------
+if exist('mean_style','var') == 0
+	mean_style = 1;
+end
+if exist('mean_line_style','var') == 0
+	mean_line_style = {'-'};
+end
 
 if exist('add_trigger_values','var') == 0
 	add_trigger_values = 0
@@ -545,20 +557,66 @@ for var = plot_array%start_plot_ID:end_plot_ID
                     
                     
                     if plotmodel
-                        [xdata,ydata] = tfv_averaging(data(mod).date_b,data(mod).pred_lim_ts_b(3,:),def);
-                        if diagVar>0 % removes inital zero value (eg in diganostics)
-                            xdata(1:2) = NaN;
-                        end
-                    end
-                    %                 xdata = data(mod).date;
-                    %                 ydata = data(mod).pred_lim_ts(3,:);
-                    if plotmodel
-                        plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b)'],...
-                            'linestyle',ncfile(mod).symbol{1});hold on
-                        plotdate(1:length(xdata),mod) = xdata;
-                        plotdata(1:length(ydata),mod) = ydata;
-                    end
+                    %    [xdata,ydata] = tfv_averaging(data(mod).date_b,data(mod).pred_lim_ts_b(3,:),def);
+                    %    if diagVar>0 % removes inital zero value (eg in diganostics)
+                    %        xdata(1:2) = NaN;
+                    %    end
+                    %end
+                    %%                 xdata = data(mod).date;
+                    %%                 ydata = data(mod).pred_lim_ts(3,:);
+                    %if plotmodel
+                    %    plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b)'],...
+                    %        'linestyle',ncfile(mod).symbol{1});hold on
+                    %    plotdate(1:length(xdata),mod) = xdata;
+                    %    plotdata(1:length(ydata),mod) = ydata;
+                    %end
                     
+						if sum(ismember(mean_style,1))
+						
+							klk = find(mean_style == 1);
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).pred_lim_ts_b(3,:),def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-cell)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+						end
+						
+						if sum(ismember(mean_style,2))
+						
+							klk = find(mean_style == 2);
+							
+							if sum(ismember(sheet_vars,loadname))
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).bottom_area_mean,def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-area)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+							
+							else
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).bottom_vol_mean,def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-vol)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+							end
+						end	
+					
+					end
                     
                     
                     if add_error
@@ -780,19 +838,56 @@ for var = plot_array%start_plot_ID:end_plot_ID
                     
                     
                     if plotmodel
-                        [xdata,ydata] = tfv_averaging(data(mod).date,data(mod).pred_lim_ts(3,:),def);
-                        if diagVar>0 % removes inital zero value (eg in diganostics)
-                            xdata(1:2) = NaN;
-                        end
-                    end
-                    %                 xdata = data(mod).date;
-                    %                 ydata = data(mod).pred_lim_ts(3,:);
-                    if plotmodel
-                        mod
-                        plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s)'],...
-                            'linestyle',ncfile(mod).symbol{1});hold on
-                        plotdate(1:length(xdata),mod) = xdata;
-                        plotdata(1:length(ydata),mod) = ydata;
+					
+						if sum(ismember(mean_style,1))
+						
+							klk = find(mean_style == 1);
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).pred_lim_ts(3,:),def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-cell)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+						end
+						
+						if sum(ismember(mean_style,2))
+						
+							klk = find(mean_style == 2);
+							
+							if sum(ismember(sheet_vars,loadname))
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).surface_area_mean,def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-area)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+							
+							else
+							
+							[xdata,ydata] = tfv_averaging(data(mod).date,data(mod).surface_vol_mean,def);
+							if diagVar>0 % removes inital zero value (eg in diganostics)
+								xdata(1:2) = NaN;
+							end
+
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-vol)'],...
+								'linestyle',mean_line_style{klk});hold on
+							plotdate(1:length(xdata),mod) = xdata;
+							plotdata(1:length(ydata),mod) = ydata;
+							end
+						end						
+					
+						
+						
+						
+						
                     end
                     if add_error
                         MatchedData_surf=[];

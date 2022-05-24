@@ -5,7 +5,10 @@ function[ydata,units,isConv] = tfv_Unit_Conversion(ydata,varname)
 % Simply add to the switch function to add more units.
 isConv = 1;
 switch varname
-    
+ 	case 'D'
+		ydata = ydata * 1;
+		units = 'm';   
+		
 	case 'ECOLI_PASSIVE'
 		ydata = ydata * 1;
 		units = 'cfu/100mL';

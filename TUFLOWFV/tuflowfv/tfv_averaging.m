@@ -1,6 +1,8 @@
 function [xdata1,ydata1] = tfv_averaging(xdata,ydata,def)
 % A simple function to either smooth or apply a daily averaging to the data
 
+xdata = double(xdata);
+
 if isfield(def,'dailyave')
     
     if def.dailyave == 1

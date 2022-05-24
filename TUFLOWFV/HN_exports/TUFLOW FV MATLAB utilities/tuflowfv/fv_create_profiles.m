@@ -131,10 +131,43 @@ function fv_create_profiles(varargin)
         
     fill = -9999; OLDINFO = ncinfo(infil);
     
+	thevars = {...
+	'WQ_DIAG_TOT_TN';
+'WQ_DIAG_TOT_TOC';
+'WQ_DIAG_TOT_TP';
+'WQ_DIAG_TOT_TSS';
+'WQ_DIAG_TOT_TURBIDITY';
+'WQ_NCS_SS1';
+'WQ_NIT_AMM';
+'WQ_NIT_NIT';
+'WQ_OGM_DOC';
+'WQ_OGM_DON';
+'WQ_OGM_DOP';
+'WQ_OGM_POC';
+'WQ_OGM_PON';
+'WQ_OGM_POP';
+'WQ_OXY_OXY';
+'WQ_PHS_FRP';
+'WQ_PHS_FRP_ADS';
+'WQ_SIL_RSI';
+'WQ_TRC_AGE';
+'WQ_TRC_TR1';
+'WQ_TRC_TR2';
+'WQ_DIAG_OXY_ATM_OXY_FLUX';
+'WQ_DIAG_OXY_SAT';
+'WQ_DIAG_OXY_SED_OXY';
+'SAL';
+'TEMP';
+'WQ_DIAG_PHY_TCHLA'
+'D';
+'H';};
+	
+	
+	
     %___________________________________________
     % get the profiles
     disp('Processing Profile Series...')
-    out = fv_get_profile(infil,cellids,[1 inf]);
+    out = fv_get_profile(infil,cellids,[1 inf],'variable',thevars);
     %___________________________________________
     
     

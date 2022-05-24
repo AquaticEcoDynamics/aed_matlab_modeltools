@@ -5,6 +5,15 @@ function [data,c_units,isConv] = tfv_getmodeldatapolygon(rawData,filename,X,Y,sX
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
 
+
+
+
+
+area = rawGeo.cell_A;
+		V = D .* area;
+
+
+
 dat = tfv_readnetcdf(filename,'time',1);
 tdate = dat.Time;
 
@@ -72,7 +81,9 @@ if length(sss) > 1
 	
 	if ~use_matfiles
 
-		if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'D') == 0 & strcmp(varname{1},'cell_A') == 0 & strcmp(varname{1},'cell_Zb') == 0 & strcmp(varname{1},'WVHT') == 0 & strcmp(varname{1},'W10_x') == 0 & strcmp(varname{1},'W10_y') == 0
+		if strcmp(varname{1},'H') == 0 & strcmp(varname{1},'D') == 0 & strcmp(varname{1},'cell_A') == 0 & ...
+			strcmp(varname{1},'cell_Zb') == 0 & strcmp(varname{1},'WVHT') == 0 & strcmp(varname{1},'W10_x') == 0 & ...
+			strcmp(varname{1},'W10_y') == 0
 			
 			
 			data.surface = rawData.(varname{1})(surfIndex,:);
@@ -100,21 +111,64 @@ if length(sss) > 1
 	
 
 	point_D = D(pt_id,:);
+	%point_A = area(pt_id);
+	
+	
 	%Get curtain series of predictive limits for variable varname
 
 	%ddd = find(point_D <= 0.042);
+	
+	data.area = area(pt_id);
+	
+	
+	for kk = 1:length(tdate)
+		data.vol(:,kk) = V(pt_id,kk);
+		% Mean Area Surf
+		
+		eee = find(point_D(:,kk) >= depth_range(1) & point_D(:,kk) <= depth_range(2));
+			
+		
+		surface_area_calc = data.surface(eee,kk) .* data.area(eee);
+		surface_area_calc_2 = sum(surface_area_calc) ./ sum(data.area(eee));
+
+		bottom_area_calc = data.bottom(eee,kk) .* data.area(eee);
+		bottom_area_calc_2 = sum(bottom_area_calc) ./ sum(data.area(eee));
+		
+		
+		% Mean Vol Surf
+		surface_vol_calc = data.surface(eee,kk) .* data.vol(eee,kk);
+		surface_vol_calc_2 = sum(surface_vol_calc) ./ sum(data.vol(eee,kk));
+		bottom_vol_calc = data.bottom(eee,kk) .* data.vol(eee,kk);
+		bottom_vol_calc_2 = sum(bottom_vol_calc) ./ sum(data.vol(eee,kk));	
+
+		data.surface_mean(kk,1) = mean(data.surface(eee,kk),1);
+		data.surface_area_mean(kk,1) = surface_area_calc_2;
+		data.surface_vol_mean(kk,1) = surface_vol_calc_2;
+		
+		
+		data.bottom_mean(kk,1) = mean(data.bottom(eee,kk),1);
+		data.bottom_area_mean(kk,1) = bottom_area_calc_2;
+		data.bottom_vol_mean(kk,1) = bottom_vol_calc_2;
+	
+	end
+
+	
+	
 	ddd = find(point_D <= depth_range(1) | point_D >= depth_range(2));
+	
 
 
 	data.surface(ddd) = NaN;
 	data.bottom(ddd) = NaN;
+	
 
 
+	
 	[~,iy] = size(data.surface);
 
+	
 
-
-
+	
 
 
 
@@ -147,7 +201,9 @@ else
 	data.date_b(:,1) = tdate;
 	data.pred_lim_ts(1:length(pred_lims),1:length(tdate)) = NaN;
 	data.pred_lim_ts_b(1:length(pred_lims),1:length(tdate)) = NaN;
-
+	data.surface_mean = [];
+	data.surface_area_mean = [];
+	data.surface_vol_mean = [];
 end
 %
 %

@@ -14,9 +14,9 @@
 clear
 close
 ncfile = {...
-'HN_Cal_2013_2016_3D_wq_Baseline_WQ.nc',...
-'HN_Cal_2013_2016_3D_wq_Background_WQ.nc',...
-'HN_Cal_2013_2016_3D_wq_Impact_WQ.nc',...
+'CC_Cal_2013_2015_background.nc',...
+'CC_Cal_2013_2015_baseline.nc',...
+'CC_Cal_2013_2015_impact.nc',...
 };
 % ------------------- User Input ------------------
 %WorkDir = '/Projects/Cattai/HN_CC_Cal_v1_A5_Scenarios/output';    % Update to the folder that contains the result .nc files
@@ -33,7 +33,7 @@ NumFiles = 1;%str2double(NumFiles{1,1});
 %[XYFile,XYPath] = uigetfile('*.csv','Choose the Profile Coordinate File');
 %XY = readtable([XYPath XYFile],'delimiter',',');
 
-XY = readtable('/Projects2/busch_github/aed_matlab_modeltools/TUFLOWFV/HN_exports/SWC Customized/Cattai_ProfileCorords.csv','delimiter',',');
+XY = readtable('/Projects2/busch_github/aed_matlab_modeltools/TUFLOWFV/HN_exports/SWC Customized/Cattai_ProfileCorords_Upper.csv','delimiter',',');
 
 for bb = 1:length(ncfile)
 
@@ -42,7 +42,7 @@ for bb = 1:length(ncfile)
 	for iFiles = 1:NumFiles
 		%[ResFile,ResPath] = uigetfile('*.nc','Choose result file to process');
 		ResFile = ncfile{bb};
-		ResPath = '/Projects2/Cattai/HN_CC_Cal_v1_A7_Scenarios/output/'
+		ResPath = '/Projects2/Cattai/cattai_tfv_aed_v4_scenarios/output/'
 		tfv_res_files{iFiles,1} = [ResPath ResFile];
 	end
 

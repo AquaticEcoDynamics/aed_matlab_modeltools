@@ -517,8 +517,8 @@ mean_line_style = {'-','--'};
 
 %outputdirectory = './Timeseries_Basecase_June/RAW/';
 %htmloutput = './Timeseries_Basecase_June/HTML/';
-outputdirectory = '/AED/Development/matt/hchb_tfvaed_v3_2022_4PFTs_SedZone_sdg/plots31_SDG_eWater_24May/RAW/';
-htmloutput = '/AED/Development/matt/hchb_tfvaed_v3_2022_4PFTs_SedZone_sdg/plots31_SDG_eWater_24May/HTML/';
+outputdirectory = '/AED/Development/matt/hchb_tfvaed_v3_2022_4PFTs_SedZone_sdg/plots31_SDG_eWater_26May/RAW/';
+htmloutput = '/AED/Development/matt/hchb_tfvaed_v3_2022_4PFTs_SedZone_sdg/plots31_SDG_eWater_26May/HTML/';
 % ____________________________________________________________Configuration
 
 
@@ -538,6 +538,12 @@ ncfile(2).symbol = {'-';'--'};
 ncfile(2).colour = {[1,1,1]./255,[255,255,154]./255}; % Surface and Bottom
 ncfile(2).legend = '22d';
 ncfile(2).translate = 1;
+
+ncfile(3).name = '/Scratch/MER_Coorong_eWater_GEN20/output_basecase_26a/eWater2021_basecase_all.nc';
+ncfile(3).symbol = {'-';'--'};
+ncfile(3).colour = {[1,255,1]./255,[255,255,154]./255}; % Surface and Bottom
+ncfile(3).legend = '26a';
+ncfile(3).translate = 1;
 
 
 % % %

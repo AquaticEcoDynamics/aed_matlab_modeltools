@@ -2,8 +2,8 @@
 
 clear; close all;
 
-conf='configs/Coorong/Coorong_eWater_comparison_linux_PH_GEN15_2022.m';
-%conf='configs/Coorong/Coorong_resuspension_check_allvars_development_20220314.m';
+%conf='configs/Coorong/Coorong_eWater_comparison_linux_PH_GEN15_2022.m';
+conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_compareWave_eWater.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_development_good.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';
 %conf='configs/Coorong/Coorong_check_allvars_eWater_SDG.m';
@@ -1326,6 +1326,11 @@ for var = start_plot_ID:end_plot_ID
             end
             clear MatchedData_surf MatchedData_bottom
             
+            MatchedData_obs(isnan(MatchedData_obs))=mean(MatchedData_obs(~isnan(MatchedData_obs)));
+            MatchedData_obs(MatchedData_obs<0)=mean(MatchedData_obs);
+            ind0=(MatchedData_obs>10*(mean(MatchedData_obs)));
+            MatchedData_obs(ind0)=mean(MatchedData_obs(~ind0));
+            
             if length(MatchedData_obs)>10
                 
                 if size(MatchedData_obs,2)>1
@@ -1338,7 +1343,10 @@ for var = start_plot_ID:end_plot_ID
                 
                 if abs(devia)>10
                     deviaS='Out of range';
-                    deviaSn=NaN;
+                    %deviaSn=NaN;
+                    deviaSn=devia*100;
+                    disp(['warning here ....',num2str(devia,'%3.2f')]);
+                        
                 else
                     deviaS=[num2str(devia*100,'%3.2f'),'%'];
                     deviaSn=devia*100;

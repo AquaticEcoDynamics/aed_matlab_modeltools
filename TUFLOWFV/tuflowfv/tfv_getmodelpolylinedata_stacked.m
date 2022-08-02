@@ -1,10 +1,10 @@
-function [data,c_units,isConv] = tfv_getmodelpolylinedata_stacked(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical)
+function [data,c_units,isConv,ylab] = tfv_getmodelpolylinedata_stacked(rawData,filename,X,Y,shp,varname,timebin,isSurf,isSpherical)
 
 rawGeo = tfv_readnetcdf(filename,'timestep',1);
 mtime = tfv_readnetcdf(filename,'time',1);
 
 
-[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
+[rawData.(varname{1}),c_units,isConv,ylab]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
 
 %disp(['The units ',c_units]);
 

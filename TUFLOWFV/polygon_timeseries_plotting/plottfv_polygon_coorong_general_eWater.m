@@ -2,8 +2,8 @@
 
 clear; close all;
 
-%conf='configs/Coorong/Coorong_eWater_comparison_linux_PH_GEN15_2022.m';
-conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_compareWave_eWater.m';
+conf='configs/Coorong/HCHB_GEN2_check_designed.m';
+%conf='configs/Coorong/Coorong_HCHB_GEN2_performance.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_development_good.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';
 %conf='configs/Coorong/Coorong_check_allvars_eWater_SDG.m';
@@ -164,12 +164,12 @@ end
 surface_edge_color = [ 30  50  53]./255;
 surface_face_color = [ 68 108 134]./255;
 surface_line_color = [  0  96 100]./255;  %[69  90 100]./255;
-col_pal            =[[176 190 197]./255;[162 190 197]./255;[150 190 197]./255];
+col_pal            =[[176 190 197]./255;[162 190 197]./255;[150 190 197]./255;[150 190 197]./255];
 
 bottom_edge_color = [33  33  33]./255;
 bottom_face_color = [141 110 99]./255;
 bottom_line_color = [62  39  35]./255;
-col_pal_bottom    =[[215 204 200]./255; [200 204 200]./255; [185 204 200]./255 ];
+col_pal_bottom    =[[215 204 200]./255; [200 204 200]./255; [185 204 200]./255;[150 190 197]./255 ];
 %--------------------------------------------------------------------------
 
 

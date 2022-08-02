@@ -27,6 +27,11 @@ if exist('mean_line_style','var') == 0
 	mean_line_style = {'-'};
 end
 
+if exist('lwidth','var') == 0
+	%Mean line width;
+	lwidth = 1;
+end
+
 if exist('add_trigger_values','var') == 0
 	add_trigger_values = 0
 	
@@ -203,6 +208,8 @@ end
 
 disp('SHP sites:')
 disp(sites)
+
+
 
 %--------------------------------------------------------------------------
 
@@ -461,7 +468,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 										
 										
 										
-                                        [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
+                                        [ydata_d,c_units,isConv,ylab] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
                                         
@@ -580,7 +587,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 								xdata(1:2) = NaN;
 							end
 
-							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-cell)'],...
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (b: mean-cell)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -597,7 +604,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 								xdata(1:2) = NaN;
 							end
 
-							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-area)'],...
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (b: mean-area)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -609,7 +616,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 								xdata(1:2) = NaN;
 							end
 
-							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (b: mean-vol)'],...
+							plot(xdata,ydata,'color',ncfile(mod).colour{lev},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (b: mean-vol)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -738,7 +745,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
                                         end
                                         
                                         
-                                        [ydata_d,c_units,isConv] = tfv_Unit_Conversion(ydata_d,varname{var});
+                                        [ydata_d,c_units,isConv,ylab] = tfv_Unit_Conversion(ydata_d,varname{var});
                                         [ydata_max_d,~,~] = tfv_Unit_Conversion(ydata_max_d,varname{var});
                                         [ydata_min_d,~,~] = tfv_Unit_Conversion(ydata_min_d,varname{var});
 
@@ -762,7 +769,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
                                             
                                             if fgf > 1
                                                 %fp = plot(xdata_d,ydata_d,mface,'markerfacecolor',mcolor ,'markersize',3,'HandleVisibility','off');hold on
-                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'HandleVisibility','off');hold on
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',mcolor,'markersize',3,'HandleVisibility','off');hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
                                                     
@@ -773,7 +780,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
                                                 end
                                                 uistack(fp,'top');
                                             else
-                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',surface_face_color,'markersize',3,'displayname',[agency,' Surf']);hold on
+                                                fp = plot(xdata_d,ydata_d,mface,'markeredgecolor',surface_edge_color,'markerfacecolor',mcolor,'markersize',3,'displayname',[agency,' Surf']);hold on
                                                 uistack(fp,'top');
                                                 if validation_minmax
                                                     
@@ -847,8 +854,8 @@ for var = plot_array%start_plot_ID:end_plot_ID
 							if diagVar>0 % removes inital zero value (eg in diganostics)
 								xdata(1:2) = NaN;
 							end
-
-							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-cell)'],...
+								
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (s: mean-cell)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -865,7 +872,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 								xdata(1:2) = NaN;
 							end
 
-							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-area)'],...
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (s: mean-area)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -877,7 +884,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
 								xdata(1:2) = NaN;
 							end
 
-							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',0.5,'DisplayName',[ncfile(mod).legend,' (s: mean-vol)'],...
+							plot(xdata,ydata,'color',ncfile(mod).colour{1},'linewidth',lwidth,'DisplayName',[ncfile(mod).legend,' (s: mean-vol)'],...
 								'linestyle',mean_line_style{klk});hold on
 							plotdate(1:length(xdata),mod) = xdata;
 							plotdata(1:length(ydata),mod) = ydata;
@@ -975,26 +982,26 @@ for var = plot_array%start_plot_ID:end_plot_ID
         %          end
         
         grid on;
-        
+        ylab
         if isConv
             if isylabel
                 if add_human
                     ylabel([regexprep(varname_human{var},'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
                 else
-                    ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                    ylabel([ylab,' (',c_units,')'],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
                 end
             end
-            % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (',c_units,')'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
+            text(1.02,0.5,[regexprep(loadname,'_',' ')],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         else
             if isylabel
                 if add_human
                     ylabel([regexprep(varname_human{var},'_',' '),' (model units)'],'fontsize',8,'color',[0.0 0.0 0.0],'horizontalalignment','center');
                 else
                     
-                    ylabel([regexprep(loadname,'_',' '),' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+                    ylabel([ylab,' '],'fontsize',6,'color',[0.4 0.4 0.4],'horizontalalignment','center');
                 end
             end
-            % BB TURN ONtext(1.02,0.5,[regexprep(loadname,'_',' '),' (model units)'],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
+            text(1.02,0.5,[regexprep(loadname,'_',' ')],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'rotation',90,'horizontalalignment','center');
         end
         
         
@@ -1003,7 +1010,7 @@ for var = plot_array%start_plot_ID:end_plot_ID
         else
             depdep = [num2str(depth_range(2)),'m'];
         end
-        % BB TURN ONtext(0.92,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+        % Top depth text text(0.92,1.02,[num2str(depth_range(1)),' : ',depdep],'units','normalized','fontsize',5,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         
         if add_triangle
@@ -1145,6 +1152,9 @@ for var = plot_array%start_plot_ID:end_plot_ID
             if islegend
                 leg = legend('show');
                 set(leg,'location',def.legendlocation,'fontsize',def.legendsize);
+				legpos = get(leg,'position');
+
+				
             end
         else
             leg = legend('location',def.legendlocation);
@@ -1165,6 +1175,12 @@ for var = plot_array%start_plot_ID:end_plot_ID
             end
             clear MatchedData_surf MatchedData_bottom
             
+			MatchedData_obs(isnan(MatchedData_obs))=mean(MatchedData_obs(~isnan(MatchedData_obs)));
+            MatchedData_obs(MatchedData_obs<0)=mean(MatchedData_obs);
+            ind0=(MatchedData_obs>10*(mean(MatchedData_obs)));
+            MatchedData_obs(ind0)=mean(MatchedData_obs(~ind0));			
+
+			
             if length(MatchedData_obs)>6
                 
                 if size(MatchedData_obs,2)>1
@@ -1191,7 +1207,8 @@ for var = plot_array%start_plot_ID:end_plot_ID
                 if exist('isSaveErr','var') && isMEF
                     str{5}=['nash = ',num2str(stat_nash,'%1.4f')];
                 end
-                dim=[0.7 0.1 0.25 0.3];
+                %dim=[0.7 0.1 0.25 0.3];
+				dim=[legpos(1) 0.1 legpos(3) 0.3];
                 ha=annotation('textbox',dim,'String',str,'FitBoxToText','on');
                 set(ha,'FontSize',5);
                 errorMatrix.(regexprep(shp(site).Name,' ','_')).(loadname).R=stat_r;

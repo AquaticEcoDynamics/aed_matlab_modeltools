@@ -24,6 +24,7 @@ if use_matfiles
 	[rawData.(varname{1}).outdata.surface,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.surface,varname{1});
 	[rawData.(varname{1}).outdata.bottom,c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}).outdata.bottom,varname{1});
 else
+	rawData
 	[rawData.(varname{1}),c_units,isConv]  = tfv_Unit_Conversion(rawData.(varname{1}),varname{1});
 end
 varname{1}

@@ -360,7 +360,7 @@ for var = plot_array
         
         for mod = 1:length(ncfile)
             
-            [data(mod),c_units,isConv] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical,d_data(mod).D,clip_depth,use_matfiles);
+            [data(mod),c_units,isConv,ylab] = tfv_getmodelpolylinedata(raw(mod).data,ncfile(mod).name,all_cells(mod).X,all_cells(mod).Y,shp,{loadname},def.pdates(tim).value,isSurf,isSpherical,d_data(mod).D,clip_depth,use_matfiles);
         c_units
 		end
         clear functions;
@@ -377,9 +377,9 @@ for var = plot_array
         
         
         fig1 = figure('visible',def.visible);
-        set(fig1,'defaultTextInterpreter','latex')
+        %set(fig1,'defaultTextInterpreter','latex')
         set(0,'DefaultAxesFontName','Times')
-        set(0,'DefaultAxesFontSize',6)
+        set(0,'DefaultAxesFontSize',8)
         
         for mod = 1:length(ncfile)
             if isRange
@@ -418,7 +418,7 @@ for var = plot_array
         xlim(def.xlim);
         
         if ~isempty(def.xticks)
-            set(gca,'xtick',def.xticks,'xticklabel',def.xticks);
+            set(gca,'xtick',def.xticks,'xticklabel',def.xticks,'fontsize',6);
         end
 		if add_shapefile_label
 			dist(1,1) = 0;
@@ -446,17 +446,16 @@ for var = plot_array
 		
         
 		if add_human
-            ylabel([regexprep(varname_human{var},'_',' '),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+            ylabel([regexprep(varname_human{var},'_',' '),' (',c_units,')'],'fontsize',8,'color',[0.4 0.4 0.4],'horizontalalignment','center');
 		else
 			if strcmpi(loadname,'TN_TP') == 0
-				ylabel([regexprep(loadname,'_',' '),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+				ylabel([ylab,' (',c_units,')'],'fontsize',8,'color',[0.4 0.4 0.4],'horizontalalignment','center');
 			else
-				ylabel([regexprep(loadname,'_',':'),' (',c_units,')'],'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
+				ylabel([ylab,' (',c_units,')'],'fontsize',8,'color',[0.4 0.4 0.4],'horizontalalignment','center');
 			end
 		end
 
         
-        xlabel(def.xlabel,'fontsize',10,'color',[0.4 0.4 0.4],'horizontalalignment','center');
         
         if isSurf
             text(0.05,1.05,[datestr(def.pdates(tim).value(1),'dd/mm/yyyy'),' to ',datestr(def.pdates(tim).value(end),'dd/mm/yyyy'),': Surface'],'units','normalized',...
@@ -530,10 +529,15 @@ for var = plot_array
             
             hLegend = legend(ah1,box_vars([1]), {'Field Data'},'location',def.boxlegend,'fontsize',6);
             
-            xlabel('Distance from Ocean (km)','fontsize',8);
+            %xlabel('Distance from Ocean (km)','fontsize',8);
             
         end
-        
+		
+		yt = get(gca,'yticklabel');
+		set(gca,'yticklabel',yt,'fontsize',6);
+		
+        text(0.5,-0.075,def.xlabel,'fontsize',8,'color',[0.4 0.4 0.4],'horizontalalignment','center','units','normalized');
+
         
         set(gcf, 'PaperPositionMode', 'manual');
         set(gcf, 'PaperUnits', 'centimeters');

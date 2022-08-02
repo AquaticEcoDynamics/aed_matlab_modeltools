@@ -186,6 +186,7 @@ function fv_create_profiles(varargin)
 'SAL';
 'TEMP';
 'WQ_DIAG_PHY_TCHLA'
+'WQ_DIAG_OXY_SAT';
 'D';
 'H';};	
 	

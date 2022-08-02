@@ -1,10 +1,8 @@
-function[ydata,units,isConv,ylab] = tfv_Unit_Conversion(ydata,varname)
+function[ydata,units,isConv] = tfv_Unit_Conversion(ydata,varname)
 % A Simple function to plug into the plottfv_prof function to convert model
 % and field data on the fly.
 %
 % Simply add to the switch function to add more units.
-
-isConv = 1;
 
 [snum,sstr] = xlsread('Variable_Conversions.xlsx','A2:E10000');
 
@@ -12,32 +10,18 @@ conv = snum(:,1);
 
 oldvar = sstr(:,1);
 newvar = sstr(:,2);
-newunits = sstr(:,3);
-
-symbol = sstr(:,5);
+symbol = sstr(:,4);
 
 sss = find(strcmpi(oldvar,varname) == 1);
 
-
 if isempty(sss)
-    ydata = ydata * 1;
-    units = [];
-    isConv = 0;
-    ylab = varname;
-else
-    ydata = ydata * conv(sss);
-    units = newunits{sss};
-    if ~isempty(symbol{sss})
-        ylab = symbol{sss};
-    else
-        ylab = newvar{sss};
-    end
-end
+    
 
 
 
 
 
+isConv = 1;
 % switch varname
 %  	case 'D'
 % 		ydata = ydata * 1;

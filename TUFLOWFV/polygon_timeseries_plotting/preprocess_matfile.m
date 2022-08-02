@@ -18,7 +18,7 @@ for i = 1:length(ncfile)
 end
 
 
-for i = [2]%1:length(ncfile)
+for i = 1:length(ncfile)
 
 	rawGeo = tfv_readnetcdf(ncfile(i).name,'timestep',1);
 	

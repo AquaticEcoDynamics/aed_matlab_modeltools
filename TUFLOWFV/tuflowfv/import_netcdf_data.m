@@ -165,7 +165,23 @@ if ~use_matfiles
 					fdata.(thesites{bdb}).ECOLI = fdata.(thesites{bdb}).ECLOI;
 				end
 			end
-			
+		
+		case 'WQ_DIAG_MAG_MA2'
+			data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
+			thesites = fieldnames(fdata);
+			for bdb = 1:length(thesites)
+				if isfield(fdata.(thesites{bdb}),'WQ_DIAG_MAG_TMALG')
+					fdata.(thesites{bdb}).WQ_DIAG_MAG_MA2 = fdata.(thesites{bdb}).WQ_DIAG_MAG_TMALG;
+				end
+			end
+		case 'WQ_DIAG_MA2_TMALG'
+			data = tfv_readnetcdf(ncfile(mod).name,'names',{loadname});clear functions
+			thesites = fieldnames(fdata);
+			for bdb = 1:length(thesites)
+				if isfield(fdata.(thesites{bdb}),'WQ_DIAG_MAG_TMALG')
+					fdata.(thesites{bdb}).WQ_DIAG_MA2_TMALG = fdata.(thesites{bdb}).WQ_DIAG_MAG_TMALG;
+				end
+			end		
 		case 'ECOLI_TOTAL'
 			
 			ECOLI_F =  tfv_readnetcdf(ncfile(mod).name,'names',{'WQ_PAT_ECOLI_F'});clear functions

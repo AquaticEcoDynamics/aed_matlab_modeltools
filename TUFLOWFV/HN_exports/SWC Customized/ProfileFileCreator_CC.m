@@ -33,7 +33,7 @@ NumFiles = 1;%str2double(NumFiles{1,1});
 %[XYFile,XYPath] = uigetfile('*.csv','Choose the Profile Coordinate File');
 %XY = readtable([XYPath XYFile],'delimiter',',');
 
-XY = readtable('/Projects2/busch_github/aed_matlab_modeltools/TUFLOWFV/HN_exports/SWC Customized/ProfileCoordinates_HN_ScenarioComparison.csv','delimiter',',');
+XY = readtable('/Projects2/busch_github/aed_matlab_modeltools/TUFLOWFV/HN_exports/SWC Customized/Cattai_ProfileCorords_v2.csv','delimiter',',');
 
 for bb = 1:length(ncfile)
 
@@ -51,7 +51,7 @@ for bb = 1:length(ncfile)
 	site_names = XY.Name;
 
 	%suffix = inputdlg('Any suffix for output file?','SUFFIX');
-	suffix = ['HN'];
+	suffix = ['CC'];
 
 	% ----------------- Generate Profiles ----------------
 	for i=1:size(tfv_res_files,1)

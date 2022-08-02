@@ -58,8 +58,9 @@ varname = {...
  def.cAxis(13).value = [0 250];		%'ECOLI_SIMPLE'
 
 
-plot_array = [3 5 6 11];
-plotsites_ID = [23:01:33];
+%plot_array = [3 5 6 11];
+%plot_array = [12 13];
+%plotsites_ID = [23:01:33];
 
 plottype = 'timeseries'; %timeseries or 'profile'
 %plottype = 'profile'; % or 'profile'
@@ -92,7 +93,7 @@ fieldprctile = [10 90];
 
 depth_range = [0.5 100];
 
-use_matfiles = 1;
+use_matfiles = 0;
 single_precision = 0;
 add_error = 1;
 % ____________________________________________________________Configuration
@@ -100,27 +101,27 @@ add_error = 1;
 % Models___________________________________________________________________
 
 
-outputdirectory = '/Projects/Cattai/Report_V3/Polygon/HN_2013_2014/RAW/';
-htmloutput = ['/Projects/Cattai/Report_V3/Polygon/HN_2013_2014/HTML/'];
+outputdirectory = '/Projects2/Cattai/HN_CC_Cal_v1_A8_Scenarios/Report_V3/Polygon/HN_2013_2014/RAW/';
+htmloutput = ['/Projects2/Cattai/HN_CC_Cal_v1_A8_Scenarios/Report_V3/Polygon/HN_2013_2014/HTML/'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Projects2/Cattai/HN_CC_Cal_v1_A7_Scenarios/output/HN_Cal_2013_2016_3D_wq_Baseline_WQ.nc';
+ ncfile(1).name = '/Projects2/Cattai/HN_CC_Cal_v1_A8_Scenarios/output_plt/HN_Cal_2013_2016_3D_wq_Baseline_WQ.nc';
 %  ncfile(1).tfv = 'I:/Hawkesbury/HN_Cal_v3_noIC/output/HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom
  ncfile(1).legend = 'Baseline';
  ncfile(1).translate = 1;
 %  
-  ncfile(2).name = '/Projects2/Cattai/HN_CC_Cal_v1_A7_Scenarios/output/HN_Cal_2013_2016_3D_wq_Background_WQ.nc'; 
+  ncfile(2).name = '/Projects2/Cattai/HN_CC_Cal_v1_A8_Scenarios/output_plt/HN_Cal_2013_2016_3D_wq_Background_WQ.nc'; 
   ncfile(2).symbol = {'-';'--'};
   ncfile(2).colour = {[0 0 0],[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
   ncfile(2).legend = 'Background';
   ncfile(2).translate = 1;
  
-  ncfile(3).name = '/Projects2/Cattai/HN_CC_Cal_v1_A7_Scenarios/output/HN_Cal_2013_2016_3D_wq_Impact_WQ.nc'; 
+  ncfile(3).name = '/Projects2/Cattai/HN_CC_Cal_v1_A8_Scenarios/output_plt/HN_Cal_2013_2016_3D_wq_Impact_v2_WQ.nc'; 
   ncfile(3).symbol = {'-';'--'};
   ncfile(3).colour = {'g',[0.0509803921568627         0.215686274509804         0.968627450980392]}; % Surface and Bottom
   ncfile(3).legend = 'Impact';

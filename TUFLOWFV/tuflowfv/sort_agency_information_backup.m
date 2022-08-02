@@ -1,60 +1,41 @@
-function [mface,mcolor,agencyname] = sort_agency_information_Coorong(agency)
+function [mface,mcolor,agencyname] = sort_agency_information(agency)
+
 
 switch agency
     
-    % Coorong
-    case 'ALS'
+    % Peel Swan
+    case 'WIR'
         mface = 'ok';
-        mcolor = [190 174 212]/255;
-       % agency = 'DEW ALS';
-    case 'AWQC (DEW)'
-        mface = 'sk';
-        mcolor = [190 174 212]/255;   
-       % agency = 'DEW AWQC';
-    case 'DEW WDSA Hydro'
-        mface = 'dk';
-        mcolor = [190 174 212]/255;        
-   case 'DEW WDSA Met'
-        mface = '^k';
-        mcolor = [190 174 212]/255; 
+        mcolor = [255/255 61/255 9/255];
     case 'DEW WDSA Sonde'
-         mface = 'vk';
-        mcolor = [190 174 212]/255;
-		
-		
-		
-    case 'SA Water'
-         mface = 'ok';
-        mcolor = [253 192 134]/255;
-
-	case 'FU TLM'
-		mface = 'sk';
-        mcolor = [253 192 134]/255;
-	
-	case 'UA HCHB'
-		 mface = 'dk';
-        mcolor = [253 192 134]/255;	
-		
-		
-
-    case 'UA Logger'
-         mface = 'ok';
+        mface = 'ok';
+        mcolor = [255/255 61/255 9/255];   
+        
+    case 'DEW WDSA Met'
+        mface = 'pk';
+        mcolor = [255/255 61/255 9/255];  
+        
+   case 'DEW WDSA Hydro'
+        mface = 'dk';
+        mcolor = [255/255 61/255 9/255]; 
+    case 'MAFRL'
+         mface = 'pk';
         mcolor = [232/255 90/255 24/255];
+    case 'SA EPA'
+         mface = 'pk';
+        mcolor = [232/255 90/255 24/255];
+    case 'SCU'
+         mface = 'dk';
+        mcolor = [255/255 111/255 4/255];
     case 'UA WQ'
          mface = 'dk';
-        mcolor = [232/255 90/255 24/255];
-    case 'UA Sonde'
+        mcolor = [255/255 111/255 4/255];
+    case 'MU'
          mface = 'sk';
         mcolor = [232/255 90/255 24/255];
     case 'UA Logger'
-         mface = '^k';
+         mface = 'sk';
         mcolor = [232/255 90/255 24/255];
-    case 'UA Sediment'
-         mface = 'vk';
-        mcolor = [232/255 90/255 24/255];		
-		
-		
-		
      % Erie   
     case     'ECCC'
          mface = 'ok';

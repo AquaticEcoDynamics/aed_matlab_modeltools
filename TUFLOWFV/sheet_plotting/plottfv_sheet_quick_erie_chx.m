@@ -4,13 +4,13 @@ addpath(genpath('../tuflowfv'));
 
 
 %ncfile = 'Z:\Busch\Studysites\Fitzroy\Geike_v3\Output\Fitzroy_wl.nc';
-ncfile = '/Scratch/Erie/tfv_012_Val_a/Output/erie_12_a_AED_diag.nc';
+ncfile = 'X:/erie_12_a_AED_diag.nc';
 
-outdir = '/Projects2/Erie/tfv_012_Val_a/Sheet2/';
+outdir = 'X:\Testing\Erie/Sheet2/';
 
-polygon_file = '../../../Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
+%polygon_file = '../../../Lake-Erie/matlab/modeltools/gis/erie_validation_v4.shp';
 
-shp = shaperead(polygon_file);
+%shp = shaperead(polygon_file);
 
 %varname = 'WQ_DIAG_LND_SB';
 varname = 'WQ_DIAG_MAG_GPP_BEN';
@@ -82,7 +82,7 @@ first_plot = 1;
 
 
 
-for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
+for i = 2:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     
     tdat = tfv_readnetcdf(ncfile,'timestep',i);
     clear functions
@@ -124,7 +124,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
     cdata = cdata * conv;
 	
 	
-    cdata(cdata == 0) = NaN;
+    %cdata(cdata == 0) = NaN;
     if first_plot
         
         hfig = figure('visible','on','position',[304         166        1271         812]);
@@ -141,7 +141,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
         set(gca,'box','on');hold on
         
 		%mapshow(shp(33));
-		sp = shp(33);
+%		sp = shp(33);
 		
 
         
@@ -154,7 +154,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
             'SpecularStrength',.9,'SpecularExponent',25,...
             'BackFaceLighting','unlit');
         
-        mapshow(shp,'EdgeColor','k','facecolor','none');hold on
+        %mapshow(shp,'EdgeColor','k','facecolor','none');hold on
         
         colormap(jet);
         
@@ -194,7 +194,7 @@ for i = 1:plot_interval:length(timesteps)%1:plot_interval:length(timesteps)
 %		ylim([min(shp(33).Y)-1000 max(shp(33).Y)+1000]);
           xlim([596279.054858773          637912.273881589]);
           ylim([4731613.67259657          4758211.76374254]);
-
+stop
  %         xlim([294562.612607759          363234.552262931]);
  %        ylim([6045021.04244045          6088893.28083541]);
         set(gcf, 'PaperPositionMode', 'manual');

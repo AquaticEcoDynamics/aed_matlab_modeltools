@@ -13,9 +13,9 @@ polygon_file = '/Projects2/Jayden/plotting/Cockburn_Sites_2021.shp';
 varname = {...
      'TEMP',...
      'SAL',...
-	 'H',...
+	 'D',...
 	 	 'WQ_DIAG_TOT_TN',...
-	'D',...
+	'WQ_DIAG_TOT_TP',...
 	'WQ_DIAG_PHY_TCHLA',...
 	'WQ_NIT_AMM',...
 	'WQ_NIT_NIT',...
@@ -59,8 +59,8 @@ istitled = 1;
 isylabel = 1;
 islegend = 1;
 isYlim = 1;
-isRange = 1; %change to 1 for range
-isRange_Bottom = 1; %change to 1 for range
+isRange = 1;
+isRange_Bottom = 1;
 Range_ALL = 0;
 
 filetype = 'eps';
@@ -79,14 +79,14 @@ add_error = 1;
 % Models___________________________________________________________________
 
 
-outputdirectory = '/Projects2/Jayden/Plots_v5/Polygon/RAW/';
-htmloutput = ['/Projects2/Jayden/Plots_v5/Polygon/HTML/'];
+outputdirectory = '/Projects2/Jayden/Plots_SWAN/Polygon/RAW/';
+htmloutput = ['/Projects2/Jayden/Plots_SWAN/Polygon/HTML/'];
 
 % ____________________________________________________________Configuration
 
 % Models___________________________________________________________________
 
- ncfile(1).name = '/Projects2/Jayden/Cockburn_2021_2022/Output/Cockburn_2021_2022_gpu_ALL.nc';
+ ncfile(1).name = '/Projects2/Jayden/Cockburn_2022_2/Output/Cockburn_2021_2022_gpu_ALL.nc';
 %  ncfile(1).tfv = 'I:/Hawkesbury/HN_Cal_v3_noIC/output/HN_Cal_2013_HYDRO.nc';
  ncfile(1).symbol = {'-';'--'};
  ncfile(1).colour = {[0 96 100]./255,[62 39 35]./255}; % Surface and Bottom % Surface and Bottom

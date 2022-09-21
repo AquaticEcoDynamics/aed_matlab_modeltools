@@ -2,7 +2,7 @@
 
 clear; close all;
 
-conf='configs/Coorong/HCHB_GEN2_check_designed.m';
+conf='configs/Coorong/HCHB_GEN2_scenario_assessment_design.m';
 %conf='configs/Coorong/Coorong_HCHB_GEN2_performance.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_development_good.m';
 %conf='configs/Coorong/Coorong_resuspension_check_allvars_PH_4PFTs.m';

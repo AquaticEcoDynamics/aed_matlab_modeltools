@@ -84,8 +84,8 @@ fieldprctile = [10 90];
 
 
 isHTML = 0;
-htmloutput = '/Scratch/Erie/tfv_012_Val_a/Plots_2/bottom/_html/'; % '/Projects2/Erie/Plots/Erie_TFVAED_v11e/bottom/_html/';
-outputdirectory = '/Scratch/Erie/tfv_012_Val_a/Plots_2/bottom/' ; %'/Projects2/Erie/Plots/Erie_TFVAED_v11e/bottom/';
+htmloutput = '/AED/Development/matt/Erie/Lake-Erie/models/erie_tfv_aed_2013_ver012_rev0/Plots_0b/wq/_html/'; % '/Projects2/Erie/Plots/Erie_TFVAED_v11e/bottom/_html/';
+outputdirectory = '/AED/Development/matt/Erie/Lake-Erie/models/erie_tfv_aed_2013_ver012_rev0/Plots_0b/wq/';
 % ____________________________________________________________Configuration
 
 
@@ -93,18 +93,25 @@ outputdirectory = '/Scratch/Erie/tfv_012_Val_a/Plots_2/bottom/' ; %'/Projects2/E
 
 % Models___________________________________________________________________
 
+ncfile(1).name = '/Projects2/Erie/v11/Output.b/erie_11_b_AED.nc';
+ncfile(1).symbol = {'-';'-'};
+ncfile(1).colour = { '#3498db',[162  139  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+ncfile(1).legend = 'v11b';
+ncfile(1).translate = 1;
 
- ncfile(1).name = '/Scratch/Erie/tfv_012_Val_a/Output/erie_12_a_AED.nc';
- ncfile(1).symbol = {'-';'-'};
- ncfile(1).colour = { '#3498db',[162  139  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
- ncfile(1).legend = 'v12a: new-aed';
- ncfile(1).translate = 1;
+ncfile(2).name = '/AED/Development/matt/Erie/Lake-Erie/models/erie_tfv_aed_2013_ver012_rev0/Output.a/erie_12_a_AED.nc';
+ncfile(2).symbol = {'-';'-'};
+ncfile(2).colour = {[0  0  0],[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+ncfile(2).legend = 'ver012 a';
+ncfile(2).translate = 1;
 
-% ncfile(1).name = '/Projects2/Erie/v10/Output.00/Output.00/erie_00_AED.nc';
-% ncfile(1).symbol = {'-';'-'};
-% ncfile(1).colour = {[0  0  0],[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
-% ncfile(1).legend = 'v10n';
-% ncfile(1).translate = 1;
+ncfile(3).name = '/AED/Development/matt/Erie/Lake-Erie/models/erie_tfv_aed_2013_ver012_rev0/Output/erie_12_b_AED.nc';
+ncfile(3).symbol = {'-';'-'};
+ncfile(3).colour = { '#cb4335',[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+ncfile(3).legend = 'ver012 b';
+ncfile(3).translate = 1;
+
+
 
 %! ncfile(2).name = '/Projects2/Erie/v11/Output.a/erie_00_AED.nc';
 % ncfile(2).symbol = {'-';'-'};
@@ -118,11 +125,11 @@ outputdirectory = '/Scratch/Erie/tfv_012_Val_a/Plots_2/bottom/' ; %'/Projects2/E
 % ncfile(2).legend = 'v11b: slough';
 % ncfile(2).translate = 1;
 
- ncfile(2).name = '/Projects2/Erie/v11/Output.c/erie_11_c_AED.nc';
- ncfile(2).symbol = {'-';'-'};
- ncfile(2).colour = {'#d1c4e9',[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
- ncfile(2).legend = 'v11c: DOP';
- ncfile(2).translate = 1;
+% ncfile(2).name = '/Projects2/Erie/v11/Output.c/erie_11_c_AED.nc';
+% ncfile(2).symbol = {'-';'-'};
+% ncfile(2).colour = {'#d1c4e9',[62  39  35]./255};  % Surface and Bottom : RGB to match DEFAULT colour palette
+% ncfile(2).legend = 'v11c: DOP';
+% ncfile(2).translate = 1;
 
 %  ncfile(6).name = '/Volumes/T7/Erie/Output.04/erie_04_AED.nc';
 %  ncfile(6).symbol = {'-';'-'};
